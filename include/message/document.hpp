@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "geometry.hpp"
+#include "color.hpp"
 #include "objecttype.hpp"
 
 // TODO(iserra): Add DateCodes support
@@ -22,8 +23,13 @@ namespace macsa {
 		 */
 		class Document
 		{
+			private:
+				using pObject = std::unique_ptr<Object>;
+
 			public:
-				using DOM = std::deque<std::unique_ptr<Object>>;
+				using DOM = std::deque<pObject>;
+
+				static std::string GetLibraryVersion();
 
 			public:
 				Document(const std::string& name = "");
@@ -149,22 +155,81 @@ namespace macsa {
 				 * @return reference to internal dom.
 				 */
 				const DOM& GetObjects() const {return _dom;}
-
 				/**
-				 * @brief AddObject. Metho to add new object to the dom.
+				 * @brief GetObjectById. Getter method for a DOM object.
+				 * @param id: Id of the object to find.
+				 * @return a pointer to the object if the object is found,
+				 * otherwise return  a nullptr
+				 */
+				Object* GetObjectById(const std::string& id) const;
+				/**
+				 * @brief AddObject. Method to add new object to the dom.
 				 * @param objectId: Unique string identifier of the object.
 				 * @param type: Type of the object to add.
 				 * @return If the object was succesfully inserted in the DOM
 				 * this method returns a pointer to the object, otherwise
 				 * return a nullptr.
 				 */
-				Object const * AddObject(const std::string& objectId, const ObjectType& type);
+				Object* AddObject(const std::string& objectId, const ObjectType& type);
+				/**
+				 * @brief RemoveObject. Remove the object of the DOM if the object exist
+				 * and free the memory alocated by the object.
+				 * @param id: Id of the object to remove.
+				 * @return true if the object is found and can be removed, otherwise returns
+				 * false.
+				 */
+				bool RemoveObject(const std::string& id);
+				/**
+				 * @brief RenameObject. Renames an object of the DOM if the object exist
+				 * and the newid is no used.
+				 * @param oldId: Id of the object to rename.
+				 * @param newId: New Id to set to the object.
+				 * @return true if the object is found and can be renamed, otherwise returns
+				 * false.
+				 */
+				bool RenameObject(const std::string& oldId, const std::string& newId) const;
+
+				/**
+				 * @brief GetColorsPalette. Getter method for document's colors palette.
+				 * @return The document's colors palette.
+				 */
+				const ColorsPalette& GetColorsPalette() const {return _colors;}
+				/**
+				 * @brief SetColorsPaletter. Setter method for document's colors palette.
+				 * @param colors: a new colors palette to set to the document.
+				 */
+				void SetColorsPaletter(const ColorsPalette& colors) {_colors = colors;}
+				/**
+				 * @brief AddColor. Add a color to the document's colors palette.
+				 * @param name: name of the color.
+				 * @param color: Color object.
+				 */
+				void AddColor(const std::string& name, const Color& color);
+				/**
+				 * @brief DeleteColor. Remove a color from the document's colors palette.
+				 * @param name: name of te color to remove.
+				 */
+				void DeleteColor(const std::string& name);
+
+				/**
+				 * @brief GetGrayScaleLevel. Getter method for gray scale level,
+				 * this value is the maximum number of gray scale.
+				 * @return The current gray scale level.
+				 */
+				uint32_t GetGrayScaleLevels() const {return _gsLevels;}
+				/**
+				 * @brief SetGrayScaleLevel
+				 * @param gsLevel
+				 */
+				void SetGrayScaleLevel(uint32_t levels) {_gsLevels = levels;}
 
 			private:
 				std::string _name;
 				std::array<uint8_t, 3> _versions;
+				ColorsPalette _colors;
 				Geometry _canvasGeometry;
 				Size _viewport;
+				uint32_t _gsLevels;
 				DOM _dom;
 		};
 	}

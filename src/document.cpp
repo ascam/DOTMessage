@@ -1,17 +1,34 @@
-#include "document.hpp"
+#include "message/document.hpp"
 
 #include <algorithm>
-#include "object.hpp"
+#include "message/object.hpp"
 #include "factories/abstractobjectfactory.hpp"
+#include "utils/macsalogger.hpp"
 
 using macsa::dot::Document;
 using macsa::dot::Point;
 using macsa::dot::Size;
 using macsa::dot::Object;
 using macsa::dot::ObjectType;
+using macsa::utils::MacsaLogger;
+
+std::string Document::GetLibraryVersion()
+{
+	std::stringstream version;
+	version << DOT_MESSAGE_LIB_VERSION_MAJOR << "."
+			<< DOT_MESSAGE_LIB_VERSION_MINOR << "."
+			<< DOT_MESSAGE_LIB_VERSION_BUILD;
+	return version.str();
+}
 
 Document::Document(const std::string &name) :
-	_name{name}
+	_name{name},
+	_versions{},
+	_colors{},
+	_canvasGeometry{},
+	_viewport{},
+	_gsLevels{},
+	_dom{}
 {}
 
 void Document::SetName(const std::string &name)
@@ -69,12 +86,84 @@ void Document::SetViewportSize(const macsa::dot::Size &size)
 	_viewport = size;
 }
 
-Object const *Document::AddObject(const std::string& objectId, const ObjectType& type)
+Object* Document::GetObjectById(const std::string &id) const
 {
-	Object* object = ObjectsFactory::Get(objectId, type);
-	if (object) {
-		_dom.emplace_back(object);
-		std::sort(_dom.begin(), _dom.end());
+	for (auto&& obj : _dom) {
+		if (obj->GetId() == id) {
+			return obj.get();
+		}
 	}
-	return object;
+	return nullptr;
+}
+
+macsa::dot::Object *Document::AddObject(const std::string& objectId, const ObjectType& type)
+{
+	if (GetObjectById(objectId) == nullptr) {
+		Object* object = ObjectsFactory::Get(objectId, type);
+		if (object) {
+			_dom.emplace_back(object);
+			// Sort by layer and ZOrder. The lowest object first.
+			// This kind of sort is usefull to render the DOM because the DOM is
+			// sorted as a FIFO queue.
+			std::sort(_dom.begin(), _dom.end());
+		}
+		return object;
+	}
+	else{
+		ELog() << "Unable to create new object with \"" << objectId << "\" id. This id is already in use.";
+	}
+	return nullptr;
+}
+
+bool Document::RemoveObject(const std::string &id)
+{
+	DOM::iterator objIt = std::find_if(_dom.begin(), _dom.end(), [&id](const pObject& obj){
+		return obj->GetId() == id;
+	});
+
+	if (objIt != _dom.end()) {
+		_dom.erase(objIt);
+		return true;
+	}
+	return false;
+}
+
+bool Document::RenameObject(const std::string &oldId, const std::string &newId) const
+{
+	if (GetObjectById(newId) == nullptr) {
+		auto* object = GetObjectById(oldId);
+		if (object != nullptr) {
+			object->setId(newId);
+			return true;
+		}
+		else {
+			WLog() << "Unable to rename object: \"" << oldId << "\" is not a valid id";
+		}
+	}
+	else {
+		WLog() << "Unable to rename object: \"" << newId << "\" id is already in use.";
+	}
+
+	return false;
+}
+
+void Document::AddColor(const std::string &name, const macsa::dot::Color &color)
+{
+	if (_colors.find(name) == _colors.end()) {
+		_colors.emplace(name, color);
+	}
+	else {
+		WLog() << "Unable to add the color \"" << name << "\" this color is already in the palette.";
+	}
+}
+
+void Document::DeleteColor(const std::string &name)
+{
+	auto colorIt = _colors.find(name);
+	if (colorIt != _colors.end()) {
+		_colors.erase(colorIt);
+	}
+	else {
+		WLog() << "Unable to remove the color \"" << name << "\" this color is not in the palette.";
+	}
 }

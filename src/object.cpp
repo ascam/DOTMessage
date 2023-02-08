@@ -1,4 +1,4 @@
-#include "object.hpp"
+#include "message/object.hpp"
 
 using macsa::dot::Object;
 using macsa::dot::Geometry;

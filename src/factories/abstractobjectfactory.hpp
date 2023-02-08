@@ -3,8 +3,8 @@
 
 #include <utility>
 #include <unordered_map>
-#include "object.hpp"
-#include "objecttype.hpp"
+#include "message/object.hpp"
+#include "message/objecttype.hpp"
 #include "utils/macsalogger.hpp"
 
 namespace macsa {
