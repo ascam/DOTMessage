@@ -13,7 +13,8 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/geometry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/objecttype.hpp
-#    ${CMAKE_CURRENT_SOURCE_DIR}/text.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/refreshpolicy.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/text.hpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/barcode.hpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/image.hpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/primitive.hpp

@@ -8,6 +8,7 @@
 
 #include "geometry.hpp"
 #include "objecttype.hpp"
+#include "refreshpolicy.hpp"
 #include "signal/signal.hpp"
 
 #include "document.hpp"
@@ -248,6 +249,9 @@ namespace macsa {
 					}
 					return _layer < other._layer || _zOrder > other._zOrder;
 				}
+
+				virtual RefreshPolicy GetRefreshPolicy() const = 0;
+				virtual bool IsVariable() const = 0;
 
 			public:
 				Signal<> GeometryChanged;
