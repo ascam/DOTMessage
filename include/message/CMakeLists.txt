@@ -13,6 +13,7 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/geometry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/color.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/font.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/pen.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/objecttype.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/refreshpolicy.hpp
