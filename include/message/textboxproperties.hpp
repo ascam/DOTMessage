@@ -3,106 +3,19 @@
 
 #include <string>
 #include "utils/smartenum.hpp"
+#include "alignment.hpp"
 
 namespace macsa
 {
 	namespace dot
 	{
-		/**
-		 * @brief The TextVerticalAlignment smart enum.
-		 */
-		enum class NTextVerticalAlignment {
-			kTop,
-			kMiddle,
-			kBottom
-		};
-
-		static constexpr const char* kTop    = "Top";
-		static constexpr const char* kMiddle = "Middle";
-		static constexpr const char* kBottom = "Bottom";
-
-		class TextVerticalAlignment final : public utils::SmartEnum<NTextVerticalAlignment>
-		{
-			public:
-				TextVerticalAlignment (const NTextVerticalAlignment& alignment = NTextVerticalAlignment::kTop) :
-					utils::SmartEnum<NTextVerticalAlignment>(alignment)
-				{}
-				TextVerticalAlignment (const std::string& alignment) :
-					utils::SmartEnum<NTextVerticalAlignment>(NTextVerticalAlignment::kTop)
-				{
-					fromString(alignment);
-				}
-
-				const TextVerticalAlignment& operator = (const std::string& alignment) {
-					fromString(alignment);
-					return *this;
-				}
-				const TextVerticalAlignment& operator = (NTextVerticalAlignment alignment) {
-					_val = alignment;
-					return *this;
-				}
-
-			private:
-				const std::vector<std::pair<NTextVerticalAlignment,std::string>>& getData() const override{
-					static const std::vector<std::pair<NTextVerticalAlignment,std::string>> kNTextVerticalAlignmentData {
-						{NTextVerticalAlignment::kTop,    kTop},
-						{NTextVerticalAlignment::kMiddle, kMiddle},
-						{NTextVerticalAlignment::kBottom, kBottom}
-					};
-					return kNTextVerticalAlignmentData;
-				}
-		};
-
-		enum class NTextHorizontalAlignment {
-			kLeft,
-			kCenter,
-			kRight
-		};
-
-		static constexpr const char* kLeft    = "Left";
-		static constexpr const char* kCenter = "Center";
-		static constexpr const char* kRight = "Right";
-
-		class TextHorizontalAlignment final : public utils::SmartEnum<NTextHorizontalAlignment>
-		{
-			public:
-				TextHorizontalAlignment (const NTextHorizontalAlignment& alignment = NTextHorizontalAlignment::kLeft) :
-					utils::SmartEnum<NTextHorizontalAlignment>(alignment)
-				{}
-				TextHorizontalAlignment (const std::string& alignment) :
-					utils::SmartEnum<NTextHorizontalAlignment>(NTextHorizontalAlignment::kLeft)
-				{
-					fromString(alignment);
-				}
-
-				const TextHorizontalAlignment& operator = (const std::string& alignment) {
-					fromString(alignment);
-					return *this;
-				}
-
-				const TextHorizontalAlignment& operator = (NTextHorizontalAlignment alignment) {
-					_val = alignment;
-					return *this;
-				}
-
-			private:
-				const std::vector<std::pair<NTextHorizontalAlignment,std::string>>& getData() const override{
-					static const std::vector<std::pair<NTextHorizontalAlignment,std::string>> kNTextHorizontalAlignmentData {
-						{NTextHorizontalAlignment::kLeft,   kLeft},
-						{NTextHorizontalAlignment::kCenter, kCenter},
-						{NTextHorizontalAlignment::kRight,  kRight}
-					};
-					return kNTextHorizontalAlignmentData;
-				}
-		};
-
 		enum class NTextBoxAdjustment {
 			kFitToBox,
 			kParagraph
 		};
 
-		static constexpr const char* kFitToBox  = "FITTOBOX";
-		static constexpr const char* kParagraph = "PARAGRAPH";
+		static constexpr const char* kFitToBox  = "FitToBox";
+		static constexpr const char* kParagraph = "Paragraph";
 
 		class TextBoxAdjustment final : public utils::SmartEnum<NTextBoxAdjustment>
 		{
@@ -171,7 +84,7 @@ namespace macsa
 				 * This property only applies in a paragraph ajustmment.
 				 * @return The current text vertical alignment.
 				 */
-				const TextVerticalAlignment& GetVerticalAlignment() const {
+				const VerticalAlignment& GetVerticalAlignment() const {
 					return _verticalAlignment;
 				}
 				/**
@@ -180,7 +93,7 @@ namespace macsa
 				 * This property only applies in a paragraph ajustmment.
 				 * @param alignment: The text vertical alignment to apply.
 				 */
-				void SetVerticalAlignment(const TextVerticalAlignment& alignment) {
+				void SetVerticalAlignment(const VerticalAlignment& alignment) {
 					_verticalAlignment = alignment;
 				}
 
@@ -190,7 +103,7 @@ namespace macsa
 				 * This property only applies in a paragraph ajustmment.
 				 * @return The current text horizontal alignment.
 				 */
-				const TextHorizontalAlignment& GetHorizontalAlignment() const {
+				const HorizontalAlignment& GetHorizontalAlignment() const {
 					return _horizontalAlignment;
 				}
 				/**
@@ -199,7 +112,7 @@ namespace macsa
 				 * This property only applies in a paragraph ajustmment.
 				 * @param alignment: The text horizontal alignment to apply.
 				 */
-				void SetHorizontalAlignment(const TextHorizontalAlignment& alignment) {
+				void SetHorizontalAlignment(const HorizontalAlignment& alignment) {
 					_horizontalAlignment = alignment;
 				}
 
@@ -269,8 +182,8 @@ namespace macsa
 
 			private:
 				TextBoxAdjustment _boxAdjustment;
-				TextVerticalAlignment _verticalAlignment;
-				TextHorizontalAlignment _horizontalAlignment;
+				VerticalAlignment _verticalAlignment;
+				HorizontalAlignment _horizontalAlignment;
 				uint32_t _maxCharsLine;
 				bool _clipping;
 				float _lineSpacing;
