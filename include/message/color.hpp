@@ -13,6 +13,7 @@ namespace macsa
 		 * @brief The Color class.
 		 *  Class to define colors.
 		 *
+		 *  TODO (iserra): Remove color name?
 		 *  TODO (iserra): add CMYK and grayscale conversions
 		 */
 		class Color
