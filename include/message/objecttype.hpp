@@ -16,13 +16,13 @@ namespace macsa {
 			kLine
 		};
 
-		static constexpr const char* kText      = "TEXTFIELD";
-		static constexpr const char* kBarcode   = "BARCODEFIELD";
-		static constexpr const char* kImage     = "IMAGEFIELD";
-		static constexpr const char* kRectangle = "RECTANGLEFIELD";
-		static constexpr const char* kDiamond   = "DIAMONDFIELD";
-		static constexpr const char* kEllipse   = "ELLIPSEFIELD";
-		static constexpr const char* kLine      = "LINEFIELD";
+		static constexpr const char* kText      = "TextField";
+		static constexpr const char* kBarcode   = "BarcodeField";
+		static constexpr const char* kImage     = "ImageField";
+		static constexpr const char* kRectangle = "RectangleField";
+		static constexpr const char* kDiamond   = "DiamondField";
+		static constexpr const char* kEllipse   = "EllipseField";
+		static constexpr const char* kLine      = "LineField";
 
 		class ObjectType final : public utils::SmartEnum<NObjectType>
 		{
