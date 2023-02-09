@@ -5,17 +5,6 @@ using macsa::dot::Geometry;
 using macsa::dot::Point;
 using macsa::dot::Size;
 
-Object::Object(const std::string& id, const ObjectType& type) :
-	_id{id},
-	_type{type},
-	_geometry{},
-	_layer{0},
-	_zOrder{0},
-	_linked({false, ""}),
-	_selected{false},
-	_printable{true}
-{}
-
 Object::Object(const std::string& id, const ObjectType& type, const Geometry& geometry) :
 	_id{id},
 	_type{type},

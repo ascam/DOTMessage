@@ -14,15 +14,6 @@ namespace macsa {
 	}
 }
 
-Text::Text(const std::string &id) :
-	Object(id, NObjectType::kText),
-	_text{},
-	_font{},
-	_foreColor{},
-	_backgroundColor{},
-	_textBoxProperties{}
-{}
-
 Text::Text(const std::string &id, const macsa::dot::Geometry &geometry) :
 	Object(id, NObjectType::kText, geometry),
 	_text{},

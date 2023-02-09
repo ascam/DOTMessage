@@ -19,8 +19,7 @@ namespace macsa {
 		class Text : public Object
 		{
 			public:
-				Text(const std::string& id);
-				Text(const std::string& id, const Geometry& geometry);
+				Text(const std::string& id, const Geometry& geometry = Geometry());
 				Text(const Text&) = delete;
 				virtual ~Text();
 

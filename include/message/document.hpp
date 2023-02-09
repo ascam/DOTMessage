@@ -166,11 +166,12 @@ namespace macsa {
 				 * @brief AddObject. Method to add new object to the dom.
 				 * @param objectId: Unique string identifier of the object.
 				 * @param type: Type of the object to add.
+				 * @param geometry: the object geometry
 				 * @return If the object was succesfully inserted in the DOM
 				 * this method returns a pointer to the object, otherwise
 				 * return a nullptr.
 				 */
-				Object* AddObject(const std::string& objectId, const ObjectType& type);
+				Object* AddObject(const std::string& objectId, const ObjectType& type, const Geometry& geometry = Geometry());
 				/**
 				 * @brief RemoveObject. Remove the object of the DOM if the object exist
 				 * and free the memory alocated by the object.

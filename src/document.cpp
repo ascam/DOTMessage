@@ -96,10 +96,10 @@ Object* Document::GetObjectById(const std::string &id) const
 	return nullptr;
 }
 
-macsa::dot::Object *Document::AddObject(const std::string& objectId, const ObjectType& type)
+Object *Document::AddObject(const std::string& objectId, const ObjectType& type, const Geometry& geometry)
 {
 	if (GetObjectById(objectId) == nullptr) {
-		Object* object = ObjectsFactory::Get(objectId, type);
+		Object* object = ObjectsFactory::Get(objectId, type, geometry);
 		if (object) {
 			_dom.emplace_back(object);
 			// Sort by layer and ZOrder. The lowest object first.

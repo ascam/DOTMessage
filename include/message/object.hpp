@@ -29,8 +29,7 @@ namespace macsa {
 		class Object
 		{
 			public:
-				Object(const std::string& id, const ObjectType& type);
-				Object(const std::string& id, const ObjectType& type, const Geometry& geometry);
+				Object(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry());
 				Object(const Object&) = delete;
 				virtual ~Object();
 

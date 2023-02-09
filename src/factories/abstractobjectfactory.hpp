@@ -13,7 +13,7 @@ namespace macsa {
 		class IConcreteObjectsFactory
 		{
 			public :
-				virtual Object* MakeObject(const std::string& id) = 0;
+				virtual Object* MakeObject(const std::string& id, const Geometry& geometry) = 0;
 		};
 
 		using tObjectsFactories = std::unordered_map<std::string, std::unique_ptr<IConcreteObjectsFactory>>;
@@ -21,12 +21,12 @@ namespace macsa {
 		class ObjectsFactory
 		{
 			public:
-				static Object* Get(const std::string& id, const ObjectType& type)
+				static Object* Get(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry())
 				{
 					const auto& commandFactories = getFactories();
 					auto foundIt = commandFactories.find(type.toString());
 					if (foundIt != commandFactories.end()) {
-						return foundIt->second->MakeObject(id);
+						return foundIt->second->MakeObject(id, geometry);
 					}
 					else {
 						utils::ELog() << type.toString() << " objects factory not found.";
@@ -64,8 +64,8 @@ namespace macsa {
 					return ObjectsFactory::Register(type, new ConcreteObjectsFactory<tObject>());
 				};
 
-				Object* MakeObject(const std::string& id) override {
-					return new tObject(id);
+				Object* MakeObject(const std::string& id, const Geometry& geometry) {
+					return new tObject(id, geometry);
 				}
 		};
 
