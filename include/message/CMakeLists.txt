@@ -21,7 +21,7 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/text.hpp
 #    ${CMAKE_CURRENT_SOURCE_DIR}/barcode.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/image.hpp
-#    ${CMAKE_CURRENT_SOURCE_DIR}/primitives.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/primitives.hpp
     PARENT_SCOPE
     )
 

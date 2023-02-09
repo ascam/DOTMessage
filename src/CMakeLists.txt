@@ -11,7 +11,7 @@ set(SOURCES ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/text.cpp
  #   ${CMAKE_CURRENT_SOURCE_DIR}/barcode.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/image.cpp
- #   ${CMAKE_CURRENT_SOURCE_DIR}/primitive.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/primitives.cpp
     PARENT_SCOPE
     )
 
