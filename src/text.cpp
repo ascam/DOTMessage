@@ -29,7 +29,6 @@ Text::~Text()
 std::string Text::GetData() const
 {
 	// TODO(iserra) add data sources
-
 	return _text;
 }
 
@@ -84,4 +83,3 @@ void Text::SetTextBoxProperties(const TextBoxProperties &boxProps)
 		TextBoxPropertiesChanged.Emit();
 	}
 }
-

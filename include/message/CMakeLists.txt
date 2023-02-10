@@ -1,5 +1,5 @@
 ##################################
-#      DOT Messages Sources      #
+#    DOT Messages DOM headers    #
 ##################################
 
 #add_subdirectory(datasources)
@@ -20,9 +20,9 @@ set(HEADERS ${HEADERS}
 	${CMAKE_CURRENT_SOURCE_DIR}/textboxproperties.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/alignment.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/text.hpp
-#    ${CMAKE_CURRENT_SOURCE_DIR}/barcode.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/barcode.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/image.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/primitives.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/barcodesymbologies.hpp
     PARENT_SCOPE
     )
-

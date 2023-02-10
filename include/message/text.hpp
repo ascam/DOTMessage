@@ -29,7 +29,7 @@ namespace macsa {
 				 * @return The text that must be rendered after resolving
 				 * variable fields.
 				 */
-				virtual std::string GetData() const;
+				std::string GetData() const;
 
 				/**
 				 * @brief GetRefreshPolicy. Overrided method of

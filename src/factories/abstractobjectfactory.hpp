@@ -23,9 +23,9 @@ namespace macsa {
 			public:
 				static Object* Get(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry())
 				{
-					const auto& commandFactories = getFactories();
-					auto foundIt = commandFactories.find(type.toString());
-					if (foundIt != commandFactories.end()) {
+					const auto& objectFactories = getFactories();
+					auto foundIt = objectFactories.find(type.toString());
+					if (foundIt != objectFactories.end()) {
 						return foundIt->second->MakeObject(id, geometry);
 					}
 					else {
