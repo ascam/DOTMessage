@@ -77,9 +77,12 @@ void Object::SetHeight(float height)
 
 bool Object::Collides(const Object& other) const
 {
-	// TODO(iserra): if not same layer return false;
-
-	return Collides(other.GetGeometry());
+	if (_layer == other._layer) {
+		return Collides(other.GetGeometry());
+	}
+	else {
+		return false;
+	}
 }
 
 bool Object::Collides(const Geometry& geometry) const
