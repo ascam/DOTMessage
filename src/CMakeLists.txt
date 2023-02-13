@@ -4,7 +4,7 @@
 
 add_subdirectory(factories)
 add_subdirectory(symbologies)
-#add_subdirectory(datasources)
+add_subdirectory(datasources)
 
 set(SOURCES ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/document.cpp

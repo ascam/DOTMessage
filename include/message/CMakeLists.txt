@@ -2,7 +2,7 @@
 #    DOT Messages DOM headers    #
 ##################################
 
-#add_subdirectory(datasources)
+add_subdirectory(datasources)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE
