@@ -6,30 +6,20 @@
 namespace macsa {
 	namespace dot {
 		/**
-		 * @brief Enumeration for DateTime precision
+		 * @brief Enumeration for datasource refresh policy
 		 */
 		enum class RefreshPolicy
 		{
-			// No update
-			kNone = 0,
-			// Update frequency when counter change
-			kCounter = 0x1,
-			// Update frequency every second
-			kSeconds = 0x2,
-			// Update frequency every minute
-			kMinutes = 0x4,
-			// Update frequency every hour
-			kHours = 0x8,
-			// Update frequency every 12 hours
-			kPeriod = 0x10,
-			// Update frequency every day
-			kDays = 0x20,
-			// Update frequency every week
-			kWeeks = 0x40,
-			// Update frequency every month
-			kMonths = 0x80,
-			// Update frequency every year
-			kYears = 0x100,
+			kNone = 0,         // No update
+			kCounter = 0x1,   // Update frequency when counter changes
+			kSeconds = 0x2,   // Update frequency every second
+			kMinutes = 0x4,   // Update frequency every minute
+			kHours   = 0x8,   // Update frequency every hour
+			kPeriod  = 0x10,  // Update frequency every 12 hours
+			kDays    = 0x20,  // Update frequency every day
+			kWeeks   = 0x40,  // Update frequency every week
+			kMonths  = 0x80,  // Update frequency every month
+			kYears   = 0x100, // Update frequency every year
 		};
 
 		inline RefreshPolicy operator|(const RefreshPolicy& lhs, const RefreshPolicy& rhs)
