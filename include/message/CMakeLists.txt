@@ -16,6 +16,7 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/pen.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/objecttype.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/variableobject.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/refreshpolicy.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/textboxproperties.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/alignment.hpp
