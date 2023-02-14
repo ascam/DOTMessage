@@ -8,6 +8,12 @@ set(SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/datasource.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/compositedatasource.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/counterdatasource.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/databasedatasource.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/datetimedatasource.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/userinputdatasource.hpp
     PARENT_SCOPE
     )
+
+

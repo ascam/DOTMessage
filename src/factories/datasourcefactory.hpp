@@ -1,9 +1,9 @@
 #ifndef DOT_MESSAGE_DataSource_FACTORY_HPP
-#define DOT_MESSAGE_DataSource_FACTORY_HPP
+#define DOT_MESSAGE_DATASOURCE_FACTORY_HPP
 
 #include <utility>
 #include <unordered_map>
-#include "message/datasource.hpp"
+#include "message/datasources/datasource.hpp"
 #include "utils/macsalogger.hpp"
 
 namespace macsa {
