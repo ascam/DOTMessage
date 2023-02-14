@@ -42,6 +42,12 @@ namespace macsa {
 				const std::string& GetId() const {return _id;}
 
 				/**
+				 * @brief GetType. Getter method for object type identifier
+				 * @return the enum value of the object type.
+				 */
+				const ObjectType& GetType() const {return _type;}
+
+				/**
 				 * @brief GetGeometry. Getter method for object geometry
 				 * @return The current object geometry in canvas relative
 				 * coords.
