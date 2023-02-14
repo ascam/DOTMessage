@@ -5,33 +5,27 @@
 #include "symbologies/symbology.hpp"
 #include "factories/abstractobjectfactory.hpp"
 #include "factories/barcodesymbologyfactory.hpp"
+#include "utils/macsalogger.hpp"
 
 using macsa::dot::Barcode;
 using macsa::dot::BarcodeSymbol;
+using macsa::utils::MacsaLogger;
 using namespace std::placeholders;
 
 Barcode::Barcode(const std::string &id, const macsa::dot::Geometry &geometry) :
-	Object(id, NObjectType::kBarcode, geometry),
-	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)},
-	_code{}
+	VariableObject(id, NObjectType::kBarcode, geometry),
+	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
 {}
 
 std::string Barcode::GetData() const
 {
-	// TODO(iserra) add data sources
-	return _code;
-}
-
-macsa::dot::RefreshPolicy Barcode::GetRefreshPolicy() const
-{
-	// TODO(iserra): check policy with data sources
-	return RefreshPolicy::kNone;
-}
-
-bool Barcode::IsVariable() const
-{
-	// TODO(iserra): check policy with data sources
-	return false;
+	if (IsVariable()) {
+		return _datasource->GetData();
+	}
+	if (_symbology.get() != nullptr ) {
+		return _symbology->GetCode();
+	}
+	return "";
 }
 
 const BarcodeSymbol& Barcode::GetSymbology() const
@@ -56,7 +50,12 @@ void Barcode::SetSymbology(const macsa::dot::BarcodeSymbol &symbology)
 
 void Barcode::SetCode(const std::string &code)
 {
-	// TODO (iserra): fill method
+	if (_symbology.get() != nullptr ) {
+		_symbology->SetCode(code);
+	}
+	else {
+		WLog() << "Invalid barcode symbology";
+	}
 }
 
 bool Barcode::IsGS1Barcode() const
@@ -192,8 +191,9 @@ void Barcode::SetFont(const macsa::dot::Font &font)
 {
 	if (_font != font) {
 		_font = font;
-		// TODO(iserra): check if text is text visible.
-		FontChanged.Emit(std::forward<Font>(_font));
+		if (GetShowHumanReadableCode()) {
+			FontChanged.Emit(std::forward<Font>(_font));
+		}
 	}
 }
 

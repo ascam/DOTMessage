@@ -2,14 +2,14 @@
 #define DOT_MESSAGE_BARCODE_OBJECTS_HPP
 
 #include <memory>
-#include "object.hpp"
-#include "font.hpp"
-#include "barcodesymbologies.hpp"
+#include "message/variableobject.hpp"
+#include "message/font.hpp"
+#include "message/barcodesymbologies.hpp"
 
 namespace macsa {
 	namespace dot {
 		class Symbology;
-		class Barcode : public Object
+		class Barcode : public VariableObject
 		{
 			public:
 				Barcode(const std::string& id, const Geometry& geometry);
@@ -22,14 +22,8 @@ namespace macsa {
 				 * @return The code that must be rendered after resolving
 				 * variable fields.
 				 */
-				std::string GetData() const;
+				std::string GetData() const override;
 
-				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return The refresh policy of the object.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,
@@ -229,7 +223,6 @@ namespace macsa {
 				 * Only valid for Qr codes.
 				 */
 				void SetQrCorrectionLevel(const QRCorrectionLevel& qrCorrectionLevel);
-				/*******************************************************************************************/
 
 			public:
 				Signal<> SymbologyChanged;
@@ -239,7 +232,6 @@ namespace macsa {
 			private:
 				std::unique_ptr<Symbology> _symbology;
 				Font _font;
-				std::string _code;
 		};
 	}
 }
