@@ -31,9 +31,22 @@ Document::Document(const std::string &name) :
 	_dom{}
 {}
 
+Document::~Document()
+{}
+
 void Document::SetName(const std::string &name)
 {
 	_name = name;
+}
+
+void Document::SetVersion(const std::array<uint8_t,3> &versions)
+{
+	_versions = versions;
+}
+
+void Document::SetUnits(const std::string &units)
+{
+	_units = units;
 }
 
 void Document::SetCanvasXOffset(float x)
@@ -86,6 +99,21 @@ void Document::SetViewportSize(const macsa::dot::Size &size)
 	_viewport = size;
 }
 
+std::deque<Object*> Document::GetObjects() const
+{
+	std::deque<Object*> dom;
+
+	for (const auto& object : _dom) {
+		dom.emplace_back(object.get());
+	}
+
+	std::sort(dom.begin(), dom.end(), [](const Object* a, const Object*b) {
+		return *a > *b;
+	});
+
+	return dom;
+}
+
 Object* Document::GetObjectById(const std::string &id) const
 {
 	for (auto&& obj : _dom) {
@@ -102,10 +130,6 @@ Object *Document::AddObject(const std::string& objectId, const ObjectType& type,
 		Object* object = ObjectsFactory::Get(objectId, type, geometry);
 		if (object) {
 			_dom.emplace_back(object);
-			// Sort by layer and ZOrder. The lowest object first.
-			// This kind of sort is usefull to render the DOM because the DOM is
-			// sorted as a FIFO queue.
-			std::sort(_dom.begin(), _dom.end());
 		}
 		return object;
 	}
@@ -126,6 +150,16 @@ bool Document::RemoveObject(const std::string &id)
 		return true;
 	}
 	return false;
+}
+
+void Document::Clear()
+{
+	_dom.clear();
+	_name = "NewDocument";
+	_versions = {0,0,0};
+	_colors.clear();
+	_canvasGeometry = {};
+	_gsLevels = {0};
 }
 
 bool Document::RenameObject(const std::string &oldId, const std::string &newId) const

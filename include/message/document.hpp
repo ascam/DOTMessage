@@ -25,10 +25,9 @@ namespace macsa {
 		{
 			private:
 				using pObject = std::unique_ptr<Object>;
-
-			public:
 				using DOM = std::deque<pObject>;
 
+			public:
 				static std::string GetLibraryVersion();
 
 			public:
@@ -45,6 +44,34 @@ namespace macsa {
 				 * @param name: document name
 				 */
 				void SetName(const std::string& name);
+
+				/**
+				 * @brief GetVersion. Getter method for current
+				 * document version.
+				 * @return The current document version.
+				 */
+				const std::array<uint8_t,3>& GetVersion() const {
+					return _versions;
+				}
+				/**
+				 * @brief SetVersion. Setter method for document version.
+				 * @param versions: array with the versions to store.
+				 */
+				void SetVersion(const std::array<uint8_t,3>& versions);
+
+				/**
+				 * @brief GetUnits. Getter method for measurement units.
+				 * @return The current measurement units (mm, dots, inches).
+				 */
+				const std::string& GetUnits() const {
+					return _units;
+				}
+				/**
+				 * @brief SetUnits. Setter method for measurement units.
+				 * @param units: The measurement units (mm, dots, inches)
+				 * to be used.
+				 */
+				void SetUnits(const std::string& units);
 
 				/**
 				 * @brief GetCanvasXOffset. Getter for the canvas geometry x position
@@ -154,7 +181,7 @@ namespace macsa {
 				 * @brief GetObjects. Getter for document objects list.
 				 * @return reference to internal dom.
 				 */
-				const DOM& GetObjects() const {return _dom;}
+				std::deque<Object*> GetObjects() const;
 				/**
 				 * @brief GetObjectById. Getter method for a DOM object.
 				 * @param id: Id of the object to find.
@@ -180,6 +207,12 @@ namespace macsa {
 				 * false.
 				 */
 				bool RemoveObject(const std::string& id);
+
+				/**
+				 * @brief Clear. Remove all objects and document relative data
+				 */
+				void Clear();
+
 				/**
 				 * @brief RenameObject. Renames an object of the DOM if the object exist
 				 * and the newid is no used.
@@ -226,6 +259,7 @@ namespace macsa {
 
 			private:
 				std::string _name;
+				std::string _units;
 				std::array<uint8_t, 3> _versions;
 				ColorsPalette _colors;
 				Geometry _canvasGeometry;

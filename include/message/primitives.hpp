@@ -12,7 +12,7 @@ namespace macsa {
 			public:
 				Primitive(const std::string& id, const Geometry& geometry, const ObjectType& primitiveType);
 				Primitive(const Primitive&) = delete;
-				virtual ~Primitive();
+				virtual ~Primitive() = default;
 
 				/**
 				 * @brief GetRefreshPolicy. Overrided method of

@@ -12,6 +12,14 @@ using macsa::dot::BarcodeSymbol;
 using macsa::utils::MacsaLogger;
 using namespace std::placeholders;
 
+namespace macsa {
+	namespace dot {
+		namespace  {
+			static const bool FactoryRegistered = ConcreteObjectsFactory<Barcode>::Register(NObjectType::kBarcode);
+		}
+	}
+}
+
 Barcode::Barcode(const std::string &id, const macsa::dot::Geometry &geometry) :
 	VariableObject(id, NObjectType::kBarcode, geometry),
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
