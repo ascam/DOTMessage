@@ -48,9 +48,8 @@ const BarcodeSymbol& Barcode::GetSymbology() const
 		return _symbology->GetSymbology();
 	}
 	else {
-		std::stringstream message;
-		message << "Unable to get symbology. Missing symbology pointer";
-		throw (std::invalid_argument(message.str()));
+		std::string message {"Unable to get symbology. Missing symbology pointer"};
+		throw (std::invalid_argument(message));
 	}
 }
 
@@ -60,6 +59,17 @@ void Barcode::SetSymbology(const macsa::dot::BarcodeSymbol &symbology)
 		_symbology.reset(SymbologyFactory::Get(symbology()));
 		SymbologyChanged.Emit();
 	}
+}
+
+std::string Barcode::GetCode() const
+{
+	if (_symbology.get() != nullptr ) {
+		_symbology->GetCode();
+	}
+	else {
+		WLog() << "Invalid barcode symbology";
+	}
+	return "";
 }
 
 void Barcode::SetCode(const std::string &code)

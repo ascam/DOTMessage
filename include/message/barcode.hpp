@@ -52,7 +52,7 @@ namespace macsa {
 				 * @brief GetCode. Getter method for the code codified in the barcode.
 				 * @return The text codified in the barcode.
 				 */
-				const std::string& GetCode() const;
+				std::string GetCode() const;
 				/**
 				 * @brief SetCode. Setter method for the code codified in the barcode.
 				 * @param code: text to codify in the barcode.
