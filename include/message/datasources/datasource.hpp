@@ -18,27 +18,18 @@ namespace macsa {
 			kUserInput
 		};
 
-		// Default value for dash style
-		constexpr NDataSourceType kDefaultDataSource = NDataSourceType::kCounter;
-
 		/**
 		 * @brief DataSource types smart enum
 		 */
 		class DataSourceType final : public utils::SmartEnum<NDataSourceType>
 		{
-				static constexpr const char* kCounter = "Counter";
-				static constexpr const char* kComposite = "Composite";
-				static constexpr const char* kDataBase = "DataBase";
-				static constexpr const char* kDateTime = "DateTime";
-				static constexpr const char* kUserInput = "UserInput";
-
 			public:
-				DataSourceType(const NDataSourceType& dataSource = kDefaultDataSource) :
+				DataSourceType(const NDataSourceType& dataSource = NDataSourceType::kCounter) :
 					utils::SmartEnum<NDataSourceType>(dataSource)
 				{}
 
 				DataSourceType(const std::string& dataSource) :
-					utils::SmartEnum<NDataSourceType>(kDefaultDataSource)
+					utils::SmartEnum<NDataSourceType>(NDataSourceType::kCounter)
 				{
 					fromString(dataSource);
 				}
@@ -51,11 +42,11 @@ namespace macsa {
 			private:
 				const std::vector<std::pair<NDataSourceType,std::string>>& getData() const override{
 					static const std::vector<std::pair<NDataSourceType,std::string>> kNNDataSourceType {
-						{NDataSourceType::kCounter, kCounter},
-						{NDataSourceType::kComposite, kComposite},
-						{NDataSourceType::kDataBase, kDataBase},
-						{NDataSourceType::kDateTime, kDateTime},
-						{NDataSourceType::kUserInput, kUserInput}
+						{NDataSourceType::kCounter,   "Counter"},
+						{NDataSourceType::kComposite, "Composite"},
+						{NDataSourceType::kDataBase,  "DataBase"},
+						{NDataSourceType::kDateTime,  "DateTime"},
+						{NDataSourceType::kUserInput, "UserInput"}
 					};
 					return kNNDataSourceType;
 				}
@@ -67,8 +58,10 @@ namespace macsa {
 		class DataSource
 		{
 			public:
-				DataSource(const DataSourceType& type);
-				virtual ~DataSource();
+				DataSource(const DataSourceType& type) :
+					_type{type}
+				{}
+				virtual ~DataSource() = default;
 
 				const DataSourceType& GetType() const {
 					return _type;

@@ -17,7 +17,7 @@ namespace macsa {
 			public:
 				VariableObject(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry());
 				VariableObject(const Object&) = delete;
-				virtual ~VariableObject();
+				virtual ~VariableObject() = default;
 
 				/**
 				 * @brief GetData. Getter method to get the current
