@@ -25,13 +25,6 @@ namespace macsa {
 				std::string GetData() const override;
 
 				/**
-				 * @brief IsVariable. Overrided method of Object::IsVariable
-				 * @return true if the object can change the inner value,
-				 * false if the object is static.
-				 */
-				bool IsVariable() const override;
-
-				/**
 				 * @brief GetSymbology. Getter method for the barcode symbology
 				 * @return The current barcode symbology
 				 */
