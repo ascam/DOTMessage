@@ -19,8 +19,7 @@ namespace macsa
 		class Color
 		{
 			public:
-
-				Color() = default;
+				Color();
 				Color(const std::string& name, uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, uint8_t alpha = 0xFF);
 
 				std::string GetName() const { return _colorName; }

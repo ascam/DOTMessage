@@ -269,7 +269,6 @@ namespace macsa {
 				Signal<bool> SelectedChanged;
 				Signal<bool> PrintableChanged;
 				Signal<bool> LinkedChanged;
-				Signal<> LayerChanged;
 				Signal<> ZOrderChanged;
 
 			private:

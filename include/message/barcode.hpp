@@ -14,7 +14,7 @@ namespace macsa {
 			public:
 				Barcode(const std::string& id, const Geometry& geometry);
 				Barcode(const Barcode&) = delete;
-				virtual ~Barcode();
+				virtual ~Barcode() = default;
 
 				/**
 				 * @brief GetData. Getter method to get the current

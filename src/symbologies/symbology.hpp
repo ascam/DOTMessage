@@ -10,7 +10,7 @@ namespace macsa {
 			public:
 				Symbology(const BarcodeSymbol& symbol);
 				Symbology(const Symbology&) = delete;
-				virtual ~Symbology();
+				virtual ~Symbology() = default;
 
 				/**
 				 * @brief GetData. Getter method to get the current
