@@ -215,6 +215,22 @@ void Barcode::SetFont(const macsa::dot::Font &font)
 	}
 }
 
+void Barcode::SetForegroundColor(const std::string &foreColor)
+{
+	if (_foreColor != foreColor){
+		_foreColor = foreColor;
+		ForegroundColorChanged.Emit(std::forward<std::string>(_foreColor));
+	}
+}
+
+void Barcode::SetBackgroundColor(const std::string &backgroundColor)
+{
+	if (_backgroundColor != backgroundColor) {
+		_backgroundColor = backgroundColor;
+		BackgroundColorChanged.Emit(std::forward<std::string>(_backgroundColor));
+	}
+}
+
 bool Barcode::CanShowHumanReadableCode() const
 {
 	bool hrt = false;

@@ -167,6 +167,32 @@ namespace macsa {
 				void SetFont(const Font& font);
 
 				/**
+				 * @brief GetForegroundColor. Getter method for the foreground color
+				 * to apply to the barcode.
+				 * @return The current foreground color.
+				 */
+				const std::string& GetForegroundColor() const {return _foreColor;}
+				/**
+				 * @brief SetForegroundColor. Setter method for the foreground color
+				 * to apply to the barcode.
+				 * @param foreColor: The color to apply to the barcode.
+				 */
+				void SetForegroundColor(const std::string& foreColor);
+
+				/**
+				 * @brief GetBackgroundColor. Getter method for the background color
+				 * to apply to the barcode.
+				 * @return The current background color.
+				 */
+				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+				/**
+				 * @brief SetBackgroundColor. Setter method for the background color
+				 * to apply to the barcode.
+				 * @param backgroundColor: The color to apply to the barcode background.
+				 */
+				void SetBackgroundColor(const std::string& backgroundColor);
+
+				/**
 				 * @brief CanShowHumanReadableCode. Method to check if the code
 				 * can be displayed.
 				 * @return true if the barcode has de capability of display the
@@ -235,10 +261,14 @@ namespace macsa {
 				Signal<> SymbologyChanged;
 				Signal<bool,float> ShavingValueChanged;
 				Signal<Font> FontChanged;
+				Signal<std::string> ForegroundColorChanged;
+				Signal<std::string> BackgroundColorChanged;
 
 			private:
 				std::unique_ptr<Symbology> _symbology;
 				Font _font;
+				std::string _foreColor;
+				std::string _backgroundColor;
 				std::string _code;
 		};
 	}
