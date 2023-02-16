@@ -59,9 +59,9 @@ namespace macsa
 			kRight
 		};
 
-		static constexpr const char* kLeft    = "Left";
+		static constexpr const char* kLeft   = "Left";
 		static constexpr const char* kCenter = "Center";
-		static constexpr const char* kRight = "Right";
+		static constexpr const char* kRight  = "Right";
 
 		class HorizontalAlignment final : public utils::SmartEnum<NHorizontalAlignment>
 		{
