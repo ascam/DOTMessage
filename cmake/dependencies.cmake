@@ -4,7 +4,7 @@ include(${PROJECT_SOURCE_DIR}/cmake/findmodule.cmake)
 
 ## Utils repository
 FetchContent_Declare(utils
-  GIT_REPOSITORY git@github.com:ascam/utils.git
+  GIT_REPOSITORY git@github.com:MACSA-ID/utils.git
   GIT_TAG development
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/utils
 )

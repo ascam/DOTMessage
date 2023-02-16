@@ -75,6 +75,14 @@ void Object::SetHeight(float height)
 	}
 }
 
+void Object::SetRotation(int rotation)
+{
+	if (_geometry.rotation != rotation) {
+		_geometry.rotation = rotation;
+		GeometryChanged.Emit();
+	}
+}
+
 bool Object::Collides(const Object& other) const
 {
 	if (_layer == other._layer) {
@@ -87,17 +95,20 @@ bool Object::Collides(const Object& other) const
 
 bool Object::Collides(const Geometry& geometry) const
 {
-	float left = _geometry.position.x;
-	float right = left + _geometry.size.width;
-	float top = _geometry.position.y;
-	float bottom = top + _geometry.size.height;
+	float myLeft = _geometry.position.x;
+	float myRight = myLeft + _geometry.size.width;
+	float myTop = _geometry.position.y;
+	float myBottom = myTop + _geometry.size.height;
 
-	if (left > geometry.position.x + geometry.size.width || right < geometry.position.x ||
-		top < geometry.position.y + geometry.size.height || bottom < geometry.position.y) {
+	float otherLeft = geometry.position.x;
+	float otherRight = otherLeft + geometry.size.width;
+	float otherTop = geometry.position.y;
+	float otherBottom = otherTop + geometry.size.height;
+
+	if (myLeft >= otherRight || myTop >= otherBottom || myRight <= otherLeft || myBottom <= otherTop) {
 		return false;
 	}
 	return true;
-
 }
 
 bool Object::Collides(const Point& point) const
@@ -158,7 +169,7 @@ void Object::SetLayer(uint32_t layer)
 {
 	if (_layer != layer) {
 		_layer = layer;
-		LayerChanged.Emit();
+		ZOrderChanged.Emit();
 	}
 }
 
