@@ -42,12 +42,12 @@ namespace macsa {
 
 			private:
 				const std::vector<std::pair<NImageBoxAdjustment,std::string>>& getData() const override{
-					static const std::vector<std::pair<NImageBoxAdjustment,std::string>> kNImageBoxAdjustmentData {
+					static const std::vector<std::pair<NImageBoxAdjustment,std::string>> kImageBoxAdjustmentData {
 						{NImageBoxAdjustment::kNormal,   kImageNormal},
 						{NImageBoxAdjustment::kFitToBox, kImageFitToBox},
 						{NImageBoxAdjustment::kZoom,     kImageZoom}
 					};
-					return kNImageBoxAdjustmentData;
+					return kImageBoxAdjustmentData;
 				}
 		};
 
