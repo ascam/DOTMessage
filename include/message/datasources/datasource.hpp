@@ -41,14 +41,14 @@ namespace macsa {
 
 			private:
 				const std::vector<std::pair<NDataSourceType,std::string>>& getData() const override{
-					static const std::vector<std::pair<NDataSourceType,std::string>> kNNDataSourceType {
+					static const std::vector<std::pair<NDataSourceType,std::string>> kDataSourceType {
 						{NDataSourceType::kCounter,   "Counter"},
 						{NDataSourceType::kComposite, "Composite"},
 						{NDataSourceType::kDataBase,  "DataBase"},
 						{NDataSourceType::kDateTime,  "DateTime"},
 						{NDataSourceType::kUserInput, "UserInput"}
 					};
-					return kNNDataSourceType;
+					return kDataSourceType;
 				}
 		};
 
@@ -83,7 +83,7 @@ namespace macsa {
 				virtual RefreshPolicy GetRefreshPolicy() const = 0;
 
 			private:
-				const DataSourceType& _type;
+				DataSourceType _type;
 		};
 	}
 }
