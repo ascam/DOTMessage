@@ -43,8 +43,7 @@ namespace  {
 
 
 Symbology::Symbology(const BarcodeSymbol &symbol) :
-	_symbology{symbol},
-	_code{}
+	_symbology{symbol}
 {}
 
 OneDimensionBarcode::OneDimensionBarcode(const BarcodeSymbol& symbol) :

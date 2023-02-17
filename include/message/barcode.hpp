@@ -39,7 +39,7 @@ namespace macsa {
 				 * @brief GetCode. Getter method for the code codified in the barcode.
 				 * @return The text codified in the barcode.
 				 */
-				std::string GetCode() const;
+				const std::string& GetCode() const;
 				/**
 				 * @brief SetCode. Setter method for the code codified in the barcode.
 				 * @param code: text to codify in the barcode.
@@ -256,6 +256,8 @@ namespace macsa {
 				std::string _foreColor;
 				std::string _backgroundColor;
 				std::string _code;
+
+				void transferSymbologyInnerData(Symbology* source, Symbology* target);
 		};
 	}
 }
