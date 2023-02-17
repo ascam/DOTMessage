@@ -31,7 +31,7 @@ std::string Barcode::GetData() const
 		return _datasource->GetData();
 	}
 	if (_symbology.get() != nullptr ) {
-		return _symbology->GetCode();
+		return _code;
 	}
 	return "";
 }
@@ -50,30 +50,27 @@ const BarcodeSymbol& Barcode::GetSymbology() const
 void Barcode::SetSymbology(const macsa::dot::BarcodeSymbol &symbology)
 {
 	if (_symbology.get() == nullptr || _symbology->GetSymbology() != symbology) {
+
+		Symbology* oldSymbology = _symbology.release();
 		_symbology.reset(SymbologyFactory::Get(symbology()));
+		// Transfer the values between symbologies
+		transferSymbologyInnerData(oldSymbology, _symbology.get());
+		if (oldSymbology != nullptr) {
+			delete oldSymbology;
+		}
+
 		SymbologyChanged.Emit();
 	}
 }
 
-std::string Barcode::GetCode() const
+const std::string& Barcode::GetCode() const
 {
-	if (_symbology.get() != nullptr ) {
-		_symbology->GetCode();
-	}
-	else {
-		WLog() << "Invalid barcode symbology";
-	}
-	return "";
+	return _code;
 }
 
 void Barcode::SetCode(const std::string &code)
 {
-	if (_symbology.get() != nullptr ) {
-		_symbology->SetCode(code);
-	}
-	else {
-		WLog() << "Invalid barcode symbology";
-	}
+	_code = code;
 }
 
 bool Barcode::IsGS1Barcode() const
@@ -312,5 +309,34 @@ void Barcode::SetQrCorrectionLevel(const macsa::dot::QRCorrectionLevel &qrCorrec
 {
 	if (_symbology && _symbology->GetQrCorrectionLevel() != qrCorrectionLevel) {
 		_symbology->SetQrCorrectionLevel(qrCorrectionLevel);
+	}
+}
+
+void Barcode::transferSymbologyInnerData(macsa::dot::Symbology *source, macsa::dot::Symbology *target)
+{
+	if (source && target) {
+		// Human readable text capability
+		if (source->CanShowHumanReadableCode() && target->CanShowHumanReadableCode()) {
+			target->SetShowHumanReadableCode(source->GetShowHumanReadableCode());
+			target->SetDisplayChecksum(source->GetDisplayChecksum());
+		}
+		// Shaving mode capability
+		if (source->HasShavingMode() && target->HasShavingMode()) {
+			target->EnableShavingMode(source->IsShavingModeEnabled());
+			target->SetShavingValue(source->GetShavingValue());
+		}
+		// Qr Codes
+		if (source->IsQrCode() && target->IsQrCode()) {
+			target->SetQrCorrectionLevel(source->GetQrCorrectionLevel());
+			target->SetQrVersion(source->GetQrVersion());
+		}
+		// GS1 barcodes
+		if (source->IsGS1Barcode() && target->IsGS1Barcode()) {
+			target->SetGS1AISeparator(source->GetGS1AISeparator());
+		}
+		// Bearer bar and other stuff
+		target->SetBearerBarStyle(source->GetBearerBarStyle());
+		target->SetRatio(source->GetRatio());
+		target->SetKeepAspectRatio(source->GetKeepAspectRatio());
 	}
 }

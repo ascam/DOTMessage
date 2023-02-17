@@ -13,37 +13,11 @@ namespace macsa {
 				virtual ~Symbology() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the code resolving the variable fields.
-				 * @return The code that must be rendered after resolving
-				 * variable fields.
-				 */
-				std::string GetData() const{
-					//TODO(iserra) Add datasources;
-					return _code;
-				};
-
-				/**
 				 * @brief GetSymbology. Getter method for barcode symbology enum
 				 * @return The barcode symbology
 				 */
 				const BarcodeSymbol& GetSymbology() const {
 					return _symbology;
-				}
-
-				/**
-				 * @brief GetCode. Getter method for the code codified in the barcode.
-				 * @return The text codified in the barcode.
-				 */
-				const std::string& GetCode() const {
-					return _code;
-				}
-				/**
-				 * @brief SetCode. Setter method for the code codified in the barcode.
-				 * @param code: text to codify in the barcode.
-				 */
-				void SetCode(const std::string& code) {
-					_code = code;
 				}
 
 				/**
@@ -207,7 +181,6 @@ namespace macsa {
 
 			private:
 				BarcodeSymbol _symbology;
-				std::string _code;
 		};
 
 		class OneDimensionBarcode : public Symbology
