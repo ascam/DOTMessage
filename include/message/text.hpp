@@ -2,21 +2,19 @@
 #define DOT_MESSAGE_TEXT_OBJECT_HPP
 
 #include <string>
-#include "object.hpp"
+#include "variableobject.hpp"
 #include "font.hpp"
 #include "textboxproperties.hpp"
 
 namespace macsa {
 	namespace dot {
 
-		// TODO(iserra) Add data sources
-
 		/**
 		 * @brief The Text class.
 		 *
 		 * This class contains the text object definition.
 		 */
-		class Text : public Object
+		class Text : public VariableObject
 		{
 			public:
 				Text(const std::string& id, const Geometry& geometry = Geometry());
@@ -29,7 +27,7 @@ namespace macsa {
 				 * @return The text that must be rendered after resolving
 				 * variable fields.
 				 */
-				std::string GetData() const;
+				std::string GetData() const override;
 
 				/**
 				 * @brief GetRefreshPolicy. Overrided method of
@@ -103,9 +101,6 @@ namespace macsa {
 				 */
 				void SetTextBoxProperties(const TextBoxProperties& boxProps);
 
-//				NisxDatasource* GetDatasource() const {return _datasource.get();}
-//				void SetDatasource(NisxDatasource* datasource);
-
 			public:
 				Signal<std::string> TextChanged;
 				Signal<Font> FontChanged;
@@ -119,7 +114,6 @@ namespace macsa {
 				std::string _foreColor;
 				std::string _backgroundColor;
 				TextBoxProperties _textBoxProperties;
-//				std::unique_ptr<NisxDatasource> _datasource;
 		};
 	}
 }

@@ -18,31 +18,33 @@ namespace macsa
 			bool italic = false;
 			bool underline = false;
 			bool strikeout = false;
-		};
-		bool operator == (const Font& a, const Font& b) {
-			if (a.family != b.family ||
-				a.size != b.size ||
-				a.bold != b.bold ||
-				a.italic != b.italic ||
-				a.underline != b.underline ||
-				a.strikeout != b.strikeout)
-			{
-				return false;
-			}
-			return true;
-		}
-		bool operator != (const Font& a, const Font& b) {
-			if (a.family != b.family ||
-				a.size != b.size ||
-				a.bold != b.bold ||
-				a.italic != b.italic ||
-				a.underline != b.underline ||
-				a.strikeout != b.strikeout)
-			{
+
+			bool operator == (const Font& other) const {
+				if (family != other.family ||
+					size != other.size ||
+					bold != other.bold ||
+					italic != other.italic ||
+					underline != other.underline ||
+					strikeout != other.strikeout)
+				{
+					return false;
+				}
 				return true;
 			}
-			return false;
-		}
+
+			bool operator != (const Font& other) {
+				if (family != other.family ||
+					size != other.size ||
+					bold != other.bold ||
+					italic != other.italic ||
+					underline != other.underline ||
+					strikeout != other.strikeout)
+				{
+					return true;
+				}
+				return false;
+			}
+		};
 	}
 }
 #endif

@@ -15,7 +15,7 @@ namespace macsa {
 }
 
 Text::Text(const std::string &id, const macsa::dot::Geometry &geometry) :
-	Object(id, NObjectType::kText, geometry),
+	VariableObject(id, NObjectType::kText, geometry),
 	_text{},
 	_font{},
 	_foreColor{},
@@ -28,20 +28,23 @@ Text::~Text()
 
 std::string Text::GetData() const
 {
-	// TODO(iserra) add data sources
+	if (IsVariable()) {
+		return _datasource->GetData();
+	}
 	return _text;
 }
 
 RefreshPolicy Text::GetRefreshPolicy() const
 {
-	// TODO(iserra): check policy with data sources
+	if (IsVariable()) {
+		return _datasource->GetRefreshPolicy();
+	}
 	return RefreshPolicy::kNone;
 }
 
 bool Text::IsVariable() const
 {
-	// TODO(iserra): check policy with data sources
-	return false;
+	return _datasource.get() != nullptr;
 }
 
 void Text::SetText(const std::string &text)
