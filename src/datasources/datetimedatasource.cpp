@@ -31,6 +31,11 @@ macsa::dot::RefreshPolicy DateTimeDataSource::GetRefreshPolicy() const
 	return RefreshPolicy::kNone;
 }
 
+std::string DateTimeDataSource::GetFormat() const
+{
+	return _format;
+}
+
 void DateTimeDataSource::SetFormat(const std::string &format)
 {
 	_format = format;
