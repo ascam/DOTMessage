@@ -54,7 +54,7 @@ namespace macsa {
 				 * @brief SetFormula. Setter method of the formula composition.
 				 * @param formula: The
 				 */
-				void SetFormula(std::string& formula);
+				void SetFormula(const std::string& formula);
 
 			private:
 				using Token = std::pair<std::string,std::string>;
