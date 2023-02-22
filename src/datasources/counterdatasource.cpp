@@ -4,12 +4,8 @@
 
 using macsa::dot::CounterDataSource;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool CounterFactoryRegistered = ConcreteDataSourceFactory<CounterDataSource>::Register(NDataSourceType::kCounter);
-		}
-	}
+namespace  {
+	static const bool CounterFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<CounterDataSource>::Register(macsa::dot::NDataSourceType::kCounter);
 }
 
 CounterDataSource::CounterDataSource() :

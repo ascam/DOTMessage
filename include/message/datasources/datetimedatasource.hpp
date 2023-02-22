@@ -3,7 +3,6 @@
 
 #include <string>
 #include "message/datasources/datasource.hpp"
-#include "vector"
 
 namespace macsa {
 	namespace dot {
@@ -56,6 +55,7 @@ namespace macsa {
 				int GetDaysOffset() const {
 					return _daysOffset;
 				}
+
 				/**
 				 * @brief SetDaysOffset. Setter method for the days
 				 * offset to apply at the current date.

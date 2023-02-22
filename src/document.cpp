@@ -21,7 +21,7 @@ std::string Document::GetLibraryVersion()
 	return version.str();
 }
 
-Document::Document(const std::string &name) :
+Document::Document(const std::string& name) :
 	_name{name},
 	_versions{},
 	_colors{},
@@ -31,20 +31,17 @@ Document::Document(const std::string &name) :
 	_dom{}
 {}
 
-Document::~Document()
-{}
-
-void Document::SetName(const std::string &name)
+void Document::SetName(const std::string& name)
 {
 	_name = name;
 }
 
-void Document::SetVersion(const std::array<uint8_t,3> &versions)
+void Document::SetVersion(const VersionEncodingArray& versions)
 {
 	_versions = versions;
 }
 
-void Document::SetUnits(const std::string &units)
+void Document::SetUnits(const std::string& units)
 {
 	_units = units;
 }
@@ -74,7 +71,7 @@ void Document::SetCanvasHeight(float height)
 	_canvasGeometry.size.height = height;
 }
 
-void Document::SetCanvasSize(const Size &size)
+void Document::SetCanvasSize(const Size& size)
 {
 	_canvasGeometry.size = size;
 }
@@ -94,7 +91,7 @@ void Document::SetViewportHeight(float height)
 	_viewport.height = height;
 }
 
-void Document::SetViewportSize(const macsa::dot::Size &size)
+void Document::SetViewportSize(const macsa::dot::Size& size)
 {
 	_viewport = size;
 }
@@ -107,14 +104,14 @@ std::deque<Object*> Document::GetObjects() const
 		dom.emplace_back(object.get());
 	}
 
-	std::sort(dom.begin(), dom.end(), [](const Object* a, const Object*b) {
+	std::sort(dom.begin(), dom.end(), [](const Object* a, const Object* b) {
 		return *a > *b;
 	});
 
 	return dom;
 }
 
-Object* Document::GetObjectById(const std::string &id) const
+Object* Document::GetObjectById(const std::string& id) const
 {
 	for (auto&& obj : _dom) {
 		if (obj->GetId() == id) {
@@ -139,9 +136,9 @@ Object *Document::AddObject(const std::string& objectId, const ObjectType& type,
 	return nullptr;
 }
 
-bool Document::RemoveObject(const std::string &id)
+bool Document::RemoveObject(const std::string& id)
 {
-	DOM::iterator objIt = std::find_if(_dom.begin(), _dom.end(), [&id](const pObject& obj){
+	DOM::iterator objIt = std::find_if(_dom.begin(), _dom.end(), [&id](const std::unique_ptr<Object>& obj){
 		return obj->GetId() == id;
 	});
 
@@ -162,7 +159,7 @@ void Document::Clear()
 	_gsLevels = {0};
 }
 
-bool Document::RenameObject(const std::string &oldId, const std::string &newId) const
+bool Document::RenameObject(const std::string& oldId, const std::string& newId) const
 {
 	if (GetObjectById(newId) == nullptr) {
 		auto* object = GetObjectById(oldId);
@@ -181,7 +178,7 @@ bool Document::RenameObject(const std::string &oldId, const std::string &newId) 
 	return false;
 }
 
-void Document::AddColor(const std::string &name, const macsa::dot::Color &color)
+void Document::AddColor(const std::string& name, const macsa::dot::Color& color)
 {
 	if (_colors.find(name) == _colors.end()) {
 		_colors.emplace(name, color);
@@ -191,7 +188,7 @@ void Document::AddColor(const std::string &name, const macsa::dot::Color &color)
 	}
 }
 
-void Document::DeleteColor(const std::string &name)
+void Document::DeleteColor(const std::string& name)
 {
 	auto colorIt = _colors.find(name);
 	if (colorIt != _colors.end()) {

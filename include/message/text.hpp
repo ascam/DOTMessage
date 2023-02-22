@@ -19,7 +19,7 @@ namespace macsa {
 			public:
 				Text(const std::string& id, const Geometry& geometry = Geometry());
 				Text(const Text&) = delete;
-				virtual ~Text();
+				virtual ~Text() = default;
 
 				/**
 				 * @brief GetData. Getter method to get the current
@@ -35,6 +35,7 @@ namespace macsa {
 				 * @return The refresh policy of the object.
 				 */
 				RefreshPolicy GetRefreshPolicy() const override;
+
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,
@@ -47,6 +48,7 @@ namespace macsa {
 				 * @return
 				 */
 				const std::string& GetText() const {return _text;}
+
 				/**
 				 * @brief SetText
 				 * @param text
@@ -58,6 +60,7 @@ namespace macsa {
 				 * @return The Font struct of the text object.
 				 */
 				const Font& GetFont() const {return _font;}
+
 				/**
 				 * @brief SetFont. Setter method for text font.
 				 * @param font: The Font struct to be applied.
@@ -70,6 +73,7 @@ namespace macsa {
 				 * @return The current foreground color.
 				 */
 				const std::string& GetForegroundColor() const {return _foreColor;}
+
 				/**
 				 * @brief SetForegroundColor. Setter method for the foreground color
 				 * to apply to the text.
@@ -83,6 +87,7 @@ namespace macsa {
 				 * @return The current background color.
 				 */
 				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+
 				/**
 				 * @brief SetBackgroundColor. Setter method for the background color
 				 * to apply to the text box.
@@ -95,6 +100,7 @@ namespace macsa {
 				 * @return The class with the text box properties.
 				 */
 				const TextBoxProperties& GetTextBoxProperties() const {return _textBoxProperties;}
+
 				/**
 				 * @brief SetTextBoxProperties. Setter method for the text box properties.
 				 * @param boxProps: The text box properties to apply.
@@ -102,10 +108,10 @@ namespace macsa {
 				void SetTextBoxProperties(const TextBoxProperties& boxProps);
 
 			public:
-				Signal<std::string> TextChanged;
-				Signal<Font> FontChanged;
-				Signal<std::string> ForegroundColorChanged;
-				Signal<std::string> BackgroundColorChanged;
+				Signal<> TextChanged;
+				Signal<> FontChanged;
+				Signal<> ForegroundColorChanged;
+				Signal<> BackgroundColorChanged;
 				Signal<> TextBoxPropertiesChanged;
 
 			private:

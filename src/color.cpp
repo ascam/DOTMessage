@@ -15,7 +15,7 @@ Color::Color() :
 	_alpha{0xFF} // Opaque
 {}
 
-Color::Color(const std::string &name, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha) :
+Color::Color(const std::string& name, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha) :
 	_red{r},
 	_green{g},
 	_blue{b},
@@ -58,7 +58,7 @@ std::string Color::ToRGBString() const
 	return color.str();
 }
 
-void Color::FromARGBString(const std::string &rgba)
+void Color::FromARGBString(const std::string& rgba)
 {
 	// When input format isn't correct, color will not change
 	if (rgba.size() == kColorStrLenght) {
@@ -69,7 +69,7 @@ void Color::FromARGBString(const std::string &rgba)
 	}
 }
 
-void Color::FromRGBAString(const std::string &rgba)
+void Color::FromRGBAString(const std::string& rgba)
 {
 	// When input format isn't correct, color will not change
 	if (rgba.size() == kColorStrLenght) {
@@ -80,7 +80,7 @@ void Color::FromRGBAString(const std::string &rgba)
 	}
 }
 
-void Color::FromRGBString(const std::string &rgba)
+void Color::FromRGBString(const std::string& rgba)
 {
 	if (rgba.size() == (kColorStrLenght - kColorLengh)) {
 		_red = stringutils::HexToUInt(rgba.substr(0, kColorLengh));
@@ -89,7 +89,7 @@ void Color::FromRGBString(const std::string &rgba)
 	}
 }
 
-void Color::operator = (const Color &other)
+void Color::operator = (const Color& other)
 {
 	_red = other._red;
 	_green = other._green;
@@ -97,7 +97,7 @@ void Color::operator = (const Color &other)
 	_alpha = other._alpha;
 }
 
-bool Color::equal(const Color &other) const
+bool Color::equal(const Color& other) const
 {
 	return  _red == other._red &&
 			_green == other._green &&

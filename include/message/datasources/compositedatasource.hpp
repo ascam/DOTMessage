@@ -3,7 +3,6 @@
 
 #include <string>
 #include "message/datasources/datasource.hpp"
-#include "vector"
 
 namespace macsa {
 	namespace dot {
@@ -50,6 +49,7 @@ namespace macsa {
 				const std::string GetFormula() const {
 					return _formula;
 				}
+
 				/**
 				 * @brief SetFormula. Setter method of the formula composition.
 				 * @param formula: The
@@ -62,7 +62,6 @@ namespace macsa {
 				const Document* _document;
 				const Object* _parent;
 				std::vector<Token> _tokens;
-
 		};
 	}
 }

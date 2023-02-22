@@ -58,7 +58,7 @@ namespace macsa {
 
 				Image(const std::string& id, const Geometry& geometry);
 				Image(const Image&) = delete;
-				virtual ~Image();
+				virtual ~Image() = default;
 
 				/**
 				 * @brief GetRefreshPolicy. Overrided method of
@@ -68,6 +68,7 @@ namespace macsa {
 				RefreshPolicy GetRefreshPolicy() const override {
 					return RefreshPolicy::kNone;
 				}
+
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,
@@ -84,6 +85,7 @@ namespace macsa {
 				const ByteArray& GetData() const {
 					return _data;
 				}
+
 				/**
 				 * @brief GetData. Setter method for image file data.
 				 * @param data: The content of the image in a byte array
@@ -97,6 +99,7 @@ namespace macsa {
 				const std::string& GetFilepath() const {
 					return _filepath;
 				}
+
 				/**
 				 * @brief SetFilepath. Setter method for image filepath.
 				 * @param filepath: The filepath of the image to render
@@ -111,12 +114,14 @@ namespace macsa {
 				const ImageBoxAdjustment& GetBoxAdjustment() const {
 					return _boxAdjustment;
 				}
+
 				/**
 				 * @brief SetBoxAdjustment. Setter method of the image fitting
 				 * in the container box.
 				 * @param adjustment: How the image must fit in the container box.
 				 */
 				void SetBoxAdjustment(const ImageBoxAdjustment& adjustment);
+
 				/**
 				 * @brief GetVerticalAlignment. Getter method for image vertical
 				 * alignment.
@@ -125,6 +130,7 @@ namespace macsa {
 				const VerticalAlignment& GetVerticalAlignment() const {
 					return _verticalAlignment;
 				}
+
 				/**
 				 * @brief SetVerticalAlignment. Setter method for image vertical
 				 * alignment.
@@ -132,6 +138,7 @@ namespace macsa {
 				 * This parameter only has effects in a Normal box adjustment.
 				 */
 				void SetVerticalAlignment(const VerticalAlignment& alignment);
+
 				/**
 				 * @brief GetHorizontalAlignment. Getter method for image horizontal
 				 * alignment.
@@ -140,6 +147,7 @@ namespace macsa {
 				const HorizontalAlignment& GetHorizontalAlignment() const {
 					return _horizontalAlignment;
 				}
+
 				/**
 				 * @brief SetHorizontalAlignment. Setter method for image horizontal
 				 * alignment.
@@ -155,6 +163,7 @@ namespace macsa {
 				const std::string& GetAlgorithm() const {
 					return _algorithm;
 				}
+
 				/**
 				 * @brief SetAlgorithm. Setter method for the image processing algorithm
 				 * @param algorithm: The name of the image processing algorithm to apply
@@ -168,11 +177,13 @@ namespace macsa {
 				uint32_t GetTopThreshold() const {
 					return _topThreshold;
 				}
+
 				/**
 				 * @brief SetTopThreshold. Setter method for the color's top threshold.
 				 * @param threshold: The color's top threshold.
 				 */
 				void SetTopThreshold(uint32_t threshold);
+
 				/**
 				 * @brief GetDownThreshold. Getter method for the color's down threshold.
 				 * @return The color's down threshold.
@@ -180,6 +191,7 @@ namespace macsa {
 				uint32_t GetDownThreshold() const {
 					return _downThreshold;
 				}
+
 				/**
 				 * @brief SetDownThreshold Setter method for the color's down threshold.
 				 * @param threshold: The color's down threshold.
@@ -187,7 +199,7 @@ namespace macsa {
 				void SetDownThreshold(uint32_t threshold);
 
 			public:
-				Signal<std::string> PathChanged;
+				Signal<> PathChanged;
 				Signal<> ImageDataChanged;
 				Signal<> AdjustmentChanged;
 

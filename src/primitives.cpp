@@ -9,15 +9,11 @@ using macsa::dot::Diamond;
 using macsa::dot::Line;
 using macsa::dot::NObjectType;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool RectangleFactoryRegistered = ConcreteObjectsFactory<Rectangle>::Register(NObjectType::kRectangle);
-			static const bool EllipseFactoryRegistered = ConcreteObjectsFactory<Ellipse>::Register(NObjectType::kEllipse);
-			static const bool DiamondFactoryRegistered = ConcreteObjectsFactory<Diamond>::Register(NObjectType::kDiamond);
-			static const bool LineFactoryRegistered = ConcreteObjectsFactory<Line>::Register(NObjectType::kLine);
-		}
-	}
+namespace  {
+	static const bool RectangleFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Rectangle>::Register(macsa::dot::NObjectType::kRectangle);
+	static const bool EllipseFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Ellipse>::Register(macsa::dot::NObjectType::kEllipse);
+	static const bool DiamondFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Diamond>::Register(macsa::dot::NObjectType::kDiamond);
+	static const bool LineFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Line>::Register(macsa::dot::NObjectType::kLine);
 }
 
 Primitive::Primitive(const std::string& id, const Geometry& geometry, const macsa::dot::ObjectType& primitiveType) :

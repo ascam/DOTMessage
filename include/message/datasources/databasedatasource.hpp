@@ -3,7 +3,6 @@
 
 #include <string>
 #include "message/datasources/datasource.hpp"
-#include "vector"
 
 namespace macsa {
 	namespace dot {
@@ -45,6 +44,7 @@ namespace macsa {
 				const std::string& GetFieldName() const {
 					return _fieldName;
 				}
+
 				/**
 				 * @brief SetFieldName. Setter method for database fieldname
 				 * data source
@@ -53,6 +53,7 @@ namespace macsa {
 				void SetFieldName(const std::string& fieldName) {
 					_fieldName = fieldName;
 				}
+
 				/**
 				 * @brief GetDefaultValue. Getter method for datasource
 				 * default value.
@@ -61,6 +62,7 @@ namespace macsa {
 				const std::string& GetDefaultValue() const {
 					return _defaultValue;
 				}
+
 				/**
 				 * @brief SetDefaultValue. Setter method for datasource
 				 * default value.

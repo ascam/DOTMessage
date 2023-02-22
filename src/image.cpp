@@ -4,16 +4,11 @@
 using macsa::dot::Image;
 using macsa::dot::Geometry;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectsFactory<Image>::Register(NObjectType::kImage);
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Image>::Register(macsa::dot::NObjectType::kImage);
 }
 
-
-Image::Image(const std::string &id, const Geometry &geometry) :
+Image::Image(const std::string& id, const Geometry& geometry) :
 	Object(id, NObjectType::kImage, geometry),
 	_data{},
 	_filepath{},
@@ -25,10 +20,7 @@ Image::Image(const std::string &id, const Geometry &geometry) :
 	_downThreshold{}
 {}
 
-Image::~Image()
-{}
-
-void Image::SetData(const Image::ByteArray &data)
+void Image::SetData(const Image::ByteArray& data)
 {
 	if (_data != data) {
 		_data = data;
@@ -36,15 +28,15 @@ void Image::SetData(const Image::ByteArray &data)
 	}
 }
 
-void Image::SetFilepath(const std::string &filepath)
+void Image::SetFilepath(const std::string& filepath)
 {
 	if (_filepath != filepath) {
 		_filepath = filepath;
-		PathChanged.Emit(std::forward<std::string>(_filepath));
+		PathChanged.Emit();
 	}
 }
 
-void Image::SetBoxAdjustment(const macsa::dot::ImageBoxAdjustment &adjustment)
+void Image::SetBoxAdjustment(const macsa::dot::ImageBoxAdjustment& adjustment)
 {
 	if (_boxAdjustment != adjustment){
 		_boxAdjustment = adjustment;
@@ -52,7 +44,7 @@ void Image::SetBoxAdjustment(const macsa::dot::ImageBoxAdjustment &adjustment)
 	}
 }
 
-void Image::SetVerticalAlignment(const macsa::dot::VerticalAlignment &alignment)
+void Image::SetVerticalAlignment(const macsa::dot::VerticalAlignment& alignment)
 {
 	if (_verticalAlignment != alignment) {
 		_verticalAlignment = alignment;
@@ -62,7 +54,7 @@ void Image::SetVerticalAlignment(const macsa::dot::VerticalAlignment &alignment)
 	}
 }
 
-void Image::SetHorizontalAlignment(const macsa::dot::HorizontalAlignment &alignment)
+void Image::SetHorizontalAlignment(const macsa::dot::HorizontalAlignment& alignment)
 {
 	if (_horizontalAlignment != alignment) {
 		_horizontalAlignment = alignment;
@@ -72,7 +64,7 @@ void Image::SetHorizontalAlignment(const macsa::dot::HorizontalAlignment &alignm
 	}
 }
 
-void Image::SetAlgorithm(const std::string &algorithm)
+void Image::SetAlgorithm(const std::string& algorithm)
 {
 	if (_algorithm != algorithm){
 		_algorithm = algorithm;
@@ -95,5 +87,3 @@ void Image::SetDownThreshold(uint32_t threshold)
 		ImageDataChanged.Emit();
 	}
 }
-
-

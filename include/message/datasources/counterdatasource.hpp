@@ -42,6 +42,7 @@ namespace macsa {
 				int GetCounterValue() const {
 					return _counter;
 				}
+
 				/**
 				 * @brief SetCounterValue. Setter method for the current
 				 * source counter value.
@@ -50,6 +51,7 @@ namespace macsa {
 				void SetCounterValue(int value) {
 					_counter = value;
 				}
+
 				/**
 				 * @brief GetLeadingZeros. Getter method for number of
 				 * leading zeros
@@ -58,6 +60,7 @@ namespace macsa {
 				uint32_t GetLeadingZeros() const {
 					return _leadingZeros;
 				}
+
 				/**
 				 * @brief SetLeadingZeros. Setter method for number of
 				 * leading zeros
@@ -75,6 +78,7 @@ namespace macsa {
 				int GetMinValue() const {
 					return _minValue;
 				}
+
 				/**
 				 * @brief SetMinValue. Setter method for the minimum value
 				 * of the printed counter.
@@ -92,6 +96,7 @@ namespace macsa {
 				int GetMaxValue() const {
 					return _maxValue;
 				}
+
 				/**
 				 * @brief SetMaxValue. Setter method for the maximum value
 				 * of the printed counter.
@@ -100,6 +105,7 @@ namespace macsa {
 				void SetMaxValue(int maxValue) {
 					_maxValue = maxValue;
 				}
+
 				/**
 				 * @brief GetRepeatCounter. Getter method for repeat counter.
 				 * @return how many times the counter will be the same
@@ -108,6 +114,7 @@ namespace macsa {
 				uint GetRepeatCounter() const {
 					return _repeatCounter;
 				}
+
 				/**
 				 * @brief SetRepeatCounter. Setter method for repeat counter.
 				 * @param repeatCounter: how many times the counter will be the same
@@ -116,6 +123,7 @@ namespace macsa {
 				void SetRepeatCounter(uint repeatCounter) {
 					_repeatCounter = repeatCounter;
 				}
+
 				/**
 				 * @brief GetStep. Getter method for counter's step.
 				 * @return how many counts will jump in a step.
@@ -123,6 +131,7 @@ namespace macsa {
 				int GetStep() const {
 					return _step;
 				}
+
 				/**
 				 * @brief SetStep. Setter method for counter's step.
 				 * @param step: how many counts will jump in a step.
@@ -138,7 +147,6 @@ namespace macsa {
 				int _maxValue;
 				int _step;
 				uint _repeatCounter;
-
 		};
 	}
 }

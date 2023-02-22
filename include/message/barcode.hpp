@@ -29,6 +29,7 @@ namespace macsa {
 				 * @return The current barcode symbology
 				 */
 				const BarcodeSymbol& GetSymbology() const;
+
 				/**
 				 * @brief SetSymbology. Setter method for the barcode symbology
 				 * @param symbology: The barcode symbology to set
@@ -40,6 +41,7 @@ namespace macsa {
 				 * @return The text codified in the barcode.
 				 */
 				const std::string& GetCode() const;
+
 				/**
 				 * @brief SetCode. Setter method for the code codified in the barcode.
 				 * @param code: text to codify in the barcode.
@@ -52,11 +54,13 @@ namespace macsa {
 				 * @return true if the barcode is part of the GS1 standard.
 				 */
 				bool IsGS1Barcode() const;
+
 				/**
 				 * @brief GetGS1AISeparator. Getter method to get the GS1 AI separator.
 				 * @return The used GS1AISeparator.
 				 */
 				GS1AISeparator GetGS1AISeparator() const;
+
 				/**
 				 * @brief SetGS1AISeparator. Setter method to get the GS1 AI separator.
 				 * @param separator: The GS1AISeparator to use.
@@ -82,21 +86,25 @@ namespace macsa {
 				 * otherwise returns false.
 				 */
 				bool HasShavingMode() const;
+
 				/**
 				 * @brief IsShavingModeEnabled. Getter method for shaving mode enabled.
 				 * @return true if the barcode has shaving mode enbled
 				 */
 				bool IsShavingModeEnabled() const;
+
 				/**
 				 * @brief EnableShavingMode. Setter method for shaving mode enabled.
 				 * @param enable: bool to enable/disable shaving mode.
 				 */
 				void EnableShavingMode(bool enable);
+
 				/**
 				 * @brief GetShavingValue. Getter method for shaving value.
 				 * @return The shaving value rate in percentage.
 				 */
 				double GetShavingValue() const;
+
 				/**
 				 * @brief SetShavingValue. Setter method for shaving value.
 				 * @param shavingValue: The shaving value rate in percentage (0.0 - 100.0).
@@ -109,6 +117,7 @@ namespace macsa {
 				 * @return the ratio between the thinner and the heaviest line.
 				 */
 				double GetRatio() const;
+
 				/**
 				 * @brief SetRatio. Setter method for barcode ratio. This is the relation
 				 * between the thinner and the heaviest line.
@@ -121,6 +130,7 @@ namespace macsa {
 				 * @return keep aspect ratio value.
 				 */
 				bool GetKeepAspectRatio() const;
+
 				/**
 				 * @brief SetKeepAspectRatio. Setter method for keep aspect ratio property.
 				 * @param keepAspectRatio: bool to set if the barcode must be rendered
@@ -134,6 +144,7 @@ namespace macsa {
 				 * @return true if the checksum is visible, othrewise return false.
 				 */
 				bool GetDisplayChecksum() const;
+
 				/**
 				 * @brief SetDisplayChecksum. Setter method for display checksum value
 				 * in the human readable code.
@@ -147,6 +158,7 @@ namespace macsa {
 				 * @return The Font struct of the text object.
 				 */
 				const Font& GetFont() const {return _font;}
+
 				/**
 				 * @brief SetFont. Setter method for text font.
 				 * @param font: The Font struct to be applied.
@@ -159,6 +171,7 @@ namespace macsa {
 				 * @return The current foreground color.
 				 */
 				const std::string& GetForegroundColor() const {return _foreColor;}
+
 				/**
 				 * @brief SetForegroundColor. Setter method for the foreground color
 				 * to apply to the barcode.
@@ -172,6 +185,7 @@ namespace macsa {
 				 * @return The current background color.
 				 */
 				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+
 				/**
 				 * @brief SetBackgroundColor. Setter method for the background color
 				 * to apply to the barcode.
@@ -193,6 +207,7 @@ namespace macsa {
 				 * @return if code will be displayed under the barcode.
 				 */
 				bool GetShowHumanReadableCode() const;
+
 				/**
 				 * @brief SetShowHumanReadableCode. Setter method for show human readable code.
 				 * @param show: bool to set if code will be displayed under the barcode.
@@ -218,6 +233,7 @@ namespace macsa {
 				 * returns false.
 				 */
 				bool IsQrCode() const;
+
 				/**
 				 * @brief GetQrVersion. Getter method for Qr version. Only valid for
 				 * Qr codes.
@@ -225,6 +241,7 @@ namespace macsa {
 				 * return 0.
 				 */
 				uint8_t GetQrVersion() const;
+
 				/**
 				 * @brief SetQrVersion. Setter method for Qr version.
 				 * @param qrVersion: Qr version to set. Only valid for Qr codes.
@@ -236,6 +253,7 @@ namespace macsa {
 				 * @return The Qr Correction level.
 				 */
 				QRCorrectionLevel GetQrCorrectionLevel() const;
+
 				/**
 				 * @brief SetQrCorrectionLevel. Setter method for QrCorrectionLevel.
 				 * @param qrCorrectionLevel: The Qr Correction level.
@@ -245,10 +263,17 @@ namespace macsa {
 
 			public:
 				Signal<> SymbologyChanged;
-				Signal<bool,float> ShavingValueChanged;
-				Signal<Font> FontChanged;
-				Signal<std::string> ForegroundColorChanged;
-				Signal<std::string> BackgroundColorChanged;
+				Signal<> ShavingValueChanged;
+				Signal<> FontChanged;
+				Signal<> ForegroundColorChanged;
+				Signal<> BackgroundColorChanged;
+				Signal<> RatioValueChanged;
+				Signal<> KeepAspectRatioChanged;
+				Signal<> DisplayChecksumChanged;
+				Signal<> ShowHumanReadableCodeChanged;
+				Signal<> BearerBarStyleChanged;
+				Signal<> QrVersionChanged;
+				Signal<> QrCorrectionLevelChanged;
 
 			private:
 				std::unique_ptr<Symbology> _symbology;

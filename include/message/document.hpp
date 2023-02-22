@@ -15,6 +15,7 @@
 namespace macsa {
 	namespace dot {
 		class Object;
+
 		/**
 		 * @brief The Document class.
 		 *
@@ -23,22 +24,21 @@ namespace macsa {
 		 */
 		class Document
 		{
-			private:
-				using pObject = std::unique_ptr<Object>;
-				using DOM = std::deque<pObject>;
+				using VersionEncodingArray = std::array<uint8_t, 3>;
+				using DOM = std::deque<std::unique_ptr<Object>>;
 
 			public:
 				static std::string GetLibraryVersion();
 
-			public:
 				Document(const std::string& name = "");
-				~Document();
+				~Document() = default;
 
 				/**
 				 * @brief GetName. Getter for document name.
 				 * @return document name
 				 */
 				const std::string& GetName() const {return _name;}
+
 				/**
 				 * @brief SetName. Setter for document name.
 				 * @param name: document name
@@ -50,14 +50,15 @@ namespace macsa {
 				 * document version.
 				 * @return The current document version.
 				 */
-				const std::array<uint8_t,3>& GetVersion() const {
+				const VersionEncodingArray& GetVersion() const {
 					return _versions;
 				}
+
 				/**
 				 * @brief SetVersion. Setter method for document version.
 				 * @param versions: array with the versions to store.
 				 */
-				void SetVersion(const std::array<uint8_t,3>& versions);
+				void SetVersion(const VersionEncodingArray& versions);
 
 				/**
 				 * @brief GetUnits. Getter method for measurement units.
@@ -66,6 +67,7 @@ namespace macsa {
 				const std::string& GetUnits() const {
 					return _units;
 				}
+
 				/**
 				 * @brief SetUnits. Setter method for measurement units.
 				 * @param units: The measurement units (mm, dots, inches)
@@ -78,26 +80,31 @@ namespace macsa {
 				 * @return the relative x position between the canvas and the viewport.
 				 */
 				float GetCanvasXOffset() const {return _canvasGeometry.position.x;}
+
 				/**
 				 * @brief SetCanvasXOffset. Setter for the canvas geometry x position
 				 * @param x: the relative x position between the canvas and the viewport.
 				 */
 				void SetCanvasXOffset(float x);
+
 				/**
 				 * @brief GetCanvasYOffset. Getter for the canvas geometry y position
 				 * @return the relative y position between the canvas and the viewport.
 				 */
 				float GetCanvasYOffset() const {return _canvasGeometry.position.y;}
+
 				/**
 				 * @brief SetCanvasYOffset. Setter for the canvas geometry y position
 				 * @param y: the relative y position between the canvas and the viewport.
 				 */
 				void SetCanvasYOffset(float y);
+
 				/**
 				 * @brief GetCanvasOffset. Getter for the canvas geometry position
 				 * @return the relative position between the canvas and the viewport.
 				 */
 				const Point& GetCanvasOffset() const {return _canvasGeometry.position;}
+
 				/**
 				 * @brief SetCanvasOffset. Setter for the canvas geometry position
 				 * @param pos: the relative position between the canvas and the viewport.
@@ -109,26 +116,31 @@ namespace macsa {
 				 * @return the canvas with.
 				 */
 				float GetCanvasWidth() const {return _canvasGeometry.size.width;}
+
 				/**
 				 * @brief SetCanvasWidth. Setter for the canvas geometry width
 				 * @param width: with of the canvas.
 				 */
 				void SetCanvasWidth(float width);
+
 				/**
 				 * @brief GetCanvasHeight. Getter for the canvas geometry height
 				 * @return the canvas height.
 				 */
 				float GetCanvasHeight() const {return _canvasGeometry.size.height;}
+
 				/**
 				 * @brief SetCanvasHeight. Setter for the canvas geometry height
 				 * @param height: with of the canvas.
 				 */
 				void SetCanvasHeight(float height);
+
 				/**
 				 * @brief GetCanvasSize. Getter for the canvas geometry size
 				 * @return The canvas size.
 				 */
 				const Size& GetCanvasSize() const {return _canvasGeometry.size;}
+
 				/**
 				 * @brief SetCanvasSize. Setter for the canvas geometry size
 				 * @param size: The canvas size
@@ -140,6 +152,7 @@ namespace macsa {
 				 * @return The canvas rotation angle.
 				 */
 				int GetCanvasRotation() const {return _canvasGeometry.rotation;}
+
 				/**
 				 * @brief SetCanvasRotation. Setter for the canvas rotation in CW degrees
 				 * @param rotation: canvas rotation in CW degrees
@@ -151,26 +164,31 @@ namespace macsa {
 				 * @return the viewport with.
 				 */
 				float GetViewportWidth() const {return _viewport.width;}
+
 				/**
 				 * @brief SetViewportWidth. Setter for the viewport geometry width
 				 * @param width: with of the viewport.
 				 */
 				void SetViewportWidth(float width);
+
 				/**
 				 * @brief GetViewportHeight. Getter for the viewport geometry height
 				 * @return the viewport with.
 				 */
 				float GetViewportHeight() const {return _viewport.height;}
+
 				/**
 				 * @brief SetViewportHeight. Setter for the viewport geometry height
 				 * @param height: with of the viewport.
 				 */
 				void SetViewportHeight(float height);
+
 				/**
 				 * @brief GetViewportSize. Getter for the viewport geometry size
 				 * @return The viewport size.
 				 */
 				const Size& GetViewportSize() const {return _viewport;}
+
 				/**
 				 * @brief SetViewportSize. Setter for the viewport geometry size
 				 * @param size: The viewport size
@@ -182,6 +200,7 @@ namespace macsa {
 				 * @return reference to internal dom.
 				 */
 				std::deque<Object*> GetObjects() const;
+
 				/**
 				 * @brief GetObjectById. Getter method for a DOM object.
 				 * @param id: Id of the object to find.
@@ -189,6 +208,7 @@ namespace macsa {
 				 * otherwise return  a nullptr
 				 */
 				Object* GetObjectById(const std::string& id) const;
+
 				/**
 				 * @brief AddObject. Method to add new object to the dom.
 				 * @param objectId: Unique string identifier of the object.
@@ -199,6 +219,7 @@ namespace macsa {
 				 * return a nullptr.
 				 */
 				Object* AddObject(const std::string& objectId, const ObjectType& type, const Geometry& geometry = Geometry());
+
 				/**
 				 * @brief RemoveObject. Remove the object of the DOM if the object exist
 				 * and free the memory alocated by the object.
@@ -228,17 +249,20 @@ namespace macsa {
 				 * @return The document's colors palette.
 				 */
 				const ColorsPalette& GetColorsPalette() const {return _colors;}
+
 				/**
 				 * @brief SetColorsPaletter. Setter method for document's colors palette.
 				 * @param colors: a new colors palette to set to the document.
 				 */
 				void SetColorsPaletter(const ColorsPalette& colors) {_colors = colors;}
+
 				/**
 				 * @brief AddColor. Add a color to the document's colors palette.
 				 * @param name: name of the color.
 				 * @param color: Color object.
 				 */
 				void AddColor(const std::string& name, const Color& color);
+
 				/**
 				 * @brief DeleteColor. Remove a color from the document's colors palette.
 				 * @param name: name of te color to remove.
@@ -251,6 +275,7 @@ namespace macsa {
 				 * @return The current gray scale level.
 				 */
 				uint32_t GetGrayScaleLevels() const {return _gsLevels;}
+
 				/**
 				 * @brief SetGrayScaleLevel
 				 * @param gsLevel
@@ -260,7 +285,7 @@ namespace macsa {
 			private:
 				std::string _name;
 				std::string _units;
-				std::array<uint8_t, 3> _versions;
+				VersionEncodingArray _versions;
 				ColorsPalette _colors;
 				Geometry _canvasGeometry;
 				Size _viewport;

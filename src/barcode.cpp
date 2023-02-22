@@ -12,15 +12,11 @@ using macsa::dot::BarcodeSymbol;
 using macsa::utils::MacsaLogger;
 using namespace std::placeholders;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectsFactory<Barcode>::Register(NObjectType::kBarcode);
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Barcode>::Register(macsa::dot::NObjectType::kBarcode);
 }
 
-Barcode::Barcode(const std::string &id, const macsa::dot::Geometry &geometry) :
+Barcode::Barcode(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kBarcode, geometry),
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
 {}
@@ -30,10 +26,12 @@ std::string Barcode::GetData() const
 	if (IsVariable()) {
 		return _datasource->GetData();
 	}
+
 	if (_symbology.get() != nullptr ) {
 		return _code;
 	}
-	return "";
+
+	return {};
 }
 
 const BarcodeSymbol& Barcode::GetSymbology() const
@@ -42,20 +40,20 @@ const BarcodeSymbol& Barcode::GetSymbology() const
 		return _symbology->GetSymbology();
 	}
 	else {
-		std::string message {"Unable to get symbology. Missing symbology pointer"};
-		throw (std::invalid_argument(message));
+		throw (std::invalid_argument("Unable to get symbology. Missing symbology pointer"));
 	}
 }
 
-void Barcode::SetSymbology(const macsa::dot::BarcodeSymbol &symbology)
+void Barcode::SetSymbology(const macsa::dot::BarcodeSymbol& symbology)
 {
 	if (_symbology.get() == nullptr || _symbology->GetSymbology() != symbology) {
 
 		Symbology* oldSymbology = _symbology.release();
 		_symbology.reset(SymbologyFactory::Get(symbology()));
-		// Transfer the values between symbologies
-		transferSymbologyInnerData(oldSymbology, _symbology.get());
+
 		if (oldSymbology != nullptr) {
+			// Transfer the values between symbologies
+			transferSymbologyInnerData(oldSymbology, _symbology.get());
 			delete oldSymbology;
 		}
 
@@ -68,7 +66,7 @@ const std::string& Barcode::GetCode() const
 	return _code;
 }
 
-void Barcode::SetCode(const std::string &code)
+void Barcode::SetCode(const std::string& code)
 {
 	_code = code;
 }
@@ -89,7 +87,7 @@ macsa::dot::GS1AISeparator Barcode::GetGS1AISeparator() const
 	return NGS1AISeparator::kFNC1;
 }
 
-void Barcode::SetGS1AISeparator(const macsa::dot::GS1AISeparator &separator)
+void Barcode::SetGS1AISeparator(const macsa::dot::GS1AISeparator& separator)
 {
 	if (_symbology && _symbology->GetGS1AISeparator() != separator) {
 		_symbology->SetGS1AISeparator(separator);
@@ -125,7 +123,7 @@ void Barcode::EnableShavingMode(bool enable)
 	if (_symbology && _symbology->HasShavingMode()) {
 		if (_symbology->IsShavingModeEnabled() != enable) {
 			_symbology->EnableShavingMode(enable);
-			ShavingValueChanged.Emit(_symbology->IsShavingModeEnabled(), _symbology->GetShavingValue());
+			ShavingValueChanged.Emit();
 		}
 	}
 }
@@ -145,7 +143,7 @@ void Barcode::SetShavingValue(double shavingValue)
 		if (_symbology->GetShavingValue() != shavingValue){
 			_symbology->SetShavingValue(shavingValue);
 			if (_symbology->IsShavingModeEnabled()) {
-				ShavingValueChanged.Emit(_symbology->IsShavingModeEnabled(), _symbology->GetShavingValue());
+				ShavingValueChanged.Emit();
 			}
 		}
 	}
@@ -164,7 +162,7 @@ void Barcode::SetRatio(double ratio)
 {
 	if (_symbology && _symbology->GetRatio() != ratio) {
 		_symbology->SetRatio(ratio);
-		// TODO(iserra): Emit signal?
+		RatioValueChanged.Emit();
 	}
 }
 
@@ -180,8 +178,8 @@ bool Barcode::GetKeepAspectRatio() const
 void Barcode::SetKeepAspectRatio(bool keepAspectRatio)
 {
 	if (_symbology && _symbology->GetKeepAspectRatio() != keepAspectRatio) {
-		_symbology->SetRatio(keepAspectRatio);
-		// TODO(iserra): Emit signal?
+		_symbology->SetKeepAspectRatio(keepAspectRatio);
+		KeepAspectRatioChanged.Emit();
 	}
 }
 
@@ -198,33 +196,33 @@ void Barcode::SetDisplayChecksum(bool displayChecksum)
 {
 	if (_symbology && _symbology->GetDisplayChecksum() != displayChecksum) {
 		_symbology->SetDisplayChecksum(displayChecksum);
-		// TODO(iserra): Emit signal?
+		DisplayChecksumChanged.Emit();
 	}
 }
 
-void Barcode::SetFont(const macsa::dot::Font &font)
+void Barcode::SetFont(const macsa::dot::Font& font)
 {
 	if (_font != font) {
 		_font = font;
 		if (GetShowHumanReadableCode()) {
-			FontChanged.Emit(std::forward<Font>(_font));
+			FontChanged.Emit();
 		}
 	}
 }
 
-void Barcode::SetForegroundColor(const std::string &foreColor)
+void Barcode::SetForegroundColor(const std::string& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
-		ForegroundColorChanged.Emit(std::forward<std::string>(_foreColor));
+		ForegroundColorChanged.Emit();
 	}
 }
 
-void Barcode::SetBackgroundColor(const std::string &backgroundColor)
+void Barcode::SetBackgroundColor(const std::string& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;
-		BackgroundColorChanged.Emit(std::forward<std::string>(_backgroundColor));
+		BackgroundColorChanged.Emit();
 	}
 }
 
@@ -251,6 +249,7 @@ void Barcode::SetShowHumanReadableCode(bool show)
 	if (_symbology && _symbology->CanShowHumanReadableCode()) {
 		if (_symbology->GetShowHumanReadableCode() != show){
 			_symbology->SetShowHumanReadableCode(show);
+			ShowHumanReadableCodeChanged.Emit();
 		}
 	}
 }
@@ -264,10 +263,11 @@ macsa::dot::BearerBarStyle Barcode::GetBearerBarStyle() const
 	return bearer;
 }
 
-void Barcode::SetBearerBarStyle(const macsa::dot::BearerBarStyle &bearerBarSyle)
+void Barcode::SetBearerBarStyle(const macsa::dot::BearerBarStyle& bearerBarSyle)
 {
 	if (_symbology && _symbology->GetBearerBarStyle() != bearerBarSyle) {
 		_symbology->SetBearerBarStyle(bearerBarSyle);
+		BearerBarStyleChanged.Emit();
 	}
 }
 
@@ -293,6 +293,7 @@ void Barcode::SetQrVersion(uint8_t qrVersion)
 {
 	if (_symbology && _symbology->GetQrVersion() != qrVersion) {
 		_symbology->SetQrVersion(qrVersion);
+		QrVersionChanged.Emit();
 	}
 }
 
@@ -305,14 +306,15 @@ macsa::dot::QRCorrectionLevel Barcode::GetQrCorrectionLevel() const
 	return qrCorrectionLevel;
 }
 
-void Barcode::SetQrCorrectionLevel(const macsa::dot::QRCorrectionLevel &qrCorrectionLevel)
+void Barcode::SetQrCorrectionLevel(const macsa::dot::QRCorrectionLevel& qrCorrectionLevel)
 {
 	if (_symbology && _symbology->GetQrCorrectionLevel() != qrCorrectionLevel) {
 		_symbology->SetQrCorrectionLevel(qrCorrectionLevel);
+		QrCorrectionLevelChanged.Emit();
 	}
 }
 
-void Barcode::transferSymbologyInnerData(macsa::dot::Symbology *source, macsa::dot::Symbology *target)
+void Barcode::transferSymbologyInnerData(macsa::dot::Symbology* source, macsa::dot::Symbology* target)
 {
 	if (source && target) {
 		// Human readable text capability

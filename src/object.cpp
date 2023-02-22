@@ -125,7 +125,7 @@ void Object::SetSelected(bool select)
 {
 	if (_selected != select) {
 		_selected = select;
-		SelectedChanged.Emit(std::forward<bool>(_selected));
+		SelectedChanged.Emit();
 	}
 }
 
@@ -133,7 +133,7 @@ void Object::SetPrintable(bool printable)
 {
 	if (_printable != printable) {
 		_printable = printable;
-		PrintableChanged.Emit(std::forward<bool>(_printable));
+		PrintableChanged.Emit();
 	}
 }
 
@@ -141,26 +141,24 @@ void Object::SetLinked(bool linked)
 {
 	if (_linked.enabled != linked) {
 		_linked.enabled = linked;
-		LinkedChanged.Emit(std::forward<bool>(_linked.enabled));
+		LinkedChanged.Emit();
 	}
 }
 
 void Object::SetLinkedObject(const std::string& objectId)
 {
-	if (!objectId.length() && _linked.enabled) {
-		_linked.objectId = "";
+	if (objectId.empty() && _linked.enabled) {
+		_linked.objectId.clear();
 		SetLinked(false);
-		return;
 	}
-	else if (objectId.length()) {
+	else if (!objectId.empty()) {
 		if (!_linked.enabled) {
 			_linked.objectId = objectId;
 			SetLinked(true);
-			return;
 		}
 		else if (_linked.objectId != objectId) {
 			_linked.objectId = objectId;
-			LinkedChanged.Emit(std::forward<bool>(_linked.enabled));
+			LinkedChanged.Emit();
 		}
 	}
 }
@@ -184,4 +182,5 @@ void Object::SetZOrder(int32_t zOrder)
 void Object::setId(const std::string& id)
 {
 	_id = id;
+	IdChanged.Emit();
 }

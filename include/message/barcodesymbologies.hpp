@@ -2,7 +2,6 @@
 #define DOT_MESSAGE_BARCODE_SYMBOLOGIES_HPP
 
 #include "utils/smartenum.hpp"
-#include "signal/signal.hpp"
 
 namespace macsa {
 	namespace dot {

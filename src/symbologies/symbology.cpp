@@ -38,11 +38,9 @@ namespace  {
 	static const bool QRCodeFactoryRegistered = ConcreteSymbologyFactory<QRCode>::Register(NBarcodeSymbol::kQRCode);
 	static const bool GS1QRCodeFactoryRegistered = ConcreteSymbologyFactory<GS1QRCode>::Register(NBarcodeSymbol::kGS1QRCode);
 	static const bool MicroQRCodeFactoryRegistered = ConcreteSymbologyFactory<MicroQRCode>::Register(NBarcodeSymbol::kMicroQRCode);
-
 }
 
-
-Symbology::Symbology(const BarcodeSymbol &symbol) :
+Symbology::Symbology(const BarcodeSymbol& symbol) :
 	_symbology{symbol}
 {}
 
@@ -55,12 +53,11 @@ OneDimensionBarcode::OneDimensionBarcode(const BarcodeSymbol& symbol) :
 	_bearer{NBearerBarStyle::kNone}
 {}
 
-TwoDimensionsBarcode::TwoDimensionsBarcode(const BarcodeSymbol &symbol) :
+TwoDimensionsBarcode::TwoDimensionsBarcode(const BarcodeSymbol& symbol) :
 	Symbology(symbol),
 	_shavingEnabled{false},
 	_shavingValue{0}
 {}
-
 
 TwoDimensionsGS1Barcode::TwoDimensionsGS1Barcode(const BarcodeSymbol &symbol) :
 	TwoDimensionsBarcode(symbol),
