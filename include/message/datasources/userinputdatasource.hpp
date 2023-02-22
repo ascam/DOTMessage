@@ -3,7 +3,7 @@
 
 #include <string>
 #include "message/datasources/datasource.hpp"
-#include "vector"
+#include "signal/signal.hpp"
 
 namespace macsa {
 	namespace dot {
@@ -165,6 +165,7 @@ namespace macsa {
 
 					UserInfo();
 				};
+
 				/**
 				 * @brief The Limits struct. This struct has the limits
 				 * of the value when is a numeric input.
@@ -175,6 +176,7 @@ namespace macsa {
 
 					Limits();
 				};
+
 				/**
 				 * @brief The InputTextAttributes struct. This struct has the
 				 * parameters of the input text.
@@ -218,13 +220,18 @@ namespace macsa {
 				const std::string& GetPrompt() const {
 					return _prompt;
 				}
+
 				/**
 				 * @brief SetPrompt. Setter method for the prompt shown to the user.
 				 * @param value: string to show to the user when the data is requested.
 				 */
-				void SetPrompt(const std::string& value) {
-					_prompt = value;
+				void SetPrompt(const std::string& prompt) {
+					if (prompt != _prompt)	{
+						_prompt = prompt;
+						PromptChanged.Emit();
+					}
 				}
+
 				/**
 				 * @brief GetValue. Getter method for the current user value.
 				 * @return The current text to render
@@ -232,13 +239,18 @@ namespace macsa {
 				const std::string& GetValue() const {
 					return _value;
 				}
+
 				/**
 				 * @brief SetValue. Setter method for the current user value.
 				 * @param value: The text to be rendered
 				 */
 				void SetValue(const std::string& value) {
-					_value = value;
+					if (value != _value)	{
+						_value = value;
+						ValueChanged.Emit();
+					}
 				}
+
 				/**
 				 * @brief GetDefaultValue. Getter method for default value.
 				 * @return the default value of the input if is not changed by
@@ -247,12 +259,16 @@ namespace macsa {
 				const std::string& GetDefaultValue() const {
 					return _defaultValue;
 				}
+
 				/**
 				 * @brief SetDefaultValue. Setter method for default value.
 				 * @param value: the default value of the input.
 				 */
 				void SetDefaultValue(const std::string& value) {
-					_defaultValue = value;
+					if (value != _defaultValue)	{
+						_defaultValue = value;
+						DefaultValueChanged.Emit();
+					}
 				}
 
 				/**
@@ -262,13 +278,18 @@ namespace macsa {
 				const std::string& GetUserText() const {
 					return _userText;
 				}
+
 				/**
 				 * @brief SetUserText. Setter method for the value changed by a user
 				 * @param value: the value changed by a user
 				 */
 				void SetUserText(const std::string& value) {
-					_userText = value;
+					if (value != _userText)	{
+						_userText = value;
+						UserTextChanged.Emit();
+					}
 				}
+
 				/**
 				 * @brief GetUserInfo. Getter method of the user info struct
 				 * @return the user info struct that contains the info about
@@ -277,13 +298,16 @@ namespace macsa {
 				const UserInfo& GetUserInfo() const {
 					return _userInfo;
 				}
+
 				/**
 				 * @brief SetUserInfo. Setter method of the user info struct
 				 * @param info: the user info struct to set .
 				 */
 				void SetUserInfo(const UserInfo& info) {
 					_userInfo = info;
+					UserInfoChanged.Emit();
 				}
+
 				/**
 				 * @brief GetDataType. Getter method of the input data type.
 				 * @return The current configured input data type.
@@ -291,12 +315,16 @@ namespace macsa {
 				const DataType& GetDataType() const {
 					return _dataType;
 				}
+
 				/**
 				 * @brief SetDataType. Setter method of the input data type.
 				 * @param type: The input data type to configure.
 				 */
 				void SetDataType(const DataType& type) {
-					_dataType = type;
+					if (type != _dataType)	{
+						_dataType = type;
+						DataTypeChanged.Emit();
+					}
 				}
 
 				/**
@@ -306,13 +334,18 @@ namespace macsa {
 				const DataTypeMode& GetDataTypeMode() const {
 					return _dataTypeMode;
 				}
+
 				/**
 				 * @brief SetDataTypeMode. Setter method of the available input data type.
 				 * @param type: the available input data type.
 				 */
 				void SetDataTypeMode(const DataTypeMode& type) {
-					_dataTypeMode = type;
+					if (type != _dataTypeMode)	{
+						_dataTypeMode = type;
+						DataTypeModeChanged.Emit();
+					}
 				}
+
 				/**
 				 * @brief GetPromptBehavior. Getter method for the behaviour of the
 				 * prompted text
@@ -321,14 +354,19 @@ namespace macsa {
 				const PromptBehavior& GetPromptBehavior() const {
 					return _promptBehavior;
 				}
+
 				/**
 				 * @brief SetPromptBehavior. Setter method for the behaviour of the
 				 * prompted text
 				 * @param behaviour: The prompted text behaviour.
 				 */
 				void SetPromptBehavior(const PromptBehavior& behaviour) {
-					_promptBehavior = behaviour;
+					if (behaviour != _promptBehavior)	{
+						_promptBehavior = behaviour;
+						PromptBehaviorChanged.Emit();
+					}
 				}
+
 				/**
 				 * @brief GetInputTextAttributes. Getter method of the input text
 				 * attributs.
@@ -337,6 +375,7 @@ namespace macsa {
 				const InputTextAttributes& GetInputTextAttributes() const {
 					return _inputTextAttributes;
 				}
+
 				/**
 				 * @brief SetInputTextAttributes. Setter method of the input text
 				 * attributs.
@@ -345,7 +384,9 @@ namespace macsa {
 				 */
 				void SetInputTextAttributes(const InputTextAttributes& attributes) {
 					_inputTextAttributes = attributes;
+					InputTextAttributesChanged.Emit();
 				}
+
 				/**
 				 * @brief GetRequired. Getter method of the required parameter.
 				 * This parameter force the request of the input before the messages
@@ -356,14 +397,30 @@ namespace macsa {
 				bool GetRequired() const {
 					return _required;
 				}
+
 				/**
 				 * @brief SetRequired. Setter method of the required parameter.
 				 * @param required: bool to force the request of the input before
 				 * to print the message.
 				 */
 				void SetRequired(bool required) {
-					_required = required;
+					if (required != _required)	{
+						_required = required;
+						RequiredChanged.Emit();
+					}
 				}
+
+			public:
+				Signal<> PromptChanged;
+				Signal<> ValueChanged;
+				Signal<> UserTextChanged;
+				Signal<> UserInfoChanged;
+				Signal<> DefaultValueChanged;
+				Signal<> DataTypeChanged;
+				Signal<> DataTypeModeChanged;
+				Signal<> PromptBehaviorChanged;
+				Signal<> InputTextAttributesChanged;
+				Signal<> RequiredChanged;
 
 			private:
 				std::string _prompt;

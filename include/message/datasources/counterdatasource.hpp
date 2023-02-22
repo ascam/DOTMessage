@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdint>
 #include "message/datasources/datasource.hpp"
+#include <signal/signal.hpp>
 
 namespace macsa {
 	namespace dot {
@@ -48,8 +49,11 @@ namespace macsa {
 				 * source counter value.
 				 * @param value: source counter value
 				 */
-				void SetCounterValue(int value) {
-					_counter = value;
+				void SetCounterValue(int counter) {
+					if (counter != _counter)	{
+						_counter = counter;
+						CounterValueChanged.Emit();
+					}
 				}
 
 				/**
@@ -66,8 +70,11 @@ namespace macsa {
 				 * leading zeros
 				 * @param zeros: number of leading zeros to print.
 				 */
-				void SetLeadingZeros(uint32_t zeros) {
-					_leadingZeros = zeros;
+				void SetLeadingZeros(uint32_t leadingZeros) {
+					if (leadingZeros != _leadingZeros)	{
+						_leadingZeros = leadingZeros;
+						LeadingZerosChanged.Emit();
+					}
 				}
 
 				/**
@@ -85,7 +92,10 @@ namespace macsa {
 				 * @param minValue: the minimum value to print.
 				 */
 				void SetMinValue(int minValue) {
-					_minValue = minValue;
+					if (minValue != _minValue)	{
+						_minValue = minValue;
+						MinValueChanged.Emit();
+					}
 				}
 
 				/**
@@ -103,7 +113,10 @@ namespace macsa {
 				 * @param maxValue: the maximum value to print.
 				 */
 				void SetMaxValue(int maxValue) {
-					_maxValue = maxValue;
+					if (maxValue != _maxValue)	{
+						_maxValue = maxValue;
+						MaxValueChanged.Emit();
+					}
 				}
 
 				/**
@@ -121,7 +134,10 @@ namespace macsa {
 				 * before jump to the next value.
 				 */
 				void SetRepeatCounter(uint repeatCounter) {
-					_repeatCounter = repeatCounter;
+					if (repeatCounter != _repeatCounter)	{
+						_repeatCounter = repeatCounter;
+						RepeatCounterChanged.Emit();
+					}
 				}
 
 				/**
@@ -137,8 +153,19 @@ namespace macsa {
 				 * @param step: how many counts will jump in a step.
 				 */
 				void SetStep(int step) {
-					_step = step;
+					if (_step != step)	{
+						_step = step;
+						StepChanged.Emit();
+					}
 				}
+
+			public:
+				Signal<> StepChanged;
+				Signal<> RepeatCounterChanged;
+				Signal<> MaxValueChanged;
+				Signal<> MinValueChanged;
+				Signal<> LeadingZerosChanged;
+				Signal<> CounterValueChanged;
 
 			private:
 				int _counter;

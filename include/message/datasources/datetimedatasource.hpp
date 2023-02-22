@@ -3,6 +3,7 @@
 
 #include <string>
 #include "message/datasources/datasource.hpp"
+#include "signal/signal.hpp"
 
 namespace macsa {
 	namespace dot {
@@ -38,14 +39,23 @@ namespace macsa {
 				 * @return The date and time format used to return
 				 * the data
 				 */
-				std::string GetFormat() const;
+				std::string GetFormat() const
+				{
+					return _format;
+				}
 
 				/**
 				 * @brief SetFormat. Setter method for date and time
 				 * format.
 				 * @param format: The date and time format.
 				 */
-				void SetFormat(const std::string& format);
+				void SetFormat(const std::string& format)
+				{
+					if (format != _format)	{
+						_format = format;
+						FormatChanged.Emit();
+					}
+				}
 
 				/**
 				 * @brief DaysOffset. Getter method for the days
@@ -63,7 +73,10 @@ namespace macsa {
 				 * current date.
 				 */
 				void SetDaysOffset(int offset) {
-					_daysOffset = offset;
+					if (offset != _daysOffset)	{
+						_daysOffset = offset;
+						DaysOffsetChanged.Emit();
+					}
 				}
 
 				/**
@@ -82,7 +95,10 @@ namespace macsa {
 				 * current date.
 				 */
 				void SetMonthsOffset(int offset) {
-					_monthsOffset = offset;
+					if (offset != _monthsOffset)	{
+						_monthsOffset = offset;
+						MonthOffsetChanged.Emit();
+					}
 				}
 
 				/**
@@ -93,6 +109,7 @@ namespace macsa {
 				int GetYearsOffset() const {
 					return _yearsOffset;
 				}
+
 				/**
 				 * @brief SetYearsOffset. Setter method for the years
 				 * offset to apply at the current date.
@@ -100,7 +117,10 @@ namespace macsa {
 				 * current date.
 				 */
 				void SetYearsOffset(int offset) {
-					_yearsOffset = offset;
+					if (offset != _yearsOffset)	{
+						_yearsOffset = offset;
+						YearsOffsetChanged.Emit();
+					}
 				}
 
 				/**
@@ -111,14 +131,25 @@ namespace macsa {
 				uint GetHourDaysStart() const {
 					return _hourDaysStart;
 				}
+
 				/**
 				 * @brief SetHourDaysStart. Getter method for the hour
 				 * which the day starts.
 				 * @param hourDayStart: the hour were the day changes to the next day.
 				 */
 				void SetHourDaysStart(uint hourDayStart) {
-					_hourDaysStart = hourDayStart;
+					if (hourDayStart != _hourDaysStart)	{
+						_hourDaysStart = hourDayStart;
+						HourDaysStartChanged.Emit();
+					}
 				}
+
+			public:
+				Signal<> HourDaysStartChanged;
+				Signal<> YearsOffsetChanged;
+				Signal<> MonthOffsetChanged;
+				Signal<> DaysOffsetChanged;
+				Signal<> FormatChanged;
 
 			private:
 				std::string _format;
@@ -126,7 +157,6 @@ namespace macsa {
 				int _monthsOffset;
 				int _yearsOffset;
 				uint _hourDaysStart;
-
 		};
 	}
 }

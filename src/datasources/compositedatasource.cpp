@@ -47,7 +47,7 @@ RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
 	return policy;
 }
 
-void CompositeDataSource::SetFormula(const std::string &formula)
+void CompositeDataSource::SetFormula(const std::string& formula)
 {
 	std::vector<std::string> slices =  stringutils::Split(_formula, kDelimiter);
 	if (slices.size() % 2) {
@@ -60,4 +60,6 @@ void CompositeDataSource::SetFormula(const std::string &formula)
 	for (auto index = 0u; index < slices.size(); index += 2) {
 		_tokens.emplace_back(slices.at(index), slices.at(index + 1));
 	}
+
+	FormulaChanged.Emit();
 }

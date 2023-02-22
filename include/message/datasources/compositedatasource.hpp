@@ -2,6 +2,8 @@
 #define DOT_MESSAGE_COMPOSITE_DATASOURCE_HPP
 
 #include <string>
+
+#include "signal/signal.hpp"
 #include "message/datasources/datasource.hpp"
 
 namespace macsa {
@@ -55,6 +57,9 @@ namespace macsa {
 				 * @param formula: The
 				 */
 				void SetFormula(const std::string& formula);
+
+			public:
+				Signal<> FormulaChanged;
 
 			private:
 				using Token = std::pair<std::string,std::string>;

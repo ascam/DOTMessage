@@ -12,12 +12,8 @@ using macsa::dot::NDataType;
 using macsa::dot::DataTypeMode;
 using macsa::dot::NDataTypeMode;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool UserInputFactoryRegistered = ConcreteDataSourceFactory<UserInputDataSource>::Register(NDataSourceType::kUserInput);
-		}
-	}
+namespace  {
+	static const bool UserInputFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
 }
 
 UserInputDataSource::UserInfo::UserInfo() :

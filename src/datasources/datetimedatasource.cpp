@@ -4,12 +4,8 @@
 using macsa::dot::DateTimeDataSource;
 using macsa::dot::RefreshPolicy;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool DateTimeFactoryRegistered = ConcreteDataSourceFactory<DateTimeDataSource>::Register(NDataSourceType::kDateTime);
-		}
-	}
+namespace  {
+	static const bool DateTimeFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<DateTimeDataSource>::Register(macsa::dot::NDataSourceType::kDateTime);
 }
 
 DateTimeDataSource::DateTimeDataSource() :
@@ -29,14 +25,4 @@ std::string DateTimeDataSource::GetData()
 macsa::dot::RefreshPolicy DateTimeDataSource::GetRefreshPolicy() const
 {
 	return RefreshPolicy::kNone;
-}
-
-std::string DateTimeDataSource::GetFormat() const
-{
-	return _format;
-}
-
-void DateTimeDataSource::SetFormat(const std::string &format)
-{
-	_format = format;
 }
