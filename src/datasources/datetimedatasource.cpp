@@ -1,8 +1,9 @@
 #include "message/datasources/datetimedatasource.hpp"
 #include "factories/datasourcefactory.hpp"
+#include "message/documentvisitor.hpp"
 
 using macsa::dot::DateTimeDataSource;
-using macsa::dot::RefreshPolicy;
+using macsa::dot::IDocumentVisitor;
 
 namespace macsa {
 	namespace dot {
@@ -21,15 +22,15 @@ DateTimeDataSource::DateTimeDataSource() :
 	_hourDaysStart{}
 {}
 
-std::string DateTimeDataSource::GetData()
+
+bool DateTimeDataSource::Accept(IDocumentVisitor* visitor)
 {
-	return _format;
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
 }
 
-macsa::dot::RefreshPolicy DateTimeDataSource::GetRefreshPolicy() const
-{
-	return RefreshPolicy::kNone;
-}
 
 std::string DateTimeDataSource::GetFormat() const
 {

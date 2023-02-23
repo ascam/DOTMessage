@@ -1,17 +1,18 @@
 #include "message/datasources/compositedatasource.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/datasourcefactory.hpp"
-#include "message/document.hpp"
-#include "message/object.hpp"
 #include "utils/stringutils.hpp"
 #include "utils/macsalogger.hpp"
 
 using macsa::dot::CompositeDataSource;
 using macsa::dot::RefreshPolicy;
+using macsa::dot::IDocumentVisitor;
 using namespace macsa::utils;
 
-constexpr const char* kFieldItem = "Field";
-constexpr const char* kTextItem = "Fixed";
-constexpr const char* kCharsToRemove = "\'\"";
+// TODO(iserra) move to visitors
+//constexpr const char* kFieldItem = "Field";
+//constexpr const char* kTextItem = "Fixed";
+//constexpr const char* kCharsToRemove = "\'\"";
 constexpr const char* kDelimiter = "|";
 
 namespace macsa {
@@ -24,34 +25,35 @@ namespace macsa {
 
 CompositeDataSource::CompositeDataSource() :
 	DataSource(NDataSourceType::kComposite),
-	_formula{},
-	_tokens{}
+	_formula{}
 {}
 
-std::string CompositeDataSource::GetData()
+bool CompositeDataSource::Accept(IDocumentVisitor* visitor)
 {
-	// ToDo(iserra) : Add visitors
-	return "";
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
 }
 
-RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
-{
-	RefreshPolicy policy = RefreshPolicy::kNone;
-	for (auto& token : _tokens) {
-		if (token.first == kFieldItem) {
-			const auto* object = _document->GetObjectById(token.second);
-			if (object && object->IsVariable())  {
-				auto objPolicy = object->GetRefreshPolicy();
-				if (objPolicy != RefreshPolicy::kNone) {
-					if (policy > objPolicy || policy == RefreshPolicy::kNone) {
-						policy = objPolicy;
-					}
-				}
-			}
-		}
-	}
-	return policy;
-}
+//RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
+//{
+//	RefreshPolicy policy = RefreshPolicy::kNone;
+//	for (auto& token : _tokens) {
+//		if (token.first == kFieldItem) {
+//			const auto* object = _document->GetObjectById(token.second);
+//			if (object && object->IsVariable())  {
+//				auto objPolicy = object->GetRefreshPolicy();
+//				if (objPolicy != RefreshPolicy::kNone) {
+//					if (policy > objPolicy || policy == RefreshPolicy::kNone) {
+//						policy = objPolicy;
+//					}
+//				}
+//			}
+//		}
+//	}
+//	return policy;
+//}
 
 void CompositeDataSource::SetFormula(const std::string &formula)
 {
@@ -61,9 +63,9 @@ void CompositeDataSource::SetFormula(const std::string &formula)
 		return;
 	}
 	_formula = formula;
-	_tokens.clear();
-	for (uint32_t index = 0; index < slices.size(); index += 2) {
-		_tokens.emplace_back(slices.at(index), slices.at(index + 1));
-	}
+//	_tokens.clear();
+//	for (uint32_t index = 0; index < slices.size(); index += 2) {
+//		_tokens.emplace_back(slices.at(index), slices.at(index + 1));
+//	}
 }
 
