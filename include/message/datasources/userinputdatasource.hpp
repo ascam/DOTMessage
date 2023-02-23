@@ -164,6 +164,13 @@ namespace macsa {
 					std::string timestamp;
 
 					UserInfo();
+
+					bool operator == (const UserInfo& other) const {
+						return device == other.device && timestamp == other.timestamp;
+					}
+					bool operator != (const UserInfo& other) const {
+						return device != other.device || timestamp != other.timestamp;
+					}
 				};
 
 				/**
@@ -175,6 +182,13 @@ namespace macsa {
 					unsigned int max;
 
 					Limits();
+
+					bool operator == (const Limits& other) const {
+						return min == other.min && max == other.max;
+					}
+					bool operator != (const Limits& other) const {
+						return min != other.min && max != other.max;
+					}
 				};
 
 				/**
@@ -192,6 +206,19 @@ namespace macsa {
 					Limits range;
 
 					InputTextAttributes();
+
+					bool operator == (const InputTextAttributes& other) const {
+						return limits == other.limits &&
+								padding == other.padding &&
+								paddingChar == other.paddingChar &&
+								range == other.range;
+					}
+					bool operator != (const InputTextAttributes& other) const {
+						return limits != other.limits ||
+								padding != other.padding ||
+								paddingChar != other.paddingChar ||
+								range != other.range;
+					}
 				};
 
 			public:
@@ -304,8 +331,10 @@ namespace macsa {
 				 * @param info: the user info struct to set .
 				 */
 				void SetUserInfo(const UserInfo& info) {
-					_userInfo = info;
-					UserInfoChanged.Emit();
+					if (_userInfo != info) {
+						_userInfo = info;
+						UserInfoChanged.Emit();
+					}
 				}
 
 				/**
@@ -383,8 +412,10 @@ namespace macsa {
 				 * apply.
 				 */
 				void SetInputTextAttributes(const InputTextAttributes& attributes) {
-					_inputTextAttributes = attributes;
-					InputTextAttributesChanged.Emit();
+					if (_inputTextAttributes != attributes)	{
+						_inputTextAttributes = attributes;
+						InputTextAttributesChanged.Emit();
+					}
 				}
 
 				/**
