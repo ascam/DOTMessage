@@ -48,7 +48,7 @@ void Text::SetText(const std::string& text)
 	}
 }
 
-void Text::SetFont(const Font &font)
+void Text::SetFont(const Font& font)
 {
 	if (_font != font) {
 		_font = font;
@@ -56,7 +56,7 @@ void Text::SetFont(const Font &font)
 	}
 }
 
-void Text::SetForegroundColor(const std::string &foreColor)
+void Text::SetForegroundColor(const std::string& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
@@ -64,7 +64,7 @@ void Text::SetForegroundColor(const std::string &foreColor)
 	}
 }
 
-void Text::SetBackgroundColor(const std::string &backgroundColor)
+void Text::SetBackgroundColor(const std::string& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;
@@ -72,7 +72,7 @@ void Text::SetBackgroundColor(const std::string &backgroundColor)
 	}
 }
 
-void Text::SetTextBoxProperties(const TextBoxProperties &boxProps)
+void Text::SetTextBoxProperties(const TextBoxProperties& boxProps)
 {
 	if (_textBoxProperties != boxProps) {
 		_textBoxProperties = boxProps;

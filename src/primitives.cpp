@@ -24,7 +24,7 @@ Primitive::Primitive(const std::string& id, const Geometry& geometry, const macs
 	_border{true}
 {}
 
-void Primitive::SetPen(const macsa::dot::Pen &pen)
+void Primitive::SetPen(const macsa::dot::Pen& pen)
 {
 	if (_pen != pen) {
 		_pen = pen;
@@ -32,7 +32,7 @@ void Primitive::SetPen(const macsa::dot::Pen &pen)
 	}
 }
 
-void Primitive::SetBrush(const macsa::dot::Color &brush)
+void Primitive::SetBrush(const macsa::dot::Color& brush)
 {
 	if (_brush != brush) {
 		_brush = brush;
@@ -56,18 +56,18 @@ void Primitive::ShowBorder(bool show)
 	}
 }
 
-Rectangle::Rectangle(const std::string &id, const Geometry &geometry) :
+Rectangle::Rectangle(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kRectangle)
 {}
 
-Ellipse::Ellipse(const std::string &id, const Geometry &geometry) :
+Ellipse::Ellipse(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kEllipse)
 {}
 
-Diamond::Diamond(const std::string &id, const Geometry &geometry) :
+Diamond::Diamond(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kDiamond)
 {}
 
-Line::Line(const std::string &id, const Geometry &geometry) :
+Line::Line(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kLine)
 {}

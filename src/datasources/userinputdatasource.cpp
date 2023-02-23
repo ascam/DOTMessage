@@ -62,7 +62,7 @@ const std::vector<std::pair<NDataType, std::string>>& DataType::getData() const{
 	return dataTypeData;
 }
 
-const std::vector<std::pair<NDataTypeMode, std::string> > &DataTypeMode::getData() const
+const std::vector<std::pair<NDataTypeMode, std::string>>& DataTypeMode::getData() const
 {
 	static const std::vector<std::pair<NDataTypeMode,std::string>> kNDataTypeModeData {
 		{NDataTypeMode::kNumeric,    "1"},

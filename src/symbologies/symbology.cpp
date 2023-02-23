@@ -59,7 +59,7 @@ TwoDimensionsBarcode::TwoDimensionsBarcode(const BarcodeSymbol& symbol) :
 	_shavingValue{0}
 {}
 
-TwoDimensionsGS1Barcode::TwoDimensionsGS1Barcode(const BarcodeSymbol &symbol) :
+TwoDimensionsGS1Barcode::TwoDimensionsGS1Barcode(const BarcodeSymbol& symbol) :
 	TwoDimensionsBarcode(symbol),
 	_separator{NGS1AISeparator::kFNC1}
 {}
