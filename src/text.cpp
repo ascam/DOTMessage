@@ -1,10 +1,12 @@
 #include "message/text.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Text;
 using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
+using macsa::dot::IDocumentVisitor;
 
 namespace macsa {
 	namespace dot {
@@ -26,25 +28,22 @@ Text::Text(const std::string &id, const macsa::dot::Geometry &geometry) :
 Text::~Text()
 {}
 
-std::string Text::GetData() const
-{
-	if (IsVariable()) {
-		return _datasource->GetData();
-	}
-	return _text;
-}
-
-RefreshPolicy Text::GetRefreshPolicy() const
-{
-	if (IsVariable()) {
-		return _datasource->GetRefreshPolicy();
-	}
-	return RefreshPolicy::kNone;
-}
-
 bool Text::IsVariable() const
 {
 	return _datasource.get() != nullptr;
+}
+
+bool Text::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		if (visitor->VisitEnter(*this)) {
+			if (IsVariable()) {
+				_datasource->Accept(visitor);
+			}
+		}
+		return visitor->VisitExit(*this);
+	}
+	return false;
 }
 
 void Text::SetText(const std::string &text)

@@ -13,14 +13,6 @@ VariableObject::VariableObject(const std::string &id, const ObjectType &type, co
 	_datasource{}
 {}
 
-RefreshPolicy VariableObject::GetRefreshPolicy() const
-{
-	if (_datasource.get())  {
-		return _datasource->GetRefreshPolicy();
-	}
-	return RefreshPolicy::kNone;
-}
-
 DataSource* VariableObject::GetDatasource() const
 {
 	return _datasource.get();

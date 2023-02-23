@@ -6,7 +6,7 @@
 
 namespace macsa {
 	namespace dot {
-
+		class IDocumentVisitor;
 		class Primitive : public Object
 		{
 			public:
@@ -14,14 +14,6 @@ namespace macsa {
 				Primitive(const Primitive&) = delete;
 				virtual ~Primitive() = default;
 
-				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return RefreshPolicy::kNone always.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override {
-					return RefreshPolicy::kNone;
-				}
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return false always.
@@ -104,6 +96,14 @@ namespace macsa {
 				Rectangle(const std::string& id, const Geometry& geometry);
 				Rectangle(const Rectangle&) = delete;
 				virtual ~Rectangle(){}
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) override;
 		};
 
 		class Ellipse : public Primitive
@@ -112,6 +112,14 @@ namespace macsa {
 				Ellipse(const std::string& id, const Geometry& geometry);
 				Ellipse(const Ellipse&) = delete;
 				virtual ~Ellipse(){}
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) override;
 		};
 
 		class Diamond : public Primitive
@@ -120,6 +128,14 @@ namespace macsa {
 				Diamond(const std::string& id, const Geometry& geometry);
 				Diamond(const Diamond&) = delete;
 				virtual ~Diamond(){}
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) override;
 		};
 
 		class Line : public Primitive
@@ -128,6 +144,14 @@ namespace macsa {
 				Line(const std::string& id, const Geometry& geometry);
 				Line(const Line&) = delete;
 				virtual ~Line(){}
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				bool IsFilled() const override {return false;}
 				bool HasBorder() const override {return true;}

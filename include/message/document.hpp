@@ -15,6 +15,7 @@
 namespace macsa {
 	namespace dot {
 		class Object;
+		class IDocumentVisitor;
 		/**
 		 * @brief The Document class.
 		 *
@@ -256,6 +257,16 @@ namespace macsa {
 				 * @param gsLevel
 				 */
 				void SetGrayScaleLevel(uint32_t levels) {_gsLevels = levels;}
+
+				/**
+				 * @brief Accept: Accept a hierarchical visit of the nodes in the
+				 * dot::Document DOM. Every node in the DOM tree will be conditionally
+				 * visited and the host will be called back via the IDocumentVisitor interface.
+				 * This is essentially a SAX interface for DOM and document.
+				 * @param visitor: Visitor interfaced used to visit the DOM.
+				 * @return the result of visitor::visit().
+				 */
+				bool Accept(IDocumentVisitor* visitor);
 
 			private:
 				std::string _name;

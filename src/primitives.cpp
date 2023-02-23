@@ -1,4 +1,5 @@
 #include "message/primitives.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Primitive;
@@ -8,6 +9,7 @@ using macsa::dot::Ellipse;
 using macsa::dot::Diamond;
 using macsa::dot::Line;
 using macsa::dot::NObjectType;
+using macsa::dot::IDocumentVisitor;
 
 namespace macsa {
 	namespace dot {
@@ -64,14 +66,46 @@ Rectangle::Rectangle(const std::string &id, const Geometry &geometry) :
 	Primitive(id, geometry, NObjectType::kRectangle)
 {}
 
+bool Rectangle::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
+
 Ellipse::Ellipse(const std::string &id, const Geometry &geometry) :
 	Primitive(id, geometry, NObjectType::kEllipse)
 {}
+
+bool Ellipse::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
 
 Diamond::Diamond(const std::string &id, const Geometry &geometry) :
 	Primitive(id, geometry, NObjectType::kDiamond)
 {}
 
+bool Diamond::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
+
 Line::Line(const std::string &id, const Geometry &geometry) :
 	Primitive(id, geometry, NObjectType::kLine)
 {}
+
+bool Line::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}

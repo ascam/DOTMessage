@@ -61,13 +61,13 @@ namespace macsa {
 				virtual ~Image();
 
 				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return The refresh policy of the object.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				RefreshPolicy GetRefreshPolicy() const override {
-					return RefreshPolicy::kNone;
-				}
+				bool Accept(IDocumentVisitor* visitor) override;
+
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,

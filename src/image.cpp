@@ -1,8 +1,10 @@
 #include "message/image.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Image;
 using macsa::dot::Geometry;
+using macsa::dot::IDocumentVisitor;
 
 namespace macsa {
 	namespace dot {
@@ -27,6 +29,14 @@ Image::Image(const std::string &id, const Geometry &geometry) :
 
 Image::~Image()
 {}
+
+bool Image::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
 
 void Image::SetData(const Image::ByteArray &data)
 {

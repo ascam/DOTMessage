@@ -9,6 +9,7 @@
 namespace macsa {
 	namespace dot {
 		class Symbology;
+		class IDocumentVisitor;
 		class Barcode : public VariableObject
 		{
 			public:
@@ -17,12 +18,12 @@ namespace macsa {
 				virtual ~Barcode() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the code resolving the variable fields.
-				 * @return The code that must be rendered after resolving
-				 * variable fields.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() const override;
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetSymbology. Getter method for the barcode symbology
