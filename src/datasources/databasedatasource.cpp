@@ -4,12 +4,8 @@
 using macsa::dot::DatabaseDataSource;
 using macsa::dot::RefreshPolicy;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool DatabaseFactoryRegistered = ConcreteDataSourceFactory<DatabaseDataSource>::Register(NDataSourceType::kDataBase);
-		}
-	}
+namespace  {
+	static const bool DatabaseFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<DatabaseDataSource>::Register(macsa::dot::NDataSourceType::kDataBase);
 }
 
 macsa::dot::DatabaseDataSource::DatabaseDataSource() :

@@ -70,6 +70,7 @@ namespace macsa
 				const TextBoxAdjustment& GetBoxAdjustment() const {
 					return _boxAdjustment;
 				}
+
 				/**
 				 * @brief SetBoxAdjustment. Setter method for text adjustment
 				 * of the text inside a container box.
@@ -78,6 +79,7 @@ namespace macsa
 				void SetBoxAdjustment(const TextBoxAdjustment& adjustment) {
 					_boxAdjustment = adjustment;
 				}
+
 				/**
 				 * @brief GetVerticalAlignment. Getter method for the
 				 * vertical alignment of the text in the container box.
@@ -87,6 +89,7 @@ namespace macsa
 				const VerticalAlignment& GetVerticalAlignment() const {
 					return _verticalAlignment;
 				}
+
 				/**
 				 * @brief SetVerticalAlignment. Setter method for the
 				 * vertical alignment of the text in the container box.
@@ -106,6 +109,7 @@ namespace macsa
 				const HorizontalAlignment& GetHorizontalAlignment() const {
 					return _horizontalAlignment;
 				}
+
 				/**
 				 * @brief SetHorizontalAlignment. Setter method for the
 				 * horizontal alignment of the text in the container box.
@@ -126,6 +130,7 @@ namespace macsa
 				uint32_t GetMaxCharsLine() const {
 					return _maxCharsLine;
 				}
+
 				/**
 				 * @brief SetMaxCharsLine. Setter method for max chars line
 				 * in a Fit to box adjustment.
@@ -146,6 +151,7 @@ namespace macsa
 				bool GetClipText() const {
 					return _clipping;
 				}
+
 				/**
 				 * @brief SetClipText. Setter method for text clipping.
 				 * @param clip: true for clip the text in the container
@@ -163,6 +169,7 @@ namespace macsa
 				float GetLineSpacing() const {
 					return _lineSpacing;
 				}
+
 				/**
 				 * @brief SetLineSpacing. Setter method for text line
 				 * spacing.

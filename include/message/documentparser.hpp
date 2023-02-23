@@ -11,7 +11,6 @@ namespace macsa
 		class IDocumentParser
 		{
 			public:
-				IDocumentParser() = default;
 				virtual ~IDocumentParser() = default;
 
 				virtual bool Parse(const std::string& filepath, Document& document) = 0;

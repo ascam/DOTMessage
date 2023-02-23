@@ -10,16 +10,10 @@ using macsa::dot::RefreshPolicy;
 using namespace macsa::utils;
 
 constexpr const char* kFieldItem = "Field";
-constexpr const char* kTextItem = "Fixed";
-constexpr const char* kCharsToRemove = "\'\"";
 constexpr const char* kDelimiter = "|";
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool CompositeFactoryRegistered = ConcreteDataSourceFactory<CompositeDataSource>::Register(NDataSourceType::kComposite);
-		}
-	}
+namespace  {
+	static const bool CompositeFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<CompositeDataSource>::Register(macsa::dot::NDataSourceType::kComposite);
 }
 
 CompositeDataSource::CompositeDataSource() :
@@ -31,7 +25,7 @@ CompositeDataSource::CompositeDataSource() :
 std::string CompositeDataSource::GetData()
 {
 	// ToDo(iserra) : Add visitors
-	return "";
+	return {};
 }
 
 RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
@@ -53,17 +47,19 @@ RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
 	return policy;
 }
 
-void CompositeDataSource::SetFormula(const std::string &formula)
+void CompositeDataSource::SetFormula(const std::string& formula)
 {
 	std::vector<std::string> slices =  stringutils::Split(_formula, kDelimiter);
-	if (slices.size() % 2 != 0) {
+	if (slices.size() % 2) {
 		ELog() << "Invalid formula \"" << formula << "\"";
 		return;
 	}
 	_formula = formula;
 	_tokens.clear();
-	for (uint32_t index = 0; index < slices.size(); index += 2) {
+
+	for (auto index = 0u; index < slices.size(); index += 2) {
 		_tokens.emplace_back(slices.at(index), slices.at(index + 1));
 	}
-}
 
+	FormulaChanged.Emit();
+}

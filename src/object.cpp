@@ -16,9 +16,6 @@ Object::Object(const std::string& id, const ObjectType& type, const Geometry& ge
 	_printable{true}
 {}
 
-Object::~Object()
-{}
-
 void Object::SetGeometry(const Geometry& geometry)
 {
 	if (_geometry != geometry) {
@@ -125,7 +122,7 @@ void Object::SetSelected(bool select)
 {
 	if (_selected != select) {
 		_selected = select;
-		SelectedChanged.Emit(std::forward<bool>(_selected));
+		SelectedChanged.Emit();
 	}
 }
 
@@ -133,7 +130,7 @@ void Object::SetPrintable(bool printable)
 {
 	if (_printable != printable) {
 		_printable = printable;
-		PrintableChanged.Emit(std::forward<bool>(_printable));
+		PrintableChanged.Emit();
 	}
 }
 
@@ -141,27 +138,15 @@ void Object::SetLinked(bool linked)
 {
 	if (_linked.enabled != linked) {
 		_linked.enabled = linked;
-		LinkedChanged.Emit(std::forward<bool>(_linked.enabled));
+		LinkedChanged.Emit();
 	}
 }
 
 void Object::SetLinkedObject(const std::string& objectId)
 {
-	if (!objectId.length() && _linked.enabled) {
-		_linked.objectId = "";
-		SetLinked(false);
-		return;
-	}
-	else if (objectId.length()) {
-		if (!_linked.enabled) {
-			_linked.objectId = objectId;
-			SetLinked(true);
-			return;
-		}
-		else if (_linked.objectId != objectId) {
-			_linked.objectId = objectId;
-			LinkedChanged.Emit(std::forward<bool>(_linked.enabled));
-		}
+	if (objectId != _linked.objectId) {
+		_linked.objectId = objectId;
+		LinkedObjectChanged.Emit();
 	}
 }
 
@@ -183,5 +168,8 @@ void Object::SetZOrder(int32_t zOrder)
 
 void Object::setId(const std::string& id)
 {
-	_id = id;
+	if (_id != id)	{
+		_id = id;
+		IdChanged.Emit();
+	}
 }

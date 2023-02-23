@@ -99,15 +99,17 @@ namespace macsa {
 					while (getline(ss, value, ',')) {
 						_customDashPattern.push_back(std::stof(value));
 					}
-					if (_customDashPattern.size() % 2 != 0) {
+
+					if (_customDashPattern.size() % 2) {
 						_customDashPattern.pop_back();
 					}
 				}
+
 				/**
 				 * @brief GetCustomDashedPattern. Method to get the custom dash pattern.
 				 * @return The pattern in a sequence numbers.
 				 */
-				std::string GetCustomDashedPattern()
+				std::string GetCustomDashedPattern() const
 				{
 					std::string pattern;
 					if (!_customDashPattern.empty()) {
@@ -151,6 +153,7 @@ namespace macsa {
 					_style{},
 					_width{1.0}
 				{}
+
 				Pen(const Pen& pen) :
 					_color{pen._color},
 					_style{pen._style},
@@ -164,6 +167,7 @@ namespace macsa {
 				const Color& GetColor() const {
 					return _color;
 				}
+
 				/**
 				 * @brief SetColor. Setter method for pen color.
 				 * @param color: The pen color to use.
@@ -171,6 +175,7 @@ namespace macsa {
 				void SetColor(const Color& color) {
 					_color = color;
 				}
+
 				/**
 				 * @brief GetStyle. Getter method for pen line style.
 				 * @return The current pen line style.
@@ -178,6 +183,7 @@ namespace macsa {
 				const PenStyle& GetStyle() const {
 					return _style;
 				}
+
 				/**
 				 * @brief SetStyle. Setter method for pen line style.
 				 * @param style: The pen line style to use.
@@ -185,6 +191,7 @@ namespace macsa {
 				void SetStyle(const PenStyle& style) {
 					_style = style;
 				}
+
 				/**
 				 * @brief GetWidth. Getter method for pen width.
 				 * @return the current pen width.
@@ -192,6 +199,7 @@ namespace macsa {
 				float GetWidth() const {
 					return _width;
 				}
+
 				/**
 				 * @brief SetWidth. Setter method for pen width.
 				 * @param width: the pen width to use.

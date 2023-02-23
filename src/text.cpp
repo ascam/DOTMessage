@@ -6,24 +6,17 @@ using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectsFactory<Text>::Register(NObjectType::kText);
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
 }
 
-Text::Text(const std::string &id, const macsa::dot::Geometry &geometry) :
+Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kText, geometry),
 	_text{},
 	_font{},
 	_foreColor{},
 	_backgroundColor{},
 	_textBoxProperties{}
-{}
-
-Text::~Text()
 {}
 
 std::string Text::GetData() const
@@ -47,39 +40,39 @@ bool Text::IsVariable() const
 	return _datasource.get() != nullptr;
 }
 
-void Text::SetText(const std::string &text)
+void Text::SetText(const std::string& text)
 {
 	if (_text != text) {
 		_text = text;
-		TextChanged.Emit(std::forward<std::string>(_text));
+		TextChanged.Emit();
 	}
 }
 
-void Text::SetFont(const Font &font)
+void Text::SetFont(const Font& font)
 {
 	if (_font != font) {
 		_font = font;
-		FontChanged.Emit(std::forward<Font>(_font));
+		FontChanged.Emit();
 	}
 }
 
-void Text::SetForegroundColor(const std::string &foreColor)
+void Text::SetForegroundColor(const std::string& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
-		ForegroundColorChanged.Emit(std::forward<std::string>(_foreColor));
+		ForegroundColorChanged.Emit();
 	}
 }
 
-void Text::SetBackgroundColor(const std::string &backgroundColor)
+void Text::SetBackgroundColor(const std::string& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;
-		BackgroundColorChanged.Emit(std::forward<std::string>(_backgroundColor));
+		BackgroundColorChanged.Emit();
 	}
 }
 
-void Text::SetTextBoxProperties(const TextBoxProperties &boxProps)
+void Text::SetTextBoxProperties(const TextBoxProperties& boxProps)
 {
 	if (_textBoxProperties != boxProps) {
 		_textBoxProperties = boxProps;

@@ -9,15 +9,11 @@ using macsa::dot::Diamond;
 using macsa::dot::Line;
 using macsa::dot::NObjectType;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool RectangleFactoryRegistered = ConcreteObjectsFactory<Rectangle>::Register(NObjectType::kRectangle);
-			static const bool EllipseFactoryRegistered = ConcreteObjectsFactory<Ellipse>::Register(NObjectType::kEllipse);
-			static const bool DiamondFactoryRegistered = ConcreteObjectsFactory<Diamond>::Register(NObjectType::kDiamond);
-			static const bool LineFactoryRegistered = ConcreteObjectsFactory<Line>::Register(NObjectType::kLine);
-		}
-	}
+namespace  {
+	static const bool RectangleFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Rectangle>::Register(macsa::dot::NObjectType::kRectangle);
+	static const bool EllipseFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Ellipse>::Register(macsa::dot::NObjectType::kEllipse);
+	static const bool DiamondFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Diamond>::Register(macsa::dot::NObjectType::kDiamond);
+	static const bool LineFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Line>::Register(macsa::dot::NObjectType::kLine);
 }
 
 Primitive::Primitive(const std::string& id, const Geometry& geometry, const macsa::dot::ObjectType& primitiveType) :
@@ -28,7 +24,7 @@ Primitive::Primitive(const std::string& id, const Geometry& geometry, const macs
 	_border{true}
 {}
 
-void Primitive::SetPen(const macsa::dot::Pen &pen)
+void Primitive::SetPen(const macsa::dot::Pen& pen)
 {
 	if (_pen != pen) {
 		_pen = pen;
@@ -36,7 +32,7 @@ void Primitive::SetPen(const macsa::dot::Pen &pen)
 	}
 }
 
-void Primitive::SetBrush(const macsa::dot::Color &brush)
+void Primitive::SetBrush(const macsa::dot::Color& brush)
 {
 	if (_brush != brush) {
 		_brush = brush;
@@ -60,18 +56,18 @@ void Primitive::ShowBorder(bool show)
 	}
 }
 
-Rectangle::Rectangle(const std::string &id, const Geometry &geometry) :
+Rectangle::Rectangle(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kRectangle)
 {}
 
-Ellipse::Ellipse(const std::string &id, const Geometry &geometry) :
+Ellipse::Ellipse(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kEllipse)
 {}
 
-Diamond::Diamond(const std::string &id, const Geometry &geometry) :
+Diamond::Diamond(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kDiamond)
 {}
 
-Line::Line(const std::string &id, const Geometry &geometry) :
+Line::Line(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kLine)
 {}

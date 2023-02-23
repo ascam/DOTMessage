@@ -12,12 +12,8 @@ using macsa::dot::NDataType;
 using macsa::dot::DataTypeMode;
 using macsa::dot::NDataTypeMode;
 
-namespace macsa {
-	namespace dot {
-		namespace  {
-			static const bool UserInputFactoryRegistered = ConcreteDataSourceFactory<UserInputDataSource>::Register(NDataSourceType::kUserInput);
-		}
-	}
+namespace  {
+	static const bool UserInputFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
 }
 
 UserInputDataSource::UserInfo::UserInfo() :
@@ -66,7 +62,7 @@ const std::vector<std::pair<NDataType, std::string>>& DataType::getData() const{
 	return dataTypeData;
 }
 
-const std::vector<std::pair<NDataTypeMode, std::string> > &DataTypeMode::getData() const
+const std::vector<std::pair<NDataTypeMode, std::string>>& DataTypeMode::getData() const
 {
 	static const std::vector<std::pair<NDataTypeMode,std::string>> kNDataTypeModeData {
 		{NDataTypeMode::kNumeric,    "1"},

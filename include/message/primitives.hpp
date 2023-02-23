@@ -22,6 +22,7 @@ namespace macsa {
 				RefreshPolicy GetRefreshPolicy() const override {
 					return RefreshPolicy::kNone;
 				}
+
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return false always.
@@ -37,6 +38,7 @@ namespace macsa {
 				virtual const Pen& GetPen() const {
 					return _pen;
 				}
+
 				/**
 				 * @brief SetPen. Setter method for the border pen.
 				 * @param pen: The border pen settings.
@@ -50,6 +52,7 @@ namespace macsa {
 				virtual const Color& GetBrush() const {
 					return _brush;
 				}
+
 				/**
 				 * @brief SetBrush. Setter method for the fill color.
 				 * @param brush: The color to fill the primitive.
@@ -64,12 +67,14 @@ namespace macsa {
 				virtual bool IsFilled() const {
 					return _filled;
 				}
+
 				/**
 				 * @brief SetFilled. Setter method of the filling parameter
 				 * @param fill: bool to force if the primitive will be printed
 				 * filled with the brush color or is transparent.
 				 */
 				virtual void SetFilled(bool fill);
+
 				/**
 				 * @brief HasBorder. Getter method of the printing border
 				 * parameter.
@@ -79,6 +84,7 @@ namespace macsa {
 				virtual bool HasBorder() const {
 					return _border;
 				}
+
 				/**
 				 * @brief ShowBorder. Setter method of the printing border
 				 * parameter.
@@ -95,7 +101,6 @@ namespace macsa {
 				Color _brush;
 				bool _filled;
 				bool _border;
-
 		};
 
 		class Rectangle : public Primitive

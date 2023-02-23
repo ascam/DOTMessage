@@ -26,11 +26,13 @@ namespace macsa {
 				 * @return true if the barcode is part of the GS1 standard.
 				 */
 				virtual bool IsGS1Barcode() const = 0;
+
 				/**
 				 * @brief GetGS1AISeparator. Getter method to get the GS1 AI separator.
 				 * @return The used GS1AISeparator.
 				 */
 				virtual GS1AISeparator GetGS1AISeparator() const = 0;
+
 				/**
 				 * @brief SetGS1AISeparator. Setter method to get the GS1 AI separator.
 				 * @param separator: The GS1AISeparator to use.
@@ -56,21 +58,25 @@ namespace macsa {
 				 * otherwise returns false.
 				 */
 				virtual bool HasShavingMode() const = 0;
+
 				/**
 				 * @brief IsShavingModeEnabled. Getter method for shaving mode enabled.
 				 * @return true if the barcode has shaving mode enbled
 				 */
 				virtual bool IsShavingModeEnabled() const = 0;
+
 				/**
 				 * @brief EnableShavingMode. Setter method for shaving mode enabled.
 				 * @param enable: bool to enable/disable shaving mode.
 				 */
 				virtual void EnableShavingMode(bool enable) = 0;
+
 				/**
 				 * @brief GetShavingValue. Getter method for shaving value.
 				 * @return The shaving value rate in percentage.
 				 */
 				virtual double GetShavingValue() const = 0;
+
 				/**
 				 * @brief SetShavingValue. Setter method for shaving value.
 				 * @param shavingValue: The shaving value rate in percentage (0.0 - 100.0).
@@ -83,6 +89,7 @@ namespace macsa {
 				 * @return the ratio between the thinner and the heaviest line.
 				 */
 				virtual double GetRatio() const = 0;
+
 				/**
 				 * @brief SetRatio. Setter method for barcode ratio. This is the relation
 				 * between the thinner and the heaviest line.
@@ -95,6 +102,7 @@ namespace macsa {
 				 * @return keep aspect ratio value.
 				 */
 				virtual bool GetKeepAspectRatio() const = 0;
+
 				/**
 				 * @brief SetKeepAspectRatio. Setter method for keep aspect ratio property.
 				 * @param keepAspectRatio: bool to set if the barcode must be rendered
@@ -108,6 +116,7 @@ namespace macsa {
 				 * @return true if the checksum is visible, othrewise return false.
 				 */
 				virtual bool GetDisplayChecksum() const = 0;
+
 				/**
 				 * @brief SetDisplayChecksum. Setter method for display checksum value
 				 * in the human readable code.
@@ -130,6 +139,7 @@ namespace macsa {
 				 * @return if code will be displayed under the barcode.
 				 */
 				virtual bool GetShowHumanReadableCode() const = 0;
+
 				/**
 				 * @brief SetShowHumanReadableCode. Setter method for show human readable code.
 				 * @param show: bool to set if code will be displayed under the barcode.
@@ -141,6 +151,7 @@ namespace macsa {
 				 * @return Type of bearer bars.
 				 */
 				virtual BearerBarStyle GetBearerBarStyle() const = 0;
+
 				/**
 				 * @brief SetBearerBarStyle. Setter method for bearer bars.
 				 * @param bearerBarSyle: Type of bearer bars.
@@ -154,6 +165,7 @@ namespace macsa {
 				 * returns false.
 				 */
 				virtual bool IsQrCode() const = 0;
+
 				/**
 				 * @brief GetQrVersion. Getter method for Qr version. Only valid for
 				 * Qr codes.
@@ -161,17 +173,20 @@ namespace macsa {
 				 * return 0.
 				 */
 				virtual uint8_t GetQrVersion() const = 0;
+
 				/**
 				 * @brief SetQrVersion. Setter method for Qr version.
 				 * @param qrVersion: Qr version to set. Only valid for Qr codes.
 				 */
 				virtual void SetQrVersion(uint8_t qrVersion) = 0;
+
 				/**
 				 * @brief GetQrCorrectionLevel. Getter method for QrCorrectionLevel.
 				 * Only valid for Qr codes.
 				 * @return The Qr Correction level.
 				 */
 				virtual QRCorrectionLevel GetQrCorrectionLevel() const = 0;
+
 				/**
 				 * @brief SetQrCorrectionLevel. Setter method for QrCorrectionLevel.
 				 * @param qrCorrectionLevel: The Qr Correction level.

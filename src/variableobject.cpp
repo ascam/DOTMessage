@@ -8,7 +8,7 @@ using macsa::dot::Geometry;
 using macsa::dot::DataSourceType;
 using macsa::dot::RefreshPolicy;
 
-VariableObject::VariableObject(const std::string &id, const ObjectType &type, const Geometry &geometry) :
+VariableObject::VariableObject(const std::string& id, const ObjectType& type, const Geometry& geometry) :
 	Object(id, type, geometry),
 	_datasource{}
 {}
@@ -26,7 +26,7 @@ DataSource* VariableObject::GetDatasource() const
 	return _datasource.get();
 }
 
-DataSource* VariableObject::SetDatasource(const DataSourceType &type)
+DataSource* VariableObject::SetDatasource(const DataSourceType& type)
 {
 	_datasource.reset(DataSourceFactory::Get(type()));
 	return _datasource.get();

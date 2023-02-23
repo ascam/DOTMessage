@@ -21,7 +21,7 @@ std::string Document::GetLibraryVersion()
 	return version.str();
 }
 
-Document::Document(const std::string &name) :
+Document::Document(const std::string& name) :
 	_name{name},
 	_versions{},
 	_colors{},
@@ -31,72 +31,106 @@ Document::Document(const std::string &name) :
 	_dom{}
 {}
 
-Document::~Document()
-{}
-
-void Document::SetName(const std::string &name)
+void Document::SetName(const std::string& name)
 {
-	_name = name;
+	if (_name != name){
+		_name = name;
+		NameChanged.Emit();
+	}
 }
 
-void Document::SetVersion(const std::array<uint8_t,3> &versions)
+void Document::SetVersion(const VersionEncodingArray& versions)
 {
 	_versions = versions;
+	VersionEncodingChanged.Emit();
 }
 
-void Document::SetUnits(const std::string &units)
+void Document::SetUnits(const std::string& units)
 {
-	_units = units;
+	if (_units != units){
+		_units = units;
+		UnitsChanged.Emit();
+	}
 }
 
 void Document::SetCanvasXOffset(float x)
 {
-	_canvasGeometry.position.x = x;
+	if (_canvasGeometry.position.x != x)	{
+		_canvasGeometry.position.x = x;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetCanvasYOffset(float y)
 {
-	_canvasGeometry.position.y = y;
+	if (_canvasGeometry.position.y != y)	{
+		_canvasGeometry.position.y = y;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetCanvasOffset(const Point& pos)
 {
-	_canvasGeometry.position = pos;
+	if (_canvasGeometry.position != pos){
+		_canvasGeometry.position = pos;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetCanvasWidth(float width)
 {
-	_canvasGeometry.size.width = width;
+	if (_canvasGeometry.size.width != width)	{
+		_canvasGeometry.size.width = width;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetCanvasHeight(float height)
 {
-	_canvasGeometry.size.height = height;
+	if(_canvasGeometry.size.height != height)	{
+		_canvasGeometry.size.height = height;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
-void Document::SetCanvasSize(const Size &size)
+void Document::SetCanvasSize(const Size& size)
 {
-	_canvasGeometry.size = size;
+	if(_canvasGeometry.size != size)	{
+		_canvasGeometry.size = size;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetCanvasRotation(int rotation)
 {
-	_canvasGeometry.rotation = rotation;
+	if (_canvasGeometry.rotation != rotation)	{
+		_canvasGeometry.rotation = rotation;
+		CanvasGeometryChanged.Emit();
+	}
 }
 
 void Document::SetViewportWidth(float width)
 {
-	_viewport.width = width;
+	if (_viewport.width != width)	{
+		_viewport.width = width;
+		ViewPortSizeChanged.Emit();
+	}
 }
 
 void Document::SetViewportHeight(float height)
 {
-	_viewport.height = height;
+	if (_viewport.height != height)	{
+		_viewport.height = height;
+		ViewPortSizeChanged.Emit();
+	}
 }
 
-void Document::SetViewportSize(const macsa::dot::Size &size)
+void Document::SetViewportSize(const macsa::dot::Size& size)
 {
-	_viewport = size;
+	if (_viewport != size)	{
+		_viewport = size;
+		ViewPortSizeChanged.Emit();
+	}
 }
 
 std::deque<Object*> Document::GetObjects() const
@@ -107,20 +141,22 @@ std::deque<Object*> Document::GetObjects() const
 		dom.emplace_back(object.get());
 	}
 
-	std::sort(dom.begin(), dom.end(), [](const Object* a, const Object*b) {
+	std::sort(dom.begin(), dom.end(), [](const Object* a, const Object* b) {
 		return *a > *b;
 	});
 
 	return dom;
 }
 
-Object* Document::GetObjectById(const std::string &id) const
+Object* Document::GetObjectById(const std::string& id) const
 {
-	for (auto&& obj : _dom) {
+	for (const auto& obj : _dom) {
 		if (obj->GetId() == id) {
 			return obj.get();
 		}
 	}
+
+
 	return nullptr;
 }
 
@@ -130,6 +166,7 @@ Object *Document::AddObject(const std::string& objectId, const ObjectType& type,
 		Object* object = ObjectsFactory::Get(objectId, type, geometry);
 		if (object) {
 			_dom.emplace_back(object);
+			DomChanged.Emit();
 		}
 		return object;
 	}
@@ -139,14 +176,15 @@ Object *Document::AddObject(const std::string& objectId, const ObjectType& type,
 	return nullptr;
 }
 
-bool Document::RemoveObject(const std::string &id)
+bool Document::RemoveObject(const std::string& id)
 {
-	DOM::iterator objIt = std::find_if(_dom.begin(), _dom.end(), [&id](const pObject& obj){
+	DOM::iterator objIt = std::find_if(_dom.begin(), _dom.end(), [&id](const std::unique_ptr<Object>& obj){
 		return obj->GetId() == id;
 	});
 
 	if (objIt != _dom.end()) {
 		_dom.erase(objIt);
+		DomChanged.Emit();
 		return true;
 	}
 	return false;
@@ -160,14 +198,16 @@ void Document::Clear()
 	_colors.clear();
 	_canvasGeometry = {};
 	_gsLevels = {0};
+	DomChanged.Emit();
 }
 
-bool Document::RenameObject(const std::string &oldId, const std::string &newId) const
+bool Document::RenameObject(const std::string& oldId, const std::string& newId)
 {
 	if (GetObjectById(newId) == nullptr) {
 		auto* object = GetObjectById(oldId);
 		if (object != nullptr) {
 			object->setId(newId);
+			DomChanged.Emit();
 			return true;
 		}
 		else {
@@ -181,21 +221,23 @@ bool Document::RenameObject(const std::string &oldId, const std::string &newId) 
 	return false;
 }
 
-void Document::AddColor(const std::string &name, const macsa::dot::Color &color)
+void Document::AddColor(const std::string& name, const macsa::dot::Color& color)
 {
 	if (_colors.find(name) == _colors.end()) {
 		_colors.emplace(name, color);
+		ColorsPaletteChanged.Emit();
 	}
 	else {
 		WLog() << "Unable to add the color \"" << name << "\" this color is already in the palette.";
 	}
 }
 
-void Document::DeleteColor(const std::string &name)
+void Document::DeleteColor(const std::string& name)
 {
 	auto colorIt = _colors.find(name);
 	if (colorIt != _colors.end()) {
 		_colors.erase(colorIt);
+		ColorsPaletteChanged.Emit();
 	}
 	else {
 		WLog() << "Unable to remove the color \"" << name << "\" this color is not in the palette.";
