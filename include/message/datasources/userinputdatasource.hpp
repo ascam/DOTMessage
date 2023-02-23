@@ -7,6 +7,7 @@
 
 namespace macsa {
 	namespace dot {
+		class IDocumentVisitor;
 
 		/**
 		 * @brief User input prompt behavior
@@ -226,19 +227,12 @@ namespace macsa {
 				virtual ~UserInputDataSource() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the inner data
-				 * of a data source.
-				 * @return The text generated with the inner data of a
-				 * data source.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() override;
-
-				/**
-				 * @brief GetRefreshPolicy. Getter method to get the refresh
-				 * policy of a data source.
-				 * @return The refresh policy of the data source.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetPrompt. Getter method for the prompt shown to the user.

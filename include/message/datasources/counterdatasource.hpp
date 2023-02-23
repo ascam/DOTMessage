@@ -8,6 +8,9 @@
 
 namespace macsa {
 	namespace dot {
+
+		class IDocumentVisitor;
+
 		/**
 		 * @brief The CounterDataSource class. This class allow the objects
 		 * to return variable data
@@ -19,21 +22,12 @@ namespace macsa {
 				virtual ~CounterDataSource();
 
 				/**
-				 * @brief GetData. Getter method to get the inner data
-				 * of a data source.
-				 * @return The text generated with the inner data of a
-				 * data source.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() override;
-
-				/**
-				 * @brief GetRefreshPolicy. Getter method to get the refresh
-				 * policy of a data source.
-				 * @return The refresh policy of the data source.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override {
-					return RefreshPolicy::kCounter;
-				};
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetCounterValue. Getter method for the current

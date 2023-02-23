@@ -7,6 +7,7 @@
 
 namespace macsa {
 	namespace dot {
+		class IDocumentVisitor;
 
 		/**
 		 * @brief The DateTimeDataSource class. This class allow the objects
@@ -19,19 +20,12 @@ namespace macsa {
 				virtual ~DateTimeDataSource() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the inner data
-				 * of a data source.
-				 * @return The text generated with the inner data of a
-				 * data source.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() override;
-
-				/**
-				 * @brief GetRefreshPolicy. Getter method to get the refresh
-				 * policy of a data source.
-				 * @return The refresh policy of the data source.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetFormat. Getter method for date and time

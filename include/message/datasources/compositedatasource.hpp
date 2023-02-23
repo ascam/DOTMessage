@@ -8,9 +8,7 @@
 
 namespace macsa {
 	namespace dot {
-
-		class Document;
-		class Object;
+		class IDocumentVisitor;
 
 		/**
 		 * @brief The CompositeDataSource class. This class allow the objects
@@ -23,25 +21,13 @@ namespace macsa {
 				CompositeDataSource();
 				virtual ~CompositeDataSource() = default;
 
-				void SetContext(const Document* document, const Object* parent) {
-					_document = document;
-					_parent = parent;
-				}
-
 				/**
-				 * @brief GetData. Getter method to get the inner data
-				 * of a data source.
-				 * @return The text generated with the inner data of a
-				 * data source.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() override;
-
-				/**
-				 * @brief GetRefreshPolicy. Getter method to get the refresh
-				 * policy of a data source.
-				 * @return The refresh policy of the data source.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetFormula. Getter method for the inner composition
@@ -62,11 +48,7 @@ namespace macsa {
 				Signal<> FormulaChanged;
 
 			private:
-				using Token = std::pair<std::string,std::string>;
 				std::string _formula;
-				const Document* _document;
-				const Object* _parent;
-				std::vector<Token> _tokens;
 		};
 	}
 }
