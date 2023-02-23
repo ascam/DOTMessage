@@ -2,6 +2,7 @@
 #include <exception>
 #include <sstream>
 
+#include "message/documentvisitor.hpp"
 #include "symbologies/symbology.hpp"
 #include "factories/abstractobjectfactory.hpp"
 #include "factories/barcodesymbologyfactory.hpp"
@@ -10,6 +11,7 @@
 using macsa::dot::Barcode;
 using macsa::dot::BarcodeSymbol;
 using macsa::utils::MacsaLogger;
+using macsa::dot::IDocumentVisitor;
 using namespace std::placeholders;
 
 namespace  {
@@ -21,18 +23,19 @@ Barcode::Barcode(const std::string& id, const macsa::dot::Geometry& geometry) :
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
 {}
 
-std::string Barcode::GetData() const
+bool Barcode::Accept(IDocumentVisitor* visitor)
 {
-	if (IsVariable()) {
-		return _datasource->GetData();
+	if (visitor) {
+		if (visitor->VisitEnter(*this)) {
+			if (IsVariable()) {
+				_datasource->Accept(visitor);
+			}
+		}
+		return visitor->VisitExit(*this);
 	}
-
-	if (_symbology.get() != nullptr ) {
-		return _code;
-	}
-
-	return {};
+	return false;
 }
+
 
 const BarcodeSymbol& Barcode::GetSymbology() const
 {

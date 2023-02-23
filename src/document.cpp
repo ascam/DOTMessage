@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include "message/object.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 #include "utils/macsalogger.hpp"
 
@@ -10,6 +11,7 @@ using macsa::dot::Point;
 using macsa::dot::Size;
 using macsa::dot::Object;
 using macsa::dot::ObjectType;
+using macsa::dot::IDocumentVisitor;
 using macsa::utils::MacsaLogger;
 
 std::string Document::GetLibraryVersion()
@@ -242,4 +244,16 @@ void Document::DeleteColor(const std::string& name)
 	else {
 		WLog() << "Unable to remove the color \"" << name << "\" this color is not in the palette.";
 	}
+}
+
+bool Document::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor->VisitEnter(*this)) {
+		for (auto& obj : _dom) {
+			if (!obj->Accept(visitor)) {
+				break;
+			}
+		}
+	}
+	return visitor->VisitExit(*this);
 }

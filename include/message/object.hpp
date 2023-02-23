@@ -15,7 +15,7 @@
 
 namespace macsa {
 	namespace dot {
-
+		class IDocumentVisitor;
 		struct LinkedObject {
 			bool enabled;
 			std::string objectId;
@@ -281,19 +281,20 @@ namespace macsa {
 				}
 
 				/**
-				 * @brief GetRefreshPolicy. Getter method to get the refresh
-				 * policy of a variable object
-				 * @return The refresh policy of the object.
-				 */
-				virtual RefreshPolicy GetRefreshPolicy() const = 0;
-
-				/**
 				 * @brief IsVariable. Getter method to get if the object
 				 * can change its inner value.
 				 * @return true if the object can change the inner value,
 				 * false if the object is static.
 				 */
 				virtual bool IsVariable() const = 0;
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				virtual bool Accept(IDocumentVisitor* visitor) = 0;
 
 			public:
 				Signal<> GeometryChanged;

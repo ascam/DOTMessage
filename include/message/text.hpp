@@ -8,6 +8,8 @@
 
 namespace macsa {
 	namespace dot {
+		
+		class IDocumentVisitor;
 
 		/**
 		 * @brief The Text class.
@@ -22,26 +24,19 @@ namespace macsa {
 				virtual ~Text() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the text resolving the variable fields.
-				 * @return The text that must be rendered after resolving
-				 * variable fields.
-				 */
-				std::string GetData() const override;
-
-				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return The refresh policy of the object.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
-
-				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,
 				 * false if the object is static.
 				 */
 				bool IsVariable() const override;
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) override;
 
 				/**
 				 * @brief GetText
@@ -106,6 +101,7 @@ namespace macsa {
 				 * @param boxProps: The text box properties to apply.
 				 */
 				void SetTextBoxProperties(const TextBoxProperties& boxProps);
+
 
 			public:
 				Signal<> TextChanged;
