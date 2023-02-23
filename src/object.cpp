@@ -16,9 +16,6 @@ Object::Object(const std::string& id, const ObjectType& type, const Geometry& ge
 	_printable{true}
 {}
 
-Object::~Object()
-{}
-
 void Object::SetGeometry(const Geometry& geometry)
 {
 	if (_geometry != geometry) {
@@ -147,19 +144,9 @@ void Object::SetLinked(bool linked)
 
 void Object::SetLinkedObject(const std::string& objectId)
 {
-	if (objectId.empty() && _linked.enabled) {
-		_linked.objectId.clear();
-		SetLinked(false);
-	}
-	else if (!objectId.empty()) {
-		if (!_linked.enabled) {
-			_linked.objectId = objectId;
-			SetLinked(true);
-		}
-		else if (_linked.objectId != objectId) {
-			_linked.objectId = objectId;
-			LinkedChanged.Emit();
-		}
+	if (objectId != _linked.objectId) {
+		_linked.objectId = objectId;
+		LinkedObjectChanged.Emit();
 	}
 }
 
@@ -181,6 +168,8 @@ void Object::SetZOrder(int32_t zOrder)
 
 void Object::setId(const std::string& id)
 {
-	_id = id;
-	IdChanged.Emit();
+	if (_id != id)	{
+		_id = id;
+		IdChanged.Emit();
+	}
 }

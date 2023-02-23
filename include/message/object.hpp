@@ -31,7 +31,7 @@ namespace macsa {
 			public:
 				Object(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry());
 				Object(const Object&) = delete;
-				virtual ~Object();
+				virtual ~Object() = default;
 
 				friend class Document;
 
@@ -300,6 +300,7 @@ namespace macsa {
 				Signal<> SelectedChanged;
 				Signal<> PrintableChanged;
 				Signal<> LinkedChanged;
+				Signal<> LinkedObjectChanged;
 				Signal<> ZOrderChanged;
 				Signal<> IdChanged;
 

@@ -48,9 +48,7 @@ void Image::SetVerticalAlignment(const macsa::dot::VerticalAlignment& alignment)
 {
 	if (_verticalAlignment != alignment) {
 		_verticalAlignment = alignment;
-		if (_boxAdjustment == NImageBoxAdjustment::kNormal) {
-			AdjustmentChanged.Emit();
-		}
+		AdjustmentChanged.Emit();
 	}
 }
 
@@ -58,9 +56,7 @@ void Image::SetHorizontalAlignment(const macsa::dot::HorizontalAlignment& alignm
 {
 	if (_horizontalAlignment != alignment) {
 		_horizontalAlignment = alignment;
-		if (_boxAdjustment == NImageBoxAdjustment::kNormal) {
-			AdjustmentChanged.Emit();
-		}
+		AdjustmentChanged.Emit();
 	}
 }
 

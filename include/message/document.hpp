@@ -9,6 +9,7 @@
 #include "geometry.hpp"
 #include "color.hpp"
 #include "objecttype.hpp"
+#include "signal/signal.hpp"
 
 // TODO(iserra): Add DateCodes support
 
@@ -242,7 +243,7 @@ namespace macsa {
 				 * @return true if the object is found and can be renamed, otherwise returns
 				 * false.
 				 */
-				bool RenameObject(const std::string& oldId, const std::string& newId) const;
+				bool RenameObject(const std::string& oldId, const std::string& newId);
 
 				/**
 				 * @brief GetColorsPalette. Getter method for document's colors palette.
@@ -281,6 +282,16 @@ namespace macsa {
 				 * @param gsLevel
 				 */
 				void SetGrayScaleLevel(uint32_t levels) {_gsLevels = levels;}
+
+			public:
+				Signal<> NameChanged;
+				Signal<> UnitsChanged;
+				Signal<> VersionEncodingChanged;
+				Signal<> ColorsPaletteChanged;
+				Signal<> CanvasGeometryChanged;
+				Signal<> ViewPortSizeChanged;
+				Signal<> GsLevelsChanged;
+				Signal<> DomChanged;
 
 			private:
 				std::string _name;
