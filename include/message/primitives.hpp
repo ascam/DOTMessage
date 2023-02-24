@@ -107,7 +107,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 		};
 
 		class Ellipse : public Primitive
@@ -123,7 +123,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 		};
 
 		class Diamond : public Primitive
@@ -139,7 +139,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 		};
 
 		class Line : public Primitive
@@ -155,7 +155,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 
 				bool IsFilled() const override {return false;}
 				bool HasBorder() const override {return true;}

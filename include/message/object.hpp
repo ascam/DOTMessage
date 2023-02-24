@@ -294,7 +294,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				virtual bool Accept(IDocumentVisitor* visitor) = 0;
+				virtual bool Accept(IDocumentVisitor* visitor) const = 0;
 
 			public:
 				Signal<> GeometryChanged;

@@ -23,7 +23,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 
 				/**
 				 * @brief GetSymbology. Getter method for the barcode symbology

@@ -26,7 +26,7 @@ bool Text::IsVariable() const
 	return _datasource.get() != nullptr;
 }
 
-bool Text::Accept(IDocumentVisitor* visitor)
+bool Text::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		if (visitor->VisitEnter(*this)) {

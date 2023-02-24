@@ -22,15 +22,7 @@ Image::Image(const std::string& id, const Geometry& geometry) :
 	_downThreshold{}
 {}
 
-bool Image::Accept(IDocumentVisitor* visitor)
-{
-	if (visitor) {
-		return visitor->Visit(*this);
-	}
-	return false;
-}
-
-bool Image::Accept(IDocumentVisitor* visitor)
+bool Image::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		return visitor->Visit(*this);

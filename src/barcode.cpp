@@ -23,7 +23,7 @@ Barcode::Barcode(const std::string& id, const macsa::dot::Geometry& geometry) :
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
 {}
 
-bool Barcode::Accept(IDocumentVisitor* visitor)
+bool Barcode::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		if (visitor->VisitEnter(*this)) {

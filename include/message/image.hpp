@@ -66,7 +66,7 @@ namespace macsa {
 				 * @return boolean with the result of the visit method
 				 * of the visitor object.
 				 */
-				bool Accept(IDocumentVisitor* visitor) override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 
 				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable

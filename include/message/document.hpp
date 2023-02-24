@@ -293,7 +293,7 @@ namespace macsa {
 				 * @param visitor: Visitor interfaced used to visit the DOM.
 				 * @return the result of visitor::visit().
 				 */
-				bool Accept(IDocumentVisitor* visitor);
+				bool Accept(IDocumentVisitor* visitor) const;
 
 			public:
 				Signal<> NameChanged;

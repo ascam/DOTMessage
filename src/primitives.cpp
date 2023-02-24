@@ -62,7 +62,7 @@ Rectangle::Rectangle(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kRectangle)
 {}
 
-bool Rectangle::Accept(IDocumentVisitor* visitor)
+bool Rectangle::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		return visitor->Visit(*this);
@@ -74,7 +74,7 @@ Ellipse::Ellipse(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kEllipse)
 {}
 
-bool Ellipse::Accept(IDocumentVisitor* visitor)
+bool Ellipse::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		return visitor->Visit(*this);
@@ -86,7 +86,7 @@ Diamond::Diamond(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kDiamond)
 {}
 
-bool Diamond::Accept(IDocumentVisitor* visitor)
+bool Diamond::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		return visitor->Visit(*this);
@@ -98,7 +98,7 @@ Line::Line(const std::string& id, const Geometry& geometry) :
 	Primitive(id, geometry, NObjectType::kLine)
 {}
 
-bool Line::Accept(IDocumentVisitor* visitor)
+bool Line::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {
 		return visitor->Visit(*this);

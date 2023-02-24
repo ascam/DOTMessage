@@ -246,7 +246,7 @@ void Document::DeleteColor(const std::string& name)
 	}
 }
 
-bool Document::Accept(IDocumentVisitor* visitor)
+bool Document::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor->VisitEnter(*this)) {
 		for (auto& obj : _dom) {
