@@ -41,112 +41,144 @@ namespace macsa
 				 * @param document: DOM document to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitEnter(const Document&) = 0;
+				virtual bool VisitEnter(const Document&) {
+					return true;
+				}
 
 				/**
 				 * @brief VisitExit. Exits the visit in the DOM document
 				 * @param document: DOM document to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitExit(const Document&) = 0;
+				virtual bool VisitExit(const Document&) {
+					return true;
+				}
 
 				/**
 				 * @brief VisitEnter. Start the visit in a Text object
 				 * @param text: Text object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitEnter(const Text&) = 0;
+				virtual bool VisitEnter(const Text&) {
+					return true;
+				}
 
 				/**
 				 * @brief VisitExit. Exits the visit in a Text Object
 				 * @param text: Text object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitExit(const Text&) = 0;
+				virtual bool VisitExit(const Text&) {
+					return true;
+				}
 
 				/**
 				 * @brief VisitEnter. Start the visit in a Barcode object
 				 * @param barcode: Barcode object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitEnter(const Barcode& barcode) = 0;
+				virtual bool VisitEnter(const Barcode& barcode) {
+					return true;
+				}
 
 				/**
 				 * @brief VisitExit. Exits the visit in a Barcode Object
 				 * @param barcode: Barcode object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool VisitExit(const Barcode& barcode) = 0;
+				virtual bool VisitExit(const Barcode& barcode) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a Image object
 				 * @param image: Image object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const Image& image) = 0;
+				virtual bool Visit(const Image& image) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a rectangle object
 				 * @param rectangle: Rectangle object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const Rectangle& rectangle) = 0;
+				virtual bool Visit(const Rectangle& rectangle) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits an ellipse object
 				 * @param ellipse: Ellipse object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const Ellipse& ellipse) = 0;
+				virtual bool Visit(const Ellipse& ellipse) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a diamond object
 				 * @param diamond: Diamond object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const Diamond& diamond) = 0;
+				virtual bool Visit(const Diamond& diamond) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a line object
 				 * @param line: line object to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const Line& line) = 0;
+				virtual bool Visit(const Line& line) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a counter data source
 				 * @param counter: counter data source to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const CounterDataSource& counter) = 0;
+				virtual bool Visit(const CounterDataSource& counter) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a database data source
 				 * @param database: database data source to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const DatabaseDataSource& database) = 0;
+				virtual bool Visit(const DatabaseDataSource& database) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a date and time data source
 				 * @param datetime: Date and time data source to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const DateTimeDataSource& datetime) = 0;
+				virtual bool Visit(const DateTimeDataSource& datetime) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a user input data source
 				 * @param userInput: User input data source to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const UserInputDataSource& userInput) = 0;
+				virtual bool Visit(const UserInputDataSource& userInput) {
+					return true;
+				}
 
 				/**
 				 * @brief Visit. Visits a composite data source
 				 * @param composite: Composite data source to visit.
 				 * @return true to continue the hierarchical visit, false to stop.
 				 */
-				virtual bool Visit(const CompositeDataSource& composite) = 0;
+				virtual bool Visit(const CompositeDataSource& composite) {
+					return true;
+				}
 		};
 	}
 }
