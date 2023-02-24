@@ -18,7 +18,6 @@ DateTimeDataSource::DateTimeDataSource() :
 	_hourDaysStart{}
 {}
 
-
 bool DateTimeDataSource::Accept(IDocumentVisitor* visitor)
 {
 	if (visitor) {

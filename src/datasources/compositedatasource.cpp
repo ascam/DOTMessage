@@ -13,7 +13,6 @@ using namespace macsa::utils;
 //constexpr const char* kFieldItem = "Field";
 //constexpr const char* kTextItem = "Fixed";
 //constexpr const char* kCharsToRemove = "\'\"";
-
 constexpr const char* kDelimiter = "|";
 
 namespace  {
@@ -59,7 +58,6 @@ void CompositeDataSource::SetFormula(const std::string &formula)
 		ELog() << "Invalid formula \"" << formula << "\"";
 		return;
 	}
-
 	if (_formula != formula) {
 		_formula = formula;
 //		_tokens.clear();

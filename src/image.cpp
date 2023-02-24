@@ -30,6 +30,14 @@ bool Image::Accept(IDocumentVisitor* visitor)
 	return false;
 }
 
+bool Image::Accept(IDocumentVisitor* visitor)
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
+
 void Image::SetData(const Image::ByteArray &data)
 {
 	if (_data != data) {
