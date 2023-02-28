@@ -95,6 +95,7 @@ void Color::operator = (const Color& other)
 	_green = other._green;
 	_blue = other._blue;
 	_alpha = other._alpha;
+	_colorName = other._colorName;
 }
 
 bool Color::equal(const Color& other) const
@@ -102,5 +103,6 @@ bool Color::equal(const Color& other) const
 	return  _red == other._red &&
 			_green == other._green &&
 			_blue == other._blue &&
-			_alpha == other._alpha;
+			_alpha == other._alpha &&
+			_colorName == other._colorName;
 }
