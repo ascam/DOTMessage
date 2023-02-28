@@ -44,6 +44,7 @@ set (SOURCES ${SOURCES}
 	${UTILS_DIR}/macsalogger/macsalogger.cpp
 	${UTILS_DIR}/threadsmap/threadsmap.cpp
 	${UTILS_DIR}/base64/base64.c
+	${UTILS_DIR}/tinyxml2/tinyxml2.cpp
 )
 
 set(HEADERS ${HEADERS})
@@ -64,6 +65,7 @@ target_include_directories(${PROJECT_NAME}_lib
 		${UTILS_DIR}/include
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/src
+		${UTILS_DIR}/tinyxml2/include
 	)
 
 if(NOT BUILD_SHARED_LIBS)
