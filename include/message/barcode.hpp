@@ -9,6 +9,7 @@
 namespace macsa {
 	namespace dot {
 		class Symbology;
+		class IDocumentVisitor;
 		class Barcode : public VariableObject
 		{
 			public:
@@ -17,12 +18,12 @@ namespace macsa {
 				virtual ~Barcode() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the code resolving the variable fields.
-				 * @return The code that must be rendered after resolving
-				 * variable fields.
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
 				 */
-				std::string GetData() const override;
+				bool Accept(IDocumentVisitor* visitor) const override;
 
 				/**
 				 * @brief GetSymbology. Getter method for the barcode symbology
@@ -170,28 +171,28 @@ namespace macsa {
 				 * to apply to the barcode.
 				 * @return The current foreground color.
 				 */
-				const std::string& GetForegroundColor() const {return _foreColor;}
+				const Color& GetForegroundColor() const {return _foreColor;}
 
 				/**
 				 * @brief SetForegroundColor. Setter method for the foreground color
 				 * to apply to the barcode.
 				 * @param foreColor: The color to apply to the barcode.
 				 */
-				void SetForegroundColor(const std::string& foreColor);
+				void SetForegroundColor(const Color& foreColor);
 
 				/**
 				 * @brief GetBackgroundColor. Getter method for the background color
 				 * to apply to the barcode.
 				 * @return The current background color.
 				 */
-				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+				const Color& GetBackgroundColor() const {return _backgroundColor;}
 
 				/**
 				 * @brief SetBackgroundColor. Setter method for the background color
 				 * to apply to the barcode.
 				 * @param backgroundColor: The color to apply to the barcode background.
 				 */
-				void SetBackgroundColor(const std::string& backgroundColor);
+				void SetBackgroundColor(const Color& backgroundColor);
 
 				/**
 				 * @brief CanShowHumanReadableCode. Method to check if the code
@@ -278,8 +279,8 @@ namespace macsa {
 			private:
 				std::unique_ptr<Symbology> _symbology;
 				Font _font;
-				std::string _foreColor;
-				std::string _backgroundColor;
+				Color _foreColor;
+				Color _backgroundColor;
 				std::string _code;
 
 				void transferSymbologyInnerData(Symbology* source, Symbology* target);

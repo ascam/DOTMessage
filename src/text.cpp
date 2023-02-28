@@ -1,10 +1,12 @@
 #include "message/text.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Text;
 using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
+using macsa::dot::IDocumentVisitor;
 
 namespace  {
 	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
@@ -19,25 +21,22 @@ Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	_textBoxProperties{}
 {}
 
-std::string Text::GetData() const
-{
-	if (IsVariable()) {
-		return _datasource->GetData();
-	}
-	return _text;
-}
-
-RefreshPolicy Text::GetRefreshPolicy() const
-{
-	if (IsVariable()) {
-		return _datasource->GetRefreshPolicy();
-	}
-	return RefreshPolicy::kNone;
-}
-
 bool Text::IsVariable() const
 {
 	return _datasource.get() != nullptr;
+}
+
+bool Text::Accept(IDocumentVisitor* visitor) const
+{
+	if (visitor) {
+		if (visitor->VisitEnter(*this)) {
+			if (IsVariable()) {
+				_datasource->Accept(visitor);
+			}
+		}
+		return visitor->VisitExit(*this);
+	}
+	return false;
 }
 
 void Text::SetText(const std::string& text)
@@ -56,7 +55,7 @@ void Text::SetFont(const Font& font)
 	}
 }
 
-void Text::SetForegroundColor(const std::string& foreColor)
+void Text::SetForegroundColor(const Color& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
@@ -64,7 +63,7 @@ void Text::SetForegroundColor(const std::string& foreColor)
 	}
 }
 
-void Text::SetBackgroundColor(const std::string& backgroundColor)
+void Text::SetBackgroundColor(const Color& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;

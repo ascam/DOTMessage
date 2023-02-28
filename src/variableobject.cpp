@@ -13,14 +13,6 @@ VariableObject::VariableObject(const std::string& id, const ObjectType& type, co
 	_datasource{}
 {}
 
-RefreshPolicy VariableObject::GetRefreshPolicy() const
-{
-	if (_datasource.get())  {
-		return _datasource->GetRefreshPolicy();
-	}
-	return RefreshPolicy::kNone;
-}
-
 DataSource* VariableObject::GetDatasource() const
 {
 	return _datasource.get();
@@ -28,8 +20,19 @@ DataSource* VariableObject::GetDatasource() const
 
 DataSource* VariableObject::SetDatasource(const DataSourceType& type)
 {
-	_datasource.reset(DataSourceFactory::Get(type()));
+	if (_datasource.get() == nullptr || _datasource->GetType() != type) {
+		_datasource.reset(DataSourceFactory::Get(type()));
+		DataSourceChanged.Emit();
+	}
 	return _datasource.get();
+}
+
+void VariableObject::ClearDataSource()
+{
+	if (IsVariable()) {
+		_datasource.reset(nullptr);
+		DataSourceChanged.Emit();
+	}
 }
 
 bool VariableObject::IsVariable() const

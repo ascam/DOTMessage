@@ -9,10 +9,10 @@ constexpr int kColorLengh = 2;
 constexpr int kColorStrLenght = 4 * kColorLengh;
 
 Color::Color() :
-	_red{},
-	_green{},
-	_blue{},
-	_alpha{0xFF} // Opaque
+	_red{0xFF},
+	_green{0xFF},
+	_blue{0xFF},
+	_alpha{0x00} // transparent
 {}
 
 Color::Color(const std::string& name, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha) :
@@ -95,6 +95,7 @@ void Color::operator = (const Color& other)
 	_green = other._green;
 	_blue = other._blue;
 	_alpha = other._alpha;
+	_colorName = other._colorName;
 }
 
 bool Color::equal(const Color& other) const
@@ -102,5 +103,6 @@ bool Color::equal(const Color& other) const
 	return  _red == other._red &&
 			_green == other._green &&
 			_blue == other._blue &&
-			_alpha == other._alpha;
+			_alpha == other._alpha &&
+			_colorName == other._colorName;
 }

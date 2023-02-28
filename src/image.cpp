@@ -1,8 +1,10 @@
 #include "message/image.hpp"
+#include "message/documentvisitor.hpp"
 #include "factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Image;
 using macsa::dot::Geometry;
+using macsa::dot::IDocumentVisitor;
 
 namespace  {
 	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Image>::Register(macsa::dot::NObjectType::kImage);
@@ -20,7 +22,15 @@ Image::Image(const std::string& id, const Geometry& geometry) :
 	_downThreshold{}
 {}
 
-void Image::SetData(const Image::ByteArray& data)
+bool Image::Accept(IDocumentVisitor* visitor) const
+{
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
+}
+
+void Image::SetData(const Image::ByteArray &data)
 {
 	if (_data != data) {
 		_data = data;

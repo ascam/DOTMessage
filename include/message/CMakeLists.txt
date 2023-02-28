@@ -26,5 +26,6 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/primitives.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/barcodesymbologies.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/documentparser.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/documentvisitor.hpp
     PARENT_SCOPE
     )

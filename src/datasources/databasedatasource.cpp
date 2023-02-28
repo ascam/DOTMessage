@@ -1,25 +1,24 @@
 #include "message/datasources/databasedatasource.hpp"
 #include "factories/datasourcefactory.hpp"
+#include "message/documentvisitor.hpp"
 
 using macsa::dot::DatabaseDataSource;
-using macsa::dot::RefreshPolicy;
+using macsa::dot::IDocumentVisitor;
 
 namespace  {
 	static const bool DatabaseFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<DatabaseDataSource>::Register(macsa::dot::NDataSourceType::kDataBase);
 }
 
-macsa::dot::DatabaseDataSource::DatabaseDataSource() :
+DatabaseDataSource::DatabaseDataSource() :
 	DataSource(NDataSourceType::kDataBase),
 	_fieldName{},
 	_defaultValue{}
 {}
 
-std::string DatabaseDataSource::GetData()
+bool DatabaseDataSource::Accept(IDocumentVisitor* visitor)
 {
-	return _defaultValue;
-}
-
-macsa::dot::RefreshPolicy DatabaseDataSource::GetRefreshPolicy() const
-{
-	return RefreshPolicy::kNone;
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
 }

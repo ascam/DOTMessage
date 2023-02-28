@@ -1,8 +1,8 @@
 #include "message/datasources/userinputdatasource.hpp"
 #include "factories/datasourcefactory.hpp"
+#include "message/documentvisitor.hpp"
 
 using macsa::dot::UserInputDataSource;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::PromptBehavior;
 using macsa::dot::NPromptBehavior;
 using macsa::dot::PaddingType;
@@ -11,6 +11,7 @@ using macsa::dot::DataType;
 using macsa::dot::NDataType;
 using macsa::dot::DataTypeMode;
 using macsa::dot::NDataTypeMode;
+using macsa::dot::IDocumentVisitor;
 
 namespace  {
 	static const bool UserInputFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
@@ -38,7 +39,7 @@ const std::vector<std::pair<NPromptBehavior, std::string>>& PromptBehavior::getD
 	static const std::vector<std::pair<NPromptBehavior,std::string>> promptBehaviorData {
 		{NPromptBehavior::kBlankValue,   "Blank"},
 		{NPromptBehavior::kLastValue,    "LastValue"},
-		{NPromptBehavior::kDefaultValue, "DEFAULT_VALUE"}
+		{NPromptBehavior::kDefaultValue, "DefaultValue"}
 	};
 	return promptBehaviorData;
 }
@@ -86,12 +87,10 @@ UserInputDataSource::UserInputDataSource() :
 	_required{}
 {}
 
-std::string UserInputDataSource::GetData()
+bool UserInputDataSource::Accept(IDocumentVisitor* visitor)
 {
-	return _defaultValue;
-}
-
-macsa::dot::RefreshPolicy UserInputDataSource::GetRefreshPolicy() const
-{
-	return RefreshPolicy::kNone;
+	if (visitor) {
+		return visitor->Visit(*this);
+	}
+	return false;
 }

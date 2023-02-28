@@ -20,21 +20,6 @@ namespace macsa {
 				virtual ~VariableObject() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the text resolving the variable fields.
-				 * @return The text that must be rendered after resolving
-				 * variable fields.
-				 */
-				virtual std::string GetData() const = 0;
-
-				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return The refresh policy of the object.
-				 */
-				virtual RefreshPolicy GetRefreshPolicy() const override;
-
-				/**
 				 * @brief GetDatasource. Getter method for variable data source
 				 * @return The raw pointer to a data source if has data source or
 				 * nullptr if text hasn't variable data.
@@ -48,12 +33,21 @@ namespace macsa {
 				DataSource* SetDatasource(const DataSourceType& type);
 
 				/**
+				 * @brief ClearDataSource. Clear the datasource to the set
+				 * the object as non variable.
+				 */
+				void ClearDataSource();
+
+				/**
 				 * @brief IsVariable. Getter method to get if the object
 				 * can change its inner value.
 				 * @return true if the object can change the inner value,
 				 * false if the object is static.
 				 */
 				bool IsVariable() const override;
+
+			public:
+				Signal<> DataSourceChanged;
 
 			protected:
 				std::unique_ptr<DataSource> _datasource;

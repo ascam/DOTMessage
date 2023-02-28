@@ -8,6 +8,8 @@
 
 namespace macsa {
 	namespace dot {
+		
+		class IDocumentVisitor;
 
 		/**
 		 * @brief The Text class.
@@ -22,26 +24,19 @@ namespace macsa {
 				virtual ~Text() = default;
 
 				/**
-				 * @brief GetData. Getter method to get the current
-				 * value of the text resolving the variable fields.
-				 * @return The text that must be rendered after resolving
-				 * variable fields.
-				 */
-				std::string GetData() const override;
-
-				/**
-				 * @brief GetRefreshPolicy. Overrided method of
-				 * Object::GetRefreshPolicy
-				 * @return The refresh policy of the object.
-				 */
-				RefreshPolicy GetRefreshPolicy() const override;
-
-				/**
 				 * @brief IsVariable. Overrided method of Object::IsVariable
 				 * @return true if the object can change the inner value,
 				 * false if the object is static.
 				 */
 				bool IsVariable() const override;
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				bool Accept(IDocumentVisitor* visitor) const override;
 
 				/**
 				 * @brief GetText
@@ -72,28 +67,28 @@ namespace macsa {
 				 * to apply to the text.
 				 * @return The current foreground color.
 				 */
-				const std::string& GetForegroundColor() const {return _foreColor;}
+				const Color& GetForegroundColor() const {return _foreColor;}
 
 				/**
 				 * @brief SetForegroundColor. Setter method for the foreground color
 				 * to apply to the text.
 				 * @param foreColor: The color to apply to the text.
 				 */
-				void SetForegroundColor(const std::string& foreColor);
+				void SetForegroundColor(const Color& foreColor);
 
 				/**
 				 * @brief GetBackgroundColor. Getter method for the background color
 				 * to apply to the text box.
 				 * @return The current background color.
 				 */
-				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+				const Color& GetBackgroundColor() const {return _backgroundColor;}
 
 				/**
 				 * @brief SetBackgroundColor. Setter method for the background color
 				 * to apply to the text box.
 				 * @param backgroundColor: The color to apply to the text background.
 				 */
-				void SetBackgroundColor(const std::string& backgroundColor);
+				void SetBackgroundColor(const Color& backgroundColor);
 
 				/**
 				 * @brief GetTextBoxProperties. Getter method for the text box properties.
@@ -107,6 +102,7 @@ namespace macsa {
 				 */
 				void SetTextBoxProperties(const TextBoxProperties& boxProps);
 
+
 			public:
 				Signal<> TextChanged;
 				Signal<> FontChanged;
@@ -117,8 +113,8 @@ namespace macsa {
 			private:
 				std::string _text;
 				Font _font;
-				std::string _foreColor;
-				std::string _backgroundColor;
+				Color _foreColor;
+				Color _backgroundColor;
 				TextBoxProperties _textBoxProperties;
 		};
 	}
