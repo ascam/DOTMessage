@@ -80,6 +80,22 @@ namespace macsa {
 				{}
 
 				/**
+				 * @brief GetLineStyle. Getter method for pèn line style.
+				 * @return The current line style
+				 */
+				LineStyle GetLineStyle() const {
+					return _lineStyle;
+				}
+
+				/**
+				 * @brief SetLineStyle. Setter method for pèn line style.
+				 * @param style: line style to apply to the pen.
+				 */
+				void SetLineStyle(const LineStyle& style) {
+					_lineStyle = style;
+				}
+
+				/**
 				 * @brief SetCustomDashedPattern. Method to set the dashes pattern.
 				 * To set the custom patter pass a string with a sequence of number where
 				 * the first number define the long of the line and the second number define
