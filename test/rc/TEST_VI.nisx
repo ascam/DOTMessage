@@ -1,0 +1,531 @@
+
+<NEOFILE Version="1.3">
+    <PROPERTIES>
+        <MEASURE_UNITS>Mm</MEASURE_UNITS>
+        <RESOLUTION>300</RESOLUTION>
+        <MIN_UNIT>1</MIN_UNIT>
+        <WIDTH>80</WIDTH>
+        <HEIGHT>12.7</HEIGHT>
+    </PROPERTIES>
+    <COLORS>
+        <COLOR Name="Color1" Color="FF000000"/>
+        <COLOR Name="Blank" Color="00FFFFFF"/>
+    </COLORS>
+    <FIELDS>
+        <TEXTFIELD Name="item 1">
+            <X>4</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>0</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="18">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 2">
+            <X>10</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>1</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="6">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <LINEFIELD Name="item 3">
+            <X>9.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>2</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <TEXTFIELD Name="item 4">
+            <X>15</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>3</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="7">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <LINEFIELD Name="item 5">
+            <X>14.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>4</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <TEXTFIELD Name="item 6">
+            <X>20</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>5</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="8">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 7">
+            <X>25</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>6</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="9">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 8">
+            <X>30</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>7</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="10">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 9">
+            <X>35</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>8</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="11">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 10">
+            <X>40</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>9</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="12">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 11">
+            <X>45</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>10</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="13">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 12">
+            <X>50</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>11</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="14">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 13">
+            <X>55</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>12</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="15">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 14">
+            <X>60</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>13</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="16">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <LINEFIELD Name="item 15">
+            <X>19.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>14</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 16">
+            <X>24.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>15</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 17">
+            <X>29.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>16</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 18">
+            <X>34.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>17</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 19">
+            <X>39.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>18</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 20">
+            <X>44.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>19</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 21">
+            <X>49.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>20</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 22">
+            <X>54.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>21</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 23">
+            <X>59.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>22</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+        <LINEFIELD Name="item 24">
+            <X>64.5</X>
+            <Y>0</Y>
+            <ANGLE>90</ANGLE>
+            <WIDTH>1</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>23</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <PEN>
+                <COLOR Name="Color1" Value="FF000000"/>
+                <WIDTH Value="1"/>
+            </PEN>
+        </LINEFIELD>
+    </FIELDS>
+</NEOFILE>

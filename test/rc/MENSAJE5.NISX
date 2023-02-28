@@ -1,0 +1,245 @@
+<NEOFILE Version="1.0">
+    <PROPERTIES>
+        <MEASURE_UNITS>Mm</MEASURE_UNITS>
+        <RESOLUTION>180</RESOLUTION>
+        <MIN_UNIT>1</MIN_UNIT>
+        <WIDTH>602</WIDTH>
+        <HEIGHT>72</HEIGHT>
+    </PROPERTIES>
+    <COLORS>
+        <COLOR Name="Blank" Color="FFFFFFFF" />
+        <COLOR Name="Color1" Color="FF000000" />
+    </COLORS>
+    <FIELDS>
+        <TEXTFIELD Name="MODELO">
+            <X>28</X>
+            <Y>6</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>156</WIDTH>
+            <HEIGHT>11</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>5</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT>MODELO</PROMPT>
+                    <VALUE>XS CARPENTER ALBAR  </VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>Ejemplomodelo</TEXT>
+            <FONT Name="Arial" Size="24">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="CLASE">
+            <X>190</X>
+            <Y>4</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>33</WIDTH>
+            <HEIGHT>8</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>6</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT>CLASE</PROMPT>
+                    <VALUE>1aE</VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>clase1</TEXT>
+            <FONT Name="Arial" Size="20">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="TONO">
+            <X>264</X>
+            <Y>5</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>29</WIDTH>
+            <HEIGHT>8</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>7</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT>TONO</PROMPT>
+                    <VALUE>5M05</VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>tono1</TEXT>
+            <FONT Name="Arial" Size="20">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="CONTROL">
+            <X>428</X>
+            <Y>9</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>41</WIDTH>
+            <HEIGHT>5</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>23</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT>CONTROL</PROMPT>
+                    <VALUE>400</VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>1AA</TEXT>
+            <FONT Name="Arial" Size="20">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="ITEM17">
+            <X>474</X>
+            <Y>4</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>43</WIDTH>
+            <HEIGHT>13</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>18</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsDateTime">
+                <DATETIME>
+                    <OFFSETDAYS>0</OFFSETDAYS>
+                    <OFFSETMONTHS>0</OFFSETMONTHS>
+                    <OFFSETYEARS>0</OFFSETYEARS>
+                    <HOURDAYSTART>0</HOURDAYSTART>
+                    <FORMAT>dd/M/yyyy HH:mm</FORMAT>
+                </DATETIME>
+            </DATASOURCE>
+            <TEXT>30/6/2022 22:40</TEXT>
+            <FONT Name="Arial" Size="14">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+        <IMAGEFIELD Name="ITEM5">
+            <X>1</X>
+            <Y>1</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>424</WIDTH>
+            <HEIGHT>21</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>24</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE />
+            <ADJUST Type="Zoom" />
+            <ALIGNMENT Value="MiddleCenter" />
+            <ALGORITHM Value="Burkes" />
+            <PATH Value="\\srvnas\calidad\Diseños cajas\F4\60x60 PRC\60x60 ARGENTA MATE 4PZ F4_230720\60x60_ARGENTA_MATE_4PZAS_F4_1 rotulos.BMP" />
+            <TOPTHRESOLD Value="0" />
+            <DOWNTHRESOLD Value="0" />
+            <IMAGE>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</IMAGE>
+            <COLORS>
+                <COLOR Name="Blank" Color="FFFFFFFF" />
+                <COLOR Name="Color1" Color="FF000000" />
+            </COLORS>
+        </IMAGEFIELD>
+        <TEXTFIELD Name="CALIBRE">
+            <X>344</X>
+            <Y>6</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>32</WIDTH>
+            <HEIGHT>12</HEIGHT>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>25</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT>CALIBRE</PROMPT>
+                    <VALUE></VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>C1</TEXT>
+            <FONT Name="Arial" Size="22">
+                <BOLD>True</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>False</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+    </FIELDS>
+</NEOFILE>

@@ -1,0 +1,71 @@
+
+<NEOFILE Version="1.3">
+    <PROPERTIES>
+        <MEASURE_UNITS>Mm</MEASURE_UNITS>
+        <RESOLUTION>300</RESOLUTION>
+        <MIN_UNIT>1</MIN_UNIT>
+        <WIDTH>80</WIDTH>
+        <HEIGHT>12.7</HEIGHT>
+    </PROPERTIES>
+    <COLORS>
+        <COLOR Name="Color1" Color="FF000000"/>
+        <COLOR Name="Blank" Color="00FFFFFF"/>
+    </COLORS>
+    <FIELDS>
+        <TEXTFIELD Name="item 1">
+            <X>5</X>
+            <Y>0</Y>
+            <ANGLE>270</ANGLE>
+            <WIDTH>4</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>0</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>000235</TEXT>
+            <FONT Name="Symbola" Size="18">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="item 2">
+            <X>12</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>68</WIDTH>
+            <HEIGHT>12.7</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>1</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum porttitor leo in malesuada. Nam sem nulla, sodales id ante blandit, scelerisque blandit dolor. </TEXT>
+            <FONT Name="Liberation Sans" Size="11">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Top</VERTICAL>
+                <PARAGRAPH>
+                    <AUTOINC>false</AUTOINC>
+                    <INTERLINE>0</INTERLINE>
+                </PARAGRAPH>
+            </ADJUST>
+        </TEXTFIELD>
+    </FIELDS>
+</NEOFILE>

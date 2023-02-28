@@ -23,14 +23,13 @@ include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
 
 ####################  SOURCES AND HEADERS  #############################
 option(BUILD_SHARED_LIBS "Build Shared libraries" ON)
+option(BUILD_TEST_EXECUTABLE "Build Test application" OFF)
 
 set(SOURCES)
 set(HEADERS)
 
-if (${ENABLE_TESTS})
+if (${BUILD_TEST_EXECUTABLE})
 	add_subdirectory(test)
-	# Move resource file
-	# file(COPY "assets/fonts/*" DESTINATION "${PROJECT_BINARY_DIR}/bin/fonts" FILES_MATCHING PATTERN "*.ttf")
 endif()
 
 

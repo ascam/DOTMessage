@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NEOFILE Version="1.3">
+  <PROPERTIES>
+    <MEASURE_UNITS>Mm</MEASURE_UNITS>
+    <RESOLUTION>180</RESOLUTION>
+    <MIN_UNIT>1</MIN_UNIT>
+    <WIDTH>280</WIDTH>
+    <HEIGHT>72</HEIGHT>
+  </PROPERTIES>
+  <COLORS>
+    <COLOR Name="Blank" Color="FFFFFFFF" />
+    <COLOR Name="Color1" Color="FF000000" />
+  </COLORS>
+  <FIELDS>
+    <TEXTFIELD Name="ITEM0">
+      <X>55</X>
+      <Y>2</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>59</WIDTH>
+      <HEIGHT>6</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>0</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <TEXT>Pasta Alimenticia de Calidad Superior</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <TEXTFIELD Name="ITEM1">
+      <X>4</X>
+      <Y>13</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>43</WIDTH>
+      <HEIGHT>6</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>1</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <TEXT>GALLO FIDEO 0 18X450G</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <TEXTFIELD Name="ITEM2">
+      <X>122</X>
+      <Y>13</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>34</WIDTH>
+      <HEIGHT>6</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>2</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE Type="CibNeoDsDateTime">
+        <DATETIME>
+          <OFFSETDAYS>0</OFFSETDAYS>
+          <OFFSETMONTHS>0</OFFSETMONTHS>
+          <OFFSETYEARS>3</OFFSETYEARS>
+          <HOURDAYSTART>0</HOURDAYSTART>
+          <FORMAT>MM/yyyy L-53[JJJ]0</FORMAT>
+        </DATETIME>
+      </DATASOURCE>
+      <TEXT>02/2026 L-530370</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <TEXTFIELD Name="ITEM6">
+      <X>200</X>
+      <Y>16</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>72</WIDTH>
+      <HEIGHT>5</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>6</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <TEXT>Consumir preferentemente antes del fin de: Ver. Lote</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <TEXTFIELD Name="ITEM5">
+      <X>200</X>
+      <Y>10</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>50</WIDTH>
+      <HEIGHT>5</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>5</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <TEXT>Conservar en un lugar fresco y seco</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <TEXTFIELD Name="ITEM4">
+      <X>27</X>
+      <Y>65</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>125</WIDTH>
+      <HEIGHT>5</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>4</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <TEXT>COMERCIAL GALLO, S.A.U. Ctra. de Madrid, 6, 14620, El Carpio, CÓRDOBA</TEXT>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR />
+      <ADJUST>
+        <HORIZONTAL>Left</HORIZONTAL>
+        <VERTICAL>Top</VERTICAL>
+        <FITTOBOX>
+          <MAXCHARSLINE>0</MAXCHARSLINE>
+        </FITTOBOX>
+      </ADJUST>
+    </TEXTFIELD>
+    <BARCODEFIELD Name="ITEM3">
+      <X>46</X>
+      <Y>22</Y>
+      <ANGLE>0</ANGLE>
+      <WIDTH>82</WIDTH>
+      <HEIGHT>39</HEIGHT>
+      <PRINTABLE>True</PRINTABLE>
+      <LINKED Value="False" />
+      <ZORDER>3</ZORDER>
+      <LAYOUT>0</LAYOUT>
+      <DATASOURCE />
+      <SYMBOLOGY>Itf14</SYMBOLOGY>
+      <CODE>2841006901831</CODE>
+      <RATIO>2</RATIO>
+      <NORMALIZED>True</NORMALIZED>
+      <DISPLAYCHECKSUM>False</DISPLAYCHECKSUM>
+      <DISPLAYCODE>True</DISPLAYCODE>
+      <FONT Name="Arial" Size="8">
+        <BOLD>False</BOLD>
+        <ITALIC>False</ITALIC>
+        <UNDERLINE>False</UNDERLINE>
+        <STRIKEOUT>False</STRIKEOUT>
+      </FONT>
+      <FORECOLOR Name="Color1" Value="FF000000" />
+      <BACKCOLOR Name="" Value="00FFFFFF" />
+      <QRVERSION>1</QRVERSION>
+      <QRCORRECTIONLEVEL>L</QRCORRECTIONLEVEL>
+      <BEARERSTYLE>Frame</BEARERSTYLE>
+    </BARCODEFIELD>
+  </FIELDS>
+</NEOFILE>
