@@ -40,13 +40,15 @@ namespace  {
 	static const bool MicroQRCodeFactoryRegistered = ConcreteSymbologyFactory<MicroQRCode>::Register(NBarcodeSymbol::kMicroQRCode);
 }
 
+static constexpr double kDefaultRatio = 2.0;
+
 Symbology::Symbology(const BarcodeSymbol& symbol) :
 	_symbology{symbol}
 {}
 
 OneDimensionBarcode::OneDimensionBarcode(const BarcodeSymbol& symbol) :
 	Symbology(symbol),
-	_ratio{2.0},
+	_ratio{kDefaultRatio},
 	_keepAspectRatio{true},
 	_displayChecksum{true},
 	_showHRT{false},
