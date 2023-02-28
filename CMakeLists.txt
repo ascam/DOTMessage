@@ -30,7 +30,7 @@ set(HEADERS)
 if (${ENABLE_TESTS})
 	add_subdirectory(test)
 	# Move resource file
-	#file(COPY "assets/fonts/*" DESTINATION "${PROJECT_BINARY_DIR}/bin/fonts" FILES_MATCHING PATTERN "*.ttf")
+	# file(COPY "assets/fonts/*" DESTINATION "${PROJECT_BINARY_DIR}/bin/fonts" FILES_MATCHING PATTERN "*.ttf")
 endif()
 
 

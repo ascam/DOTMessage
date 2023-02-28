@@ -1,10 +1,6 @@
 ##################################
-#      DOT Messages Sources      #
+#      DOM Visitors Sources      #
 ##################################
-
-add_subdirectory(dom)
-add_subdirectory(visitors)
-add_subdirectory(builders)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE
