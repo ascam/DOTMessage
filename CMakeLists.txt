@@ -42,6 +42,7 @@ set (SOURCES ${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/src
 	${UTILS_DIR}/stringutils/stringutils.cpp
 	${UTILS_DIR}/macsalogger/macsalogger.cpp
+	${UTILS_DIR}/threadsmap/threadsmap.cpp
 	${UTILS_DIR}/base64/base64.c
 )
 
@@ -59,12 +60,13 @@ add_library(${PROJECT_NAME}_lib OBJECT ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib
 	PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-	${CMAKE_CURRENT_SOURCE_DIR}/utils/include
-	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src
+		${CMAKE_CURRENT_SOURCE_DIR}/include
+		${UTILS_DIR}/include
+	PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/src
 	)
 
-if(BUILD_SHARED_LIBS)
+if(NOT BUILD_SHARED_LIBS)
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating static library")
 	message("-- STATIC Public dependencies: ${STATIC_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	add_library(${PROJECT_NAME} STATIC $<TARGET_OBJECTS:${PROJECT_NAME}_lib>)

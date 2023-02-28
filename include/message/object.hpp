@@ -8,13 +8,14 @@
 
 #include "geometry.hpp"
 #include "objecttype.hpp"
+#include "refreshpolicy.hpp"
 #include "signal/signal.hpp"
 
 #include "document.hpp"
 
 namespace macsa {
 	namespace dot {
-
+		class IDocumentVisitor;
 		struct LinkedObject {
 			bool enabled;
 			std::string objectId;
@@ -28,10 +29,9 @@ namespace macsa {
 		class Object
 		{
 			public:
-				Object(const std::string& id, const ObjectType& type);
-				Object(const std::string& id, const ObjectType& type, const Geometry& geometry);
+				Object(const std::string& id, const ObjectType& type, const Geometry& geometry = Geometry());
 				Object(const Object&) = delete;
-				virtual ~Object();
+				virtual ~Object() = default;
 
 				friend class Document;
 
@@ -42,74 +42,93 @@ namespace macsa {
 				const std::string& GetId() const {return _id;}
 
 				/**
+				 * @brief GetType. Getter method for object type identifier
+				 * @return the enum value of the object type.
+				 */
+				const ObjectType& GetType() const {return _type;}
+
+				/**
 				 * @brief GetGeometry. Getter method for object geometry
 				 * @return The current object geometry in canvas relative
 				 * coords.
 				 */
 				const Geometry& GetGeometry() const {return _geometry;}
+
 				/**
 				 * @brief SetGeometry. Setter method for object geometry
 				 * @param geometry: The object geometry to be set.
 				 */
 				void SetGeometry(const Geometry& geometry);
+
 				/**
 				 * @brief GetPosition. Getter method for object position
 				 * @return The current object top left point in canvas relative
 				 * coords.
 				 */
 				const Point& GetPosition() const {return _geometry.position;}
+
 				/**
 				 * @brief SetPosition. Setter method for object position
 				 * @param position: the object top left point.
 				 */
 				void SetPosition(const Point& position);
+
 				/**
 				 * @brief GetXPosition. Getter method for object x coord position
 				 * @return The current object left side x position in canvas relative
 				 * coords.
 				 */
 				float GetXPosition() const {return _geometry.position.x;}
+
 				/**
 				 * @brief SetXPosition. Setter method for object x coord position
 				 * @param x: The object left side x position to be set.
 				 */
 				void SetXPosition(float x);
+
 				/**
 				 * @brief GetYPosition. Getter method for object y coord position
 				 * @return The current object top y position in canvas relative
 				 * coords.
 				 */
 				float GetYPosition() const {return _geometry.position.y;}
+
 				/**
 				 * @brief SetYPosition. Setter method for object y coord position
 				 * @param x: The object top y position to be set.
 				 */
 				void SetYPosition(float y);
+
 				/**
 				 * @brief GetSize. Getter method for object size
 				 * @return The current object size.
 				 */
 				const Size& GetSize() const {return _geometry.size;}
+
 				/**
 				 * @brief SetSize. Setter method for object size
 				 * @param size: The object size to be set.
 				 */
 				void SetSize(const Size& size);
+
 				/**
 				 * @brief GetWidth. Getter method for object width.
 				 * @return The current object width.
 				 */
 				float GetWidth() const {return _geometry.size.width;}
+
 				/**
 				 * @brief SetWidth. Setter method for object width.
 				 * @param width: The object width to be set.
 				 */
 				void SetWidth(float width);
+
 				/**
 				 * @brief GetHeight. Getter method for object height
 				 * @return The current object height.
 				 */
 				float GetHeight() const {return _geometry.size.height;}
+
 				/**
 				 * @brief SetHeight. Setter method for object height.
 				 * @param height:  The object height to be set.
@@ -122,6 +141,7 @@ namespace macsa {
 				 * coords.
 				 */
 				int GetRotation() const {return _geometry.rotation;}
+
 				/**
 				 * @brief SetRotation. Setter method for object rotation
 				 * @param rotation: The object rotation to be set.
@@ -136,6 +156,7 @@ namespace macsa {
 				 * false
 				 */
 				bool Collides(const Object& other) const;
+
 				/**
 				 * @brief Collides. Overloaded Method to detect collision. This
 				 * method detects collisions between this object and a geometry.
@@ -144,6 +165,7 @@ namespace macsa {
 				 * otherwise returns false.
 				 */
 				bool Collides(const Geometry& geometry) const;
+
 				/**
 				 * @brief Collides. Overloaded Method to detect collision. This
 				 * method detects collisions between this object and a point.
@@ -159,6 +181,7 @@ namespace macsa {
 				 * @return true if selected is active, otherwise return false
 				 */
 				bool GetSelected() const {return _selected;}
+
 				/**
 				 * @brief SetSelected. Setter method to mark the object as
 				 * selected or not
@@ -172,6 +195,7 @@ namespace macsa {
 				 * the object is hidden.
 				 */
 				bool GetPrintable() const {return _printable;}
+
 				/**
 				 * @brief SetPrintable. Setter method for printable property
 				 * @param printable: boolean to set if the object is visible
@@ -185,16 +209,19 @@ namespace macsa {
 				 * returns false.
 				 */
 				bool GetLinked() const {return _linked.enabled;}
+
 				/**
 				 * @brief SetLinked. Setter method for linked objects enable status.
 				 * @param linked: bool to mark this object is linked to another object
 				 */
 				void SetLinked(bool linked);
+
 				/**
 				 * @brief GetLinkedObject. Getter method for linked objects.
 				 * @return string with the linked object id.
 				 */
 				const std::string& GetLinkedObject() const {return _linked.objectId;}
+
 				/**
 				 * @brief SetLinkedObject. Setter method for linked objects.
 				 * @param objectId: string with the linked object id.
@@ -206,18 +233,21 @@ namespace macsa {
 				 * @return The number of the layer where the object resides.
 				 */
 				uint32_t GetLayer() const {return _layer;}
+
 				/**
 				 * @brief SetLayer. Setter method for object layer.
 				 * @param layer: The number of the layer where the object
 				 * will be moved.
 				 */
 				void SetLayer(uint32_t layer);
+
 				/**
 				 * @brief GetZOrder. Getter method for object Z order.
 				 * z Order is the position in z coord for an specific layer
 				 * @return the z coord postion.
 				 */
 				int32_t GetZOrder() const {return _zOrder;}
+
 				/**
 				 * @brief SetZOrder. Setter method for object Z order.
 				 * @param zOrder: Number of z coord position.
@@ -236,6 +266,7 @@ namespace macsa {
 					}
 					return _layer > other._layer || _zOrder < other._zOrder;
 				}
+
 				/**
 				 * @brief operator <. Helper function for sorting by z coords.
 				 * @param other: object to compare
@@ -249,13 +280,30 @@ namespace macsa {
 					return _layer < other._layer || _zOrder > other._zOrder;
 				}
 
+				/**
+				 * @brief IsVariable. Getter method to get if the object
+				 * can change its inner value.
+				 * @return true if the object can change the inner value,
+				 * false if the object is static.
+				 */
+				virtual bool IsVariable() const = 0;
+
+				/**
+				 * @brief Accept: Allow the visitor to visit this object.
+				 * @param visitor: Visitor object
+				 * @return boolean with the result of the visit method
+				 * of the visitor object.
+				 */
+				virtual bool Accept(IDocumentVisitor* visitor) const = 0;
+
 			public:
 				Signal<> GeometryChanged;
-				Signal<bool> SelectedChanged;
-				Signal<bool> PrintableChanged;
-				Signal<bool> LinkedChanged;
-				Signal<> LayerChanged;
+				Signal<> SelectedChanged;
+				Signal<> PrintableChanged;
+				Signal<> LinkedChanged;
+				Signal<> LinkedObjectChanged;
 				Signal<> ZOrderChanged;
+				Signal<> IdChanged;
 
 			private:
 				std::string _id;
@@ -266,7 +314,6 @@ namespace macsa {
 				LinkedObject _linked;
 				bool _selected;
 				bool _printable;
-
 
 				/**
 				 * @brief setId. Setter method for object string identifier

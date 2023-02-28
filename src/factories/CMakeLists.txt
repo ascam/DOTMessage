@@ -8,7 +8,8 @@ set(SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/abstractobjectfactory.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/barcodeobjectbuilder.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/barcodesymbologyfactory.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/datasourcefactory.hpp
     PARENT_SCOPE
     )
 
