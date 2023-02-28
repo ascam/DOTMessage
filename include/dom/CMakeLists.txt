@@ -3,6 +3,8 @@
 ##################################
 
 add_subdirectory(datasources)
+add_subdirectory(builders)
+add_subdirectory(visitors)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE

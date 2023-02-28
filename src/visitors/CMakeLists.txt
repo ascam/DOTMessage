@@ -2,6 +2,8 @@
 #      DOM Visitors Sources      #
 ##################################
 
+add_subdirectory(nisx)
+
 set(SOURCES ${SOURCES}
     PARENT_SCOPE
     )
