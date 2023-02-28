@@ -33,12 +33,21 @@ namespace macsa {
 				DataSource* SetDatasource(const DataSourceType& type);
 
 				/**
+				 * @brief ClearDataSource. Clear the datasource to the set
+				 * the object as non variable.
+				 */
+				void ClearDataSource();
+
+				/**
 				 * @brief IsVariable. Getter method to get if the object
 				 * can change its inner value.
 				 * @return true if the object can change the inner value,
 				 * false if the object is static.
 				 */
 				bool IsVariable() const override;
+
+			public:
+				Signal<> DataSourceChanged;
 
 			protected:
 				std::unique_ptr<DataSource> _datasource;
