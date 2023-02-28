@@ -67,28 +67,28 @@ namespace macsa {
 				 * to apply to the text.
 				 * @return The current foreground color.
 				 */
-				const std::string& GetForegroundColor() const {return _foreColor;}
+				const Color& GetForegroundColor() const {return _foreColor;}
 
 				/**
 				 * @brief SetForegroundColor. Setter method for the foreground color
 				 * to apply to the text.
 				 * @param foreColor: The color to apply to the text.
 				 */
-				void SetForegroundColor(const std::string& foreColor);
+				void SetForegroundColor(const Color& foreColor);
 
 				/**
 				 * @brief GetBackgroundColor. Getter method for the background color
 				 * to apply to the text box.
 				 * @return The current background color.
 				 */
-				const std::string& GetBackgroundColor() const {return _backgroundColor;}
+				const Color& GetBackgroundColor() const {return _backgroundColor;}
 
 				/**
 				 * @brief SetBackgroundColor. Setter method for the background color
 				 * to apply to the text box.
 				 * @param backgroundColor: The color to apply to the text background.
 				 */
-				void SetBackgroundColor(const std::string& backgroundColor);
+				void SetBackgroundColor(const Color& backgroundColor);
 
 				/**
 				 * @brief GetTextBoxProperties. Getter method for the text box properties.
@@ -113,8 +113,8 @@ namespace macsa {
 			private:
 				std::string _text;
 				Font _font;
-				std::string _foreColor;
-				std::string _backgroundColor;
+				Color _foreColor;
+				Color _backgroundColor;
 				TextBoxProperties _textBoxProperties;
 		};
 	}

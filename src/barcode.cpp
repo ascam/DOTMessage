@@ -213,7 +213,7 @@ void Barcode::SetFont(const macsa::dot::Font& font)
 	}
 }
 
-void Barcode::SetForegroundColor(const std::string& foreColor)
+void Barcode::SetForegroundColor(const Color& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
@@ -221,7 +221,7 @@ void Barcode::SetForegroundColor(const std::string& foreColor)
 	}
 }
 
-void Barcode::SetBackgroundColor(const std::string& backgroundColor)
+void Barcode::SetBackgroundColor(const Color& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;

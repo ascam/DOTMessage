@@ -55,7 +55,7 @@ void Text::SetFont(const Font& font)
 	}
 }
 
-void Text::SetForegroundColor(const std::string& foreColor)
+void Text::SetForegroundColor(const Color& foreColor)
 {
 	if (_foreColor != foreColor){
 		_foreColor = foreColor;
@@ -63,7 +63,7 @@ void Text::SetForegroundColor(const std::string& foreColor)
 	}
 }
 
-void Text::SetBackgroundColor(const std::string& backgroundColor)
+void Text::SetBackgroundColor(const Color& backgroundColor)
 {
 	if (_backgroundColor != backgroundColor) {
 		_backgroundColor = backgroundColor;
