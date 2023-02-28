@@ -39,7 +39,7 @@ const std::vector<std::pair<NPromptBehavior, std::string>>& PromptBehavior::getD
 	static const std::vector<std::pair<NPromptBehavior,std::string>> promptBehaviorData {
 		{NPromptBehavior::kBlankValue,   "Blank"},
 		{NPromptBehavior::kLastValue,    "LastValue"},
-		{NPromptBehavior::kDefaultValue, "DEFAULT_VALUE"}
+		{NPromptBehavior::kDefaultValue, "DefaultValue"}
 	};
 	return promptBehaviorData;
 }

@@ -46,7 +46,7 @@ Symbology::Symbology(const BarcodeSymbol& symbol) :
 
 OneDimensionBarcode::OneDimensionBarcode(const BarcodeSymbol& symbol) :
 	Symbology(symbol),
-	_ratio{1.0},
+	_ratio{2.0},
 	_keepAspectRatio{true},
 	_displayChecksum{true},
 	_showHRT{false},
