@@ -14,16 +14,8 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
 }
 
 TextParser::TextParser(dot::Object *text) :
@@ -44,15 +36,12 @@ TextParser::TextParser(dot::Object *text) :
 	}
 }
 
-TextParser::~TextParser()
-{}
-
 bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (!parseCommonElements(element, attribute, _text)) {
 		if (eName == kText) {
-			std::string eValue {str(element.GetText())};
+			std::string eValue {ToString(element.GetText())};
 			_text->SetText(eValue);
 		}
 		else if (eName == kFont) {
@@ -60,10 +49,10 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 			element.Accept(&fontParser);
 		}
 		else if (eName == kForeColor) {
-			_text->SetForegroundColor(parseObjectColor(attribute).GetName());
+			_text->SetForegroundColor(parseObjectColor(attribute));
 		}
 		else if (eName == kBackColor) {
-			_text->SetBackgroundColor(parseObjectColor(attribute).GetName());
+			_text->SetBackgroundColor(parseObjectColor(attribute));
 		}
 		else if (eName == kAdjust) {
 			TextAdjustParser textBoxParser(_text);
@@ -71,9 +60,9 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 		}
 		else if (eName == kDataSource) {
 			if (attribute) {
-				std::string attrName {str(attribute->Name())};
+				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kType) {
-					std::string attrValue {str(attribute->Value())};
+					std::string attrValue {ToString(attribute->Value())};
 					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _text);
 					if (dataSourceParser){
 						element.Accept(dataSourceParser);
@@ -87,7 +76,7 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 				}
 			}
 			else {
-				WLog() << "Missing datasource attribute.";
+				WLog() << "Empty datasource tag.";
 			}
 		}
 		else if (eName != _fieldType) {
@@ -104,7 +93,7 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 
 bool TextParser::VisitExit(const XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kFont) {
 		_text->SetFont(_font);
 	}
@@ -118,13 +107,10 @@ TextAdjustParser::TextAdjustParser(Text *text) :
 	_elementName{kAdjust}
 {}
 
-TextAdjustParser::~TextAdjustParser()
-{}
-
 bool TextAdjustParser::VisitEnter(const XMLElement &element, const XMLAttribute *firstAttribute)
 {
-	std::string eName {str(element.Name())};
-	std::string eValue {str(element.GetText())};
+	std::string eName {ToString(element.Name())};
+	std::string eValue {ToString(element.GetText())};
 
 	if (eName == kHorizontal) {
 		dot::HorizontalAlignment alignment{eValue};
@@ -158,7 +144,7 @@ bool TextAdjustParser::VisitEnter(const XMLElement &element, const XMLAttribute 
 
 bool TextAdjustParser::VisitExit(const tinyxml2::XMLElement &element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == _elementName) {
 		_text->SetTextBoxProperties(_boxProperties);
 	}

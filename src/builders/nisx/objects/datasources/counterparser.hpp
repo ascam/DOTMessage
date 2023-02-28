@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				CounterParser(dot::VariableObject* object);
-				virtual ~CounterParser();
+				virtual ~CounterParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

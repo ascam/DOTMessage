@@ -11,7 +11,7 @@ namespace macsa {
 		{
 			public:
 				TextParser(dot::Object* text);
-				virtual ~TextParser();
+				virtual ~TextParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 				bool VisitExit( const tinyxml2::XMLElement& element) override;
@@ -25,7 +25,7 @@ namespace macsa {
 		{
 			public:
 				TextAdjustParser(dot::Text* text);
-				virtual ~TextAdjustParser();
+				virtual ~TextAdjustParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 				bool VisitExit( const tinyxml2::XMLElement& element) override;

@@ -11,16 +11,8 @@ using macsa::dot::Barcode;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
 }
 
 BarcodeParser::BarcodeParser(dot::Object* barcode) :
@@ -41,14 +33,11 @@ BarcodeParser::BarcodeParser(dot::Object* barcode) :
 	}
 }
 
-BarcodeParser::~BarcodeParser()
-{}
-
 bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (!parseCommonElements(element, attribute, _barcode)) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		if (eName == kCode) {
 			_barcode->SetCode(eValue);
 		}
@@ -57,10 +46,10 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxm
 			element.Accept(&fontParser);
 		}
 		else if (eName == kForeColor) {
-			_barcode->SetForegroundColor(parseObjectColor(attribute).GetName());
+			_barcode->SetForegroundColor(parseObjectColor(attribute));
 		}
 		else if (eName == kBackColor) {
-			_barcode->SetBackgroundColor(parseObjectColor(attribute).GetName());
+			_barcode->SetBackgroundColor(parseObjectColor(attribute));
 		}
 		else if (eName == kSymbology) {
 			_barcode->SetSymbology(eValue);
@@ -104,9 +93,9 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxm
 		}
 		else if (eName == kDataSource) {
 			if (attribute) {
-				std::string attrName {str(attribute->Name())};
+				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kType) {
-					std::string attrValue {str(attribute->Value())};
+					std::string attrValue {ToString(attribute->Value())};
 					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _barcode);
 					if (dataSourceParser){
 						element.Accept(dataSourceParser);
@@ -137,7 +126,7 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxm
 
 bool BarcodeParser::VisitExit(const tinyxml2::XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kFont) {
 		_barcode->SetFont(_font);
 	}

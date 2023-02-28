@@ -4,12 +4,8 @@
 
 using macsa::nisx::DiamondParser;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectParserFactory<DiamondParser>::Register(macsa::nisx::kDiamondField);
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<DiamondParser>::Register(macsa::nisx::kDiamondField);
 }
 
 DiamondParser::DiamondParser(macsa::dot::Object *primitive) :

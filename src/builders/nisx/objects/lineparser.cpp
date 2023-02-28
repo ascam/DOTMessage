@@ -4,12 +4,8 @@
 
 using macsa::nisx::LineParser;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectParserFactory<LineParser>::Register(macsa::nisx::kLineField);
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<LineParser>::Register(macsa::nisx::kLineField);
 }
 
 LineParser::LineParser(macsa::dot::Object *primitive) :

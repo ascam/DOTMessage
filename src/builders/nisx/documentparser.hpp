@@ -9,8 +9,10 @@ namespace macsa {
 		class DocumentParser : public tinyxml2::XMLVisitor
 		{
 			public:
+				using DocVersion = std::array<uint8_t,3>;
+
 				DocumentParser(dot::Document& document);
-				virtual ~DocumentParser();
+				virtual ~DocumentParser() = default;
 
 				static std::string GetSupportedNisxVersion();
 
@@ -26,7 +28,7 @@ namespace macsa {
 			private:
 				dot::Document& _doc;
 
-				std::array<uint8_t,3> getDocumentVersion(const std::string& versionAttribute) const;
+				DocVersion getDocumentVersion(const std::string& versionAttribute) const;
 		};
 	}
 }

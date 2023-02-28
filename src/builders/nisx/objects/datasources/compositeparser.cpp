@@ -2,23 +2,17 @@
 #include "builders/nisx/objects/datasources/datasourceparsersfactory.hpp"
 #include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
+#include "utils/stringutils.hpp"
 
 using macsa::nisx::CompositeParser;
 using macsa::dot::VariableObject;
 using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
+using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteDataSourceParserFactory<CompositeParser>::Register(kDataSourceComposite);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<CompositeParser>::Register(macsa::nisx::kDataSourceComposite);
 }
 
 CompositeParser::CompositeParser(VariableObject* object) :
@@ -26,12 +20,9 @@ CompositeParser::CompositeParser(VariableObject* object) :
 	_composite{}
 {}
 
-CompositeParser::~CompositeParser()
-{}
-
 bool CompositeParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kDataSource) {
 		_composite = dynamic_cast<dot::CompositeDataSource*>(_object->SetDatasource(dot::NDataSourceType::kComposite));
 		if (_composite == nullptr) {
@@ -40,13 +31,13 @@ bool CompositeParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 		}
 	}
 	else if (eName == kFormula) {
-		_composite->SetFormula(str(element.GetText()));
+		_composite->SetFormula(ToString(element.GetText()));
 	}
 	else if (eName != kComposite)  {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (firstAttribute) {
-			trace << "\n\tattribute: " << str(firstAttribute->Name());
+			trace << "\n\tattribute: " << ToString(firstAttribute->Name());
 		}
 		WLog() << trace.str();
 	}

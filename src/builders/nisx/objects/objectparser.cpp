@@ -11,56 +11,47 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using namespace macsa::utils::stringutils;
 
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
-
 ObjectParser::ObjectParser(const std::string& fieldType, Object* object) :
 	_fieldType(fieldType)
 {}
 
-ObjectParser::~ObjectParser()
-{}
-
 bool ObjectParser::parseCommonElements(const XMLElement &element, const XMLAttribute* firstAttribute, Object* object) const
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 
 	if (eName == kPosX) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetXPosition(ToDouble(eValue));
 		return true;
 	}
 	else if (eName == kPosY) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetYPosition(ToDouble(eValue));
 		return true;
 	}
 	else if (eName == kWidth) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetWidth(ToDouble(eValue));
 		return true;
 	}
 	else if (eName == kHeight) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetHeight(ToDouble(eValue));
 		return true;
 	}
 	else if (eName == kAngle) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetRotation(ToInt(eValue));
 		return true;
 	}
 	else if (eName == kPrintable) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetPrintable(ToBool(eValue));
 		return true;
 	}
 	else if (eName == kLinked) {
 		if (firstAttribute) {
-			std::string value = str(firstAttribute->Name());
+			std::string value = ToString(firstAttribute->Name());
 			if (value == kAttrValue && firstAttribute->Value()) {
 				object->SetLinked(ToBool(firstAttribute->Value()));
 			}
@@ -68,17 +59,17 @@ bool ObjectParser::parseCommonElements(const XMLElement &element, const XMLAttri
 		return true;
 	}
 	else if (eName == kLinkedObject) { //TODO(iserra): review the NisX XML Format: missing documentation example.
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetLinkedObject(eValue);
 		return true;
 	}
 	else if (eName == kLayer) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetLayer(static_cast<uint>(ToInt(eValue)));
 		return true;
 	}
 	else if (eName == kZOrder) {
-		std::string eValue {str(element.GetText())};
+		std::string eValue {ToString(element.GetText())};
 		object->SetZOrder(static_cast<uint>(ToInt(eValue)));
 		return true;
 	}
@@ -89,10 +80,9 @@ bool ObjectParser::parseCommonElements(const XMLElement &element, const XMLAttri
 Color ObjectParser::parseObjectColor(const XMLAttribute* attribute) const
 {
 	Color color;
-
 	while (attribute) {
-		std::string attrName {str(attribute->Name())};
-		std::string attrValue {str(attribute->Value())};
+		std::string attrName {ToString(attribute->Name())};
+		std::string attrValue {ToString(attribute->Value())};
 		if (attrName == kName) {
 			color.SetName(attrValue);
 		}
@@ -101,6 +91,5 @@ Color ObjectParser::parseObjectColor(const XMLAttribute* attribute) const
 		}
 		attribute = attribute->Next();
 	}
-
 	return color;
 }

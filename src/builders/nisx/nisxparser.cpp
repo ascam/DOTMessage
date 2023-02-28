@@ -2,7 +2,6 @@
 #include <clocale>
 #include "utils/macsalogger.hpp"
 #include "documentparser.hpp"
-#include "tinyxml2.h"
 
 using macsa::dot::NisxParser;
 using macsa::dot::Document;
@@ -11,11 +10,14 @@ using macsa::utils::MacsaLogger;
 using tinyxml2::XMLDocument;
 using tinyxml2::XMLError;
 
-NisxParser::NisxParser()
-{}
 
-NisxParser::~NisxParser()
-{}
+bool parseDocument(XMLDocument& doc, Document& document, const std::string& fileName)
+{
+	document.Clear();
+	document.SetName(fileName);
+	DocumentParser visitor(document);
+	return doc.Accept(&visitor);
+}
 
 std::string NisxParser::GetSupportedNisxVersion()
 {
@@ -32,13 +34,8 @@ bool NisxParser::Parse(const std::string& filepath, Document& document)
 		ELog() << "Failed to load xml file : " << filepath << " error : " << XMLDocument::ErrorIDToName(error);
 		return false;
 	}
-	else {
-		document.Clear();
-		document.SetName(filepath);
-		DocumentParser visitor(document);
-		return doc.Accept(&visitor);
-	}
-	return false;
+
+	return parseDocument(doc, document, filepath);
 }
 
 bool NisxParser::Parse(const char *data, uint length, Document& document)
@@ -51,11 +48,6 @@ bool NisxParser::Parse(const char *data, uint length, Document& document)
 		ELog() << "Failed to load xml file from data. Error : " << XMLDocument::ErrorIDToName(error);
 		return false;
 	}
-	else {
-		document.Clear();
-		document.SetName("New document");
-		DocumentParser visitor(document);
-		return doc.Accept(&visitor);
-	}
-	return false;
+
+	return parseDocument(doc, document, "New document");
 }

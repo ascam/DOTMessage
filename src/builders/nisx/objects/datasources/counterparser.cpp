@@ -17,16 +17,8 @@ static constexpr const char* kMinValue = "MIN_VALUE";
 static constexpr const char* kRepeat = "REPEAT_COUNT";
 static constexpr const char* kStep = "STEP";
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteDataSourceParserFactory<CounterParser>::Register(kDataSourceCounter);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<CounterParser>::Register(macsa::nisx::kDataSourceCounter);
 }
 
 CounterParser::CounterParser(VariableObject* object) :
@@ -34,12 +26,9 @@ CounterParser::CounterParser(VariableObject* object) :
 	_counter{}
 {}
 
-CounterParser::~CounterParser()
-{}
-
 bool CounterParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kDataSource) {
 		_counter = dynamic_cast<dot::CounterDataSource*>(_object->SetDatasource(dot::NDataSourceType::kCounter));
 		if (_counter == nullptr) {
@@ -48,30 +37,30 @@ bool CounterParser::VisitEnter(const XMLElement& element, const XMLAttribute* fi
 		}
 	}
 	else if (eName == kFormat) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_counter->SetLeadingZeros(eValue.size());
 	}
 	else if (eName == kMaxValue) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_counter->SetMaxValue(ToInt(eValue));
 	}
 	else if (eName == kMinValue) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_counter->SetMinValue(ToInt(eValue));
 	}
 	else if (eName == kRepeat) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_counter->SetRepeatCounter(ToBool(eValue));
 	}
 	else if (eName == kStep) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_counter->SetStep(ToInt(eValue));
 	}
 	else if (eName != kCounter) {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (firstAttribute) {
-			trace << "\n\tattribute: " << str(firstAttribute->Name());
+			trace << "\n\tattribute: " << ToString(firstAttribute->Name());
 		}
 		WLog() << trace.str();
 	}

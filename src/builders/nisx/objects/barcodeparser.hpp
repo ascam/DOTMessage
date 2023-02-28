@@ -11,7 +11,7 @@ namespace macsa {
 		{
 			public:
 				BarcodeParser(dot::Object* barcode);
-				virtual ~BarcodeParser();
+				virtual ~BarcodeParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 				bool VisitExit( const tinyxml2::XMLElement& element) override;

@@ -4,11 +4,12 @@
 #include "dom/documentparser.hpp"
 namespace macsa {
 	namespace dot {
+
 		class NisxParser : public IDocumentParser
 		{
 			public:
-				NisxParser();
-				virtual ~NisxParser();
+				NisxParser() = default;
+				virtual ~NisxParser() = default;
 
 				static std::string GetSupportedNisxVersion();
 

@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				DateTimeParser(dot::VariableObject* object);
-				virtual ~DateTimeParser();
+				virtual ~DateTimeParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

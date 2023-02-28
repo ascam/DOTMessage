@@ -20,17 +20,8 @@ static constexpr const char* kTopRight = "TopRight";
 static constexpr const char* kMiddleRight = "MiddleRight";
 static constexpr const char* kBottomRight = "BottomRight";
 
-
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteObjectParserFactory<ImageParser>::Register(macsa::nisx::kImageField);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<ImageParser>::Register(macsa::nisx::kImageField);
 }
 
 ImageParser::ImageParser(dot::Object *image) :
@@ -46,24 +37,19 @@ ImageParser::ImageParser(dot::Object *image) :
 		else {
 			message << image->GetType().toString() << " object";
 		}
-		throw (std::invalid_argument(message.str()));
+		throw std::invalid_argument(message.str());
 	}
 }
 
-ImageParser::~ImageParser()
-{}
-
-//    <IMAGE>{BASE64}</IMAGE>
-
 bool ImageParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (!parseCommonElements(element, attribute, _image)) {
 		if (eName == kAdjust) {
 			if (attribute) {
-				std::string attrName {str(attribute->Name())};
+				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kType){
-					std::string attrValue {str(attribute->Value())};
+					std::string attrValue {ToString(attribute->Value())};
 					_image->SetBoxAdjustment(attrValue);
 				}
 				else {
@@ -76,9 +62,9 @@ bool ImageParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2
 		}
 		else if (eName == kAlignment) {
 			if (attribute) {
-				std::string attrName {str(attribute->Name())};
+				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kAttrValue){
-					parseAlignment(str(attribute->Value()));
+					parseAlignment(ToString(attribute->Value()));
 				}
 				else {
 					WLog() << "Invalid image alignment attribute";
@@ -89,16 +75,52 @@ bool ImageParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2
 			}
 		}
 		else if (eName == kAlgorithm) {
-			_image->SetAlgorithm(str(element.GetText()));
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetAlgorithm(ToString(attribute->Value()));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image algorithm attribute";
+			}
 		}
 		else if (eName == kPath) {
-			_image->SetFilepath(str(element.GetText()));
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetFilepath(ToString(attribute->Value()));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image path attribute";
+			}
 		}
 		else if (eName == kTopThreshold) {
-			_image->SetTopThreshold(ToInt(str(element.GetText())));
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetTopThreshold(ToInt(ToString(attribute->Value())));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image top threshold attribute";
+			}
 		}
 		else if (eName == kDownThreshold) {
-			_image->SetDownThreshold(ToInt(str(element.GetText())));
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetDownThreshold(ToInt(ToString(attribute->Value())));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image down threshold attribute";
+			}
 		}
 		else if (eName == kImage) {
 			_image->SetData(imageContentFromString(element.GetText()));

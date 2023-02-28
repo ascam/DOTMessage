@@ -11,7 +11,7 @@ namespace macsa {
 		{
 			public:
 				ObjectParser(const std::string& fieldType, dot::Object* object);
-				virtual ~ObjectParser();
+				virtual ~ObjectParser() = default;
 
 			protected:
 				std::string _fieldType;

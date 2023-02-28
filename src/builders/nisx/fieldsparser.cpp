@@ -1,7 +1,8 @@
 #include "fieldsparser.hpp"
 #include "objects/objectparserfactory.hpp"
+#include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
-#include "nisxcommonnames.hpp"
+#include "utils/stringutils.hpp"
 
 using macsa::nisx::FieldsParser;
 using macsa::dot::Document;
@@ -9,25 +10,17 @@ using macsa::utils::MacsaLogger;
 using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using macsa::dot::NObjectType;
+using namespace macsa::utils::stringutils;
 
 static constexpr const char* kElementName = "FIELDS";
-
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
 
 FieldsParser::FieldsParser(Document &doc) :
 	_dom(doc)
 {}
 
-FieldsParser::~FieldsParser()
-{}
-
 bool FieldsParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string fieldType {str(element.Name())};
+	std::string fieldType {ToString(element.Name())};
 	if (fieldType != kElementName) {
 		auto objectType = GetObjectsMap().find(fieldType);
 		if (objectType != GetObjectsMap().end()) {

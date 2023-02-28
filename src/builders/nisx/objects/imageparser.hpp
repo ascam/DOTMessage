@@ -11,7 +11,7 @@ namespace macsa {
 		{
 			public:
 				ImageParser(dot::Object* image);
-				virtual ~ImageParser();
+				virtual ~ImageParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 
@@ -19,6 +19,7 @@ namespace macsa {
 				dot::Image* _image;
 
 				void parseAlignment(const std::string& adjust);
+
 				/**
 				 * @brief contentFromString. Helper method to convert an string in a byte vector.
 				 * @param data: string with the content to be converted.

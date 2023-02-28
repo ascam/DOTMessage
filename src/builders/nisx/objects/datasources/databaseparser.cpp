@@ -2,36 +2,31 @@
 #include "builders/nisx/objects/datasources/datasourceparsersfactory.hpp"
 #include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
+#include "utils/stringutils.hpp"
 
 using macsa::nisx::DatabaseParser;
 using macsa::dot::VariableObject;
 using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
+using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteDataSourceParserFactory<DatabaseParser>::Register(kDataSourceDatabase);
-
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<DatabaseParser>::Register(macsa::nisx::kDataSourceDatabase);
 }
+
+static constexpr const char* kFieldName = "FIELDNAME";
+static constexpr const char* kConnection = "CONNECTION";
+static constexpr const char* kTableName = "TABLENAME";
 
 DatabaseParser::DatabaseParser(VariableObject* object) :
 	DataSourceParser(object),
 	_database{}
 {}
 
-DatabaseParser::~DatabaseParser()
-{}
-
 bool DatabaseParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kDataSource) {
 		_database = dynamic_cast<dot::DatabaseDataSource*>(_object->SetDatasource(dot::NDataSourceType::kDataBase));
 		if (_database == nullptr) {
@@ -40,18 +35,30 @@ bool DatabaseParser::VisitEnter(const XMLElement& element, const XMLAttribute* f
 		}
 	}
 	else if (eName != kFieldName) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_database->SetFieldName(eValue);
 	}
 	else if (eName != kDefaultValue) {
-		std::string eValue = {str(element.GetText())};
+		std::string eValue = {ToString(element.GetText())};
 		_database->SetDefaultValue(eValue);
+	}
+	else if (eName != kConnection) {
+		std::string eValue = {ToString(element.GetText())};
+		_database->SetConnectionName(eValue);
+	}
+	else if (eName != kValue) {
+		std::string eValue = {ToString(element.GetText())};
+		_database->SetValue(eValue);
+	}
+	else if (eName != kTableName) {
+		std::string eValue = {ToString(element.GetText())};
+		_database->SetTableName(eValue);
 	}
 	else if (eName != kDatabase) {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (firstAttribute) {
-			trace << "\n\tattribute: " << str(firstAttribute->Name());
+			trace << "\n\tattribute: " << ToString(firstAttribute->Name());
 		}
 		WLog() << trace.str();
 	}

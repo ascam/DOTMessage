@@ -18,17 +18,8 @@ static constexpr const char* kFields  = "FIELDS";
 static const uint8_t kSupportedMajorVersion = 1;
 static const uint8_t kSupportedMinorVersion = 3;
 
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
-
 DocumentParser::DocumentParser(macsa::dot::Document& document) :
 	_doc(document)
-{}
-
-DocumentParser::~DocumentParser()
 {}
 
 std::string DocumentParser::GetSupportedNisxVersion()
@@ -40,13 +31,13 @@ std::string DocumentParser::GetSupportedNisxVersion()
 
 bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 	if (eName == kNeoFile) {
-		std::string attName {((attribute != nullptr) ? str(attribute->Name()) : "")};
+		std::string attName {((attribute != nullptr) ? ToString(attribute->Name()) : "")};
 		if (attName == kVersion) {
-			std::string version {str(attribute->Value())};
+			std::string version {ToString(attribute->Value())};
 			_doc.SetVersion(getDocumentVersion(version));
 		}
 		else {
@@ -112,9 +103,9 @@ bool DocumentParser::Visit(const tinyxml2::XMLUnknown& unknown)
 	return true;
 }
 
-std::array<uint8_t,3> DocumentParser::getDocumentVersion(const std::string &versionAttribute) const
+DocumentParser::DocVersion DocumentParser::getDocumentVersion(const std::string& versionAttribute) const
 {
-	std::array<uint8_t,3> docVersion{};
+	DocVersion docVersion{};
 	auto version = Split(versionAttribute, ".");
 	for (uint index = 0; index < 3; index++) {
 		if (version.size() > index) {

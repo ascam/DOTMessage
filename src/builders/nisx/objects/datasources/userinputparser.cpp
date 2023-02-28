@@ -13,16 +13,26 @@ using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			static const bool FactoryRegistered = ConcreteDataSourceParserFactory<UserInputParser>::Register(kDataSourceUserInput);
+static constexpr const char* kPrompt = "PROMPT";
+static constexpr const char* kUserText = "USER_TEXT";
+static constexpr const char* kUserInfo = "USER_INFO";
+static constexpr const char* kDevice = "DEVICE";
+static constexpr const char* kDate = "DATE";
+static constexpr const char* kPromptValueBehavior = "PROMPT_VALUE_BEHAVIOR";
+static constexpr const char* kRequired = "REQUIRED";
+static constexpr const char* kDataType = "DATATYPE";
+static constexpr const char* kMode = "Mode";
+static constexpr const char* kLength = "LENGTH";
+static constexpr const char* kMin = "MIN";
+static constexpr const char* kMax = "MAX";
+static constexpr const char* kAttrMin = "Min";
+static constexpr const char* kAttrMax = "Max";
+static constexpr const char* kPad = "PAD";
+static constexpr const char* kPaddingChar = "PADDING_CHAR";
+static constexpr const char* kRange = "RANGE";
 
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
-		}
-	}
+namespace  {
+	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<UserInputParser>::Register(macsa::nisx::kDataSourceUserInput);
 }
 
 UserInputParser::UserInputParser(VariableObject* object) :
@@ -30,13 +40,10 @@ UserInputParser::UserInputParser(VariableObject* object) :
 	_userInput{}
 {}
 
-UserInputParser::~UserInputParser()
-{}
-
 bool UserInputParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
-	std::string eValue {str(element.GetText())};
+	std::string eName {ToString(element.Name())};
+	std::string eValue {ToString(element.GetText())};
 	if (eName == kDataSource) {
 		_userInput = dynamic_cast<dot::UserInputDataSource*>(_object->SetDatasource(dot::NDataSourceType::kUserInput));
 		if (_userInput == nullptr) {
@@ -69,9 +76,9 @@ bool UserInputParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 	else if (eName == kDataType) {
 		_userInput->SetDataType(eValue);
 		if (attribute) {
-			std::string attrName {str(attribute->Name())};
+			std::string attrName {ToString(attribute->Name())};
 			if (attrName == kMode) {
-				_userInput->SetDataTypeMode(str(attribute->Value()));
+				_userInput->SetDataTypeMode(ToString(attribute->Value()));
 			}
 			else {
 				WLog() << "Unknow attribute \"" << attrName << "\" at " << eName << " element";
@@ -85,8 +92,8 @@ bool UserInputParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 	else if (eName == kRange) {
 		dot::UserInputDataSource::InputTextAttributes textAttributes = _userInput->GetInputTextAttributes();
 		while (attribute) {
-			std::string attrName {str(attribute->Name())};
-			std::string attrValue {str(attribute->Value())};
+			std::string attrName {ToString(attribute->Name())};
+			std::string attrValue {ToString(attribute->Value())};
 			if (attrName == kAttrMin) {
 				textAttributes.range.min = static_cast<uint>(ToInt(attrValue));
 			}
@@ -101,7 +108,7 @@ bool UserInputParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (attribute) {
-			trace << "\n\tattribute: " << str(attribute->Name());
+			trace << "\n\tattribute: " << ToString(attribute->Name());
 		}
 		WLog() << trace.str();
 	}
@@ -115,19 +122,19 @@ UserInfoParser::UserInfoParser(dot::UserInputDataSource *userInput) :
 
 bool UserInfoParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
-	std::string eValue = {str(element.GetText())};
+	std::string eName {ToString(element.Name())};
+	std::string eValue = {ToString(element.GetText())};
 	if (eName == kDevice) {
 		_userInfo.device = eValue;
 	}
 	else if (eName == kDate) {
-		_userInfo.device = eValue;
+		_userInfo.timestamp = eValue;
 	}
-	else {
+	else if (eName != kUserInfo) {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (firstAttribute) {
-			trace << "\n\tattribute: " << str(firstAttribute->Name());
+			trace << "\n\tattribute: " << ToString(firstAttribute->Name());
 		}
 		WLog() << trace.str();
 	}
@@ -136,11 +143,11 @@ bool UserInfoParser::VisitEnter(const XMLElement& element, const XMLAttribute* f
 
 bool UserInfoParser::VisitExit(const XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kUserInfo) {
 		_userInput->SetUserInfo(_userInfo);
 	}
-	return (eName == kUserInfo);
+	return true;
 }
 
 InputTextAttributesParser::InputTextAttributesParser(dot::UserInputDataSource* userInput) :
@@ -150,8 +157,8 @@ InputTextAttributesParser::InputTextAttributesParser(dot::UserInputDataSource* u
 
 bool InputTextAttributesParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
-	std::string eValue = {str(element.GetText())};
+	std::string eName {ToString(element.Name())};
+	std::string eValue = {ToString(element.GetText())};
 	if (eName == kMin) {
 		_textAttributes.limits.min = static_cast<uint>(ToInt(eValue));
 	}
@@ -164,11 +171,11 @@ bool InputTextAttributesParser::VisitEnter(const XMLElement& element, const XMLA
 	else if (eName == kPaddingChar && eValue.length()) {
 		_textAttributes.paddingChar = eValue.at(0);
 	}
-	else {
+	else if (eName != kLength) {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
 		if (firstAttribute) {
-			trace << "\n\tattribute: " << str(firstAttribute->Name());
+			trace << "\n\tattribute: " << ToString(firstAttribute->Name());
 		}
 		WLog() << trace.str();
 	}
@@ -177,9 +184,9 @@ bool InputTextAttributesParser::VisitEnter(const XMLElement& element, const XMLA
 
 bool InputTextAttributesParser::VisitExit(const XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kLength) {
 		_userInput->SetInputTextAttributes(_textAttributes);
 	}
-	return (eName == kUserInfo);
+	return true;
 }

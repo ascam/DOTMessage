@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				FontParser(dot::Font& font);
-				virtual ~FontParser();
+				virtual ~FontParser() = default;
 
 				bool VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 				bool VisitExit(const tinyxml2::XMLElement& element) override;

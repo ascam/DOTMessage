@@ -1,33 +1,25 @@
 #include "doccolors.hpp"
-#include "nisxcommonnames.hpp"
+#include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
 
 using macsa::nisx::ColorsPaletteParser;
 using macsa::dot::Document;
 using macsa::utils::MacsaLogger;
+using namespace macsa::utils::stringutils;
 
 static constexpr const char* kElementName = "COLORS";
 static constexpr const char* kTagColor  = "COLOR";
 static constexpr const char* kAttrColor = "Color";
-
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
 
 ColorsPaletteParser::ColorsPaletteParser(Document& document) :
 	_doc(document),
 	_palette{}
 {}
 
-ColorsPaletteParser::~ColorsPaletteParser()
-{}
-
 bool ColorsPaletteParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kTagColor) {
 		dot::Color color;
 		while (attribute) {
@@ -56,7 +48,7 @@ bool ColorsPaletteParser::VisitEnter(const tinyxml2::XMLElement& element, const 
 
 bool ColorsPaletteParser::VisitExit(const tinyxml2::XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kElementName) {
 		_doc.SetColorsPaletter(_palette);
 	}

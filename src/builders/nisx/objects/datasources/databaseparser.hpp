@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				DatabaseParser(dot::VariableObject* object);
-				virtual ~DatabaseParser();
+				virtual ~DatabaseParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

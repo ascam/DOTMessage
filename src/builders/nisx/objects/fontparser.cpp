@@ -12,22 +12,13 @@ using namespace macsa::utils::stringutils;
 
 constexpr const char* kElementName = macsa::nisx::kFont;
 
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
-
 FontParser::FontParser(Font& font) :
 	_font(font)
 {}
 
-FontParser::~FontParser()
-{}
-
 bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 
 	if (eName == kElementName) {
 		if (firstAttribute) {
@@ -35,16 +26,16 @@ bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* first
 		}
 	}
 	else if (eName == kBold) {
-		_font.bold = ToBool(str(element.GetText()));
+		_font.bold = ToBool(ToString(element.GetText()));
 	}
 	else if (eName == kItalic) {
-		_font.italic = ToBool(str(element.GetText()));
+		_font.italic = ToBool(ToString(element.GetText()));
 	}
 	else if (eName == kUnderline) {
-		_font.underline = ToBool(str(element.GetText()));
+		_font.underline = ToBool(ToString(element.GetText()));
 	}
 	else if (eName == kStrikeout) {
-		_font.strikeout = ToBool(str(element.GetText()));
+		_font.strikeout = ToBool(ToString(element.GetText()));
 	}
 	else {
 		std::stringstream trace;

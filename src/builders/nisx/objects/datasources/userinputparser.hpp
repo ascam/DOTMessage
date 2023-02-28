@@ -1,7 +1,7 @@
 #ifndef MACSA_NISX_OBJECT_USERINPUT_DATASOURCE_PARSER_HPP
 #define MACSA_NISX_OBJECT_USERINPUT_DATASOURCE_PARSER_HPP
 
-#include "datasourceparser.hpp"
+#include "builders/nisx/objects/datasources/datasourceparser.hpp"
 #include "dom/datasources/userinputdatasource.hpp"
 
 namespace macsa {
@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				UserInputParser(dot::VariableObject* object);
-				virtual ~UserInputParser();
+				virtual ~UserInputParser() = default;
 
 				bool VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

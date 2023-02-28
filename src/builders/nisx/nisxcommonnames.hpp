@@ -84,6 +84,7 @@ namespace macsa {
 		static constexpr const char* kDataSource = "DATASOURCE";
 		static constexpr const char* kFormat = "FORMAT";
 		static constexpr const char* kDefaultValue = "DEFAULT_VALUE";
+		static constexpr const char* kValue = "VALUE";
 		  // Counter Data Source
 		static constexpr const char* kDataSourceCounter = "CibNeoDsCounter";
 		  // DateTime Data Source
@@ -100,28 +101,9 @@ namespace macsa {
 		  // Database Data Source
 		static constexpr const char* kDatabase = "DATABASE";
 		static constexpr const char* kDataSourceDatabase = "CibNeoDsDatabase";
-		static constexpr const char* kFieldName = "FIELDNAME";
 		  // User inputs Data Source
 		static constexpr const char* kUserInput = "USERINPUT";
 		static constexpr const char* kDataSourceUserInput = "CibNeoDsUserInput";
-		static constexpr const char* kPrompt = "PROMPT";
-		static constexpr const char* kValue = "VALUE";
-		static constexpr const char* kUserText = "USER_TEXT";
-		static constexpr const char* kUserInfo = "USER_INFO";
-		static constexpr const char* kDevice = "DEVICE";
-		static constexpr const char* kDate = "DATE";
-		static constexpr const char* kPromptValueBehavior = "PROMPT_VALUE_BEHAVIOR";
-		static constexpr const char* kRequired = "REQUIRED";
-		static constexpr const char* kDataType = "DATATYPE";
-		static constexpr const char* kMode = "Mode";
-		static constexpr const char* kLength = "LENGTH";
-		static constexpr const char* kMin = "MIN";
-		static constexpr const char* kMax = "MAX";
-		static constexpr const char* kAttrMin = "Min";
-		static constexpr const char* kAttrMax = "Max";
-		static constexpr const char* kPad = "PAD";
-		static constexpr const char* kPaddingChar = "PADDING_CHAR";
-		static constexpr const char* kRange = "RANGE";
 	}
 }
 

@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				CompositeParser(dot::VariableObject* object);
-				virtual ~CompositeParser();
+				virtual ~CompositeParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

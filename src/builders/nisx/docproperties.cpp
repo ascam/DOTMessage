@@ -1,5 +1,5 @@
 #include "docproperties.hpp"
-#include "nisxcommonnames.hpp"
+#include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
 
@@ -13,25 +13,16 @@ static constexpr const char* kMeasureUnits = "MEASURE_UNITS";
 static constexpr const char* kResolution = "RESOLUTION";
 static constexpr const char* kMinUnit = "MIN_UNIT";
 
-namespace {
-	std::string str(const char* text) {
-		return (text != nullptr ? text : "");
-	}
-}
-
 DocumentPropertiesParser::DocumentPropertiesParser(Document& document) :
 	_document{document}
 {}
 
-DocumentPropertiesParser::~DocumentPropertiesParser()
-{}
-
 bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 
 	if (eName == kMeasureUnits) {
-		std::string units(str(element.GetText()));
+		std::string units(ToString(element.GetText()));
 		_document.SetUnits(ToLower(units));
 	}
 	else if (eName == kResolution) {
@@ -41,11 +32,11 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 		DLog() << "Unused property minUnits";
 	}
 	else if (eName == kWidth) {
-		std::string strWidth(str(element.GetText()));
+		std::string strWidth(ToString(element.GetText()));
 		_document.SetCanvasWidth(ToDouble(strWidth));
 	}
 	else if (eName == kHeight) {
-		std::string strHeight(str(element.GetText()));
+		std::string strHeight(ToString(element.GetText()));
 		_document.SetCanvasHeight(ToDouble(strHeight));
 	}
 	else if (eName != kElementName) {

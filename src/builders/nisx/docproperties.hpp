@@ -10,7 +10,7 @@ namespace macsa {
 		{
 			public:
 				DocumentPropertiesParser(dot::Document& document);
-				virtual ~DocumentPropertiesParser();
+				virtual ~DocumentPropertiesParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 

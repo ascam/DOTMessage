@@ -12,16 +12,22 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using namespace macsa::utils::stringutils;
 
-namespace macsa {
-	namespace nisx {
-		namespace  {
-			std::string str(const char* text) {
-				return (text != nullptr ? text : "");
-			}
+static macsa::dot::Color parseColor(const XMLAttribute* attribute)
+{
+	macsa::dot::Color color;
+	while (attribute) {
+		std::string attrName {ToString(attribute->Name())};
+		std::string attrValue {ToString(attribute->Value())};
+		if (attrName == macsa::nisx::kName) {
+			color.SetName(attrValue);
 		}
+		else if (attrName == macsa::nisx::kAttrValue) {
+			color.FromARGBString(attrValue);
+		}
+		attribute = attribute->Next();
 	}
+	return color;
 }
-
 
 PrimitiveParser::PrimitiveParser(const std::string& fieldType, macsa::dot::Object* primitive) :
 	ObjectParser(fieldType, primitive),
@@ -42,7 +48,7 @@ PrimitiveParser::PrimitiveParser(const std::string& fieldType, macsa::dot::Objec
 
 bool PrimitiveParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (!parseCommonElements(element, attribute, _primitive)) {
 		if (eName == kPen) {
 			PenParser parser(_primitive);
@@ -53,15 +59,15 @@ bool PrimitiveParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 			element.Accept(&parser);
 		}
 		else if (eName == kFilled) {
-			std::string eValue {str(element.GetText())};
+			std::string eValue {ToString(element.GetText())};
 			_primitive->SetFilled(ToBool(eValue));
 		}
 		else if (eName == kPrintBorder) {
-			std::string eValue {str(element.GetText())};
+			std::string eValue {ToString(element.GetText())};
 			_primitive->ShowBorder(ToBool(eValue));
 		}
 		else if (eName == kDashStyle) {
-			macsa::dot::LineStyle style{str(element.GetText())};
+			macsa::dot::LineStyle style{ToString(element.GetText())};
 			macsa::dot::Pen pen {_primitive->GetPen()};
 			pen.SetStyle(style);
 			_primitive->SetPen(pen);
@@ -69,7 +75,7 @@ bool PrimitiveParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 		else if (eName == kDashStyle) {
 			macsa::dot::Pen pen {_primitive->GetPen()};
 			macsa::dot::PenStyle style {pen.GetStyle()};
-			style.SetCustomDashedPattern({str(element.GetText())});
+			style.SetCustomDashedPattern({ToString(element.GetText())});
 			pen.SetStyle(style);
 			_primitive->SetPen(pen);
 		}
@@ -92,29 +98,22 @@ PenParser::PenParser(dot::Primitive *primitive) :
 
 bool PenParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kColor) {
-		while (attribute) {
-			std::string attrName {str(attribute->Name())};
-			std::string attrValue {str(attribute->Value())};
-			if (attrName == kName) {
-				_primitive->SetBrush(attrValue);
-			}
-			else if (attrName == kAttrValue) {
-//				color.FromARGBString(attrValue);
-			}
-			attribute = attribute->Next();
-		}
+		_pen.SetColor(parseColor(attribute));
 	}
 	else if (eName == kWidth) {
 		if (attribute) {
-			std::string attrName {str(attribute->Name())};
-			std::string attrValue {str(attribute->Value())};
+			std::string attrName {ToString(attribute->Name())};
+			std::string attrValue {ToString(attribute->Value())};
 			if (attrName == kAttrValue) {
 				_pen.SetWidth(ToDouble(attrValue));
 			}
-			else {
+			else if (!attrName.empty()) {
 				WLog() << "Unknown width attribute \"" <<  attrName << "\"";
+			}
+			else {
+				WLog() << "Missing width attribute name";
 			}
 		}
 	}
@@ -131,11 +130,11 @@ bool PenParser::VisitEnter(const XMLElement& element, const XMLAttribute* attrib
 
 bool PenParser::VisitExit(const XMLElement& element)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kPen) {
 		_primitive->SetPen(_pen);
 	}
-	return (eName == kPen);
+	return true;
 }
 
 BrushParser::BrushParser(dot::Primitive *primitive) :
@@ -144,19 +143,9 @@ BrushParser::BrushParser(dot::Primitive *primitive) :
 
 bool BrushParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
-	std::string eName {str(element.Name())};
+	std::string eName {ToString(element.Name())};
 	if (eName == kColor) {
-		while (attribute) {
-			std::string attrName {str(attribute->Name())};
-			std::string attrValue {str(attribute->Value())};
-			if (attrName == kName) {
-				_primitive->SetBrush(attrValue);
-			}
-			else if (attrName == kAttrValue) {
-//				color.FromARGBString(attrValue);
-			}
-			attribute = attribute->Next();
-		}
+		_primitive->SetBrush(parseColor(attribute));
 	}
 	else if (eName != kBrush) {
 		std::stringstream trace;
