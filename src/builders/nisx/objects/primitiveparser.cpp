@@ -33,7 +33,7 @@ PrimitiveParser::PrimitiveParser(const std::string& fieldType, macsa::dot::Objec
 	ObjectParser(fieldType, primitive),
 	_primitive{dynamic_cast<Primitive*>(primitive)}
 {
-	if (!primitive || !_primitive) {
+	if (!_primitive) {
 		std::stringstream message;
 		message << "Unable to parse primitive field to a ";
 		if (!primitive) {

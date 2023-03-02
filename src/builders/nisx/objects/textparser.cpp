@@ -23,7 +23,7 @@ TextParser::TextParser(dot::Object *text) :
 	_text{dynamic_cast<Text*>(text)},
 	_font{}
 {
-	if (!text || !_text) {
+	if (!_text) {
 		std::stringstream message;
 		message << "Unable to parse text field to a ";
 		if (!text) {

@@ -28,7 +28,7 @@ ImageParser::ImageParser(dot::Object *image) :
 	ObjectParser(macsa::nisx::kImageField, image),
 	_image{dynamic_cast<Image*>(image)}
 {
-	if (!image || !_image) {
+	if (!_image) {
 		std::stringstream message;
 		message << "Unable to parse image field to a ";
 		if (!image) {

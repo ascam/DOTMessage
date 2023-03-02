@@ -20,7 +20,7 @@ BarcodeParser::BarcodeParser(dot::Object* barcode) :
 	_barcode{dynamic_cast<Barcode*>(barcode)},
 	_font{}
 {
-	if (!barcode || !_barcode) {
+	if (!_barcode) {
 		std::stringstream message;
 		message << "Unable to parse barcode field to a ";
 		if (!barcode) {
