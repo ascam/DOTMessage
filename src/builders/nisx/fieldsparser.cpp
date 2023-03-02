@@ -1,4 +1,5 @@
 #include "fieldsparser.hpp"
+#include <memory>
 #include "objects/objectparserfactory.hpp"
 #include "builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
@@ -34,10 +35,9 @@ bool FieldsParser::VisitEnter(const XMLElement& element, const XMLAttribute* fir
 			}
 			auto* object = _dom.AddObject(objectId, objectType->second);
 			if (object) {
-				ObjectParser* parser {ObjectParsersFactory::Get(objectType->first, object)};
-				if (parser){
-					element.Accept(parser);
-					delete parser;
+				std::unique_ptr<ObjectParser> parser {ObjectParsersFactory::Get(objectType->first, object)};
+				if (parser.get() != nullptr) {
+					element.Accept(parser.get());
 				}
 				else {
 					ELog() << "Unable to parser field of type " << fieldType << ". PARSER NOT IMPLEMENTED.";
