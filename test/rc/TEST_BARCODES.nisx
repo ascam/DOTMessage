@@ -1,0 +1,166 @@
+
+<NEOFILE Version="1.3">
+    <PROPERTIES>
+        <MEASURE_UNITS>Mm</MEASURE_UNITS>
+        <RESOLUTION>300</RESOLUTION>
+        <MIN_UNIT>1</MIN_UNIT>
+        <WIDTH>60</WIDTH>
+        <HEIGHT>12.7</HEIGHT>
+    </PROPERTIES>
+    <COLORS>
+        <COLOR Name="Color1" Color="FF000000"/>
+        <COLOR Name="Blank" Color="00FFFFFF"/>
+    </COLORS>
+    <FIELDS>
+        <BARCODEFIELD Name="item 3">
+            <X>0</X>
+            <Y>0.000999451</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>17</WIDTH>
+            <HEIGHT>12.699</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>2</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsCounter">
+                <COUNTER>
+                    <FORMAT>000</FORMAT>
+                    <MIN_VALUE>0</MIN_VALUE>
+                    <MAX_VALUE>0</MAX_VALUE>
+                    <REPEAT_COUNT>0</REPEAT_COUNT>
+                    <STEP>1</STEP>
+                </COUNTER>
+            </DATASOURCE>
+            <SYMBOLOGY>QRCode</SYMBOLOGY>
+            <CODE>001</CODE>
+            <SHAVINGMODE>true</SHAVINGMODE>
+            <SHAVINGVALUE>30</SHAVINGVALUE>
+            <RATIO>1</RATIO>
+            <DISPLAYCHECKSUM>true</DISPLAYCHECKSUM>
+            <DISPLAYCODE>true</DISPLAYCODE>
+            <FONT Name="Liberation Sans" Size="9">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <QRVERSION></QRVERSION>
+            <QRCORRECTIONLEVEL></QRCORRECTIONLEVEL>
+            <BEARERSTYLE></BEARERSTYLE>
+        </BARCODEFIELD>
+        <BARCODEFIELD Name="item 4">
+            <X>31</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>12</WIDTH>
+            <HEIGHT>12.699</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>3</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsCounter">
+                <COUNTER>
+                    <FORMAT>00000000000</FORMAT>
+                    <MIN_VALUE>0</MIN_VALUE>
+                    <MAX_VALUE>0</MAX_VALUE>
+                    <REPEAT_COUNT>0</REPEAT_COUNT>
+                    <STEP>1</STEP>
+                </COUNTER>
+            </DATASOURCE>
+            <SYMBOLOGY>DataMatrix</SYMBOLOGY>
+            <CODE>00000000001</CODE>
+            <SHAVINGMODE>true</SHAVINGMODE>
+            <SHAVINGVALUE>30</SHAVINGVALUE>
+            <RATIO>1</RATIO>
+            <DISPLAYCHECKSUM>true</DISPLAYCHECKSUM>
+            <DISPLAYCODE>true</DISPLAYCODE>
+            <FONT Name="Liberation Sans" Size="9">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <QRVERSION></QRVERSION>
+            <QRCORRECTIONLEVEL></QRCORRECTIONLEVEL>
+            <BEARERSTYLE></BEARERSTYLE>
+        </BARCODEFIELD>
+        <BARCODEFIELD Name="item 5">
+            <X>16</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>15</WIDTH>
+            <HEIGHT>12.699</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>4</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsCounter">
+                <COUNTER>
+                    <FORMAT>000000</FORMAT>
+                    <MIN_VALUE>0</MIN_VALUE>
+                    <MAX_VALUE>0</MAX_VALUE>
+                    <REPEAT_COUNT>0</REPEAT_COUNT>
+                    <STEP>1</STEP>
+                </COUNTER>
+            </DATASOURCE>
+            <SYMBOLOGY>Ean13</SYMBOLOGY>
+            <CODE>000001</CODE>
+            <SHAVINGMODE>false</SHAVINGMODE>
+            <SHAVINGVALUE>30</SHAVINGVALUE>
+            <RATIO>0</RATIO>
+            <DISPLAYCHECKSUM>true</DISPLAYCHECKSUM>
+            <DISPLAYCODE>true</DISPLAYCODE>
+            <FONT Name="Liberation Sans" Size="13">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <QRVERSION></QRVERSION>
+            <QRCORRECTIONLEVEL></QRCORRECTIONLEVEL>
+            <BEARERSTYLE></BEARERSTYLE>
+        </BARCODEFIELD>
+        <TEXTFIELD Name="item 6">
+            <X>45</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <WIDTH>15</WIDTH>
+            <HEIGHT>12.699</HEIGHT>
+            <PRINTABLE>true</PRINTABLE>
+            <LINKED Value="false"/>
+            <ZORDER>0</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsCounter">
+                <COUNTER>
+                    <FORMAT>000</FORMAT>
+                    <MIN_VALUE>0</MIN_VALUE>
+                    <MAX_VALUE>0</MAX_VALUE>
+                    <REPEAT_COUNT>0</REPEAT_COUNT>
+                    <STEP>1</STEP>
+                </COUNTER>
+            </DATASOURCE>
+            <TEXT>001</TEXT>
+            <FONT Name="Garuda" Size="18">
+                <BOLD>false</BOLD>
+                <ITALIC>false</ITALIC>
+                <UNDERLINE>false</UNDERLINE>
+                <STRIKEOUT>false</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000"/>
+            <BACKCOLOR Name="Blank" Value="00FFFFFF"/>
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+    </FIELDS>
+</NEOFILE>
