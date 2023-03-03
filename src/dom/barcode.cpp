@@ -3,7 +3,7 @@
 #include <sstream>
 
 #include "dom/documentvisitor.hpp"
-#include "symbologies/symbology.hpp"
+#include "components/symbologies/symbology.hpp"
 #include "dom/factories/abstractobjectfactory.hpp"
 #include "dom/factories/barcodesymbologyfactory.hpp"
 #include "utils/macsalogger.hpp"
