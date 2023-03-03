@@ -1,0 +1,38 @@
+﻿<NEOFILE Version="1.0">
+  <DATABASE>
+    <CONNECTIONS>
+      <CONNECTION Name="Connection.Hoja1$">
+        <PROPERTIES>
+          <CONNECTION_STRING>Provider=Microsoft.ACE.OLEDB.12.0;Data Source="C:\Users\a.dorado\Documents\PRUEBA BDD.xlsx";Extended Properties="Excel 8.0;HDR=YES;IMEX=1"</CONNECTION_STRING>
+          <DRIVER>Excel</DRIVER>
+          <TABLENAME>Hoja1$</TABLENAME>
+          <SQLQUERY>SELECT [COCHE],[COLOR],[NUMERO] FROM [Hoja1$]</SQLQUERY>
+          <FILENAME>C:\Users\a.dorado\Documents\PRUEBA BDD.xlsx</FILENAME>
+          <CURRENT_ROW>0</CURRENT_ROW>
+          <FIELDS>
+            <FIELD>COCHE</FIELD>
+            <FIELD>COLOR</FIELD>
+            <FIELD>NUMERO</FIELD>
+          </FIELDS>
+        </PROPERTIES>
+      </CONNECTION>
+    </CONNECTIONS>
+    <DATA Connection="Connection.Hoja1$">
+      <RECORD>
+        <VALUE>ALFA</VALUE>
+        <VALUE>ROJO</VALUE>
+        <VALUE>1</VALUE>
+      </RECORD>
+      <RECORD>
+        <VALUE>RENAULT</VALUE>
+        <VALUE>AMARILLO</VALUE>
+        <VALUE>2</VALUE>
+      </RECORD>
+      <RECORD>
+        <VALUE>LAMBO</VALUE>
+        <VALUE>VERDE</VALUE>
+        <VALUE>3</VALUE>
+      </RECORD>
+    </DATA>
+  </DATABASE>
+</NEOFILE>

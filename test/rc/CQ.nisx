@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NEOFILE Version="1.0">
+    <PROPERTIES>
+        <MEASURE_UNITS>Mm</MEASURE_UNITS>
+        <RESOLUTION>300</RESOLUTION>
+        <MIN_UNIT>1</MIN_UNIT>
+        <WIDTH>100</WIDTH>
+        <HEIGHT>12.70</HEIGHT>
+    </PROPERTIES>
+    <COLORS>
+        <COLOR Name="Blank" Color="FFFFFFFF" />
+        <COLOR Name="Color1" Color="FF000000" />
+    </COLORS>
+    <FIELDS>
+        <TEXTFIELD Name="TIJSN">
+            <HEIGHT>6</HEIGHT>
+            <WIDTH>26</WIDTH>
+            <X>1</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>0</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <TEXT>TIJ SN:</TEXT>
+            <FONT Name="Arial" Size="14">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR Name="Blank" Value="FFFFFFFF" />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="DATE">
+            <HEIGHT>6</HEIGHT>
+            <WIDTH>33</WIDTH>
+            <X>1</X>
+            <Y>6</Y>
+            <ANGLE>0</ANGLE>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>1</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsDateTime">
+                <DATETIME>
+                    <OFFSETDAYS>0</OFFSETDAYS>
+                    <OFFSETMONTHS>0</OFFSETMONTHS>
+                    <OFFSETYEARS>0</OFFSETYEARS>
+                    <HOURDAYSTART>0</HOURDAYSTART>
+                    <FORMAT>yyyy/MM/dd</FORMAT>
+                </DATETIME>
+            </DATASOURCE>
+            <TEXT>2019/12/18</TEXT>
+            <FONT Name="Arial" Size="14">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR Name="Blank" Value="FFFFFFFF" />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+        <BARCODEFIELD Name="SNQR">
+            <HEIGHT>12</HEIGHT>
+            <WIDTH>12</WIDTH>
+            <X>80</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>2</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsCompositeField">
+                <COMPOSITE>
+                    <FORMULA>Field|SNDEV|</FORMULA>
+                </COMPOSITE>
+            </DATASOURCE>
+            <SYMBOLOGY>QRCode</SYMBOLOGY>
+            <CODE>12345 SERIALNUM 6789</CODE>
+            <RATIO>1</RATIO>
+            <DISPLAYCHECKSUM>True</DISPLAYCHECKSUM>
+            <DISPLAYCODE>True</DISPLAYCODE>
+            <FONT Name="Liberation Sans" Size="10">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR Name="Blank" Value="FFFFFFFF" />
+            <QRVERSION>0</QRVERSION>
+            <QRCORRECTIONLEVEL>L</QRCORRECTIONLEVEL>
+            <BEARERSTYLE>None</BEARERSTYLE>
+        </BARCODEFIELD>
+        <TEXTFIELD Name="TIME">
+            <HEIGHT>6</HEIGHT>
+            <WIDTH>37</WIDTH>
+            <X>37</X>
+            <Y>6</Y>
+            <ANGLE>0</ANGLE>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>3</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsDateTime">
+                <DATETIME>
+                    <OFFSETDAYS>0</OFFSETDAYS>
+                    <OFFSETMONTHS>0</OFFSETMONTHS>
+                    <OFFSETYEARS>0</OFFSETYEARS>
+                    <HOURDAYSTART>0</HOURDAYSTART>
+                    <FORMAT>HH:mm:ss</FORMAT>
+                </DATETIME>
+            </DATASOURCE>
+            <TEXT>15:59:13</TEXT>
+            <FONT Name="Arial" Size="14">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR Name="Blank" Value="FFFFFFFF" />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+        <TEXTFIELD Name="SNDEV">
+            <HEIGHT>6</HEIGHT>
+            <WIDTH>47</WIDTH>
+            <X>29</X>
+            <Y>0</Y>
+            <ANGLE>0</ANGLE>
+            <PRINTABLE>True</PRINTABLE>
+            <LINKED Value="False" />
+            <ZORDER>4</ZORDER>
+            <LAYOUT>0</LAYOUT>
+            <DATASOURCE Type="CibNeoDsUserInput">
+                <USERINPUT>
+                    <PROMPT></PROMPT>
+                    <VALUE>12345 ABCDEFGHI 6789</VALUE>
+                </USERINPUT>
+            </DATASOURCE>
+            <TEXT>12345 ABCDEFGHI 6789</TEXT>
+            <FONT Name="Arial" Size="14">
+                <BOLD>False</BOLD>
+                <ITALIC>False</ITALIC>
+                <UNDERLINE>False</UNDERLINE>
+                <STRIKEOUT>False</STRIKEOUT>
+            </FONT>
+            <FORECOLOR Name="Color1" Value="FF000000" />
+            <BACKCOLOR Name="Blank" Value="FFFFFFFF" />
+            <ADJUST>
+                <HORIZONTAL>Left</HORIZONTAL>
+                <VERTICAL>Middle</VERTICAL>
+                <FITTOBOX>
+                    <MAXCHARSLINE>0</MAXCHARSLINE>
+                </FITTOBOX>
+            </ADJUST>
+        </TEXTFIELD>
+    </FIELDS>
+</NEOFILE>

@@ -2,7 +2,7 @@
 #      DOT Messages headers      #
 ##################################
 
-add_subdirectory(message)
+add_subdirectory(dom)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE

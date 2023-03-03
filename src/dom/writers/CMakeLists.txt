@@ -1,10 +1,11 @@
 ##################################
-#      DOT Messages Sources      #
+#      DOM Writers Sources      #
 ##################################
 
-add_subdirectory(dom)
+add_subdirectory(nisx)
 
 set(SOURCES ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/nisxwriter.cpp
     PARENT_SCOPE
     )
 
