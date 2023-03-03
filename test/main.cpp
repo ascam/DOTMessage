@@ -5,7 +5,7 @@
 
 #include "cmrc/cmrc.hpp" //Compiled resources
 #include "dom/builders/nisxparser.hpp"
-#include "dom/visitors/nisx/nisxwriter.hpp"
+#include "dom/writers/nisxwriter.hpp"
 // DOM Objects
 #include "dom/object.hpp"
 #include "dom/text.hpp"
