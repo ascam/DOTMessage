@@ -2,7 +2,7 @@
 #define MACSA_NISX_OBJECT_DATETIME_DATASOURCE_PARSER_HPP
 
 #include "datasourceparser.hpp"
-#include "dom/datasources/datetimedatasource.hpp"
+#include "dom/components/datasources/datetimedatasource.hpp"
 
 namespace macsa {
 	namespace nisx {

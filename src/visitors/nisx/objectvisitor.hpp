@@ -2,7 +2,7 @@
 #define MACSA_NISX_OBJECT_VISITOR_HPP
 
 #include "dom/object.hpp"
-#include "dom/font.hpp"
+#include "dom/components/font.hpp"
 #include "tinyxml2.h"
 
 namespace macsa {

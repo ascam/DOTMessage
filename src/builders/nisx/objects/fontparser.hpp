@@ -1,7 +1,7 @@
 #ifndef MACSA_NISX_FONT_PARSER_HPP
 #define MACSA_NISX_FONT_PARSER_HPP
 
-#include "dom/font.hpp"
+#include "dom/components/font.hpp"
 #include "tinyxml2.h"
 
 namespace macsa {

@@ -3,7 +3,7 @@
 
 #include <utility>
 #include <unordered_map>
-#include "dom/barcodesymbologies.hpp"
+#include "dom/components/barcodesymbologies.hpp"
 #include "utils/macsalogger.hpp"
 
 namespace macsa {

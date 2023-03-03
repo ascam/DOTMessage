@@ -2,7 +2,7 @@
 #define MACSA_NISX_OBJECT_COUNTER_DATASOURCE_PARSER_HPP
 
 #include "datasourceparser.hpp"
-#include "dom/datasources/counterdatasource.hpp"
+#include "dom/components/datasources/counterdatasource.hpp"
 
 namespace macsa {
 	namespace nisx {

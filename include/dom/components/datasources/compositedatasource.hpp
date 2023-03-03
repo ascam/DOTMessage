@@ -4,7 +4,7 @@
 #include <string>
 
 #include "signal/signal.hpp"
-#include "dom/datasources/datasource.hpp"
+#include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {

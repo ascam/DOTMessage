@@ -6,7 +6,7 @@
 #include <queue>
 #include <memory>
 
-#include "geometry.hpp"
+#include "components/geometry.hpp"
 #include "objecttype.hpp"
 #include "refreshpolicy.hpp"
 #include "signal/signal.hpp"

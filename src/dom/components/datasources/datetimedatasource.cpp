@@ -1,4 +1,4 @@
-#include "dom/datasources/datetimedatasource.hpp"
+#include "dom/components/datasources/datetimedatasource.hpp"
 #include "dom/factories/datasourcefactory.hpp"
 #include "dom/documentvisitor.hpp"
 

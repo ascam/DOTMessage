@@ -1,4 +1,4 @@
-#include "dom/barcodesymbologies.hpp"
+#include "dom/components/barcodesymbologies.hpp"
 
 using macsa::dot::BarcodeSymbol;
 using macsa::dot::NBarcodeSymbol;

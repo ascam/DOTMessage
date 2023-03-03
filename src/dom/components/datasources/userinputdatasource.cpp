@@ -1,4 +1,4 @@
-#include "dom/datasources/userinputdatasource.hpp"
+#include "dom/components/datasources/userinputdatasource.hpp"
 #include "dom/factories/datasourcefactory.hpp"
 #include "dom/documentvisitor.hpp"
 

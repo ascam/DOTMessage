@@ -3,7 +3,7 @@
 
 #include <string>
 #include <cstdint>
-#include "dom/datasources/datasource.hpp"
+#include "dom/components/datasources/datasource.hpp"
 #include <signal/signal.hpp>
 
 namespace macsa {

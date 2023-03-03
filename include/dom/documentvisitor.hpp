@@ -6,11 +6,11 @@
 #include "barcode.hpp"
 #include "image.hpp"
 #include "primitives.hpp"
-#include "datasources/counterdatasource.hpp"
-#include "datasources/databasedatasource.hpp"
-#include "datasources/userinputdatasource.hpp"
-#include "datasources/datetimedatasource.hpp"
-#include "datasources/compositedatasource.hpp"
+#include "components/datasources/counterdatasource.hpp"
+#include "components/datasources/databasedatasource.hpp"
+#include "components/datasources/userinputdatasource.hpp"
+#include "components/datasources/datetimedatasource.hpp"
+#include "components/datasources/compositedatasource.hpp"
 
 namespace macsa
 {

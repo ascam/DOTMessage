@@ -1,7 +1,7 @@
 #ifndef DOT_MESSAGE_SYMBOLOGY_HPP
 #define DOT_MESSAGE_SYMBOLOGY_HPP
 
-#include "dom/barcodesymbologies.hpp"
+#include "dom/components/barcodesymbologies.hpp"
 
 namespace macsa {
 	namespace  dot {

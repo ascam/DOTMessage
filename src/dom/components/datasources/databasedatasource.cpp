@@ -1,4 +1,4 @@
-#include "dom/datasources/databasedatasource.hpp"
+#include "dom/components/datasources/databasedatasource.hpp"
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/datasourcefactory.hpp"
 

@@ -2,7 +2,7 @@
 #define MACSA_NISX_OBJECT_PARSER_HPP
 
 #include "dom/object.hpp"
-#include "dom/color.hpp"
+#include "dom/components/color.hpp"
 #include "tinyxml2.h"
 
 namespace macsa {

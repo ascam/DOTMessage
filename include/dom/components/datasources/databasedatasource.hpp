@@ -2,7 +2,7 @@
 #define DOT_MESSAGE_DATABASE_DATASOURCE_HPP
 
 #include <string>
-#include "dom/datasources/datasource.hpp"
+#include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {

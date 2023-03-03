@@ -2,7 +2,7 @@
 #define DOT_MESSAGE_PRIMITIVES_OBJECTS_HPP
 
 #include "object.hpp"
-#include "pen.hpp"
+#include "components/pen.hpp"
 
 namespace macsa {
 	namespace dot {

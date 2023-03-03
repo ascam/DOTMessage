@@ -2,7 +2,7 @@
 #define DOT_MESSAGE_IMAGE_OBJECT_HPP
 
 #include <string>
-#include "alignment.hpp"
+#include "components/alignment.hpp"
 #include "object.hpp"
 
 namespace macsa {

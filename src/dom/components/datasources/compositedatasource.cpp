@@ -1,4 +1,4 @@
-#include "dom/datasources/compositedatasource.hpp"
+#include "dom/components/datasources/compositedatasource.hpp"
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/datasourcefactory.hpp"
 #include "utils/stringutils.hpp"

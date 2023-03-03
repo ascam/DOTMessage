@@ -3,8 +3,8 @@
 
 #include <string>
 #include "variableobject.hpp"
-#include "font.hpp"
-#include "textboxproperties.hpp"
+#include "components/font.hpp"
+#include "components/textboxproperties.hpp"
 
 namespace macsa {
 	namespace dot {

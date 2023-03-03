@@ -2,7 +2,7 @@
 #define DOT_MESSAGE_DATE_AND_TIME_DATASOURCE_HPP
 
 #include <string>
-#include "dom/datasources/datasource.hpp"
+#include "dom/components/datasources/datasource.hpp"
 #include "signal/signal.hpp"
 
 namespace macsa {

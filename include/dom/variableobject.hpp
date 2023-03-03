@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "object.hpp"
-#include "datasources/datasource.hpp"
+#include "components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {

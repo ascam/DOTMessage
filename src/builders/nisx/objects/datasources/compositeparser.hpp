@@ -2,7 +2,7 @@
 #define MACSA_NISX_OBJECT_COMPOSITE_DATASOURCE_PARSER_HPP
 
 #include "datasourceparser.hpp"
-#include "dom/datasources/compositedatasource.hpp"
+#include "dom/components/datasources/compositedatasource.hpp"
 
 namespace macsa {
 	namespace nisx {

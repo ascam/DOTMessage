@@ -1,4 +1,4 @@
-#include "dom/datasources/counterdatasource.hpp"
+#include "dom/components/datasources/counterdatasource.hpp"
 #include <cmath>
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/datasourcefactory.hpp"

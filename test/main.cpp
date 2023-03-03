@@ -13,11 +13,11 @@
 #include "dom/image.hpp"
 #include "dom/primitives.hpp"
 // Data sources
-#include "dom/datasources/counterdatasource.hpp"
-#include "dom/datasources/compositedatasource.hpp"
-#include "dom/datasources/datetimedatasource.hpp"
-#include "dom/datasources/databasedatasource.hpp"
-#include "dom/datasources/userinputdatasource.hpp"
+#include "dom/components/datasources/counterdatasource.hpp"
+#include "dom/components/datasources/compositedatasource.hpp"
+#include "dom/components/datasources/datetimedatasource.hpp"
+#include "dom/components/datasources/databasedatasource.hpp"
+#include "dom/components/datasources/userinputdatasource.hpp"
 // Utils
 #include "utils/macsalogger.hpp"
 #include "utils/chronometer.hpp"

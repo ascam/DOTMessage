@@ -3,7 +3,7 @@
 
 #include <utility>
 #include <unordered_map>
-#include "dom/datasources/datasource.hpp"
+#include "dom/components/datasources/datasource.hpp"
 #include "utils/macsalogger.hpp"
 
 namespace macsa {

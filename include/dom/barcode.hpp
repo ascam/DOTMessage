@@ -2,9 +2,9 @@
 #define DOT_MESSAGE_BARCODE_OBJECTS_HPP
 
 #include <memory>
-#include "dom/variableobject.hpp"
-#include "dom/font.hpp"
-#include "dom/barcodesymbologies.hpp"
+#include "variableobject.hpp"
+#include "components/font.hpp"
+#include "components/barcodesymbologies.hpp"
 
 namespace macsa {
 	namespace dot {

@@ -6,12 +6,10 @@
 #include <deque>
 #include <memory>
 
-#include "geometry.hpp"
-#include "color.hpp"
 #include "objecttype.hpp"
+#include "components/geometry.hpp"
+#include "components/color.hpp"
 #include "signal/signal.hpp"
-
-// TODO(iserra): Add DateCodes support
 
 namespace macsa {
 	namespace dot {
