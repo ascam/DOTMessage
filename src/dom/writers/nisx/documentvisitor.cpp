@@ -1,7 +1,6 @@
 #include "documentvisitor.hpp"
 #include "dom/writers/nisxwriter.hpp"
 #include "dom/object.hpp"
-#include "dom/variableobject.hpp"
 #include "dom/text.hpp"
 #include "dom/barcode.hpp"
 #include "dom/primitives.hpp"
