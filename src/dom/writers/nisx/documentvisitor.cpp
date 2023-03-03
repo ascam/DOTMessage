@@ -1,5 +1,5 @@
 #include "documentvisitor.hpp"
-#include "dom/visitors/nisx/nisxwriter.hpp"
+#include "dom/writers/nisxwriter.hpp"
 #include "dom/object.hpp"
 #include "dom/variableobject.hpp"
 #include "dom/text.hpp"

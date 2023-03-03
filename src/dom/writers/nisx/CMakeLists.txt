@@ -3,7 +3,6 @@
 #################################
 
 set(SOURCES ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/nisxwriter.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/documentvisitor.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/objectvisitor.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/textvisitor.cpp

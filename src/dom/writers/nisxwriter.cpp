@@ -1,5 +1,5 @@
-#include "dom/visitors/nisx/nisxwriter.hpp"
-#include "documentvisitor.hpp"
+#include "dom/writers/nisxwriter.hpp"
+#include "nisx/documentvisitor.hpp"
 #include "tinyxml2.h"
 
 using macsa::dot::NisxWriter;

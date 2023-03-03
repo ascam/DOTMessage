@@ -3,7 +3,6 @@
 ##################################
 
 add_subdirectory(dom)
-add_subdirectory(visitors)
 add_subdirectory(builders)
 
 set(SOURCES ${SOURCES}
