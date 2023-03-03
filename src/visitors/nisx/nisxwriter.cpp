@@ -4,9 +4,11 @@
 
 using macsa::dot::NisxWriter;
 
+static constexpr const char* kSupportedNisxVersion = "1.3";
+
 std::string NisxWriter::GetWriterNisxVersion()
 {
-	return "1.3";
+	return kSupportedNisxVersion;
 }
 
 bool NisxWriter::Write(const std::string& filepath, dot::Document& document)
