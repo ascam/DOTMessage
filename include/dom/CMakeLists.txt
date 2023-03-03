@@ -5,6 +5,7 @@
 add_subdirectory(components)
 add_subdirectory(builders)
 add_subdirectory(writers)
+add_subdirectory(rippers)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE

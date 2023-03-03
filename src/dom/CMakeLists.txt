@@ -6,6 +6,7 @@ add_subdirectory(components)
 add_subdirectory(factories)
 add_subdirectory(writers)
 add_subdirectory(builders)
+add_subdirectory(rippers)
 
 set(SOURCES ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/document.cpp
