@@ -49,11 +49,6 @@ bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* first
 	return (eName == kElementName);
 }
 
-bool FontParser::VisitExit(const XMLElement& element)
-{
-	return true;
-}
-
 void FontParser::parserFont(const XMLAttribute* attribute)
 {
 	while (attribute) {
