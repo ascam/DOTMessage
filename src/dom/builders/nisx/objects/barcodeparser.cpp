@@ -1,6 +1,6 @@
 #include "barcodeparser.hpp"
 #include "fontparser.hpp"
-#include "builders/nisx/nisxcommonnames.hpp"
+#include "dom/builders/nisx/nisxcommonnames.hpp"
 #include "objectparserfactory.hpp"
 #include "datasources/datasourceparsersfactory.hpp"
 #include "utils/macsalogger.hpp"

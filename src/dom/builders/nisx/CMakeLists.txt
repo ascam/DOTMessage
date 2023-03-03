@@ -5,7 +5,6 @@
 add_subdirectory(objects)
 
 set(SOURCES ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/nisxparser.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/documentparser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/docproperties.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/doccolors.cpp

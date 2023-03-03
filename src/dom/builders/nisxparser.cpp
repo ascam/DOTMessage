@@ -1,7 +1,7 @@
 #include "dom/builders/nisxparser.hpp"
 #include <clocale>
 #include "utils/macsalogger.hpp"
-#include "documentparser.hpp"
+#include "nisx/documentparser.hpp"
 
 using macsa::dot::NisxParser;
 using macsa::dot::Document;

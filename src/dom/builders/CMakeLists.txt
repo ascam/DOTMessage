@@ -5,6 +5,7 @@
 add_subdirectory(nisx)
 
 set(SOURCES ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/nisxparser.cpp
     PARENT_SCOPE
     )
 

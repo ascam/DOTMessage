@@ -1,6 +1,6 @@
-#include "builders/nisx/objects/datasources/compositeparser.hpp"
-#include "builders/nisx/objects/datasources/datasourceparsersfactory.hpp"
-#include "builders/nisx/nisxcommonnames.hpp"
+#include "compositeparser.hpp"
+#include "datasourceparsersfactory.hpp"
+#include "dom/builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
 

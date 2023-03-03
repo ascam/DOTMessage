@@ -1,5 +1,5 @@
 #include "imageparser.hpp"
-#include "builders/nisx/nisxcommonnames.hpp"
+#include "dom/builders/nisx/nisxcommonnames.hpp"
 #include "objectparserfactory.hpp"
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"

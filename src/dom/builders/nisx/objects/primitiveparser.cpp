@@ -1,5 +1,5 @@
 #include "primitiveparser.hpp"
-#include "builders/nisx/nisxcommonnames.hpp"
+#include "dom/builders/nisx/nisxcommonnames.hpp"
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
 

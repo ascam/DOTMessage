@@ -1,5 +1,5 @@
 #include "lineparser.hpp"
-#include "builders/nisx/nisxcommonnames.hpp"
+#include "dom/builders/nisx/nisxcommonnames.hpp"
 #include "objectparserfactory.hpp"
 
 using macsa::nisx::LineParser;

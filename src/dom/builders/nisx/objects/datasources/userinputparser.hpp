@@ -1,7 +1,7 @@
 #ifndef MACSA_NISX_OBJECT_USERINPUT_DATASOURCE_PARSER_HPP
 #define MACSA_NISX_OBJECT_USERINPUT_DATASOURCE_PARSER_HPP
 
-#include "builders/nisx/objects/datasources/datasourceparser.hpp"
+#include "datasourceparser.hpp"
 #include "dom/components/datasources/userinputdatasource.hpp"
 
 namespace macsa {
