@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 		maxLength = std::max(maxLength, filename.size());
 		{
 			Chronometer chrono;
-			if (!parser.Parse(file.begin(), file.size(), doc)) {
+			if (!parser.BuildFromData(file.begin(), file.size(), doc)) {
 				ELog() << "Parser return failure when parsing nisx file";
 			}
 			else {

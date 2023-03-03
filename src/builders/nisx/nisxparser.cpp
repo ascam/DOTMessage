@@ -24,7 +24,7 @@ std::string NisxParser::GetSupportedNisxVersion()
 	return DocumentParser::GetSupportedNisxVersion();
 }
 
-bool NisxParser::Parse(const std::string& filepath, Document& document)
+bool NisxParser::BuildFromFile(const std::string& filepath, Document& document)
 {
 	std::setlocale(LC_ALL, "en_US.UTF-8");
 
@@ -38,7 +38,7 @@ bool NisxParser::Parse(const std::string& filepath, Document& document)
 	return parseDocument(doc, document, filepath);
 }
 
-bool NisxParser::Parse(const char *data, uint length, Document& document)
+bool NisxParser::BuildFromData(const char* data, uint length, Document& document)
 {
 	std::setlocale(LC_ALL, "en_US.UTF-8");
 

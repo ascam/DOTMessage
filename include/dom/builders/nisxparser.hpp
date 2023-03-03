@@ -1,11 +1,11 @@
 #ifndef MACSA_NISX_PARSER_HPP
 #define MACSA_NISX_PARSER_HPP
 
-#include "dom/documentparser.hpp"
+#include "dom/idocumentbuilder.hpp"
 namespace macsa {
 	namespace dot {
 
-		class NisxParser : public IDocumentParser
+		class NisxParser : public IDocumentBuilder
 		{
 			public:
 				NisxParser() = default;
@@ -13,8 +13,8 @@ namespace macsa {
 
 				static std::string GetSupportedNisxVersion();
 
-				bool Parse(const std::string& filepath, dot::Document& document) override;
-				bool Parse(const char* data, uint length, dot::Document& document) override;
+				bool BuildFromFile(const std::string& filepath, dot::Document& document) override;
+				bool BuildFromData(const char* data, uint length, dot::Document& document) override;
 		};
 	}
 }
