@@ -32,7 +32,7 @@ namespace macsa {
 				static std::string GetLibraryVersion();
 
 				Document(const std::string& name = "");
-				~Document() = default;
+				~Document();
 
 				/**
 				 * @brief GetName. Getter for document name.

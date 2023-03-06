@@ -33,6 +33,9 @@ Document::Document(const std::string& name) :
 	_dom{}
 {}
 
+Document::~Document()
+{}
+
 void Document::SetName(const std::string& name)
 {
 	if (_name != name){
