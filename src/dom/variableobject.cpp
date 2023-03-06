@@ -1,5 +1,6 @@
 #include "dom/variableobject.hpp"
 #include "dom/factories/datasourcefactory.hpp"
+#include "refreshpolicy.hpp"
 
 using macsa::dot::VariableObject;
 using macsa::dot::DataSource;

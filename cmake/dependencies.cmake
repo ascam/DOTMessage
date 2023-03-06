@@ -9,14 +9,6 @@ FetchContent_Declare(utils
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/utils
 )
 
-## TODO(iserra): Replace with DOTModel
-## ## Macsa Printers base repository
-## FetchContent_Declare(printer
-##   GIT_REPOSITORY git@github.com:ascam/corePrinter.git
-##   GIT_TAG development
-##   SOURCE_DIR ${CMAKE_SOURCE_DIR}/printer
-## )
-
 # Loading utils repository
 findModule(UTILS_DIR "utils")
 set(UTILS_DIR ${MODULE_BASE_PATH}/utils)

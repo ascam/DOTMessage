@@ -1,6 +1,7 @@
 #include "dom/components/datasources/compositedatasource.hpp"
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/datasourcefactory.hpp"
+#include "refreshpolicy.hpp"
 #include "utils/stringutils.hpp"
 #include "utils/macsalogger.hpp"
 
@@ -64,7 +65,7 @@ void CompositeDataSource::SetFormula(const std::string &formula)
 //		for (uint32_t index = 0; index < slices.size(); index += 2) {
 //			_tokens.emplace_back(slices.at(index), slices.at(index + 1));
 //		}
-	
+
 		FormulaChanged.Emit();
 	}
 }
