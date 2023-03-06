@@ -184,7 +184,7 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 	}
 }
 
-void QtGenerator::Update(Document *doc)
+void QtGenerator::Update(Document* doc)
 {
 	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotated: " << _rotated;
 
@@ -233,7 +233,7 @@ void QtGenerator::Update(Document *doc)
 	renderVariableFields(painter);
 }
 
-void QtGenerator::UpdateVariableFields(Document *doc)
+void QtGenerator::UpdateVariableFields(Document* doc)
 {
 	if (!doc) {
 		WLog() << "Invalid NisX Document";
@@ -246,11 +246,10 @@ void QtGenerator::UpdateVariableFields(Document *doc)
 	}
 
 	//Restore the full pixmap with the stored fixed pixmap
-	_pixmapFull.reset();
-	_pixmapFull = std::unique_ptr<QPixmap>(new QPixmap(*_pixmapFixed));
+	_pixmapFull.reset(new QPixmap(*_pixmapFixed));
 
 	// Points the painter to the base pixmap
-	QPainter painter (_pixmapFull.get());
+	QPainter painter(_pixmapFull.get());
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
@@ -259,11 +258,10 @@ void QtGenerator::UpdateVariableFields(Document *doc)
 	renderVariableFields(painter);
 }
 
-void QtGenerator::SaveToBmpFile(const std::string &filename)
+void QtGenerator::SaveToBmpFile(const std::string& filename)
 {
-	if (_pixmapFull && !_pixmapFull->isNull() &&
-		_pixmapFull->width() > 0 &&
-		_pixmapFull->height() > 0)
+	if (_pixmapFull != nullptr && !_pixmapFull->isNull() &&
+		_pixmapFull->width() > 0 &&	_pixmapFull->height() > 0)
 	{
 		DLog() << "Saving image to: " << filename;
 		_pixmapFull->save(filename.c_str()) ;
@@ -277,7 +275,7 @@ void QtGenerator::Clear()
 	_pixmapFull.reset();
 }
 
-void QtGenerator::AddFontsDirectory(const std::string &fullpath)
+void QtGenerator::AddFontsDirectory(const std::string& fullpath)
 {
 	QDir fonts(fullpath.c_str());
 	QStringList fontsFiles = fonts.entryList();
@@ -290,12 +288,12 @@ void QtGenerator::AddFontsDirectory(const std::string &fullpath)
 	}
 }
 
-void QtGenerator::AddFontFamily(const std::string &fullpath)
+void QtGenerator::AddFontFamily(const std::string& fullpath)
 {
 	QFontDatabase::addApplicationFont(fullpath.c_str());
 }
 
-void QtGenerator::SetBackgroundColorFromRGBA(const std::string &rgba)
+void QtGenerator::SetBackgroundColorFromRGBA(const std::string& rgba)
 {
 	const int byteLenght = 2;
 	if (rgba.size() == 9 && stringutils::StartsWith(rgba, "#")) {
@@ -408,7 +406,7 @@ void QtGenerator::renderVariableFields(QPainter& painter)
 	}
 }
 
-void QtGenerator::renderText(const Object *object, QPainter &painter)
+void QtGenerator::renderText(const Object* object, QPainter& painter)
 {
 	const auto text = dynamic_cast<const Text*>(object);
 	if (!text) {
@@ -420,7 +418,7 @@ void QtGenerator::renderText(const Object *object, QPainter &painter)
 	label.Render();
 }
 
-void QtGenerator::renderBarcode(const Object *object, QPainter &painter)
+void QtGenerator::renderBarcode(const Object* object, QPainter& painter)
 {
 	const auto barcode = dynamic_cast<const Barcode*>(object);
 	if (!barcode) {
@@ -432,7 +430,7 @@ void QtGenerator::renderBarcode(const Object *object, QPainter &painter)
 	qBcode.Render();
 }
 
-void QtGenerator::renderImage(const Object* object, QPainter &painter)
+void QtGenerator::renderImage(const Object* object, QPainter& painter)
 {
 	const auto image = dynamic_cast<const Image*>(object);
 	if (!image) {
@@ -444,7 +442,7 @@ void QtGenerator::renderImage(const Object* object, QPainter &painter)
 	qImage.Render();
 }
 
-void QtGenerator::renderRectangle(const Object* object, QPainter &painter)
+void QtGenerator::renderRectangle(const Object* object, QPainter& painter)
 {
 	const Rectangle* rectangle = dynamic_cast<const Rectangle*>(object);
 	if (!rectangle) {
@@ -468,7 +466,7 @@ void QtGenerator::renderLine(const Object* object, QPainter& painter)
 	qLine.Render();
 }
 
-void QtGenerator::renderEllipse(const Object* object, QPainter &painter)
+void QtGenerator::renderEllipse(const Object* object, QPainter& painter)
 {
 	const auto ellipse = dynamic_cast<const Ellipse*>(object);
 	if (!ellipse) {
@@ -498,7 +496,7 @@ uint8_t QtGenerator::invertByte(uint8_t byte) const
 	return (lookupTable[byte &  0x0F] << 4) | lookupTable[byte >> 4];
 }
 
-uint32_t QtGenerator::insertLine(const uchar *bytes, uint32_t size, bitmap& buffer,
+uint32_t QtGenerator::insertLine(const uchar* bytes, uint32_t size, bitmap& buffer,
 								 uint32_t pos, bool invertBytes) const
 {
 	// check for correct input arguments

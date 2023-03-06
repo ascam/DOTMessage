@@ -21,50 +21,23 @@ namespace macsa
 		class DOTRipper
 		{
 			public:
-				enum class Backend
-				{
-					kBackendInvalid = 0x00,
-					kBackendQt      = 0x01,
-					kBackendSdl     = 0x02
-				};
-
-				static std::string GetVersion();
-				static uint8_t GetMajorVersion();
-				static uint8_t GetMinorVersion();
-				static uint8_t GetPatchVersion();
-
-			public:
-				DOTRipper(Backend backend = Backend::kBackendInvalid);
-
 				DOTRipper(const DOTRipper& ripper) = delete;
 				DOTRipper(DOTRipper&& ripper) = delete;
 				DOTRipper& operator=(const DOTRipper& ripper) = delete;
 				DOTRipper& operator=(DOTRipper&& ripper) = delete;
-				~DOTRipper();
+				virtual ~DOTRipper();
 
-				void SetCurrentBackend(const Backend &currentBackend);
-
-				void* Draw();
-				void* NativeHandler() {return _generator->NativeHandler();}
 				uint32_t GetWidth() {return  _generator->GetWidth();}
 				uint32_t GetHeight() {return _generator->GetHeight();}
 				bool GetRawData(bitmap& bitmap) const;
 				bool GetDataMono(bitmap& bitmap, bool invertBytes);
-				bool GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2,
-										  uint32_t colOffset, bool invertBytes);
+				bool GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2, uint32_t colOffset, bool invertBytes);
 				void SaveToBmpFile(const std::string& filepath);
 
 				void Update();
 				void UpdateVariableFields();
-
 				RefreshPolicy GetUpdateFrequency() const;
-
 				void Clear();
-
-				/**
-				 * @brief GetCurrentFile Gets the current parsed document path
-				 */
-				const std::string& GetCurrentFile() const {return _currentDoc;}
 
 				float GetDocumentWidth() const;
 				float GetDocumentHeight() const;
@@ -117,14 +90,17 @@ namespace macsa
 					return _generator->getPrintHiddenItems();
 				}
 
-			private:
+				static std::string GetVersion();
+				static uint8_t GetMajorVersion();
+				static uint8_t GetMinorVersion();
+				static uint8_t GetPatchVersion();
+
+			protected:
 				std::mutex _mutex;
 				std::unique_ptr<BitmapGenerator> _generator;
 				std::unique_ptr<Document> _doc;
-				std::string _currentDoc;
-				Backend _currentBackend;
 
-				std::string getFilename(const std::string& filepath) const;
+				DOTRipper() = default;
 		};
 	}
 }

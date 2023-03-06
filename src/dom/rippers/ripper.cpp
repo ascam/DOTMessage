@@ -6,8 +6,6 @@
 #include "utils/macsalogger.hpp"
 #include "userinputdatasource.hpp"
 
-#include "qtgenerator.hpp"
-
 using macsa::dot::DOTRipper;
 using macsa::dot::Document;
 
@@ -18,67 +16,13 @@ uint8_t DOTRipper::GetMajorVersion() { return RIPPER_VERSION_MAJOR;}
 uint8_t DOTRipper::GetMinorVersion() { return RIPPER_VERSION_MINOR;}
 uint8_t DOTRipper::GetPatchVersion() { return RIPPER_VERSION_PATCH;}
 
-DOTRipper::DOTRipper(Backend backend):
-	_generator(),
-	_doc(),
-	_currentDoc{},
-	_currentBackend{Backend::kBackendInvalid}
-{
-	SetCurrentBackend(backend);
-}
-
 DOTRipper::~DOTRipper()
 {
 	_generator.reset();
 }
 
-void DOTRipper::SetCurrentBackend(const Backend &currentBackend)
-{
-	if (_currentBackend != currentBackend) {
-		bool oldConfig = false;
-		bool rotated = false;
-		uint32_t hres = 0, vres = 0;
-
-		if (_generator) {
-			oldConfig = true;
-			rotated = _generator->GetRotated();
-			hres = _generator->GetHorizontalResolution();
-			vres = _generator->GetVerticalResolution();
-		}
-
-		_currentBackend = currentBackend;
-
-		switch (_currentBackend) {
-			case Backend::kBackendQt:
-				_generator.reset(new QtGenerator());
-				if (_generator){
-					ILog() << "Using Qt generator";
-				}
-				else {
-					WLog() << "Qt generator not created";
-				}
-				break;
-
-			default:
-				WLog() << "Invalid backend selected. No image will be generated!";
-				break;
-		}
-
-		if (_generator != nullptr && oldConfig) {
-			_generator->SetHorizontalResolution(hres);
-			_generator->SetVerticalResolution(vres);
-			_generator->SetRotated(rotated);
-		}
-	}
-}
-
 bool DOTRipper::GetRawData(bitmap& bitmap) const
 {
-	if (_currentBackend == Backend::kBackendInvalid) {
-		ELog() << "Invalid backend selected";
-		return false;
-	}
-
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
 		return false;
@@ -90,11 +34,6 @@ bool DOTRipper::GetRawData(bitmap& bitmap) const
 
 bool DOTRipper::GetDataMono(bitmap& bitmap, bool invertBytes)
 {
-	if (_currentBackend == Backend::kBackendInvalid) {
-		ELog() << "Invalid backend selected";
-		return false;
-	}
-
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
 		return false;
@@ -111,11 +50,6 @@ bool DOTRipper::GetDataMono(bitmap& bitmap, bool invertBytes)
 bool DOTRipper::GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2,
 									  uint32_t colOffset, bool invertBytes)
 {
-	if (_currentBackend == Backend::kBackendInvalid) {
-		ELog() << "Invalid backend selected";
-		return false;
-	}
-
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
 		return false;
@@ -141,11 +75,6 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 
 void DOTRipper::Update()
 {
-	if (_currentBackend == Backend::kBackendInvalid || !_generator) {
-		ELog() << "Invalid selected backend";
-		return;
-	}
-
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
 		return;
@@ -160,11 +89,6 @@ void DOTRipper::Update()
 
 void DOTRipper::UpdateVariableFields()
 {
-	if (_currentBackend == Backend::kBackendInvalid) {
-		ELog() << "Invalid backend selected";
-		return;
-	}
-
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
 		return;
@@ -193,16 +117,9 @@ void DOTRipper::Clear()
 {
 	std::unique_lock<std::mutex>lck(_mutex);
 	_doc.reset();
-	_currentDoc.clear();
 	if (_generator) {
 		_generator->Clear();
 	}
-}
-
-void* DOTRipper::Draw()
-{
-	// @jsubi todo.
-	return nullptr;
 }
 
 float DOTRipper::GetDocumentWidth() const
@@ -223,7 +140,7 @@ float DOTRipper::GetDocumentHeight() const
 	return height;
 }
 
-void DOTRipper::SetUserFieldsValues(const std::map<std::string, std::string> &ufValues)
+void DOTRipper::SetUserFieldsValues(const std::map<std::string, std::string>& ufValues)
 {
 	auto&& objects = _doc->GetObjects();
 	for (auto& obj : objects) {
@@ -231,7 +148,7 @@ void DOTRipper::SetUserFieldsValues(const std::map<std::string, std::string> &uf
 			Text* text = dynamic_cast<Text*>(obj);
 			if (text->GetDatasource()->GetType() == NDataSourceType::kUserInput) {
 				UserInputDataSource* ui = dynamic_cast<UserInputDataSource*>(text->GetDatasource());
-				if (ui && ufValues.find(text->GetId()) != ufValues.end()) {
+				if (ui != nullptr && ufValues.find(text->GetId()) != ufValues.end()) {
 					ui->SetValue(ufValues.at(text->GetId()));
 				}
 			}
@@ -370,14 +287,4 @@ bool DOTRipper::GetRotated() const
 void DOTRipper::SetDocument(Document* document)
 {
 	_doc.reset(document);
-}
-
-std::string DOTRipper::getFilename(const std::string& filepath) const
-{
-	std::string filename = filepath;
-	std::size_t slash = filepath.find_last_of("/");
-	if (++slash != std::string::npos) {
-		filename = filepath.substr(slash);
-	}
-	return filename;
 }
