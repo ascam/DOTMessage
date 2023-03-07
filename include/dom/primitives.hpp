@@ -7,6 +7,7 @@
 namespace macsa {
 	namespace dot {
 		class IDocumentVisitor;
+
 		class Primitive : public Object
 		{
 			public:
@@ -160,7 +161,6 @@ namespace macsa {
 				bool IsFilled() const override {return false;}
 				bool HasBorder() const override {return true;}
 		};
-
 	}
 }
 

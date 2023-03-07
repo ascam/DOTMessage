@@ -8,7 +8,6 @@
 
 #include "components/geometry.hpp"
 #include "objecttype.hpp"
-#include "refreshpolicy.hpp"
 #include "signal/signal.hpp"
 
 #include "document.hpp"

@@ -6,7 +6,6 @@ using macsa::dot::DataSource;
 using macsa::dot::ObjectType;
 using macsa::dot::Geometry;
 using macsa::dot::DataSourceType;
-using macsa::dot::RefreshPolicy;
 
 VariableObject::VariableObject(const std::string& id, const ObjectType& type, const Geometry& geometry) :
 	Object(id, type, geometry),

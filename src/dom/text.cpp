@@ -3,7 +3,6 @@
 #include "dom/factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Text;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
 using macsa::dot::IDocumentVisitor;

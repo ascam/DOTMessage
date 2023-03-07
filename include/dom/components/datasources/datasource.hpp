@@ -2,7 +2,6 @@
 #define DOT_MESSAGE_OBJECT_DATASOURCES_HPP
 
 #include "utils/smartenum.hpp"
-#include "dom/refreshpolicy.hpp"
 
 namespace macsa {
 	namespace dot {

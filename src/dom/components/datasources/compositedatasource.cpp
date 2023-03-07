@@ -5,7 +5,6 @@
 #include "utils/macsalogger.hpp"
 
 using macsa::dot::CompositeDataSource;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::IDocumentVisitor;
 using namespace macsa::utils;
 
@@ -64,7 +63,7 @@ void CompositeDataSource::SetFormula(const std::string &formula)
 //		for (uint32_t index = 0; index < slices.size(); index += 2) {
 //			_tokens.emplace_back(slices.at(index), slices.at(index + 1));
 //		}
-	
+
 		FormulaChanged.Emit();
 	}
 }

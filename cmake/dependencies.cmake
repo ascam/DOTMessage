@@ -23,5 +23,5 @@ set(UTILS_DIR ${MODULE_BASE_PATH}/utils)
 message("-- UTILS_DIR:  ${UTILS_DIR}")
 if (UTILS_DIR)
         include(${UTILS_DIR}/cmake/macsa.cmake)  #configuration for macsa tij projects
-        include(${UTILS_DIR}/cmake/test.cmake)  #configuration test enabled and GTest requiered configuration
+	include(${UTILS_DIR}/cmake/test.cmake)  #configuration test enabled and GTest requiered configuration
 endif()
