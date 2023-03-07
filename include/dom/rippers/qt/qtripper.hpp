@@ -2,7 +2,7 @@
 #define NISX_QT_RIPPER_HPP
 
 #include "qtgenerator.hpp"
-#include "ripper.hpp"
+#include "dom/rippers/ripper.hpp"
 
 namespace macsa
 {
