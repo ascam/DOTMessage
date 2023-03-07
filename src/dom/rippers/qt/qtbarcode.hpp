@@ -7,7 +7,7 @@
 #include <QColor>
 
 #include "qtobject.hpp"
-#include "barcode.hpp"
+#include "dom/barcode.hpp"
 
 namespace macsa {
 	namespace dot {

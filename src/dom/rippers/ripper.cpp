@@ -1,20 +1,20 @@
-#include "ripper.hpp"
+#include "dom/rippers/ripper.hpp"
 
-#include "document.hpp"
-#include "object.hpp"
-#include "text.hpp"
+#include "dom/document.hpp"
+#include "dom/object.hpp"
+#include "dom/text.hpp"
 #include "utils/macsalogger.hpp"
-#include "userinputdatasource.hpp"
+#include "dom/components/datasources/userinputdatasource.hpp"
 
 using macsa::dot::DOTRipper;
 using macsa::dot::Document;
 
 using namespace macsa::utils;
 
-std::string DOTRipper::GetVersion()  { return RIPPER_VERSION;}
-uint8_t DOTRipper::GetMajorVersion() { return RIPPER_VERSION_MAJOR;}
-uint8_t DOTRipper::GetMinorVersion() { return RIPPER_VERSION_MINOR;}
-uint8_t DOTRipper::GetPatchVersion() { return RIPPER_VERSION_PATCH;}
+std::string DOTRipper::GetVersion()  { return DOT_MESSAGE_LIB_VERSION;}
+uint8_t DOTRipper::GetMajorVersion() { return DOT_MESSAGE_LIB_VERSION_MAJOR;}
+uint8_t DOTRipper::GetMinorVersion() { return DOT_MESSAGE_LIB_VERSION_MINOR;}
+uint8_t DOTRipper::GetPatchVersion() { return DOT_MESSAGE_LIB_VERSION_BUILD;}
 
 DOTRipper::~DOTRipper()
 {
@@ -269,19 +269,13 @@ void DOTRipper::SetBackgroundColorFromRGBA(uint32_t rgba)
 	}
 }
 
-void DOTRipper::SetRotated(bool rotated)
+int DOTRipper::GetRotation() const
 {
-	if (_generator) {
-		_generator->SetRotated(rotated);
+	if (_doc) {
+		return _doc->GetCanvasRotation();
 	}
-}
 
-bool DOTRipper::GetRotated() const
-{
-	if (_generator) {
-		return _generator->GetRotated();
-	}
-	return false;
+	return 0;
 }
 
 void DOTRipper::SetDocument(Document* document)

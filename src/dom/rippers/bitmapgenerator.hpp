@@ -6,10 +6,9 @@
 #include <array>
 #include <cstdint>
 
-#include "document.hpp"
+#include "dom/document.hpp"
 
 using bitmap = std::vector<uint8_t>;
-constexpr bool kDefaultRotatedValue = false;
 
 namespace macsa
 {
@@ -21,7 +20,6 @@ namespace macsa
 				BitmapGenerator() :
 					_hres(300),
 					_vres(300),
-					_rotated(kDefaultRotatedValue),
 					_printHiddenItems(true)
 				{}
 				virtual ~BitmapGenerator() = default;
@@ -61,12 +59,6 @@ namespace macsa
 				uint32_t GetHorizontalResolution() const { return _hres; }
 
 				/**
-				 * @brief SetRotated Rotated property (true by default) build the bitmap rotated 90º CW
-				 */
-				void SetRotated(bool rotated) {_rotated = rotated;}
-				bool GetRotated() const {return _rotated;}
-
-				/**
 				 * @brief setPrintHiddenItems allow hidden items to be printed
 				 * @param printHiddenItems true to print hidden items.
 				 */
@@ -85,7 +77,6 @@ namespace macsa
 			protected:
 				uint32_t _hres;
 				uint32_t _vres;
-				bool _rotated;
 				bool _printHiddenItems;
 		};
 	}

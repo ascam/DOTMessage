@@ -17,11 +17,6 @@ add_definitions(-DDOT_MESSAGE_LIB_VERSION_MINOR=${PROJECT_VERSION_MINOR})
 add_definitions(-DDOT_MESSAGE_LIB_VERSION_BUILD=${PROJECT_VERSION_PATCH})
 add_definitions(-DDOT_MESSAGE_LIB_VERSION="${PROJECT_VERSION}")
 
-add_definitions(-DRIPPER_VERSION_MAJOR=${PROJECT_VERSION_MAJOR})
-add_definitions(-DRIPPER_VERSION_MINOR=${PROJECT_VERSION_MINOR})
-add_definitions(-DRIPPER_VERSION_PATCH=${PROJECT_VERSION_PATCH})
-add_definitions(-DRIPPER_VERSION="${PROJECT_VERSION}")
-
 ##################  LOADING MODULES  ###########################
 include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
 
@@ -29,10 +24,11 @@ include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
 ####################  SOURCES AND HEADERS  #############################
 option(BUILD_SHARED_LIBS "Build Shared libraries" ON)
 option(BUILD_TEST_EXECUTABLE "Build Test application" OFF)
-
-## Backend option
+option(RASTERIZATION "Enable use of rasterization classes" ON)
 option(BACKEND_QT  "Use Qt based generator" ON)
-if (BACKEND_QT)
+option(BACKEND_SDL2 "Use SDL2 based generator" OFF)
+
+if (RASTERIZATION AND BACKEND_QT)
     ## Zint library options
     set(ZINT_VERSION zint-2.8.0)
     option(USE_ZINT_PNG "Enable png for zint" OFF)
@@ -41,8 +37,6 @@ if (BACKEND_QT)
     endif()
     option(BACKEND_QT_NATIVE  "Use Qt based generator natively" OFF)
 endif()
-
-option(BACKEND_SDL2 "Use SDL2 based generator" OFF)
 
 set(SOURCES)
 set(HEADERS)
@@ -58,34 +52,29 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/include	${PROJECT_BINARY_DIR}/include)
 
 set(BACKEND_LIBS)
 
-if (BACKEND_QT)
+if (RASTERIZATION AND BACKEND_QT)
     message("Using Qt backend")
     include(${UTILS_DIR}/cmake/qt.cmake)
     if(BACKEND_QT_NATIVE)
 	add_definitions(-DBACKEND_QT_NATIVE)
     endif()
-    add_subdirectory(${PROJECT_SOURCE_DIR}/include/dom/rippers/qt)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/src/dom/rippers/backend/qt)
     add_subdirectory(${UTILS_DIR}/${ZINT_VERSION}   ${PROJECT_BINARY_DIR}/${ZINT_VERSION})
     include_directories(${UTILS_DIR}/${ZINT_VERSION})
     set(BACKEND_LIBS ${BACKEND_LIBS} ${QT_LIBS})
     add_definitions(-DQT_BACKEND=TRUE)
 endif()
 
-if(BACKEND_SDL2)
+if(RASTERIZATION AND BACKEND_SDL2)
         message("Using SDL backend")
-	add_subdirectory(${PROJECT_SOURCE_DIR}/include/dom/rippers/sdl)
-	add_subdirectory(${PROJECT_SOURCE_DIR}/src/dom/rippers/backend/sdl)
 	find_package(SDL2 REQUIRED)
 	include_directories(${SDL2_INCLUDE_DIRS})
 	set(BACKEND_LIBS ${BACKEND_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_gfx)
 	add_definitions(-DSDL2_BACKEND=TRUE)
 endif()
 
-if (NOT BACKEND_QT AND NOT BACKEND_SDL2)
+if (RASTERIZATION AND NOT BACKEND_QT AND NOT BACKEND_SDL2)
         message(FATAL_ERROR "No backend provided!!")
 endif()
-
 
 set (SOURCES ${SOURCES}
         ${CMAKE_CURRENT_SOURCE_DIR}/src

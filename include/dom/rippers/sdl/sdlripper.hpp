@@ -18,7 +18,7 @@ namespace macsa
 				SDLDOTRipper(SDLDOTRipper&& ripper) = delete;
 				SDLDOTRipper& operator=(const SDLDOTRipper& ripper) = delete;
 				SDLDOTRipper& operator=(SDLDOTRipper&& ripper) = delete;
-				~SDLDOTRipper();
+				virtual ~SDLDOTRipper();
 
 				void* Draw(){return _generator->NativeHandler();};
 		};

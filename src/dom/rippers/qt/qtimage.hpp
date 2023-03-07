@@ -7,7 +7,7 @@
 #include <QString>
 
 #include "qtobject.hpp"
-#include "image.hpp"
+#include "dom/image.hpp"
 
 namespace macsa {
 	namespace dot {

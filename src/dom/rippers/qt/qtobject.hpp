@@ -6,7 +6,7 @@
 #include <QString>
 #include <QColor>
 
-#include "object.hpp"
+#include "dom/object.hpp"
 
 constexpr double kMMPerInch = 25.4;
 

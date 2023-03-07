@@ -7,7 +7,7 @@
 #include <QString>
 
 #include "qtprimitive.hpp"
-#include "primitives.hpp"
+#include "dom/primitives.hpp"
 
 namespace macsa {
 	namespace dot {

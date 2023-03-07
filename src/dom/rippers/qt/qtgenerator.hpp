@@ -14,7 +14,7 @@
 #include <QPixmap>
 
 #include "bitmapgenerator.hpp"
-#include "document.hpp"
+#include "dom/document.hpp"
 
 namespace macsa
 {

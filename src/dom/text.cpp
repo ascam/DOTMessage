@@ -1,10 +1,8 @@
 #include "dom/text.hpp"
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/abstractobjectfactory.hpp"
-#include "refreshpolicy.hpp"
 
 using macsa::dot::Text;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
 using macsa::dot::IDocumentVisitor;

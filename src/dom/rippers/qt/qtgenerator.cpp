@@ -186,7 +186,7 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 
 void QtGenerator::Update(Document* doc)
 {
-	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotated: " << _rotated;
+	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotation : " << doc->GetCanvasRotation();
 
 	if (!doc) {
 		ELog() << "Invalid NisX Document";
@@ -195,7 +195,7 @@ void QtGenerator::Update(Document* doc)
 
 	// Get size in pixels taking in mind the resolution
 	int w = 0, h = 0;
-	if (_rotated) {
+	if (doc->GetCanvasRotation() == 90) { // TODO : @jsubi, cal implementar la rotació dels missatges.
 		h = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth()  / kMMPerInch);
 		w = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
 	}
@@ -222,11 +222,10 @@ void QtGenerator::Update(Document* doc)
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
 
-	if (_rotated) {
+	if (doc->GetCanvasRotation() == 90) {
 		painter.translate(QPointF(w, 0));
-		painter.rotate(90);
+		painter.rotate(doc->GetCanvasRotation());
 	}
-
 
 	classifyObjects(doc->GetObjects());
 	renderFixedFields(painter);

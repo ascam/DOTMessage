@@ -18,7 +18,7 @@ namespace macsa
 				QtDOTRipper(QtDOTRipper&& ripper) = delete;
 				QtDOTRipper& operator=(const QtDOTRipper& ripper) = delete;
 				QtDOTRipper& operator=(QtDOTRipper&& ripper) = delete;
-				~QtDOTRipper() = default;
+				virtual ~QtDOTRipper() = default;
 
 				QPixmap* Draw(){return static_cast<QPixmap*>(_generator->NativeHandler());};
 		};

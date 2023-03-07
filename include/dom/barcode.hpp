@@ -3,8 +3,8 @@
 
 #include <memory>
 #include "variableobject.hpp"
-#include "font.hpp"
-#include "barcodesymbologies.hpp"
+#include "components/font.hpp"
+#include "components/barcodesymbologies.hpp"
 
 namespace macsa {
 	namespace dot {

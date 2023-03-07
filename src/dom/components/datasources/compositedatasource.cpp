@@ -1,12 +1,10 @@
 #include "dom/components/datasources/compositedatasource.hpp"
 #include "dom/documentvisitor.hpp"
 #include "dom/factories/datasourcefactory.hpp"
-#include "refreshpolicy.hpp"
 #include "utils/stringutils.hpp"
 #include "utils/macsalogger.hpp"
 
 using macsa::dot::CompositeDataSource;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::IDocumentVisitor;
 using namespace macsa::utils;
 

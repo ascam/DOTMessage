@@ -8,7 +8,7 @@
 #include <QString>
 
 #include "qtobject.hpp"
-#include "text.hpp"
+#include "dom/text.hpp"
 
 namespace macsa {
 	namespace dot {

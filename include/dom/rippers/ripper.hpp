@@ -8,9 +8,9 @@
 #include <map>
 #include <string>
 
-#include "document.hpp"
+#include "dom/document.hpp"
 #include "bitmapgenerator.hpp"
-#include "refreshpolicy.hpp"
+#include "dom/refreshpolicy.hpp"
 
 using bitmap = std::vector<uint8_t>;
 
@@ -65,11 +65,7 @@ namespace macsa
 				void SetBackgroundColorFromRGBA(const std::string& rgba);
 				void SetBackgroundColorFromRGBA(uint32_t rgba);
 
-				/**
-				 * @brief SetRotated Rotated property (true by default) build the bitmap rotated 90º CW
-				 */
-				void SetRotated(bool rotated);
-				bool GetRotated() const;
+				int GetRotation() const;
 
 				dot::Document* GetDocument() {return _doc.get();}
 				void SetDocument(dot::Document* document);
