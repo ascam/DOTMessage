@@ -5,6 +5,7 @@
 #include "dom/text.hpp"
 #include "utils/macsalogger.hpp"
 #include "dom/components/datasources/userinputdatasource.hpp"
+#include "dom/rippers/bitmapgenerator.hpp"
 
 using macsa::dot::DOTRipper;
 using macsa::dot::Document;
@@ -19,6 +20,24 @@ uint8_t DOTRipper::GetPatchVersion() { return DOT_MESSAGE_LIB_VERSION_BUILD;}
 DOTRipper::~DOTRipper()
 {
 	_generator.reset();
+}
+
+uint32_t DOTRipper::GetWidth()
+{
+	return  _generator->GetWidth();
+}
+
+uint32_t DOTRipper::GetHeight()
+{
+	return _generator->GetHeight();
+}
+
+void DOTRipper::setPrintHiddenItems(bool printHiddenItems)	{
+	_generator->setPrintHiddenItems(printHiddenItems);
+}
+
+bool DOTRipper::getPrintHiddenItems() const	{
+	return _generator->getPrintHiddenItems();
 }
 
 bool DOTRipper::GetRawData(bitmap& bitmap) const
@@ -83,7 +102,7 @@ void DOTRipper::Update()
 	{
 		ILog() << "Updating full pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
-		_generator->Update(_doc.get());
+		_generator->Update(_doc);
 	}
 }
 
@@ -97,7 +116,7 @@ void DOTRipper::UpdateVariableFields()
 	{
 		DLog() << "Updating variable pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
-		_generator->UpdateVariableFields(_doc.get());
+		_generator->UpdateVariableFields(_doc);
 	}
 }
 
@@ -116,7 +135,7 @@ macsa::dot::RefreshPolicy DOTRipper::GetUpdateFrequency() const
 void DOTRipper::Clear()
 {
 	std::unique_lock<std::mutex>lck(_mutex);
-	_doc.reset();
+	_doc = nullptr;
 	if (_generator) {
 		_generator->Clear();
 	}
@@ -280,5 +299,5 @@ int DOTRipper::GetRotation() const
 
 void DOTRipper::SetDocument(Document* document)
 {
-	_doc.reset(document);
+	_doc = document;
 }

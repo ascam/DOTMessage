@@ -16,9 +16,6 @@ CounterDataSource::CounterDataSource() :
 	_leadingZeros{}
 {}
 
-CounterDataSource::~CounterDataSource()
-{}
-
 bool CounterDataSource::Accept(IDocumentVisitor* visitor)
 {
 	if (visitor) {

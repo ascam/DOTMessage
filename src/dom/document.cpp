@@ -161,7 +161,6 @@ Object* Document::GetObjectById(const std::string& id) const
 		}
 	}
 
-
 	return nullptr;
 }
 

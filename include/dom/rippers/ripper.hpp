@@ -9,7 +9,6 @@
 #include <string>
 
 #include "dom/document.hpp"
-#include "bitmapgenerator.hpp"
 #include "dom/refreshpolicy.hpp"
 
 using bitmap = std::vector<uint8_t>;
@@ -18,6 +17,8 @@ namespace macsa
 {
 	namespace dot
 	{
+		class BitmapGenerator;
+
 		class DOTRipper
 		{
 			public:
@@ -27,8 +28,8 @@ namespace macsa
 				DOTRipper& operator=(DOTRipper&& ripper) = delete;
 				virtual ~DOTRipper();
 
-				uint32_t GetWidth() {return  _generator->GetWidth();}
-				uint32_t GetHeight() {return _generator->GetHeight();}
+				uint32_t GetWidth();
+				uint32_t GetHeight();
 				bool GetRawData(bitmap& bitmap) const;
 				bool GetDataMono(bitmap& bitmap, bool invertBytes);
 				bool GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2, uint32_t colOffset, bool invertBytes);
@@ -66,25 +67,20 @@ namespace macsa
 				void SetBackgroundColorFromRGBA(uint32_t rgba);
 
 				int GetRotation() const;
-
-				dot::Document* GetDocument() {return _doc.get();}
+				dot::Document* GetDocument() {return _doc;}
 				void SetDocument(dot::Document* document);
 
 				/**
 				 * @brief setPrintHiddenItems allow hidden items to be printed
 				 * @param printHiddenItems true to print hidden items.
 				 */
-				void setPrintHiddenItems(bool printHiddenItems)	{
-					_generator->setPrintHiddenItems(printHiddenItems);
-				}
+				void setPrintHiddenItems(bool printHiddenItems);
 
 				/**
 				 * @brief GetPrintHiddenItems return configured value to print hidden items
 				 * @return true if hidden items are printed.
 				 */
-				bool getPrintHiddenItems() const	{
-					return _generator->getPrintHiddenItems();
-				}
+				bool getPrintHiddenItems() const;
 
 				static std::string GetVersion();
 				static uint8_t GetMajorVersion();
@@ -94,7 +90,7 @@ namespace macsa
 			protected:
 				std::mutex _mutex;
 				std::unique_ptr<BitmapGenerator> _generator;
-				std::unique_ptr<Document> _doc;
+				Document* _doc;
 
 				DOTRipper() = default;
 		};

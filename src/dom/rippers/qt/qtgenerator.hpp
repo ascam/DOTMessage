@@ -13,8 +13,9 @@
 #include <QPainter>
 #include <QPixmap>
 
-#include "bitmapgenerator.hpp"
+
 #include "dom/document.hpp"
+#include "dom/rippers/bitmapgenerator.hpp"
 
 namespace macsa
 {

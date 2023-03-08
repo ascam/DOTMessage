@@ -255,7 +255,7 @@ namespace macsa {
 				 * @brief SetColorsPaletter. Setter method for document's colors palette.
 				 * @param colors: a new colors palette to set to the document.
 				 */
-				void SetColorsPaletter(const ColorsPalette& colors) {_colors = colors;}
+				void SetColorsPalette(const ColorsPalette& colors) {_colors = colors;}
 
 				/**
 				 * @brief AddColor. Add a color to the document's colors palette.
@@ -293,6 +293,18 @@ namespace macsa {
 				 */
 				bool Accept(IDocumentVisitor* visitor) const;
 
+				/**
+				 * @brief GetResolution. Getter method to obtain the document resolution.
+				 * @return Document resolution.
+				 */
+				float GetResolution() const {return _resolution;}
+
+				/**
+				 * @brief SetResolution sets the new message resolution.
+				 * @param resolution new resolution
+				 */
+				void SetResolution(float resolution) {_resolution = resolution;}
+
 			public:
 				Signal<> NameChanged;
 				Signal<> UnitsChanged;
@@ -312,6 +324,7 @@ namespace macsa {
 				Size _viewport;
 				uint32_t _gsLevels;
 				DOM _dom;
+				float _resolution;
 		};
 	}
 }
