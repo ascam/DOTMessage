@@ -19,7 +19,7 @@ namespace macsa {
 		{
 			public:
 				CounterDataSource();
-				virtual ~CounterDataSource();
+				virtual ~CounterDataSource() = default;
 
 				/**
 				 * @brief Accept: Allow the visitor to visit this object.
