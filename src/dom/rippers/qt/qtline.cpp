@@ -43,9 +43,7 @@ QPen QtLine::getPen() const
 	if (!_line->GetPrintable())	{
 		color.SetAlpha(128);
 	}
-
-	qPen.setColor({pen.GetColor().GetRed(), pen.GetColor().GetGreen(), pen.GetColor().GetBlue(), pen.GetColor().GetAlpha()});
-
+	qPen.setColor(GetColor(pen.GetColor().GetName().c_str(), pen.GetColor()));
 
 	switch (pen.GetStyle().GetLineStyle()()) {
 		case NLineStyle::kSolid:

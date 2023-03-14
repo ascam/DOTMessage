@@ -55,7 +55,8 @@ void QtBarcode::Render()
 	else {
 		zintCode.setSecurityLevel(_barcode->GetSecurityLevel());
 	}
-	zintCode.setHideText(!_barcode->CanShowHumanReadableCode());
+
+	zintCode.setHideText(!_barcode->GetShowHumanReadableCode());
 
 	int whitespace = 0;
 	switch (_barcode->GetBearerBarStyle()()) {

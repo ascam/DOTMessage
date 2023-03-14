@@ -10,7 +10,6 @@ using macsa::utils::MacsaLogger;
 using tinyxml2::XMLDocument;
 using tinyxml2::XMLError;
 
-
 bool parseDocument(XMLDocument& doc, Document& document, const std::string& fileName)
 {
 	document.Clear();

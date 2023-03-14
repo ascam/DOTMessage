@@ -43,7 +43,7 @@ namespace macsa {
 				/**
 				 * @brief GetColor Direct access to color from palette. If color name doesn't found returns black
 				 */
-				QColor GetColor(const QString& name) const;
+				QColor GetColor(const QString& name, const Color& color = {}) const;
 
 		};
 	}
