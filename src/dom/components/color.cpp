@@ -9,9 +9,9 @@ constexpr int kColorLengh = 2;
 constexpr int kColorStrLenght = 4 * kColorLengh;
 
 Color::Color() :
-	_red{0x0},
-	_green{0x0},
-	_blue{0x0},
+	_red{0xFF},
+	_green{0xFF},
+	_blue{0xFF},
 	_alpha{0x0} // transparent
 {}
 

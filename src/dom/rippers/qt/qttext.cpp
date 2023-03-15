@@ -27,17 +27,17 @@ void QtText::Render()
 
 	_painter.save();
 
-	QColor bgColor = GetColor(_text->GetBackgroundColor().GetName().c_str(), _text->GetBackgroundColor());
-	if (bgColor == QColor{0,0,0,0}) {
+	QColor bgColor = GetColor(_text->GetBackgroundColor());
+	if (bgColor == QColor{0xFF,0xFF,0xFF,0x0}) {
 		_painter.setBackground(QBrush(Qt::transparent));
 	}
 	else {
 		_painter.setBackground(QBrush(bgColor));
 	}
 
-	QColor fgColor = GetColor(_text->GetForegroundColor().GetName().c_str(), _text->GetForegroundColor());
+	QColor fgColor = GetColor(_text->GetForegroundColor());
 
-	if (fgColor == QColor{0,0,0,0}) {
+	if (fgColor == QColor{0xFF,0xFF,0xFF,0x0}) {
 		_painter.setPen(Qt::black);
 	}
 	else {

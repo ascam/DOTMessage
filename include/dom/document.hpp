@@ -297,13 +297,13 @@ namespace macsa {
 				 * @brief GetResolution. Getter method to obtain the document resolution.
 				 * @return Document resolution.
 				 */
-				float GetResolution() const {return _resolution;}
+				uint16_t GetResolution() const {return _resolution;}
 
 				/**
 				 * @brief SetResolution sets the new message resolution.
 				 * @param resolution new resolution
 				 */
-				void SetResolution(float resolution) {_resolution = resolution;}
+				void SetResolution(uint16_t resolution) {_resolution = resolution;}
 
 			public:
 				Signal<> NameChanged;
@@ -324,7 +324,7 @@ namespace macsa {
 				Size _viewport;
 				uint32_t _gsLevels;
 				DOM _dom;
-				float _resolution;
+				uint16_t _resolution;
 		};
 	}
 }

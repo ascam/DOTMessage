@@ -27,7 +27,7 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 	}
 	else if (eName == kResolution) {
 		std::string strResolution(ToString(element.GetText()));
-		_document.SetResolution(ToDouble(strResolution));
+		_document.SetResolution(ToUInt(strResolution));
 	}
 	else if (eName == kMinUnit) {
 		DLog() << "Unused property minUnits";

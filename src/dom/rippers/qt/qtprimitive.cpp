@@ -15,7 +15,7 @@ QBrush QtPrimitive::getBrush() const
 	QBrush brush(Qt::transparent);
 
 	if (_primitive->IsFilled()) {
-		brush.setColor(GetColor(_primitive->GetBrush().GetName().c_str(), _primitive->GetBrush()));
+		brush.setColor(GetColor(_primitive->GetBrush()));
 	}
 
 	return brush;
@@ -63,7 +63,7 @@ QPen QtPrimitive::getPen() const
 		if (!_primitive->GetPrintable())	{
 			color.SetAlpha(128);
 		}
-		qPen.setColor(GetColor(pen.GetColor().GetName().c_str(), pen.GetColor()));
+		qPen.setColor(GetColor(pen.GetColor()));
 
 		switch (pen.GetStyle().GetLineStyle()()) {
 			case NLineStyle::kSolid:
