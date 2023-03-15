@@ -75,10 +75,16 @@ void QtObject::changePainterCoords(QPainter &painter, int angle, QRectF& rect) c
 	}
 }
 
-QColor QtObject::GetColor(const QString &name) const
+QColor QtObject::GetColor(const Color& color) const
 {
-	if (_colorsPalette.find(name) != _colorsPalette.end()) {
-		return _colorsPalette[name];
+	QColor returnValue;
+
+	if (_colorsPalette.find(color.GetName().c_str()) != _colorsPalette.end()) {
+		returnValue = _colorsPalette[color.GetName().c_str()];
 	}
-	return QColor(Qt::transparent);
+	else	{
+		returnValue = {color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()};
+	}
+
+	return returnValue;
 }

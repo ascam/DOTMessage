@@ -45,7 +45,6 @@ endif()
 
 set(SOURCES)
 set(HEADERS)
-set(INCLUDES)
 
 if (${BUILD_TEST_EXECUTABLE})
         add_subdirectory(test)
@@ -68,14 +67,12 @@ if (RASTERIZATION)
 	include_directories(${UTILS_DIR}/${ZINT_VERSION})
 	set(BACKEND_LIBS ${BACKEND_LIBS} ${QT_LIBS})
 	add_definitions(-DQT_BACKEND=TRUE)
-    endif()
-
-    if(BACKEND_SDL2)
-	    message("Using SDL backend")
-	    find_package(SDL2 REQUIRED)
-	    include_directories(${SDL2_INCLUDE_DIRS})
-	    set(BACKEND_LIBS ${BACKEND_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_gfx)
-	    add_definitions(-DSDL2_BACKEND=TRUE)
+    elseif(BACKEND_SDL2)
+	message("Using SDL backend")
+	find_package(SDL2 REQUIRED)
+	include_directories(${SDL2_INCLUDE_DIRS})
+	set(BACKEND_LIBS ${BACKEND_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_gfx)
+	add_definitions(-DSDL2_BACKEND=TRUE)
     endif()
 
     if (NOT BACKEND_QT AND NOT BACKEND_SDL2)
@@ -93,10 +90,6 @@ set (SOURCES ${SOURCES}
 )
 
 set(HEADERS ${HEADERS})
-
-include_directories(
-    ${INCLUDES}
-)
 
 if (${ENABLE_TESTS})
 #    set(SRC_TEST ${SRC_TEST})

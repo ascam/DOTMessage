@@ -98,6 +98,12 @@ namespace macsa {
 				virtual void SetRatio(double ratio) = 0;
 
 				/**
+				 * @brief IsKeepAspectRatioSupported. Getter method, informs the hability to change the aspect ratio.
+				 * @return true: if the keep aspect ratio is supported.
+				 */
+				virtual bool IsKeepAspectRatioSupported() const = 0;
+
+				/**
 				 * @brief GetKeepAspectRatio. Getter method for keep aspect ratio property.
 				 * @return keep aspect ratio value.
 				 */
@@ -145,6 +151,14 @@ namespace macsa {
 				 * @param show: bool to set if code will be displayed under the barcode.
 				 */
 				virtual void SetShowHumanReadableCode(bool show) = 0;
+
+				/**
+				 * @brief IsBearerBarStyleSupported. Getter method to know if barcode
+				 * has bearer capability.
+				 * @return true if the barcode has bearer
+				 * otherwise returns false.
+				 */
+				virtual bool IsBearerBarStyleSupported() const = 0;
 
 				/**
 				 * @brief GetBearerBarStyle. Getter method for bearer bars.
@@ -231,6 +245,10 @@ namespace macsa {
 				void SetRatio(double ratio) override {
 					_ratio = ratio;
 				}
+
+				bool IsKeepAspectRatioSupported() const override {
+					return true;
+				}
 				bool GetKeepAspectRatio() const override {
 					return _keepAspectRatio;
 				}
@@ -250,6 +268,12 @@ namespace macsa {
 				void SetShowHumanReadableCode(bool show) override {
 					_showHRT = show;
 				}
+
+				bool IsBearerBarStyleSupported() const override
+				{
+					return true;
+				}
+
 				BearerBarStyle GetBearerBarStyle() const override {
 					return _bearer;
 				}
@@ -543,6 +567,9 @@ namespace macsa {
 				void SetRatio(double ratio) override {}
 				bool GetKeepAspectRatio() const override { return true; }
 				void SetKeepAspectRatio(bool keepAspectRatio) override {}
+				bool IsKeepAspectRatioSupported() const override {
+					return false;
+				}
 				bool GetDisplayChecksum() const override { return false; }
 				void SetDisplayChecksum(bool displayChecksum) override {}
 				bool CanShowHumanReadableCode() const override { return false; }
@@ -550,6 +577,11 @@ namespace macsa {
 				void SetShowHumanReadableCode(bool show) override {}
 				BearerBarStyle GetBearerBarStyle() const override {return NBearerBarStyle::kNone;}
 				void SetBearerBarStyle(const BearerBarStyle& bearerBarSyle) override {}
+				bool IsBearerBarStyleSupported() const override
+				{
+					return false;
+				}
+
 				// GS1 methods
 				bool IsGS1Barcode() const override {return false;}
 				GS1AISeparator GetGS1AISeparator() const override{

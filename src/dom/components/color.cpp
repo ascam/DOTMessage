@@ -12,7 +12,7 @@ Color::Color() :
 	_red{0xFF},
 	_green{0xFF},
 	_blue{0xFF},
-	_alpha{0x00} // transparent
+	_alpha{0x0} // transparent
 {}
 
 Color::Color(const std::string& name, uint8_t r, uint8_t g, uint8_t b, uint8_t alpha) :

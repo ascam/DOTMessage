@@ -50,7 +50,7 @@ bool ColorsPaletteParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kElementName) {
-		_doc.SetColorsPaletter(_palette);
+		_doc.SetColorsPalette(_palette);
 	}
 	return true;
 }

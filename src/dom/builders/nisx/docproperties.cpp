@@ -22,11 +22,12 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 	std::string eName {ToString(element.Name())};
 
 	if (eName == kMeasureUnits) {
-		std::string units(ToString(element.GetText()));
-		_document.SetUnits(ToLower(units));
+		std::string strUnits(ToString(element.GetText()));
+		_document.SetUnits(ToLower(strUnits));
 	}
 	else if (eName == kResolution) {
-		DLog() << "Unused property resolution";
+		std::string strResolution(ToString(element.GetText()));
+		_document.SetResolution(ToUInt(strResolution));
 	}
 	else if (eName == kMinUnit) {
 		DLog() << "Unused property minUnits";

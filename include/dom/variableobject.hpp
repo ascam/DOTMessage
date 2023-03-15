@@ -25,6 +25,7 @@ namespace macsa {
 				 * nullptr if text hasn't variable data.
 				 */
 				DataSource* GetDatasource() const;
+
 				/**
 				 * @brief SetDatasource. Setter method for variable data source
 				 * @param type: type to data source to create and attach.

@@ -181,7 +181,6 @@ namespace macsa {
 					return *this;
 				}
 
-			private:
 				const std::vector<std::pair<NBarcodeSymbol,std::string>>& getData() const override;
 		};
 

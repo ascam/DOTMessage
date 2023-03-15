@@ -127,6 +127,12 @@ namespace macsa {
 				void SetRatio(double ratio);
 
 				/**
+				 * @brief IsKeepAspectRatioSupported. Getter method, informs the hability to change the aspect ratio.
+				 * @return true: if the keep aspect ratio is supported.
+				 */
+				bool IsKeepAspectRatioSupported() const;
+
+				/**
 				 * @brief GetKeepAspectRatio. Getter method for keep aspect ratio property.
 				 * @return keep aspect ratio value.
 				 */
@@ -214,6 +220,12 @@ namespace macsa {
 				 * @param show: bool to set if code will be displayed under the barcode.
 				 */
 				void SetShowHumanReadableCode(bool show);
+
+				/**
+				 * @brief IsBearerSupported. Getter method to know if bearer is supported.
+				 * @return true if this symbology support bearer bars.
+				 */
+				bool IsBearerBarStyleSupported() const;
 
 				/**
 				 * @brief GetBearerBarStyle. Getter method for bearer bars.

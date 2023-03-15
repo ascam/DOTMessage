@@ -18,6 +18,12 @@ namespace macsa {
 			kUserInput
 		};
 
+		static constexpr const char* kDataSourceTypeCounter = "Counter";
+		static constexpr const char* kDataSourceTypeDataBase = "DataBase";
+		static constexpr const char* kDataSourceTypeDateTime = "DateTime";
+		static constexpr const char* kDataSourceTypeComposite = "Composite";
+		static constexpr const char* kDataSourceTypeUserInput = "UserInput";
+
 		/**
 		 * @brief DataSource types smart enum
 		 */
@@ -42,11 +48,11 @@ namespace macsa {
 			private:
 				const std::vector<std::pair<NDataSourceType,std::string>>& getData() const override{
 					static const std::vector<std::pair<NDataSourceType,std::string>> kDataSourceType {
-						{NDataSourceType::kCounter,   "Counter"},
-						{NDataSourceType::kComposite, "Composite"},
-						{NDataSourceType::kDataBase,  "DataBase"},
-						{NDataSourceType::kDateTime,  "DateTime"},
-						{NDataSourceType::kUserInput, "UserInput"}
+						{NDataSourceType::kCounter, kDataSourceTypeCounter},
+						{NDataSourceType::kComposite, kDataSourceTypeComposite},
+						{NDataSourceType::kDataBase, kDataSourceTypeDataBase},
+						{NDataSourceType::kDateTime, kDataSourceTypeDateTime},
+						{NDataSourceType::kUserInput, kDataSourceTypeUserInput}
 					};
 					return kDataSourceType;
 				}

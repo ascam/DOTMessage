@@ -1,8 +1,8 @@
 #ifndef NISX_QT_RIPPER_HPP
 #define NISX_QT_RIPPER_HPP
 
-#include "qtgenerator.hpp"
 #include "dom/rippers/ripper.hpp"
+#include "qpixmap.h"
 
 namespace macsa
 {
@@ -11,16 +11,13 @@ namespace macsa
 		class QtDOTRipper : public DOTRipper
 		{
 			public:
-				QtDOTRipper() : DOTRipper()	{
-					_generator.reset(new QtGenerator());
-				}
+				QtDOTRipper();
 				QtDOTRipper(const QtDOTRipper& ripper) = delete;
 				QtDOTRipper(QtDOTRipper&& ripper) = delete;
 				QtDOTRipper& operator=(const QtDOTRipper& ripper) = delete;
 				QtDOTRipper& operator=(QtDOTRipper&& ripper) = delete;
 				virtual ~QtDOTRipper() = default;
-
-				QPixmap* Draw(){return static_cast<QPixmap*>(_generator->NativeHandler());};
+				QPixmap* Draw();
 		};
 	}
 }

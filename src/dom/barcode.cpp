@@ -169,6 +169,16 @@ void Barcode::SetRatio(double ratio)
 	}
 }
 
+bool Barcode::IsKeepAspectRatioSupported() const
+{
+	bool returnValue = false;
+	if (_symbology) {
+		 returnValue =_symbology->IsKeepAspectRatioSupported();
+	}
+
+	return returnValue;
+}
+
 bool Barcode::GetKeepAspectRatio() const
 {
 	bool enabled = true;
@@ -255,6 +265,17 @@ void Barcode::SetShowHumanReadableCode(bool show)
 			ShowHumanReadableCodeChanged.Emit();
 		}
 	}
+}
+
+bool Barcode::IsBearerBarStyleSupported() const
+{
+	bool returnValue = false;
+
+	if (_symbology != nullptr)	{
+		returnValue = _symbology->IsBearerBarStyleSupported();
+	}
+
+	return returnValue;
 }
 
 macsa::dot::BearerBarStyle Barcode::GetBearerBarStyle() const

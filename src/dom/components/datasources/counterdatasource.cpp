@@ -13,10 +13,11 @@ namespace  {
 CounterDataSource::CounterDataSource() :
 	DataSource(NDataSourceType::kCounter),
 	_counter{},
-	_leadingZeros{}
-{}
-
-CounterDataSource::~CounterDataSource()
+	_leadingZeros{},
+	_minValue{},
+	_maxValue{},
+	_step{},
+	_repeatCounter{}
 {}
 
 bool CounterDataSource::Accept(IDocumentVisitor* visitor)

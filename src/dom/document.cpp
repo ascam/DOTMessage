@@ -161,7 +161,6 @@ Object* Document::GetObjectById(const std::string& id) const
 		}
 	}
 
-
 	return nullptr;
 }
 
@@ -169,7 +168,7 @@ Object *Document::AddObject(const std::string& objectId, const ObjectType& type,
 {
 	if (GetObjectById(objectId) == nullptr) {
 		Object* object = ObjectsFactory::Get(objectId, type, geometry);
-		if (object) {
+		if (object != nullptr) {
 			_dom.emplace_back(object);
 			DomChanged.Emit();
 		}

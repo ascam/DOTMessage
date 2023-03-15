@@ -50,9 +50,9 @@ bool CompositeDataSource::Accept(IDocumentVisitor* visitor)
 //	return policy;
 //}
 
-void CompositeDataSource::SetFormula(const std::string &formula)
+void CompositeDataSource::SetFormula(const std::string& formula)
 {
-	std::vector<std::string> slices =  stringutils::Split(_formula, kDelimiter);
+	auto slices =  stringutils::Split(_formula, kDelimiter);
 	if (slices.size() % 2) {
 		ELog() << "Invalid formula \"" << formula << "\"";
 		return;

@@ -27,23 +27,29 @@ void QtText::Render()
 
 	_painter.save();
 
-	QColor bgColor = GetColor(_text->GetBackgroundColor().GetName().c_str());
-	if (bgColor == Qt::black) {
-		_painter.setBackground(QBrush(bgColor));
-	}
-	else {
+	QColor bgColor = GetColor(_text->GetBackgroundColor());
+	if (bgColor == QColor{0xFF,0xFF,0xFF,0x0}) {
 		_painter.setBackground(QBrush(Qt::transparent));
 	}
+	else {
+		_painter.setBackground(QBrush(bgColor));
+	}
 
-	QColor fgColor = GetColor(_text->GetForegroundColor().GetName().c_str());
-	if (!fgColor.alpha()) {
-		fgColor.setAlpha(255);
+	QColor fgColor = GetColor(_text->GetForegroundColor());
+
+	if (fgColor == QColor{0xFF,0xFF,0xFF,0x0}) {
+		_painter.setPen(Qt::black);
+	}
+	else {
+		if (!fgColor.alpha()) {
+			fgColor.setAlpha(255);
+		}
+		_painter.setPen(fgColor);
 	}
 
 	if (!_text->GetPrintable())	{
 		_painter.setOpacity(0.5);
 	}
-	_painter.setPen(fgColor);
 
 	int angle = _text->GetGeometry().rotation;
 	QRectF rect = GetRect();
