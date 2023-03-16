@@ -50,6 +50,8 @@ if (${BUILD_TEST_EXECUTABLE})
         add_subdirectory(test)
 endif()
 
+## Add printers generic datamodel ##
+add_subdirectory(${PRINTER_DM_DIR}            ${PROJECT_BINARY_DIR}/printer)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src	${PROJECT_BINARY_DIR}/src)
 add_subdirectory(${PROJECT_SOURCE_DIR}/include	${PROJECT_BINARY_DIR}/include)
@@ -91,14 +93,36 @@ set (SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS})
 
+include_directories(${PRINTER_DM_DIR}/include)
+
 if (${ENABLE_TESTS})
 #    set(SRC_TEST ${SRC_TEST})
 #	set(HDRS_TEST ${HDRS_TEST})
 endif()
 
+### Linking external libs
+set(SHARED_DEPENDENCIES printerdm)
+if (UNIX)
+        set(STATIC_DEPENDENCIES
+	${CMAKE_BINARY_DIR}/lib/printerdm.a)
+elseif(WIN32)
+        set(STATIC_DEPENDENCIES
+	${CMAKE_BINARY_DIR}/lib/printerdm.lib)
+endif()
+
+link_directories(
+        ${CMAKE_BINARY_DIR}/lib
+)
+if(WIN32)
+        link_directories(
+	        ${CMAKE_BINARY_DIR}/bin
+	)
+endif()
+
 ####################  TARGETS  #############################
 
 #Create a virtual target to avoid multiple compilation of sources
+
 add_library(${PROJECT_NAME}_lib OBJECT ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib

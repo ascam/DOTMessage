@@ -92,7 +92,7 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 	}
 }
 
-void DOTRipper::Update()
+void DOTRipper::Update(Context* context)
 {
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
@@ -102,11 +102,11 @@ void DOTRipper::Update()
 	{
 		ILog() << "Updating full pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
-		_generator->Update(_doc);
+		_generator->Update(_doc, context);
 	}
 }
 
-void DOTRipper::UpdateVariableFields()
+void DOTRipper::UpdateVariableFields(Context* context)
 {
 	if (!_doc) {
 		ELog() << "Invalid nisx document";
@@ -116,7 +116,7 @@ void DOTRipper::UpdateVariableFields()
 	{
 		DLog() << "Updating variable pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
-		_generator->UpdateVariableFields(_doc);
+		_generator->UpdateVariableFields(_doc, context);
 	}
 }
 

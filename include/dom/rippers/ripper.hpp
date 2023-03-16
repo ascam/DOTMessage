@@ -10,6 +10,7 @@
 
 #include "dom/document.hpp"
 #include "dom/refreshpolicy.hpp"
+#include "dom/rippers/context.hpp"
 
 using bitmap = std::vector<uint8_t>;
 
@@ -35,8 +36,8 @@ namespace macsa
 				bool GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2, uint32_t colOffset, bool invertBytes);
 				void SaveToBmpFile(const std::string& filepath);
 
-				void Update();
-				void UpdateVariableFields();
+				void Update(Context* context);
+				void UpdateVariableFields(Context* context);
 				RefreshPolicy GetUpdateFrequency() const;
 				void Clear();
 

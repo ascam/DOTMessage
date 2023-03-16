@@ -104,6 +104,7 @@ int QtGenerator::GetRawData(bitmap& buff) const
 
 	return buff.size();
 }
+
 void QtGenerator::GetBitmapMono(bitmap& buffer, bool invertBytes) const
 {
 	if (!_pixmapFull || _pixmapFull->isNull()) {
@@ -184,12 +185,12 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 	}
 }
 
-void QtGenerator::Update(Document* doc)
+void QtGenerator::Update(Document* doc, Context* context)
 {
 	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotation : " << doc->GetCanvasRotation();
 
 	if (!doc) {
-		ELog() << "Invalid NisX Document";
+		ELog() << "Invalid DOM";
 		return;
 	}
 
@@ -229,13 +230,13 @@ void QtGenerator::Update(Document* doc)
 
 	classifyObjects(doc->GetObjects());
 	renderFixedFields(painter);
-	renderVariableFields(painter);
+	renderVariableFields(painter, context);
 }
 
-void QtGenerator::UpdateVariableFields(Document* doc)
+void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 {
 	if (!doc) {
-		WLog() << "Invalid NisX Document";
+		WLog() << "Invalid DOM";
 		return;
 	}
 
@@ -254,7 +255,7 @@ void QtGenerator::UpdateVariableFields(Document* doc)
 	painter.setBackground(QBrush(Qt::white));
 
 	classifyObjects(doc->GetObjects());
-	renderVariableFields(painter);
+	renderVariableFields(painter, context);
 }
 
 void QtGenerator::SaveToBmpFile(const std::string& filename)
@@ -380,11 +381,11 @@ void QtGenerator::renderFixedFields(QPainter& painter)
 		}
 	}
 
-	//Store the current pixmap with only the static elements
+	// Store the current pixmap with only the static elements
 	_pixmapFixed.reset(new QPixmap(*_pixmapFull));
 }
 
-void QtGenerator::renderVariableFields(QPainter& painter)
+void QtGenerator::renderVariableFields(QPainter& painter, Context* context)
 {
 	if (!_pixmapFull) {
 		ELog() << "Invalid base pixmap";
@@ -409,7 +410,7 @@ void QtGenerator::renderText(const Object* object, QPainter& painter)
 {
 	const auto text = dynamic_cast<const Text*>(object);
 	if (!text) {
-		ELog() << "unable to morph Nisx Object to Nisx Text type";
+		ELog() << "unable to morph DOM Object to DOM Text type";
 		return;
 	}
 
@@ -421,7 +422,7 @@ void QtGenerator::renderBarcode(const Object* object, QPainter& painter)
 {
 	const auto barcode = dynamic_cast<const Barcode*>(object);
 	if (!barcode) {
-		ELog() << "unable to morph Nisx Object to Nisx Barcode type";
+		ELog() << "unable to morph DOM Object to DOM Barcode type";
 		return;
 	}
 
@@ -433,7 +434,7 @@ void QtGenerator::renderImage(const Object* object, QPainter& painter)
 {
 	const auto image = dynamic_cast<const Image*>(object);
 	if (!image) {
-		ELog() << "unable to morph Nisx Object to Nisx Image type";
+		ELog() << "unable to morph DOM Object to DOM Image type";
 		return;
 	}
 
@@ -445,7 +446,7 @@ void QtGenerator::renderRectangle(const Object* object, QPainter& painter)
 {
 	const Rectangle* rectangle = dynamic_cast<const Rectangle*>(object);
 	if (!rectangle) {
-		ELog() << "unable to morph Nisx Object to Nisx Rectangle type";
+		ELog() << "unable to morph DOM Object to DOM Rectangle type";
 		return;
 	}
 
@@ -457,7 +458,7 @@ void QtGenerator::renderLine(const Object* object, QPainter& painter)
 {
 	const auto line = dynamic_cast<const Line*>(object);
 	if (!line) {
-		ELog() << "unable to morph Nisx Object to Nisx Line type";
+		ELog() << "unable to morph DOM Object to DOM Line type";
 		return;
 	}
 
@@ -469,7 +470,7 @@ void QtGenerator::renderEllipse(const Object* object, QPainter& painter)
 {
 	const auto ellipse = dynamic_cast<const Ellipse*>(object);
 	if (!ellipse) {
-		ELog() << "unable to morph Nisx Object to Nisx Ellipse type";
+		ELog() << "unable to morph DOM Object to DOM Ellipse type";
 		return;
 	}
 
@@ -481,7 +482,7 @@ void QtGenerator::renderDiamond(const Object* object, QPainter& painter)
 {
 	const Diamond* diamond = dynamic_cast<const Diamond*>(object);
 	if (!diamond) {
-		ELog() << "unable to morph Nisx Object to Nisx Diamond type";
+		ELog() << "unable to morph DOM Object to DOM Diamond type";
 		return;
 	}
 

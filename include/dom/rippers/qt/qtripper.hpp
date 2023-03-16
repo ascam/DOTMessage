@@ -1,7 +1,8 @@
-#ifndef NISX_QT_RIPPER_HPP
-#define NISX_QT_RIPPER_HPP
+#ifndef DOTMESSAGE_QT_RIPPER_HPP
+#define DOTMESSAGE_QT_RIPPER_HPP
 
 #include "dom/rippers/ripper.hpp"
+#include "dom/rippers/context.hpp"
 #include "qpixmap.h"
 
 namespace macsa
@@ -17,7 +18,7 @@ namespace macsa
 				QtDOTRipper& operator=(const QtDOTRipper& ripper) = delete;
 				QtDOTRipper& operator=(QtDOTRipper&& ripper) = delete;
 				virtual ~QtDOTRipper() = default;
-				QPixmap* Draw();
+				QPixmap* Draw(Context* context);
 		};
 	}
 }

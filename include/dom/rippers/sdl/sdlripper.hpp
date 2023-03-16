@@ -1,8 +1,9 @@
 #ifndef NISX_QT_RIPPER_HPP
 #define NISX_QT_RIPPER_HPP
 
-#include "sdlgenerator.hpp"
-#include "ripper.hpp"
+#include "dom/rippers/ripper.hpp"
+#include "dom/rippers/context.hpp"
+#include "dom/rippers/sdl/sdlgenerator.hpp"
 
 namespace macsa
 {
@@ -20,7 +21,7 @@ namespace macsa
 				SDLDOTRipper& operator=(SDLDOTRipper&& ripper) = delete;
 				virtual ~SDLDOTRipper();
 
-				void* Draw(){return _generator->NativeHandler();};
+				void* Draw(Context* context){return _generator->NativeHandler(context);};
 		};
 	}
 }
