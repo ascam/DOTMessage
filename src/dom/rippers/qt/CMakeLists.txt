@@ -2,6 +2,8 @@
 #  Qt backend generator sources  #
 ##################################
 
+add_subdirectory(visitors)
+
 set(SOURCES ${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/qtripper.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/qtgenerator.cpp

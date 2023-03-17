@@ -12,10 +12,10 @@ endif()
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE
-    )
+)
 
 set(HEADERS ${HEADERS}
 	${CMAKE_CURRENT_SOURCE_DIR}/ripper.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/context.hpp
 	PARENT_SCOPE
-    )
+)

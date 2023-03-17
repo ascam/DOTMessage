@@ -10,7 +10,7 @@ QtDOTRipper::QtDOTRipper() : DOTRipper()
 	_generator.reset(new QtGenerator());
 }
 
-QPixmap* QtDOTRipper::Draw(Context* context)
+QPixmap* QtDOTRipper::Draw()
 {
 	return static_cast<QPixmap*>(_generator->NativeHandler());
 }

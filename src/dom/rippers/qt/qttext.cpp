@@ -71,7 +71,7 @@ void QtText::Render()
 #endif
 }
 
-void QtText::renderFitToBox(const std::string &text, QRectF rect)
+void QtText::renderFitToBox(const std::string& text, QRectF rect)
 {
 	QFont qfont = getFont(_text->GetFont());
 

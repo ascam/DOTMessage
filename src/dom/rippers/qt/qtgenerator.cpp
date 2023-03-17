@@ -1,6 +1,7 @@
 #include "qtgenerator.hpp"
 
 #include <cmath>
+#include <chrono>
 #ifndef BACKEND_QT_NATIVE
 #include <QApplication>
 #endif
@@ -16,6 +17,8 @@
 #include "qtrectangle.hpp"
 #include "qtellipse.hpp"
 #include "qtdiamond.hpp"
+
+#include "visitors/qtdocumentvisitor.hpp"
 
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
@@ -228,9 +231,18 @@ void QtGenerator::Update(Document* doc, Context* context)
 		painter.rotate(doc->GetCanvasRotation());
 	}
 
+	auto start_time = std::chrono::high_resolution_clock::now();
+
 	classifyObjects(doc->GetObjects());
 	renderFixedFields(painter);
 	renderVariableFields(painter, context);
+
+
+	//QtDocumentVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
+	//doc->Accept(&visitor);
+
+	auto end_time = std::chrono::high_resolution_clock::now();
+	std::cout << "Elapsed time in milliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count()	<< " ms" << std::endl;
 }
 
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)

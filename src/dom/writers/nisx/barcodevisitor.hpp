@@ -1,7 +1,6 @@
 #ifndef MACSA_NISX_BARCODE_VISITOR_HPP
 #define MACSA_NISX_BARCODE_VISITOR_HPP
 
-#include "dom/documentvisitor.hpp"
 #include "variableobjectvisitor.hpp"
 
 namespace macsa {

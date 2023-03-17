@@ -3,11 +3,11 @@
 #####################################
 
 if (BACKEND_QT)
-    add_subdirectory(qt)
+	add_subdirectory(qt)
 endif()
 
 if(BACKEND_SDL2)
-        add_subdirectory(sdl)
+	add_subdirectory(sdl)
 endif()
 
 set(SOURCES ${SOURCES}

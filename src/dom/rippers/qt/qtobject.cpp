@@ -4,7 +4,7 @@
 
 using macsa::dot::QtObject;
 
-QtObject::QtObject(const Object* obj, QPainter& painter, int vres, int hres, const ColorsPalette &palette) :
+QtObject::QtObject(const Object* obj, QPainter& painter, int vres, int hres, const ColorsPalette& palette) :
 	_painter(painter),
 	_obj(obj),
 	_vres(vres),
