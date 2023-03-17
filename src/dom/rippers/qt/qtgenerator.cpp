@@ -1,4 +1,5 @@
 #include "qtgenerator.hpp"
+#include "dom/rippers/qt/qtobject.hpp"
 
 #include <cmath>
 #include <chrono>
@@ -9,16 +10,6 @@
 #include <QPaintDevice>
 #include <QDir>
 #include <QDataStream>
-
-#include "qttext.hpp"
-#include "qtbarcode.hpp"
-#include "qtimage.hpp"
-#include "qtline.hpp"
-#include "qtrectangle.hpp"
-#include "qtellipse.hpp"
-#include "qtdiamond.hpp"
-
-#include "visitors/qtdocumentvisitor.hpp"
 
 #include "utils/macsalogger.hpp"
 #include "utils/stringutils.hpp"
@@ -231,18 +222,10 @@ void QtGenerator::Update(Document* doc, Context* context)
 		painter.rotate(doc->GetCanvasRotation());
 	}
 
-	auto start_time = std::chrono::high_resolution_clock::now();
-
 	classifyObjects(doc->GetObjects());
-	renderFixedFields(painter);
-	renderVariableFields(painter, context);
-
-
-	//QtDocumentVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
-	//doc->Accept(&visitor);
-
-	auto end_time = std::chrono::high_resolution_clock::now();
-	std::cout << "Elapsed time in milliseconds: " << std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count()	<< " ms" << std::endl;
+	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
+	renderFixedFields(&visitor);
+	renderVariableFields(&visitor);
 }
 
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
@@ -266,8 +249,9 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
 
+	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	classifyObjects(doc->GetObjects());
-	renderVariableFields(painter, context);
+	renderVariableFields(&visitor);
 }
 
 void QtGenerator::SaveToBmpFile(const std::string& filename)
@@ -346,160 +330,44 @@ void QtGenerator::classifyObjects(const std::deque<Object*>& objects)
 {
 	_variableObjects.clear();
 	_fixedObject.clear();
-	for (const auto* object : objects) {
+
+	for (const auto object : objects) {
 		if (object->GetPrintable() || _printHiddenItems) {
 			if(object->IsVariable()) {
-				_variableObjects.emplace_back(object);
+				_variableObjects.push_back(object);
 			}
 			else {
-				_fixedObject.emplace_back(object);
+				_fixedObject.push_back(object);
 			}
 		}
 	}
 }
 
-void QtGenerator::renderFixedFields(QPainter& painter)
+void QtGenerator::renderFixedFields(QtRasterVisitor* visitor)
 {
 	if (!_pixmapFull) {
 		ELog() << "Invalid base pixmap";
 		return;
 	}
 
-	for (const auto object : _fixedObject) {
-		const auto type = object->GetType();
-		if (type == NObjectType::kText){
-			renderText(object, painter);
-		}
-		else if (type == NObjectType::kBarcode) {
-			renderBarcode(object, painter);
-		}
-		else if (type == NObjectType::kImage) {
-			renderImage(object, painter);
-		}
-		else if (type == NObjectType::kRectangle) {
-			renderRectangle(object, painter);
-		}
-		else if (type == NObjectType::kLine) {
-			renderLine(object, painter);
-		}
-		else if (type == NObjectType::kEllipse) {
-			renderEllipse(object, painter);
-		}
-		else if (type == NObjectType::kDiamond) {
-			renderDiamond(object, painter);
-		}
-		else {
-			WLog() << "Skipping Fixed element: " << object->GetId();
-		}
+	for (const auto obj : _fixedObject) {
+		obj->Accept(visitor);
 	}
 
 	// Store the current pixmap with only the static elements
 	_pixmapFixed.reset(new QPixmap(*_pixmapFull));
 }
 
-void QtGenerator::renderVariableFields(QPainter& painter, Context* context)
+void QtGenerator::renderVariableFields(QtRasterVisitor* visitor)
 {
 	if (!_pixmapFull) {
 		ELog() << "Invalid base pixmap";
 		return;
 	}
 
-	for (auto object : _variableObjects) {
-		const auto& type = object->GetType();
-		if (type == NObjectType::kText){
-			renderText(object, painter);
-		}
-		else if (type == NObjectType::kBarcode) {
-			renderBarcode(object, painter);
-		}
-		else {
-			WLog() << "Skipping variable element: " << object->GetId();
-		}
+	for (const auto obj : _variableObjects) {
+		obj->Accept(visitor);
 	}
-}
-
-void QtGenerator::renderText(const Object* object, QPainter& painter)
-{
-	const auto text = dynamic_cast<const Text*>(object);
-	if (!text) {
-		ELog() << "unable to morph DOM Object to DOM Text type";
-		return;
-	}
-
-	QtText label(text, painter, _fonts, _vres, _hres, _colorsPalette);
-	label.Render();
-}
-
-void QtGenerator::renderBarcode(const Object* object, QPainter& painter)
-{
-	const auto barcode = dynamic_cast<const Barcode*>(object);
-	if (!barcode) {
-		ELog() << "unable to morph DOM Object to DOM Barcode type";
-		return;
-	}
-
-	QtBarcode qBcode(barcode, painter, _vres, _hres, _colorsPalette);
-	qBcode.Render();
-}
-
-void QtGenerator::renderImage(const Object* object, QPainter& painter)
-{
-	const auto image = dynamic_cast<const Image*>(object);
-	if (!image) {
-		ELog() << "unable to morph DOM Object to DOM Image type";
-		return;
-	}
-
-	QtImage qImage(image, painter, _vres, _hres, _colorsPalette);
-	qImage.Render();
-}
-
-void QtGenerator::renderRectangle(const Object* object, QPainter& painter)
-{
-	const Rectangle* rectangle = dynamic_cast<const Rectangle*>(object);
-	if (!rectangle) {
-		ELog() << "unable to morph DOM Object to DOM Rectangle type";
-		return;
-	}
-
-	QtRectangle qRectangle(rectangle, painter, _vres, _hres, _colorsPalette);
-	qRectangle.Render();
-}
-
-void QtGenerator::renderLine(const Object* object, QPainter& painter)
-{
-	const auto line = dynamic_cast<const Line*>(object);
-	if (!line) {
-		ELog() << "unable to morph DOM Object to DOM Line type";
-		return;
-	}
-
-	QtLine qLine(line, painter, _vres, _hres, _colorsPalette);
-	qLine.Render();
-}
-
-void QtGenerator::renderEllipse(const Object* object, QPainter& painter)
-{
-	const auto ellipse = dynamic_cast<const Ellipse*>(object);
-	if (!ellipse) {
-		ELog() << "unable to morph DOM Object to DOM Ellipse type";
-		return;
-	}
-
-	QtEllipse qEllipse(ellipse, painter, _vres, _hres, _colorsPalette);
-	qEllipse.Render();
-}
-
-void QtGenerator::renderDiamond(const Object* object, QPainter& painter)
-{
-	const Diamond* diamond = dynamic_cast<const Diamond*>(object);
-	if (!diamond) {
-		ELog() << "unable to morph DOM Object to DOM Diamond type";
-		return;
-	}
-
-	QtDiamond qDiamond(diamond, painter, _vres, _hres, _colorsPalette);
-	qDiamond.Render();
 }
 
 uint8_t QtGenerator::invertByte(uint8_t byte) const

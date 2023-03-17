@@ -9,25 +9,11 @@
 
 namespace macsa {
 	namespace dot {
-		class QtDocumentVisitor : public dot::IDocumentVisitor
+		class QtRasterVisitor : public dot::IDocumentVisitor
 		{
 			public:
-				QtDocumentVisitor(dot::Document* doc, Context* context, QPainter* painter, uint32_t vres, uint32_t hres, QMap<QString, QColor>& colorsPalette);
-				virtual ~QtDocumentVisitor() = default;
-
-				/**
-				 * @brief VisitEnter. Start the visit in the DOM document
-				 * @param document: DOM document to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool VisitEnter(const dot::Document&) override;
-
-				/**
-				 * @brief VisitExit. Exits the visit in the DOM document
-				 * @param document: DOM document to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool VisitExit(const dot::Document&) override;
+				QtRasterVisitor(dot::Document* doc, Context* context, QPainter* painter, uint32_t vres, uint32_t hres, QMap<QString, QColor>& colorsPalette);
+				virtual ~QtRasterVisitor() = default;
 
 				/**
 				 * @brief VisitEnter. Start the visit in a Text object

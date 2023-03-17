@@ -1,4 +1,4 @@
-#include "qtdocumentvisitor.hpp"
+#include "qtrastervisitor.hpp"
 
 #include "dom/text.hpp"
 #include "dom/barcode.hpp"
@@ -17,9 +17,9 @@
 
 using macsa::dot::Document;
 using macsa::utils::MacsaLogger;
-using macsa::dot::QtDocumentVisitor;
+using macsa::dot::QtRasterVisitor;
 
-QtDocumentVisitor::QtDocumentVisitor(dot::Document* doc, Context* context, QPainter* painter, uint32_t vres, uint32_t hres, QMap<QString, QColor>& colorsPalette) :
+QtRasterVisitor::QtRasterVisitor(dot::Document* doc, Context* context, QPainter* painter, uint32_t vres, uint32_t hres, QMap<QString, QColor>& colorsPalette) :
 	dot::IDocumentVisitor(),
 	_doc(doc),
 	_context{context},
@@ -29,17 +29,7 @@ QtDocumentVisitor::QtDocumentVisitor(dot::Document* doc, Context* context, QPain
 	_colorsPalette(colorsPalette)
 {}
 
-bool QtDocumentVisitor::VisitEnter(const dot::Document& document)
-{
-	return true;
-}
-
-bool QtDocumentVisitor::VisitExit(const dot::Document& document)
-{
-	return true;
-}
-
-bool QtDocumentVisitor::VisitEnter(const dot::Text& text)
+bool QtRasterVisitor::VisitEnter(const dot::Text& text)
 {
 	QtText label(&text, *_painter, _fonts, _vres, _hres, _colorsPalette);
 	label.Render();
@@ -47,7 +37,7 @@ bool QtDocumentVisitor::VisitEnter(const dot::Text& text)
 	return true;
 }
 
-bool QtDocumentVisitor::VisitEnter(const dot::Barcode& barcode)
+bool QtRasterVisitor::VisitEnter(const dot::Barcode& barcode)
 {
 	QtBarcode qBarcode(&barcode, *_painter, _vres, _hres, _colorsPalette);
 	qBarcode.Render();
@@ -55,7 +45,7 @@ bool QtDocumentVisitor::VisitEnter(const dot::Barcode& barcode)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const dot::Image& image)
+bool QtRasterVisitor::Visit(const dot::Image& image)
 {
 	QtImage qImage(&image, *_painter, _vres, _hres, _colorsPalette);
 	qImage.Render();
@@ -63,7 +53,7 @@ bool QtDocumentVisitor::Visit(const dot::Image& image)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const dot::Rectangle& rectangle)
+bool QtRasterVisitor::Visit(const dot::Rectangle& rectangle)
 {
 	QtRectangle qRectangle(&rectangle, *_painter, _vres, _hres, _colorsPalette);
 	qRectangle.Render();
@@ -71,7 +61,7 @@ bool QtDocumentVisitor::Visit(const dot::Rectangle& rectangle)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const dot::Ellipse& ellipse)
+bool QtRasterVisitor::Visit(const dot::Ellipse& ellipse)
 {
 	QtEllipse qEllipse(&ellipse, *_painter, _vres, _hres, _colorsPalette);
 	qEllipse.Render();
@@ -79,7 +69,7 @@ bool QtDocumentVisitor::Visit(const dot::Ellipse& ellipse)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const dot::Diamond& diamond)
+bool QtRasterVisitor::Visit(const dot::Diamond& diamond)
 {
 	QtDiamond qDiamond(&diamond, *_painter, _vres, _hres, _colorsPalette);
 	qDiamond.Render();
@@ -87,7 +77,7 @@ bool QtDocumentVisitor::Visit(const dot::Diamond& diamond)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const dot::Line& line)
+bool QtRasterVisitor::Visit(const dot::Line& line)
 {
 	QtLine qLine(&line, *_painter, _vres, _hres, _colorsPalette);
 	qLine.Render();
@@ -95,27 +85,27 @@ bool QtDocumentVisitor::Visit(const dot::Line& line)
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const CounterDataSource& counter)
+bool QtRasterVisitor::Visit(const CounterDataSource& counter)
 {
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const DatabaseDataSource& database)
+bool QtRasterVisitor::Visit(const DatabaseDataSource& database)
 {
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const DateTimeDataSource& datetime)
+bool QtRasterVisitor::Visit(const DateTimeDataSource& datetime)
 {
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const UserInputDataSource& userInput)
+bool QtRasterVisitor::Visit(const UserInputDataSource& userInput)
 {
 	return true;
 }
 
-bool QtDocumentVisitor::Visit(const CompositeDataSource& composite)
+bool QtRasterVisitor::Visit(const CompositeDataSource& composite)
 {
 	return true;
 }

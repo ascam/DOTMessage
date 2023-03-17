@@ -3,11 +3,11 @@
 ##################################
 
 set(SOURCES ${SOURCES}
-	${CMAKE_CURRENT_SOURCE_DIR}/qtdocumentvisitor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/qtrastervisitor.cpp
 	PARENT_SCOPE
 )
 
 set(HEADERS ${HEADERS}
-	${CMAKE_CURRENT_SOURCE_DIR}/qtdocumentvisitor.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/qtrastervisitor.hpp
 	PARENT_SCOPE
 )	
