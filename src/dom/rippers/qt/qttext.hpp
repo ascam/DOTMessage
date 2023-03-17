@@ -19,6 +19,7 @@ namespace macsa {
 					   int vres, int hres, const ColorsPalette& colorsPalette);
 
 				void Render() override;
+				void Render(const std::string& dataSourceResult);
 
 			private:
 				const Text* _text;

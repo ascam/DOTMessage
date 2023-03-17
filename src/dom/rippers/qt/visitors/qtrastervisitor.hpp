@@ -64,41 +64,6 @@ namespace macsa {
 				 */
 				bool Visit(const dot::Line& line) override;
 
-				/**
-				 * @brief Visit. Visits a counter data source
-				 * @param counter: counter data source to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool Visit(const CounterDataSource& counter) override;
-
-				/**
-				 * @brief Visit. Visits a database data source
-				 * @param database: database data source to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool Visit(const DatabaseDataSource& database) override;
-
-				/**
-				 * @brief Visit. Visits a date and time data source
-				 * @param datetime: Date and time data source to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool Visit(const DateTimeDataSource& datetime) override;
-
-				/**
-				 * @brief Visit. Visits a user input data source
-				 * @param userInput: User input data source to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool Visit(const UserInputDataSource& userInput) override;
-
-				/**
-				 * @brief Visit. Visits a composite data source
-				 * @param composite: Composite data source to visit.
-				 * @return true to continue the hierarchical visit, false to stop.
-				 */
-				bool Visit(const CompositeDataSource& composite) override;
-
 			private:
 				const dot::Document* _doc;
 				Context* _context;

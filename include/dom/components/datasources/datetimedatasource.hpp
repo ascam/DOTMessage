@@ -3,6 +3,7 @@
 
 #include <string>
 #include "dom/components/datasources/datasource.hpp"
+#include "dom/rippers/context.hpp"
 #include "signal/signal.hpp"
 
 namespace macsa {
@@ -137,6 +138,12 @@ namespace macsa {
 						HourDaysStartChanged.Emit();
 					}
 				}
+
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				std::string GetData(Context* context) const;
 
 			public:
 				Signal<> HourDaysStartChanged;

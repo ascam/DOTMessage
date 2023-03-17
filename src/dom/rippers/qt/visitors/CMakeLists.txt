@@ -9,5 +9,6 @@ set(SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS}
 	${CMAKE_CURRENT_SOURCE_DIR}/qtrastervisitor.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/qtdatasourcevisitor.hpp
 	PARENT_SCOPE
 )	

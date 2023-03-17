@@ -1,9 +1,9 @@
 #include "qtrastervisitor.hpp"
 
 #include "dom/text.hpp"
+#include "dom/image.hpp"
 #include "dom/barcode.hpp"
 #include "dom/primitives.hpp"
-#include "dom/image.hpp"
 
 #include "dom/rippers/qt/qtline.hpp"
 #include "dom/rippers/qt/qttext.hpp"
@@ -12,6 +12,8 @@
 #include "dom/rippers/qt/qtdiamond.hpp"
 #include "dom/rippers/qt/qtellipse.hpp"
 #include "dom/rippers/qt/qtrectangle.hpp"
+
+#include "dom/rippers/qt/visitors/qtdatasourcevisitor.hpp"
 
 #include "utils/macsalogger.hpp"
 
@@ -31,18 +33,34 @@ QtRasterVisitor::QtRasterVisitor(dot::Document* doc, Context* context, QPainter*
 
 bool QtRasterVisitor::VisitEnter(const dot::Text& text)
 {
-	QtText label(&text, *_painter, _fonts, _vres, _hres, _colorsPalette);
-	label.Render();
+	QtText qlabel(&text, *_painter, _fonts, _vres, _hres, _colorsPalette);
 
-	return true;
+	if (text.IsVariable())	{
+		DataSourceVisitor dsv(_context);
+		text.GetDatasource()->Accept(&dsv);
+		qlabel.Render(dsv.getDataSourceResult());
+	}
+	else{
+		qlabel.Render();
+	}
+
+	return false;
 }
 
 bool QtRasterVisitor::VisitEnter(const dot::Barcode& barcode)
 {
 	QtBarcode qBarcode(&barcode, *_painter, _vres, _hres, _colorsPalette);
-	qBarcode.Render();
 
-	return true;
+	if (barcode.IsVariable())	{
+		DataSourceVisitor dsv(_context);
+		barcode.GetDatasource()->Accept(&dsv);
+		qBarcode.Render(dsv.getDataSourceResult());
+	}
+	else{
+		qBarcode.Render();
+	}
+
+	return false;
 }
 
 bool QtRasterVisitor::Visit(const dot::Image& image)
@@ -82,30 +100,5 @@ bool QtRasterVisitor::Visit(const dot::Line& line)
 	QtLine qLine(&line, *_painter, _vres, _hres, _colorsPalette);
 	qLine.Render();
 
-	return true;
-}
-
-bool QtRasterVisitor::Visit(const CounterDataSource& counter)
-{
-	return true;
-}
-
-bool QtRasterVisitor::Visit(const DatabaseDataSource& database)
-{
-	return true;
-}
-
-bool QtRasterVisitor::Visit(const DateTimeDataSource& datetime)
-{
-	return true;
-}
-
-bool QtRasterVisitor::Visit(const UserInputDataSource& userInput)
-{
-	return true;
-}
-
-bool QtRasterVisitor::Visit(const CompositeDataSource& composite)
-{
 	return true;
 }

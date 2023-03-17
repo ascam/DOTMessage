@@ -2,12 +2,14 @@
 
 #include "backend_qt/qzint.h"
 #include "backend/qr.h"
+#include "utils/macsalogger.hpp"
 
 using macsa::dot::QtBarcode;
 using Zint::QZint;
 using macsa::dot::Barcode;
 using macsa::dot::BarcodeSymbol;
 using macsa::dot::NBarcodeSymbol;
+using macsa::utils::MacsaLogger;
 
 QtBarcode::QtBarcode(const Barcode *barcode, QPainter &painter,
 					 int vres, int hres, const ColorsPalette& palette) :
@@ -17,9 +19,17 @@ QtBarcode::QtBarcode(const Barcode *barcode, QPainter &painter,
 
 void QtBarcode::Render()
 {
-	_painter.save();
+	Render(_barcode->GetCode());
+}
 
-	std::string text = _barcode->GetCode();
+void QtBarcode::Render(const std::string& text)
+{
+	if (text.empty()) {
+		WLog() << "No text to render";
+		return;
+	}
+
+	_painter.save();
 
 	QRectF rect = GetRect();
 	changePainterCoords(_painter, _barcode->GetGeometry().rotation, rect);
