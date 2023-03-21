@@ -91,11 +91,6 @@ set (SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS})
 
-if (${ENABLE_TESTS})
-#    set(SRC_TEST ${SRC_TEST})
-#	set(HDRS_TEST ${HDRS_TEST})
-endif()
-
 ####################  TARGETS  #############################
 
 #Create a virtual target to avoid multiple compilation of sources
@@ -126,13 +121,4 @@ else()
 	                                                                          SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
 	target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${SHARED_DEPENDENCIES})
-endif()
-
-if (${ENABLE_TESTS})
-        message("Adding ${PROJECT_NAME} tests dir ${PROJECT_BINARY_DIR}" )
-	set(PROJECT_TEST_NAME ${PROJECT_NAME}Tests)
-	add_executable(${PROJECT_TEST_NAME} ${SRC_TEST} ${HDRS_TEST})
-	target_link_directories(${PROJECT_TEST_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
-	target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_LIBS} ${EXTERNAL_LIBS} ${SHARED_DEPENDENCIES} ${PROJECT_NAME})
-	add_test(${PROJECT_NAME} ${PROJECT_TEST_NAME})
 endif()
