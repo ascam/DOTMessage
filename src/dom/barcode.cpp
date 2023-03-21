@@ -14,13 +14,15 @@ using macsa::utils::MacsaLogger;
 using macsa::dot::IDocumentVisitor;
 using namespace std::placeholders;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Barcode>::Register(macsa::dot::NObjectType::kBarcode);
-}
+bool Barcode::_registered = macsa::dot::ConcreteObjectsFactory<Barcode>::Register(macsa::dot::NObjectType::kBarcode);
 
 Barcode::Barcode(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kBarcode, geometry),
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
+{}
+
+// Destructor must be here due to Symbology forward declaration
+Barcode::~Barcode()
 {}
 
 bool Barcode::Accept(IDocumentVisitor* visitor) const

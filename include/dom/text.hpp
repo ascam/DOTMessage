@@ -116,6 +116,7 @@ namespace macsa {
 				Color _foreColor;
 				Color _backgroundColor;
 				TextBoxProperties _textBoxProperties;
+				static bool _registered;
 		};
 	}
 }
