@@ -14,9 +14,7 @@ using namespace macsa::utils;
 //constexpr const char* kCharsToRemove = "\'\"";
 constexpr const char* kDelimiter = "|";
 
-namespace  {
-	static const bool CompositeFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<CompositeDataSource>::Register(macsa::dot::NDataSourceType::kComposite);
-}
+bool CompositeDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<CompositeDataSource>::Register(macsa::dot::NDataSourceType::kComposite);
 
 CompositeDataSource::CompositeDataSource() :
 	DataSource(NDataSourceType::kComposite),

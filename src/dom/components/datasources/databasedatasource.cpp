@@ -5,9 +5,7 @@
 using macsa::dot::DatabaseDataSource;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool DatabaseFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<DatabaseDataSource>::Register(macsa::dot::NDataSourceType::kDataBase);
-}
+bool DatabaseDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<DatabaseDataSource>::Register(macsa::dot::NDataSourceType::kDataBase);
 
 DatabaseDataSource::DatabaseDataSource() :
 	DataSource(NDataSourceType::kDataBase),

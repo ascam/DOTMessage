@@ -121,6 +121,7 @@ namespace macsa {
 				std::string _value;
 				std::string _connectionName;
 				std::string _tableName;
+				static bool _registered;
 		};
 	}
 }
