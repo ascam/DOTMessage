@@ -54,6 +54,12 @@ cmrc_add_resource_library(domTesterFiles
 	rc/GALLO.nisx
 	)
 
+if (${ENABLE_TESTS})
+	set(SRC_TEST ${SRC_TEST})
+	set(HDRS_TEST ${HDRS_TEST})
+	add_subdirectory(unitests)
+endif()
+
 ####################  TARGETS  #############################
 if(STANDALONE) 
 	 ## Add windows OS support
@@ -77,3 +83,18 @@ target_include_directories(${PROJECT_NAME}
 #linking dependencies
 target_link_libraries(${PROJECT_NAME} PUBLIC ${DEPENDENCIES} PRIVATE domTesterFiles)
 target_link_directories(${PROJECT_NAME} PUBLIC ${LIB_PREFIX}/lib ${CMAKE_BINARY_DIR}/lib)
+
+
+if (${ENABLE_TESTS})
+	message("Adding ${PROJECT_NAME} tests dir ${PROJECT_BINARY_DIR}" )
+	set(PROJECT_TEST_NAME ${PROJECT_NAME}_UT)
+	add_executable(${PROJECT_TEST_NAME} ${SRC_TEST} ${HDRS_TEST})
+	target_include_directories(${PROJECT_TEST_NAME}
+		PUBLIC
+			${PROJECT_SOURCE_DIR}/include
+			${UTILS_DIR}/include
+		)
+	target_link_directories(${PROJECT_TEST_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
+	target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_LIBS} ${EXTERNAL_LIBS} ${DEPENDENCIES})
+	add_test(${PROJECT_NAME} ${PROJECT_TEST_NAME})
+endif()
