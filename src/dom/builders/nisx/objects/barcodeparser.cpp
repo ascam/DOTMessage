@@ -11,9 +11,7 @@ using macsa::dot::Barcode;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
-}
+bool BarcodeParser::_registered = macsa::nisx::ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
 
 BarcodeParser::BarcodeParser(dot::Object* barcode) :
 	ObjectParser(macsa::nisx::kBarcodeField, barcode),

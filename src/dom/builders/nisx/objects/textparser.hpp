@@ -19,6 +19,7 @@ namespace macsa {
 			private:
 				dot::Text* _text;
 				dot::Font _font;
+				static bool _registered;
 		};
 
 		class TextAdjustParser : public tinyxml2::XMLVisitor

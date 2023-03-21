@@ -19,6 +19,7 @@ namespace macsa {
 			private:
 				dot::Barcode* _barcode;
 				dot::Font _font;
+				static bool _registered;
 		};
 	}
 }

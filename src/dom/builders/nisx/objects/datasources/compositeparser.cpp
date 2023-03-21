@@ -11,9 +11,7 @@ using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<CompositeParser>::Register(macsa::nisx::kDataSourceComposite);
-}
+bool CompositeParser::_registered = macsa::nisx::ConcreteDataSourceParserFactory<CompositeParser>::Register(macsa::nisx::kDataSourceComposite);
 
 CompositeParser::CompositeParser(VariableObject* object) :
 	DataSourceParser(object),
