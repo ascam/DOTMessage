@@ -2,8 +2,10 @@
 #define DOT_MESSAGE_USER_INPUT_DATASOURCE_HPP
 
 #include <string>
-#include "dom/components/datasources/datasource.hpp"
+
 #include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
+#include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {
@@ -434,6 +436,12 @@ namespace macsa {
 						RequiredChanged.Emit();
 					}
 				}
+
+				/**
+				* @brief GetData. Get data source updated data result.
+				* @return data source text result data.
+				*/
+				std::string GetData(Context* context) const;
 
 			public:
 				Signal<> PromptChanged;

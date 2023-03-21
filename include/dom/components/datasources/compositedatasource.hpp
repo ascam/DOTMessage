@@ -4,6 +4,7 @@
 #include <string>
 
 #include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
@@ -43,6 +44,13 @@ namespace macsa {
 				 * @param formula: The
 				 */
 				void SetFormula(const std::string& formula);
+
+
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				std::string GetData(Context* context) const;
 
 			public:
 				Signal<> FormulaChanged;

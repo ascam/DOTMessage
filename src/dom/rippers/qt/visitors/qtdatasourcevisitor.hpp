@@ -35,21 +35,21 @@ namespace macsa
 
 			bool Visit(const UserInputDataSource& ds)
 			{
-				//_result = ds.GetData(_context->dateCodes);
+				_result = ds.GetData(_context);
 
 				return true;
 			}
 
 			bool Visit(const DatabaseDataSource& ds)
 			{
-				//_result = ds.GetData(_context->dateCodes);
+				_result = ds.GetData(_context);
 
 				return true;
 			}
 
 			bool Visit(const CompositeDataSource& ds)
 			{
-				//_result = ds.GetData(_context->dateCodes);
+				_result = ds.GetData(_context);
 
 				return true;
 			}

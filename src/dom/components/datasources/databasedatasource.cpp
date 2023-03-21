@@ -22,3 +22,8 @@ bool DatabaseDataSource::Accept(IDocumentVisitor* visitor)
 	}
 	return false;
 }
+
+std::string DatabaseDataSource::GetData(Context* context) const
+{
+	return "database ds";
+}

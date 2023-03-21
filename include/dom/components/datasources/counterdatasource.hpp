@@ -4,10 +4,9 @@
 #include <string>
 #include <cstdint>
 
-#include "dom/components/datasources/datasource.hpp"
+#include "signal/signal.hpp"
 #include "dom/rippers/context.hpp"
-
-#include <signal/signal.hpp>
+#include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {
