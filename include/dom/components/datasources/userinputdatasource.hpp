@@ -441,7 +441,7 @@ namespace macsa {
 				* @brief GetData. Get data source updated data result.
 				* @return data source text result data.
 				*/
-				std::string GetData(Context* context) const;
+				std::string GetData(Context* context) const override;
 
 			public:
 				Signal<> PromptChanged;

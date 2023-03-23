@@ -106,7 +106,7 @@ void QtText::renderFitToBox(const std::string& text, QRectF rect)
 void QtText::renderParagraph(const std::string& text, QRectF rect)
 {
 	auto font = _text->GetFont();
-	//Draw the text
+
 	if(font.size < 1) {
 		WLog() << "Invalid font size, using default font size 12pt";
 		font.size = 12;

@@ -87,8 +87,6 @@ void QtBarcode::Render(const std::string& text)
 			break;
 	}
 
-
-
 	if (isBarcodeWithTextOutside(symbol)) {
 		whitespace += 10;
 	}
