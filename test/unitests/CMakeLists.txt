@@ -4,7 +4,7 @@
 
 # add_subdirectory(components)
 # add_subdirectory(writers)
-# add_subdirectory(builders)
+add_subdirectory(builders)
 # add_subdirectory(rippers)
  
 set(SRC_TEST ${SRC_TEST}
