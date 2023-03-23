@@ -11,9 +11,7 @@ using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<DateTimeParser>::Register(macsa::nisx::kDataSourceDatetime);
-}
+bool DateTimeParser::_registered = macsa::nisx::ConcreteDataSourceParserFactory<DateTimeParser>::Register(macsa::nisx::kDataSourceDatetime);
 
 DateTimeParser::DateTimeParser(VariableObject* object) :
 	DataSourceParser(object),

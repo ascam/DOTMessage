@@ -3,42 +3,40 @@
 
 using namespace macsa::dot;
 
-namespace  {
-	static const bool Code128FactoryRegistered = ConcreteSymbologyFactory<Code128>::Register(NBarcodeSymbol::kCode128);
-	static const bool Code39FactoryRegistered = ConcreteSymbologyFactory<Code39>::Register(NBarcodeSymbol::kCode39);
-	static const bool PharmacodeFactoryRegistered = ConcreteSymbologyFactory<Pharmacode>::Register(NBarcodeSymbol::kPharmacode);
-	static const bool UpcAFactoryRegistered = ConcreteSymbologyFactory<UpcA>::Register(NBarcodeSymbol::kUpcA);
-	static const bool Interleaved2of5FactoryRegistered = ConcreteSymbologyFactory<Interleaved2of5>::Register(NBarcodeSymbol::kInterleaved2of5);
-	static const bool Itf14FactoryRegistered = ConcreteSymbologyFactory<Itf14>::Register(NBarcodeSymbol::kItf14);
-	static const bool Ean13FactoryRegistered = ConcreteSymbologyFactory<Ean13>::Register(NBarcodeSymbol::kEan13);
-	static const bool Ean13CCAFactoryRegistered = ConcreteSymbologyFactory<Ean13CCA>::Register(NBarcodeSymbol::kEan13CCA);
-	static const bool Ean13CCBFactoryRegistered = ConcreteSymbologyFactory<Ean13CCB>::Register(NBarcodeSymbol::kEan13CCB);
-	static const bool Ean8FactoryRegistered = ConcreteSymbologyFactory<Ean8>::Register(NBarcodeSymbol::kEan8);
-	static const bool Ean8CCAFactoryRegistered = ConcreteSymbologyFactory<Ean8CCA>::Register(NBarcodeSymbol::kEan8CCA);
-	static const bool Ean8CCBFactoryRegistered = ConcreteSymbologyFactory<Ean8CCB>::Register(NBarcodeSymbol::kEan8CCB);
-	static const bool Ean128FactoryRegistered = ConcreteSymbologyFactory<Ean128>::Register(NBarcodeSymbol::kEan128);
-	static const bool Ean128CCAFactoryRegistered = ConcreteSymbologyFactory<Ean128CCA>::Register(NBarcodeSymbol::kEan128CCA);
-	static const bool Ean128CCBFactoryRegistered = ConcreteSymbologyFactory<Ean128CCB>::Register(NBarcodeSymbol::kEan128CCB);
-	static const bool Ean128CCCFactoryRegistered = ConcreteSymbologyFactory<Ean128CCC>::Register(NBarcodeSymbol::kEan128CCC);
-	static const bool GS1128FactoryRegistered = ConcreteSymbologyFactory<GS1128>::Register(NBarcodeSymbol::kGS1128);
-	static const bool GS1128CCAFactoryRegistered = ConcreteSymbologyFactory<GS1128CCA>::Register(NBarcodeSymbol::kGS1128CCA);
-	static const bool GS1128CCBFactoryRegistered = ConcreteSymbologyFactory<GS1128CCB>::Register(NBarcodeSymbol::kGS1128CCB);
-	static const bool GS1128CCCFactoryRegistered = ConcreteSymbologyFactory<GS1128CCC>::Register(NBarcodeSymbol::kGS1128CCC);
-	static const bool GS1DataBar14FactoryRegistered = ConcreteSymbologyFactory<GS1DataBar14>::Register(NBarcodeSymbol::kGS1DataBar14);
-	static const bool GS1DataBarExpandedFactoryRegistered = ConcreteSymbologyFactory<GS1DataBarExpanded>::Register(NBarcodeSymbol::kGS1DataBarExpanded);
-	static const bool GS1DataBarExpandedStackedFactoryRegistered = ConcreteSymbologyFactory<GS1DataBarExpandedStacked>::Register(NBarcodeSymbol::kGS1DataBarExpandedStacked);
-	static const bool GS1DataBarStackedFactoryRegistered = ConcreteSymbologyFactory<GS1DataBarStacked>::Register(NBarcodeSymbol::kGS1DataBarStacked);
-	static const bool Rss14StackedOmnidirectionalFactoryRegistered = ConcreteSymbologyFactory<Rss14StackedOmnidirectional>::Register(NBarcodeSymbol::kRss14StackedOmnidirectional);
-	static const bool DotCodeFactoryRegistered = ConcreteSymbologyFactory<DotCode>::Register(NBarcodeSymbol::kDotCode);
-	static const bool DataMatrixFactoryRegistered = ConcreteSymbologyFactory<DataMatrix>::Register(NBarcodeSymbol::kDataMatrix);
-	static const bool GS1DataMatrixFactoryRegistered = ConcreteSymbologyFactory<GS1DataMatrix>::Register(NBarcodeSymbol::kGS1DataMatrix);
-	static const bool Pdf417FactoryRegistered = ConcreteSymbologyFactory<Pdf417>::Register(NBarcodeSymbol::kPdf417);
-	static const bool CompactPdf417FactoryRegistered = ConcreteSymbologyFactory<CompactPdf417>::Register(NBarcodeSymbol::kCompactPdf417);
-	static const bool MicroPdf417FactoryRegistered = ConcreteSymbologyFactory<MicroPdf417>::Register(NBarcodeSymbol::kMicroPdf417);
-	static const bool QRCodeFactoryRegistered = ConcreteSymbologyFactory<QRCode>::Register(NBarcodeSymbol::kQRCode);
-	static const bool GS1QRCodeFactoryRegistered = ConcreteSymbologyFactory<GS1QRCode>::Register(NBarcodeSymbol::kGS1QRCode);
-	static const bool MicroQRCodeFactoryRegistered = ConcreteSymbologyFactory<MicroQRCode>::Register(NBarcodeSymbol::kMicroQRCode);
-}
+bool Code128::_registered = ConcreteSymbologyFactory<Code128>::Register(NBarcodeSymbol::kCode128);
+bool Code39::_registered = ConcreteSymbologyFactory<Code39>::Register(NBarcodeSymbol::kCode39);
+bool Pharmacode::_registered = ConcreteSymbologyFactory<Pharmacode>::Register(NBarcodeSymbol::kPharmacode);
+bool UpcA::_registered = ConcreteSymbologyFactory<UpcA>::Register(NBarcodeSymbol::kUpcA);
+bool Interleaved2of5::_registered = ConcreteSymbologyFactory<Interleaved2of5>::Register(NBarcodeSymbol::kInterleaved2of5);
+bool Itf14::_registered = ConcreteSymbologyFactory<Itf14>::Register(NBarcodeSymbol::kItf14);
+bool Ean13::_registered = ConcreteSymbologyFactory<Ean13>::Register(NBarcodeSymbol::kEan13);
+bool Ean13CCA::_registered = ConcreteSymbologyFactory<Ean13CCA>::Register(NBarcodeSymbol::kEan13CCA);
+bool Ean13CCB::_registered = ConcreteSymbologyFactory<Ean13CCB>::Register(NBarcodeSymbol::kEan13CCB);
+bool Ean8::_registered = ConcreteSymbologyFactory<Ean8>::Register(NBarcodeSymbol::kEan8);
+bool Ean8CCA::_registered = ConcreteSymbologyFactory<Ean8CCA>::Register(NBarcodeSymbol::kEan8CCA);
+bool Ean8CCB::_registered = ConcreteSymbologyFactory<Ean8CCB>::Register(NBarcodeSymbol::kEan8CCB);
+bool Ean128::_registered = ConcreteSymbologyFactory<Ean128>::Register(NBarcodeSymbol::kEan128);
+bool Ean128CCA::_registered = ConcreteSymbologyFactory<Ean128CCA>::Register(NBarcodeSymbol::kEan128CCA);
+bool Ean128CCB::_registered = ConcreteSymbologyFactory<Ean128CCB>::Register(NBarcodeSymbol::kEan128CCB);
+bool Ean128CCC::_registered = ConcreteSymbologyFactory<Ean128CCC>::Register(NBarcodeSymbol::kEan128CCC);
+bool GS1128::_registered = ConcreteSymbologyFactory<GS1128>::Register(NBarcodeSymbol::kGS1128);
+bool GS1128CCA::_registered = ConcreteSymbologyFactory<GS1128CCA>::Register(NBarcodeSymbol::kGS1128CCA);
+bool GS1128CCB::_registered = ConcreteSymbologyFactory<GS1128CCB>::Register(NBarcodeSymbol::kGS1128CCB);
+bool GS1128CCC::_registered = ConcreteSymbologyFactory<GS1128CCC>::Register(NBarcodeSymbol::kGS1128CCC);
+bool GS1DataBar14::_registered = ConcreteSymbologyFactory<GS1DataBar14>::Register(NBarcodeSymbol::kGS1DataBar14);
+bool GS1DataBarExpanded::_registered = ConcreteSymbologyFactory<GS1DataBarExpanded>::Register(NBarcodeSymbol::kGS1DataBarExpanded);
+bool GS1DataBarExpandedStacked::_registered = ConcreteSymbologyFactory<GS1DataBarExpandedStacked>::Register(NBarcodeSymbol::kGS1DataBarExpandedStacked);
+bool GS1DataBarStacked::_registered = ConcreteSymbologyFactory<GS1DataBarStacked>::Register(NBarcodeSymbol::kGS1DataBarStacked);
+bool Rss14StackedOmnidirectional::_registered = ConcreteSymbologyFactory<Rss14StackedOmnidirectional>::Register(NBarcodeSymbol::kRss14StackedOmnidirectional);
+bool DotCode::_registered = ConcreteSymbologyFactory<DotCode>::Register(NBarcodeSymbol::kDotCode);
+bool DataMatrix::_registered = ConcreteSymbologyFactory<DataMatrix>::Register(NBarcodeSymbol::kDataMatrix);
+bool GS1DataMatrix::_registered = ConcreteSymbologyFactory<GS1DataMatrix>::Register(NBarcodeSymbol::kGS1DataMatrix);
+bool Pdf417::_registered = ConcreteSymbologyFactory<Pdf417>::Register(NBarcodeSymbol::kPdf417);
+bool CompactPdf417::_registered = ConcreteSymbologyFactory<CompactPdf417>::Register(NBarcodeSymbol::kCompactPdf417);
+bool MicroPdf417::_registered = ConcreteSymbologyFactory<MicroPdf417>::Register(NBarcodeSymbol::kMicroPdf417);
+bool QRCode::_registered = ConcreteSymbologyFactory<QRCode>::Register(NBarcodeSymbol::kQRCode);
+bool GS1QRCode::_registered = ConcreteSymbologyFactory<GS1QRCode>::Register(NBarcodeSymbol::kGS1QRCode);
+bool MicroQRCode::_registered = ConcreteSymbologyFactory<MicroQRCode>::Register(NBarcodeSymbol::kMicroQRCode);
 
 static constexpr double kDefaultRatio = 2.0;
 

@@ -317,6 +317,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kCode128)
 				{}
 				virtual ~Code128() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Code39 final : public OneDimensionBarcode
@@ -326,6 +329,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kCode39)
 				{}
 				virtual ~Code39() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Pharmacode final : public OneDimensionBarcode
@@ -335,6 +341,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kPharmacode)
 				{}
 				virtual ~Pharmacode() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class UpcA final : public OneDimensionBarcode
@@ -344,6 +353,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kUpcA)
 				{}
 				virtual ~UpcA() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Interleaved2of5 final : public OneDimensionBarcode
@@ -353,6 +365,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kInterleaved2of5)
 				{}
 				virtual ~Interleaved2of5() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Itf14 final : public OneDimensionBarcode
@@ -362,6 +377,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kItf14)
 				{}
 				virtual ~Itf14() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean13 final : public OneDimensionBarcode
@@ -371,6 +389,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan13)
 				{}
 				virtual ~Ean13() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean13CCA final : public OneDimensionBarcode
@@ -382,6 +403,9 @@ namespace macsa {
 				virtual ~Ean13CCA() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean13CCB final : public OneDimensionBarcode
@@ -393,6 +417,9 @@ namespace macsa {
 				virtual ~Ean13CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean8 final : public OneDimensionBarcode
@@ -402,6 +429,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan8)
 				{}
 				virtual ~Ean8() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean8CCA final : public OneDimensionBarcode
@@ -413,6 +443,9 @@ namespace macsa {
 				virtual ~Ean8CCA() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean8CCB final : public OneDimensionBarcode
@@ -424,6 +457,9 @@ namespace macsa {
 				virtual ~Ean8CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean128 final : public OneDimensionBarcode
@@ -433,6 +469,9 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan128)
 				{}
 				virtual ~Ean128() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean128CCA final : public OneDimensionBarcode
@@ -444,6 +483,9 @@ namespace macsa {
 				virtual ~Ean128CCA() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean128CCB final : public OneDimensionBarcode
@@ -455,6 +497,9 @@ namespace macsa {
 				virtual ~Ean128CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+			private:
+				static bool _registered;
 		};
 
 		class Ean128CCC final : public OneDimensionBarcode
@@ -466,6 +511,9 @@ namespace macsa {
 				virtual ~Ean128CCC() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 3;}
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1128 final : public OneDimensionGS1Barcode
@@ -475,6 +523,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1128)
 				{}
 				virtual ~GS1128() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1128CCA final : public OneDimensionGS1Barcode
@@ -486,6 +537,9 @@ namespace macsa {
 				virtual ~GS1128CCA() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1128CCB final : public OneDimensionGS1Barcode
@@ -497,6 +551,9 @@ namespace macsa {
 				virtual ~GS1128CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1128CCC final : public OneDimensionGS1Barcode
@@ -508,6 +565,9 @@ namespace macsa {
 				virtual ~GS1128CCC() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 3;}
+
+			private:
+				static bool _registered;
 		};
 
 
@@ -518,6 +578,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBar14)
 				{}
 				virtual ~GS1DataBar14() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1DataBarExpanded final : public OneDimensionGS1Barcode
@@ -527,6 +590,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBarExpanded)
 				{}
 				virtual ~GS1DataBarExpanded() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1DataBarExpandedStacked final : public OneDimensionGS1Barcode
@@ -536,6 +602,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBarExpandedStacked)
 				{}
 				virtual ~GS1DataBarExpandedStacked() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1DataBarStacked final : public OneDimensionGS1Barcode
@@ -545,6 +614,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBarStacked)
 				{}
 				virtual ~GS1DataBarStacked() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class Rss14StackedOmnidirectional final : public OneDimensionGS1Barcode
@@ -554,6 +626,9 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kRss14StackedOmnidirectional)
 				{}
 				virtual ~Rss14StackedOmnidirectional() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class TwoDimensionsBarcode : public Symbology
@@ -642,6 +717,9 @@ namespace macsa {
 					TwoDimensionsBarcode(NBarcodeSymbol::kDotCode)
 				{}
 				virtual ~DotCode() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class DataMatrix final : public TwoDimensionsBarcode
@@ -651,6 +729,9 @@ namespace macsa {
 					TwoDimensionsBarcode(NBarcodeSymbol::kDataMatrix)
 				{}
 				virtual ~DataMatrix() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1DataMatrix final : public TwoDimensionsGS1Barcode
@@ -660,6 +741,9 @@ namespace macsa {
 					TwoDimensionsGS1Barcode(NBarcodeSymbol::kGS1DataMatrix)
 				{}
 				virtual ~GS1DataMatrix() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class PdfBarcode : public TwoDimensionsBarcode
@@ -684,6 +768,9 @@ namespace macsa {
 				{}
 				virtual ~Pdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
+
+			private:
+				static bool _registered;
 		};
 
 		class CompactPdf417 final : public PdfBarcode
@@ -694,6 +781,9 @@ namespace macsa {
 				{}
 				virtual ~CompactPdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
+
+			private:
+				static bool _registered;
 		};
 
 		class MicroPdf417 final : public PdfBarcode
@@ -704,6 +794,9 @@ namespace macsa {
 				{}
 				virtual ~MicroPdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
+
+			private:
+				static bool _registered;
 		};
 
 		class QrTypeBarcode : public TwoDimensionsBarcode
@@ -740,6 +833,9 @@ namespace macsa {
 					QrTypeBarcode(NBarcodeSymbol::kQRCode)
 				{}
 				virtual ~QRCode() = default;
+
+			private:
+				static bool _registered;
 		};
 
 		class GS1QRCode : public QrTypeBarcode
@@ -759,6 +855,7 @@ namespace macsa {
 
 			private:
 				GS1AISeparator _separator;
+				static bool _registered;
 		};
 
 		class MicroQRCode : public QrTypeBarcode
@@ -768,6 +865,9 @@ namespace macsa {
 					QrTypeBarcode(NBarcodeSymbol::kMicroQRCode)
 				{}
 				virtual ~MicroQRCode() = default;
+
+			private:
+				static bool _registered;
 		};
 	}
 }

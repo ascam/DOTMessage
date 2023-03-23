@@ -458,6 +458,7 @@ namespace macsa {
 				PromptBehavior _promptBehavior;
 				InputTextAttributes _inputTextAttributes;
 				bool _required;
+				static bool _registered;
 		};
 	}
 }

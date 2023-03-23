@@ -10,6 +10,9 @@ namespace macsa {
 			public:
 				EllipseParser(dot::Object* primitive);
 				virtual ~EllipseParser() = default;
+
+			private:
+				static bool _registered;
 		};
 	}
 }

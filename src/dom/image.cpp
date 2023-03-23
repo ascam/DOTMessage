@@ -6,9 +6,7 @@ using macsa::dot::Image;
 using macsa::dot::Geometry;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Image>::Register(macsa::dot::NObjectType::kImage);
-}
+bool Image::_registered = macsa::dot::ConcreteObjectsFactory<Image>::Register(macsa::dot::NObjectType::kImage);
 
 Image::Image(const std::string& id, const Geometry& geometry) :
 	Object(id, NObjectType::kImage, geometry),

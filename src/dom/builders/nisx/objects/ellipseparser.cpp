@@ -4,9 +4,7 @@
 
 using macsa::nisx::EllipseParser;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<EllipseParser>::Register(macsa::nisx::kEllipseField);
-}
+bool EllipseParser::_registered = macsa::nisx::ConcreteObjectParserFactory<EllipseParser>::Register(macsa::nisx::kEllipseField);
 
 EllipseParser::EllipseParser(macsa::dot::Object *primitive) :
 	PrimitiveParser(macsa::nisx::kEllipseField, primitive)
