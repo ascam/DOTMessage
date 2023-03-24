@@ -19,7 +19,7 @@ namespace macsa {
 		class CompositeDataSource final : public DataSource
 		{
 			public:
-				CompositeDataSource();
+				CompositeDataSource(const dot::Object& obj);
 				virtual ~CompositeDataSource() = default;
 
 				/**
@@ -44,7 +44,6 @@ namespace macsa {
 				 * @param formula: The
 				 */
 				void SetFormula(const std::string& formula);
-
 
 				/**
 				 * @brief GetData. Get data source updated data result.

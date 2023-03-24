@@ -10,8 +10,8 @@ using macsa::dot::IDocumentVisitor;
 
 bool DateTimeDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<DateTimeDataSource>::Register(macsa::dot::NDataSourceType::kDateTime);
 
-DateTimeDataSource::DateTimeDataSource() :
-	DataSource(NDataSourceType::kDateTime),
+DateTimeDataSource::DateTimeDataSource(const dot::Object& obj) :
+	DataSource(NDataSourceType::kDateTime, obj),
 	_format{},
 	_daysOffset{},
 	_monthsOffset{},

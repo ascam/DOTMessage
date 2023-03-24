@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "dom/variableobject.hpp"
 #include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
@@ -19,7 +20,7 @@ namespace macsa {
 		class DatabaseDataSource final : public DataSource
 		{
 			public:
-				DatabaseDataSource();
+				DatabaseDataSource(const dot::Object& obj);
 				virtual ~DatabaseDataSource() = default;
 
 				/**

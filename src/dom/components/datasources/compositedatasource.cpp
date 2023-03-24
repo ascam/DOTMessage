@@ -16,8 +16,8 @@ constexpr const char* kDelimiter = "|";
 
 bool CompositeDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<CompositeDataSource>::Register(macsa::dot::NDataSourceType::kComposite);
 
-CompositeDataSource::CompositeDataSource() :
-	DataSource(NDataSourceType::kComposite),
+CompositeDataSource::CompositeDataSource(const dot::Object& obj) :
+	DataSource(NDataSourceType::kComposite, obj),
 	_formula{}
 {}
 
@@ -29,38 +29,16 @@ bool CompositeDataSource::Accept(IDocumentVisitor* visitor)
 	return false;
 }
 
-//RefreshPolicy CompositeDataSource::GetRefreshPolicy() const
-//{
-//	RefreshPolicy policy = RefreshPolicy::kNone;
-//	for (auto& token : _tokens) {
-//		if (token.first == kFieldItem) {
-//			const auto* object = _document->GetObjectById(token.second);
-//			if (object && object->IsVariable())  {
-//				auto objPolicy = object->GetRefreshPolicy();
-//				if (objPolicy != RefreshPolicy::kNone) {
-//					if (policy > objPolicy || policy == RefreshPolicy::kNone) {
-//						policy = objPolicy;
-//					}
-//				}
-//			}
-//		}
-//	}
-//	return policy;
-//}
-
 void CompositeDataSource::SetFormula(const std::string& formula)
 {
-	auto slices =  stringutils::Split(_formula, kDelimiter);
+	auto&& slices = stringutils::Split(_formula, kDelimiter);
 	if (slices.size() % 2) {
 		ELog() << "Invalid formula \"" << formula << "\"";
 		return;
 	}
+
 	if (_formula != formula) {
 		_formula = formula;
-//		_tokens.clear();
-//		for (uint32_t index = 0; index < slices.size(); index += 2) {
-//			_tokens.emplace_back(slices.at(index), slices.at(index + 1));
-//		}
 
 		FormulaChanged.Emit();
 	}
@@ -68,5 +46,14 @@ void CompositeDataSource::SetFormula(const std::string& formula)
 
 std::string CompositeDataSource::GetData(Context* context) const
 {
-	return "composite ds";
+	if (_formula.empty()) {
+		return {};
+	}
+
+	//auto&& tokens = stringutils::Split(_formula, kDelimiter);
+	//std::vector<std::string> visitedFields;
+	//visitedFields.emplace_back(getParentName());
+
+	//return getCompositeData(tokens, visitedFields);
+	return {};
 }

@@ -20,7 +20,7 @@ DataSource* VariableObject::GetDatasource() const
 DataSource* VariableObject::SetDatasource(const DataSourceType& type)
 {
 	if (_datasource.get() == nullptr || _datasource->GetType() != type) {
-		_datasource.reset(DataSourceFactory::Get(type()));
+		_datasource.reset(DataSourceFactory::Get(type(), *this));
 		DataSourceChanged.Emit();
 	}
 	return _datasource.get();

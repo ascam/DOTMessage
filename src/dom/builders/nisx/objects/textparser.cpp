@@ -16,7 +16,7 @@ using namespace macsa::utils::stringutils;
 
 bool TextParser::_registered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
 
-TextParser::TextParser(dot::Object *text) :
+TextParser::TextParser(dot::Object* text) :
 	ObjectParser(macsa::nisx::kTextField, text),
 	_text{dynamic_cast<Text*>(text)},
 	_font{}
@@ -62,6 +62,7 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 				if (attrName == kType) {
 					std::string attrValue {ToString(attribute->Value())};
 					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _text);
+					//@josep //dataSourceParser.setParentId(_text->GetId())
 					if (dataSourceParser){
 						element.Accept(dataSourceParser);
 					}

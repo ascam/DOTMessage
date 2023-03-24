@@ -1,6 +1,7 @@
 #ifndef DOT_MESSAGE_OBJECT_DATASOURCES_HPP
 #define DOT_MESSAGE_OBJECT_DATASOURCES_HPP
 
+#include "dom/object.hpp"
 #include "utils/smartenum.hpp"
 
 namespace macsa {
@@ -65,13 +66,18 @@ namespace macsa {
 		class DataSource
 		{
 			public:
-				DataSource(const DataSourceType& type) :
-					_type{type}
+				DataSource(const DataSourceType& type, const dot::Object& obj) :
+					_type{type},
+					_obj{obj}
 				{}
 				virtual ~DataSource() = default;
 
 				const DataSourceType& GetType() const {
 					return _type;
+				}
+
+				const std::string& GetId() const {
+					return _obj.GetId();
 				}
 
 				/**
@@ -90,6 +96,7 @@ namespace macsa {
 
 			private:
 				DataSourceType _type;
+				const dot::Object& _obj;
 		};
 	}
 }

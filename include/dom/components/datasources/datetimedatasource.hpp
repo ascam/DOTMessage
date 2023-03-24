@@ -2,6 +2,7 @@
 #define DOT_MESSAGE_DATE_AND_TIME_DATASOURCE_HPP
 
 #include <string>
+
 #include "dom/components/datasources/datasource.hpp"
 #include "dom/rippers/context.hpp"
 #include "signal/signal.hpp"
@@ -17,7 +18,7 @@ namespace macsa {
 		class DateTimeDataSource final : public DataSource
 		{
 			public:
-				DateTimeDataSource();
+				DateTimeDataSource(const dot::Object& obj);
 				virtual ~DateTimeDataSource() = default;
 
 				/**

@@ -71,8 +71,8 @@ const std::vector<std::pair<NDataTypeMode, std::string>>& DataTypeMode::getData(
 	return kNDataTypeModeData;
 }
 
-UserInputDataSource::UserInputDataSource() :
-	DataSource(NDataSourceType::kUserInput),
+UserInputDataSource::UserInputDataSource(const macsa::dot::Object &obj) :
+	DataSource(NDataSourceType::kUserInput, obj),
 	_prompt{},
 	_value{},
 	_userText{},
