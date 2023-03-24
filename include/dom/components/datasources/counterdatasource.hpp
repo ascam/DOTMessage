@@ -3,8 +3,10 @@
 
 #include <string>
 #include <cstdint>
+
+#include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
-#include <signal/signal.hpp>
 
 namespace macsa {
 	namespace dot {
@@ -28,27 +30,6 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) override;
-
-				/**
-				 * @brief GetCounterValue. Getter method for the current
-				 * source counter value.
-				 * @return The current source counter value
-				 */
-				int GetCounterValue() const {
-					return _counter;
-				}
-
-				/**
-				 * @brief SetCounterValue. Setter method for the current
-				 * source counter value.
-				 * @param value: source counter value
-				 */
-				void SetCounterValue(int counter) {
-					if (counter != _counter)	{
-						_counter = counter;
-						CounterValueChanged.Emit();
-					}
-				}
 
 				/**
 				 * @brief GetLeadingZeros. Getter method for number of
@@ -153,16 +134,20 @@ namespace macsa {
 					}
 				}
 
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				std::string GetData(Context* context) const override;
+
 			public:
 				Signal<> StepChanged;
 				Signal<> RepeatCounterChanged;
 				Signal<> MaxValueChanged;
 				Signal<> MinValueChanged;
 				Signal<> LeadingZerosChanged;
-				Signal<> CounterValueChanged;
 
 			private:
-				int _counter;
 				uint32_t _leadingZeros;
 				int _minValue;
 				int _maxValue;

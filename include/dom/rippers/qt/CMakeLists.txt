@@ -1,5 +1,5 @@
 #####################################
-#    DOM message rippers headers    #
+# qt DOM message rippers headers    #
 #####################################
 
 set(SOURCES ${SOURCES}
@@ -10,8 +10,3 @@ set(HEADERS ${HEADERS}
 	${CMAKE_CURRENT_SOURCE_DIR}/qtripper.hpp
 	PARENT_SCOPE
     )
-
-set(INCLUDES ${INCLUDES}
-	${CMAKE_CURRENT_SOURCE_DIR}
-	PARENT_SCOPE
-)

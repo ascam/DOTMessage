@@ -1,8 +1,9 @@
 #ifndef DOTMESSAGE_SDL_GENERATOR_HPP
 #define DOTMESSAGE_SDL_GENERATOR_HPP
 
-#include "bitmapgenerator.hpp"
-#include "document.hpp"
+#include "dom/document.hpp"
+#include "dom/rippers/context.hpp"
+#include "dom/rippers/bitmapgenerator.hpp"
 
 namespace macsa {
 	namespace dot {
@@ -13,8 +14,8 @@ namespace macsa {
 				virtual ~SDLGenerator() = default;
 
 				virtual bitmap GetBitmap() const;
-				virtual void Update(Document* doc);
-				virtual void UpdateVariableFields(Document* doc);
+				virtual void Update(Document* doc, Context* context);
+				virtual void UpdateVariableFields(Document* doc, Context* context);
 
 		};
 	}

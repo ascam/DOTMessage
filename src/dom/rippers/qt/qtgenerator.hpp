@@ -13,9 +13,10 @@
 #include <QPainter>
 #include <QPixmap>
 
-
 #include "dom/document.hpp"
+#include "dom/rippers/context.hpp"
 #include "dom/rippers/bitmapgenerator.hpp"
+#include "dom/rippers/qt/visitors/qtrastervisitor.hpp"
 
 namespace macsa
 {
@@ -41,8 +42,8 @@ namespace macsa
 				void GetDoubleColBitmapMono(bitmap& buff1, bitmap& buff2, uint32_t colOffset,
 											bool invertByte = true) const override;
 
-				void Update(Document* doc) override;
-				void UpdateVariableFields(Document* doc) override;
+				void Update(Document* doc, Context* context) override;
+				void UpdateVariableFields(Document* doc, Context* context) override;
 				void SaveToBmpFile(const std::string& filename) override;
 				void Clear() override;
 
@@ -67,15 +68,8 @@ namespace macsa
 
 				bool buildCanvas(int width, int height);
 				void classifyObjects(const std::deque<Object*>& objects);
-				void renderFixedFields(QPainter& painter);
-				void renderVariableFields(QPainter& painter);
-				void renderText(const Object* object, QPainter& painter);
-				void renderBarcode(const Object* object, QPainter& painter);
-				void renderImage(const Object* object, QPainter& painter);
-				void renderRectangle(const Object* object, QPainter& painter);
-				void renderLine(const Object* object, QPainter& painter);
-				void renderEllipse(const Object* object, QPainter& painter);
-				void renderDiamond(const Object* object, QPainter& painter);
+				void renderFixedFields(QtRasterVisitor* visitor);
+				void renderVariableFields(QtRasterVisitor* visitor);
 				uint8_t invertByte(uint8_t byte) const;
 
 				/**

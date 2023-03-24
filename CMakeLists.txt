@@ -47,27 +47,29 @@ set(SOURCES)
 set(HEADERS)
 
 if (${BUILD_TEST_EXECUTABLE})
-	add_subdirectory(test)
+        add_subdirectory(test)
 endif()
 
+## Add printers generic datamodel ##
+add_subdirectory(${PRINTER_DM_DIR}            ${PROJECT_BINARY_DIR}/printer)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src	${PROJECT_BINARY_DIR}/src)
 add_subdirectory(${PROJECT_SOURCE_DIR}/include	${PROJECT_BINARY_DIR}/include)
 
 if (RASTERIZATION)
-	set(BACKEND_LIBS)
+        set(BACKEND_LIBS)
     if (BACKEND_QT)
-		message("Using Qt backend")
+	        message("Using Qt backend")
 		include(${UTILS_DIR}/cmake/qt.cmake)
 		if(BACKEND_QT_NATIVE)
-			add_definitions(-DBACKEND_QT_NATIVE)
+		        add_definitions(-DBACKEND_QT_NATIVE)
 		endif()
 		add_subdirectory(${UTILS_DIR}/${ZINT_VERSION}   ${PROJECT_BINARY_DIR}/${ZINT_VERSION})
 		include_directories(${UTILS_DIR}/${ZINT_VERSION})
 		set(BACKEND_LIBS ${BACKEND_LIBS} ${QT_LIBS})
 		add_definitions(-DQT_BACKEND=TRUE)
     elseif(BACKEND_SDL2)
-		message("Using SDL backend")
+	        message("Using SDL backend")
 		find_package(SDL2 REQUIRED)
 		include_directories(${SDL2_INCLUDE_DIRS})
 		set(BACKEND_LIBS ${BACKEND_LIBS} SDL2 SDL2_image SDL2_ttf SDL2_gfx)
@@ -91,9 +93,18 @@ set (SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS})
 
+include_directories(${PRINTER_DM_DIR}/include)
+
+link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+
+if(WIN32)
+        link_directories(${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endif()
+
 ####################  TARGETS  #############################
 
 #Create a virtual target to avoid multiple compilation of sources
+
 add_library(${PROJECT_NAME}_lib OBJECT ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib
@@ -106,6 +117,12 @@ target_include_directories(${PROJECT_NAME}_lib
 	)
 
 if(NOT BUILD_SHARED_LIBS)
+        if (UNIX)
+	    set(STATIC_DEPENDENCIES ${CMAKE_BINARY_DIR}/lib/printerdm.a)
+	elseif(WIN32)
+	        set(STATIC_DEPENDENCIES
+		${CMAKE_BINARY_DIR}/lib/printerdm.lib)
+	endif()
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating static library")
 	message("-- STATIC Public dependencies: ${STATIC_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	add_library(${PROJECT_NAME} STATIC $<TARGET_OBJECTS:${PROJECT_NAME}_lib>)
@@ -113,6 +130,7 @@ if(NOT BUILD_SHARED_LIBS)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${STATIC_DEPENDENCIES})
 	install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/ DESTINATION ${INSTALL_DIR}/lib FILES_MATCHING PATTERN "*.so*")
 else()
+        set(SHARED_DEPENDENCIES printerdm)
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating dynamic library")
 	message("-- SHARED Public dependencies: ${SHARED_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	set_property(TARGET ${PROJECT_NAME}_lib PROPERTY POSITION_INDEPENDENT_CODE 1)

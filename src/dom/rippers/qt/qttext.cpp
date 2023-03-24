@@ -16,11 +16,9 @@ QtText::QtText(const Text* text, QPainter& painter, QFontDatabase& fonts, int vr
 	_fontsDb(fonts)
 {}
 
-void QtText::Render()
+void QtText::Render(const std::string& text)
 {
-	const auto text = _text->GetText();
-
-	if (!text.length()) {
+	if (text.empty()) {
 		WLog() << "No text to render";
 		return;
 	}
@@ -71,7 +69,12 @@ void QtText::Render()
 #endif
 }
 
-void QtText::renderFitToBox(const std::string &text, QRectF rect)
+void QtText::Render()
+{
+	Render(_text->GetText());
+}
+
+void QtText::renderFitToBox(const std::string& text, QRectF rect)
 {
 	QFont qfont = getFont(_text->GetFont());
 
@@ -103,7 +106,7 @@ void QtText::renderFitToBox(const std::string &text, QRectF rect)
 void QtText::renderParagraph(const std::string& text, QRectF rect)
 {
 	auto font = _text->GetFont();
-	//Draw the text
+
 	if(font.size < 1) {
 		WLog() << "Invalid font size, using default font size 12pt";
 		font.size = 12;

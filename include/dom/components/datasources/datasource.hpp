@@ -5,6 +5,7 @@
 
 namespace macsa {
 	namespace dot {
+		class Context;
 		class IDocumentVisitor;
 		/**
 		 * @brief DataSource types
@@ -80,6 +81,12 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				virtual bool Accept(IDocumentVisitor* visitor) = 0;
+
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				virtual std::string GetData(Context* context) const = 0;
 
 			private:
 				DataSourceType _type;

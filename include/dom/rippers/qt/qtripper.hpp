@@ -1,5 +1,5 @@
-#ifndef NISX_QT_RIPPER_HPP
-#define NISX_QT_RIPPER_HPP
+#ifndef DOTMESSAGE_QT_RIPPER_HPP
+#define DOTMESSAGE_QT_RIPPER_HPP
 
 #include "dom/rippers/ripper.hpp"
 #include "qpixmap.h"

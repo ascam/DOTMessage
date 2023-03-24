@@ -13,12 +13,12 @@ bitmap SDLGenerator::GetBitmap() const
 	return bitmap();
 }
 
-void SDLGenerator::Update(Document *doc)
+void SDLGenerator::Update(Document *doc, Context* context)
 {
 
 }
 
-void SDLGenerator::UpdateVariableFields(Document *doc)
+void SDLGenerator::UpdateVariableFields(Document *doc, Context* context)
 {
 
 }

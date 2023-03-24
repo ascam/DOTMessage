@@ -7,6 +7,7 @@
 #include <cstdint>
 
 #include "dom/document.hpp"
+#include "dom/rippers/context.hpp"
 
 using bitmap = std::vector<uint8_t>;
 
@@ -43,8 +44,8 @@ namespace macsa
 				 */
 				virtual void SaveToBmpFile(const std::string& filename) = 0;
 
-				virtual void Update(dot::Document* doc) = 0;
-				virtual void UpdateVariableFields(dot::Document* doc) = 0;
+				virtual void Update(dot::Document* doc, Context* context) = 0;
+				virtual void UpdateVariableFields(dot::Document* doc, Context* context) = 0;
 				virtual void Clear() = 0;
 
 				virtual void AddFontsDirectory(const std::string& fullpath) = 0;

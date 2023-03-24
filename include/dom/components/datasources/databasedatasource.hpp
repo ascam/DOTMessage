@@ -2,6 +2,8 @@
 #define DOT_MESSAGE_DATABASE_DATASOURCE_HPP
 
 #include <string>
+
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
@@ -114,6 +116,12 @@ namespace macsa {
 				void SetTableName(const std::string& name) {
 					_tableName = name;
 				}
+
+				/**
+				* @brief GetData. Get data source updated data result.
+				* @return data source text result data.
+				*/
+				std::string GetData(Context* context) const override;
 
 			private:
 				std::string _fieldName;

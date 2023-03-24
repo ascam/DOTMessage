@@ -65,3 +65,8 @@ void CompositeDataSource::SetFormula(const std::string& formula)
 		FormulaChanged.Emit();
 	}
 }
+
+std::string CompositeDataSource::GetData(Context* context) const
+{
+	return "composite ds";
+}

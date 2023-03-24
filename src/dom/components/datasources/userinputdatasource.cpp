@@ -92,3 +92,8 @@ bool UserInputDataSource::Accept(IDocumentVisitor* visitor)
 	}
 	return false;
 }
+
+std::string UserInputDataSource::GetData(Context* context) const
+{
+	return GetValue();
+}
