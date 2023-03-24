@@ -57,6 +57,7 @@ namespace macsa {
 
 			private:
 				std::string _formula;
+				static bool _registered;
 		};
 	}
 }

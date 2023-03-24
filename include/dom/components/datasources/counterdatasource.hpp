@@ -99,7 +99,7 @@ namespace macsa {
 				 * @return how many times the counter will be the same
 				 * before jump to the next value.
 				 */
-				uint GetRepeatCounter() const {
+				uint32_t GetRepeatCounter() const {
 					return _repeatCounter;
 				}
 
@@ -152,7 +152,8 @@ namespace macsa {
 				int _minValue;
 				int _maxValue;
 				int _step;
-				uint _repeatCounter;
+				uint32_t _repeatCounter;
+				static bool _registered;
 		};
 	}
 }

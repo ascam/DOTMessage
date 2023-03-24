@@ -13,9 +13,7 @@ using macsa::dot::DataTypeMode;
 using macsa::dot::NDataTypeMode;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool UserInputFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
-}
+bool UserInputDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
 
 UserInputDataSource::UserInfo::UserInfo() :
 	device{},

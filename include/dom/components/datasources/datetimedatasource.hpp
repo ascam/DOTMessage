@@ -123,7 +123,7 @@ namespace macsa {
 				 * which the day starts.
 				 * @return the hour were the day changes to the next day.
 				 */
-				uint GetHourDaysStart() const {
+				uint32_t GetHourDaysStart() const {
 					return _hourDaysStart;
 				}
 
@@ -132,7 +132,7 @@ namespace macsa {
 				 * which the day starts.
 				 * @param hourDayStart: the hour were the day changes to the next day.
 				 */
-				void SetHourDaysStart(uint hourDayStart) {
+				void SetHourDaysStart(uint32_t hourDayStart) {
 					if (hourDayStart != _hourDaysStart)	{
 						_hourDaysStart = hourDayStart;
 						HourDaysStartChanged.Emit();
@@ -157,7 +157,8 @@ namespace macsa {
 				int _daysOffset;
 				int _monthsOffset;
 				int _yearsOffset;
-				uint _hourDaysStart;
+				uint32_t _hourDaysStart;
+				static bool _registered;
 		};
 	}
 }

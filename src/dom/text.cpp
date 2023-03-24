@@ -7,9 +7,7 @@ using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
-}
+bool Text::_registered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
 
 Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kText, geometry),

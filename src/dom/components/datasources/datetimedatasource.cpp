@@ -8,10 +8,7 @@
 using macsa::dot::DateTimeDataSource;
 using macsa::dot::IDocumentVisitor;
 
-namespace
-{
-	static const bool DateTimeFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<DateTimeDataSource>::Register(macsa::dot::NDataSourceType::kDateTime);
-}
+bool DateTimeDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<DateTimeDataSource>::Register(macsa::dot::NDataSourceType::kDateTime);
 
 DateTimeDataSource::DateTimeDataSource() :
 	DataSource(NDataSourceType::kDateTime),

@@ -16,6 +16,7 @@ namespace macsa {
 
 			private:
 				dot::DateTimeDataSource* _datetime;
+				static bool _registered;
 		};
 	}
 }

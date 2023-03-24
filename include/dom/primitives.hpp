@@ -109,6 +109,9 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
+
+			private:
+				static bool _registered;
 		};
 
 		class Ellipse : public Primitive
@@ -125,6 +128,9 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
+
+			private:
+				static bool _registered;
 		};
 
 		class Diamond : public Primitive
@@ -141,6 +147,9 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
+
+			private:
+				static bool _registered;
 		};
 
 		class Line : public Primitive
@@ -160,6 +169,9 @@ namespace macsa {
 
 				bool IsFilled() const override {return false;}
 				bool HasBorder() const override {return true;}
+
+			private:
+				static bool _registered;
 		};
 	}
 }

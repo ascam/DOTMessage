@@ -15,7 +15,7 @@ namespace macsa {
 			public:
 				Barcode(const std::string& id, const Geometry& geometry);
 				Barcode(const Barcode&) = delete;
-				virtual ~Barcode() = default;
+				virtual ~Barcode();
 
 				/**
 				 * @brief Accept: Allow the visitor to visit this object.
@@ -294,6 +294,7 @@ namespace macsa {
 				Color _foreColor;
 				Color _backgroundColor;
 				std::string _code;
+				static bool _registered;
 
 				void transferSymbologyInnerData(Symbology* source, Symbology* target);
 		};

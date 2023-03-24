@@ -17,9 +17,7 @@ static constexpr const char* kMinValue = "MIN_VALUE";
 static constexpr const char* kRepeat = "REPEAT_COUNT";
 static constexpr const char* kStep = "STEP";
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<CounterParser>::Register(macsa::nisx::kDataSourceCounter);
-}
+bool CounterParser::_registered = macsa::nisx::ConcreteDataSourceParserFactory<CounterParser>::Register(macsa::nisx::kDataSourceCounter);
 
 CounterParser::CounterParser(VariableObject* object) :
 	DataSourceParser(object),

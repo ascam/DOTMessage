@@ -10,6 +10,9 @@ namespace macsa {
 			public:
 				RectangleParser(dot::Object* primitive);
 				virtual ~RectangleParser() = default;
+
+			private:
+				static bool _registered;
 		};
 	}
 }

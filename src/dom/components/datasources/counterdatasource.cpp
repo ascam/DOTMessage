@@ -6,9 +6,7 @@
 using macsa::dot::CounterDataSource;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool CounterFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<CounterDataSource>::Register(macsa::dot::NDataSourceType::kCounter);
-}
+bool CounterDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<CounterDataSource>::Register(macsa::dot::NDataSourceType::kCounter);
 
 CounterDataSource::CounterDataSource() :
 	DataSource(NDataSourceType::kCounter),

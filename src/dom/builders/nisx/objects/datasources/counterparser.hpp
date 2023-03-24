@@ -16,6 +16,7 @@ namespace macsa {
 
 			private:
 				dot::CounterDataSource* _counter;
+				static bool _registered;
 		};
 	}
 }

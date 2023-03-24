@@ -31,9 +31,7 @@ static constexpr const char* kPad = "PAD";
 static constexpr const char* kPaddingChar = "PADDING_CHAR";
 static constexpr const char* kRange = "RANGE";
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<UserInputParser>::Register(macsa::nisx::kDataSourceUserInput);
-}
+bool UserInputParser::_registered = macsa::nisx::ConcreteDataSourceParserFactory<UserInputParser>::Register(macsa::nisx::kDataSourceUserInput);
 
 UserInputParser::UserInputParser(VariableObject* object) :
 	DataSourceParser(object),
