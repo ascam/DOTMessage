@@ -18,11 +18,6 @@ Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	_textBoxProperties{}
 {}
 
-bool Text::IsVariable() const
-{
-	return _datasource.get() != nullptr;
-}
-
 bool Text::Accept(IDocumentVisitor* visitor) const
 {
 	if (visitor) {

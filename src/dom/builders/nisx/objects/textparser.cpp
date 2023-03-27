@@ -62,7 +62,6 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 				if (attrName == kType) {
 					std::string attrValue {ToString(attribute->Value())};
 					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _text);
-					//@josep //dataSourceParser.setParentId(_text->GetId())
 					if (dataSourceParser){
 						element.Accept(dataSourceParser);
 					}
