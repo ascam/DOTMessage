@@ -7,7 +7,6 @@
 
 namespace macsa {
 	namespace dot {
-
 		/**
 		 * @brief The Variable Object class.
 		 * This class contains the abstract variable object definition.

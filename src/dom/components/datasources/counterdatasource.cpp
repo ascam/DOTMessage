@@ -8,8 +8,8 @@ using macsa::dot::IDocumentVisitor;
 
 bool CounterDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<CounterDataSource>::Register(macsa::dot::NDataSourceType::kCounter);
 
-CounterDataSource::CounterDataSource() :
-	DataSource(NDataSourceType::kCounter),
+CounterDataSource::CounterDataSource(const dot::Object& obj) :
+	DataSource(NDataSourceType::kCounter, obj),
 	_leadingZeros{},
 	_minValue{},
 	_maxValue{},

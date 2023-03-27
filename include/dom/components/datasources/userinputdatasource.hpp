@@ -4,6 +4,7 @@
 #include <string>
 
 #include "signal/signal.hpp"
+#include "dom/variableobject.hpp"
 #include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
@@ -225,7 +226,7 @@ namespace macsa {
 				};
 
 			public:
-				UserInputDataSource();
+				UserInputDataSource(const dot::Object& obj);
 				virtual ~UserInputDataSource() = default;
 
 				/**

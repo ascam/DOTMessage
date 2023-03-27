@@ -7,8 +7,8 @@ using macsa::dot::IDocumentVisitor;
 
 bool DatabaseDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<DatabaseDataSource>::Register(macsa::dot::NDataSourceType::kDataBase);
 
-DatabaseDataSource::DatabaseDataSource() :
-	DataSource(NDataSourceType::kDataBase),
+DatabaseDataSource::DatabaseDataSource(const dot::Object& obj) :
+	DataSource(NDataSourceType::kDataBase, obj),
 	_fieldName{},
 	_defaultValue{}
 {}

@@ -3,6 +3,7 @@
 
 #include <utility>
 #include <unordered_map>
+#include "dom/object.hpp"
 #include "dom/components/datasources/datasource.hpp"
 #include "utils/macsalogger.hpp"
 
@@ -11,19 +12,19 @@ namespace macsa {
 		class IConcreteDataSourceFactory
 		{
 			public :
-				virtual DataSource* MakeDataSource() = 0;
+				virtual DataSource* MakeDataSource(const dot::Object& obj) = 0;
 		};
 		using tDataSourceFactories = std::unordered_map<NDataSourceType, std::unique_ptr<IConcreteDataSourceFactory>>;
 
 		class DataSourceFactory
 		{
 			public:
-				static DataSource* Get(NDataSourceType dataSource)
+				static DataSource* Get(NDataSourceType dataSource, const dot::Object& obj)
 				{
 					const auto& dataSourceFactories = getFactories();
 					auto foundIt = dataSourceFactories.find(dataSource);
 					if (foundIt != dataSourceFactories.end()) {
-						return foundIt->second->MakeDataSource();
+						return foundIt->second->MakeDataSource(obj);
 					}
 					else {
 						utils::ELog() << DataSourceType(dataSource).toString() << " dataSource factory not found.";
@@ -62,8 +63,8 @@ namespace macsa {
 					return DataSourceFactory::Register(type, new ConcreteDataSourceFactory<tDataSource>());
 				};
 
-				DataSource* MakeDataSource() {
-					return new tDataSource();
+				DataSource* MakeDataSource(const dot::Object& obj) {
+					return new tDataSource(obj);
 				}
 		};
 	}

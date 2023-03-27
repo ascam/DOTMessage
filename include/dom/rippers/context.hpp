@@ -2,6 +2,7 @@
 #define DOTMESSAGE_CONTEXT_HPP
 
 #include "printer/datecodes.hpp"
+#include "dom/document.hpp"
 
 namespace macsa
 {
@@ -11,6 +12,7 @@ namespace macsa
 		{
 			int counter;
 			macsa::printers::DateCodes dateCodes;
+			dot::Document* document;
 		};
 	}
 }

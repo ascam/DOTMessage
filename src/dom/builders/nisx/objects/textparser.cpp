@@ -16,7 +16,7 @@ using namespace macsa::utils::stringutils;
 
 bool TextParser::_registered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
 
-TextParser::TextParser(dot::Object *text) :
+TextParser::TextParser(dot::Object* text) :
 	ObjectParser(macsa::nisx::kTextField, text),
 	_text{dynamic_cast<Text*>(text)},
 	_font{}

@@ -20,7 +20,7 @@ namespace macsa {
 		class CounterDataSource final : public DataSource
 		{
 			public:
-				CounterDataSource();
+				CounterDataSource(const dot::Object& obj);
 				virtual ~CounterDataSource() = default;
 
 				/**
