@@ -79,7 +79,7 @@ std::string CompositeDataSource::getCompositeData(Context* context, const std::v
 					_visitedFields.insert({GetId(), std::string()});
 					auto&& value = getObjectData(context, object);
 					_visitedFields[GetId()] = value;
-					ss << value;
+					ss << std::move(value);
 				}
 				else	{
 					ss << itVisitedFiels->second;
@@ -120,13 +120,13 @@ std::string CompositeDataSource::getObjectData(Context* context, const Object* o
 			}
 		}
 		else	{
-			if (object->GetType().toString() == "TextField")	{
+			if (object->GetType().toString() == kText)	{
 				auto textObject = dynamic_cast<const Text*>(object);
 				if (textObject != nullptr)	{
 					return textObject->GetText();
 				}
 			}
-			else if (object->GetType().toString() == "BarcodeField")	{
+			else if (object->GetType().toString() == kBarcode)	{
 				auto barcodeObject = dynamic_cast<const Barcode*>(object);
 				if (barcodeObject != nullptr)	{
 					return barcodeObject->GetCode();
