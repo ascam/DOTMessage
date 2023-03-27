@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "dom/variableobject.hpp"
 #include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
