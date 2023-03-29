@@ -7,6 +7,7 @@ add_subdirectory(factories)
 add_subdirectory(writers)
 add_subdirectory(builders)
 add_subdirectory(rippers)
+add_subdirectory(visitors)
 
 set(SOURCES ${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/document.cpp
