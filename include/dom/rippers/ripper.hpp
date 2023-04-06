@@ -1,5 +1,5 @@
-#ifndef NISX_RIPPER_HPP
-#define NISX_RIPPER_HPP
+#ifndef DOT_MESSAGE_RIPPER_HPP
+#define DOT_MESSAGE_RIPPER_HPP
 
 #include <memory>
 #include <vector>
@@ -8,8 +8,9 @@
 #include <map>
 #include <string>
 
+#include <QObject>
+
 #include "dom/document.hpp"
-#include "dom/refreshpolicy.hpp"
 #include "dom/rippers/context.hpp"
 
 using bitmap = std::vector<uint8_t>;
@@ -38,7 +39,6 @@ namespace macsa
 
 				void Update(Context* context);
 				void UpdateVariableFields(Context* context);
-				RefreshPolicy GetUpdateFrequency() const;
 				void Clear();
 
 				float GetDocumentWidth() const;

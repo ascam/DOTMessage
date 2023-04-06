@@ -185,7 +185,7 @@ namespace macsa {
 		};
 
 		/**
-		 * @brief Bearer bar style for Nisx Barcode
+		 * @brief Bearer bar style for Barcode
 		 */
 		enum class NBearerBarStyle
 		{
