@@ -37,26 +37,34 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 	std::vector<std::unique_ptr<DateTimeSource>> dateTimeSources;
 
 	std::string tempFormat = format;
-	std::regex formatStringAndCharRegex("[\",\'][a-z,0-9]*[\",\']");
-	std::regex formatDCRegex("\\[DC:[a-z,A-Z].*\\]");
-	std::regex formatDateRegex("[dMy]{1,4}|[j]{1,3}|[w]{1,2}");
-	std::regex formatTimeRegex("[hHmst]{1,2}");
-	std::regex formatSeparatorRegex("[:%/]{1,1}");
+	std::regex formatQuotedStringRegex("[\",\'].*[\",\']");
+	//std::regex formatCharRegex("[/\\/].?");
+	std::regex formatDCRegex("\\[DC:.*\\]");
+	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[j]{1,3}|[w]{1,2}");
+	std::regex formatTimeRegex("[h]{1,2}|[H]{1,2}|[m]{1,2}|[s]{1,2}|[t]{1,2}");
+	std::regex formatTextRegex(".*");
 
 	std::map<std::string, MatchResult> regexMatches;
-	std::smatch resultStringAndCharRegex;
+	std::smatch resultQuotedStringRegex;
+	//std::smatch resultCharRegex;
 	std::smatch resultDCRegex;
 	std::smatch resultDateRegex;
 	std::smatch resultTimeRegex;
-	std::smatch resultSeparatorRegex;
+	std::smatch resultTextRegex;
 
 	do
 	{
 		regexMatches.clear();
 
-		if (std::regex_search(tempFormat, resultStringAndCharRegex, formatStringAndCharRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "StringAndChar", resultStringAndCharRegex);
+		if (std::regex_search(tempFormat, resultQuotedStringRegex, formatQuotedStringRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "QuotedString", resultQuotedStringRegex);
 		}
+
+		/*
+		if (std::regex_search(tempFormat, resultCharRegex, formatCharRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "EscapedChar", resultCharRegex);
+		}
+		*/
 
 		if (std::regex_search(tempFormat, resultDCRegex, formatDCRegex, std::regex_constants::match_default))	{
 			insertMatchResult(regexMatches, "DC", resultDCRegex);
@@ -70,8 +78,25 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 			insertMatchResult(regexMatches, "Time", resultTimeRegex);
 		}
 
-		if (std::regex_search(tempFormat, resultSeparatorRegex, formatSeparatorRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "Separator", resultSeparatorRegex);
+		if (std::regex_search(tempFormat, resultTextRegex, formatTextRegex, std::regex_constants::match_default))	{
+
+			if (resultTextRegex.position() == 0 && !regexMatches.empty())	{
+				auto minIt = std::min_element(regexMatches.cbegin(), regexMatches.cend(), [&](const std::pair<std::string, MatchResult>& regexMath1, const std::pair<std::string, MatchResult>& regexMath2){
+					return (regexMath1.second.position < regexMath2.second.position);
+				});
+
+				if (minIt->second.position != 0)	{ // em trobat un altre element amb zero position en el vector.
+					MatchResult mr;
+					mr.format = tempFormat.substr(0, minIt->second.position);
+					mr.position = 0;
+					mr.suffix = tempFormat.substr(minIt->second.position);
+
+					regexMatches.insert(std::make_pair<std::string, MatchResult>("Text", std::move(mr)));
+				}
+			}
+			else	{
+				insertMatchResult(regexMatches, "Text", resultTextRegex);
+			}
 		}
 
 		auto minIt = std::min_element(regexMatches.cbegin(), regexMatches.cend(), [&](const std::pair<std::string, MatchResult>& regexMath1, const std::pair<std::string, MatchResult>& regexMath2){
@@ -84,7 +109,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 			pushDataSource(dateTimeSources, minIt->first, minIt->second.format);
 		}
 	}
-	while(!regexMatches.empty());
+	while(!regexMatches.empty() && !tempFormat.empty());
 
 	return dateTimeSources;
 }
@@ -96,15 +121,12 @@ void DateTimeSourceFactory::insertMatchResult(std::map<std::string, MatchResult>
 	mr.position = match.position();
 	mr.suffix = match.suffix();
 
-	auto pair = std::make_pair<std::string, MatchResult>(type.c_str(), std::move(mr));
-	regexMatches.insert(pair);
+	regexMatches.insert(std::make_pair<std::string, MatchResult>(type.c_str(), std::move(mr)));
 }
 
 void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeSource>>& dateTimeSources, const std::string& type, std::string format)
 {
-	std::cout << type << " : " << format << std::endl;
-
-	if (type == "StringAndChar" || type == "Separator") {
+	if (type == "QuotedString" || type == "Text" || type == "EscapedChar") {
 		dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(format));
 	}
 	else if (type == "DC")	{

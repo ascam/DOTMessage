@@ -31,22 +31,22 @@ namespace macsa
 						DateTimeSource(format),
 						_fixedText{}
 					{
-						// separators ':', '/' and '%'
 						if (_format == kFormatColon || _format == kFormatSlash || format == kFormatPercentage) {
 							_fixedText = _format;
 						}
 						else if (format == kFormatSlash) { //@jsubi work in progress!!
 							_fixedText = _format;
 						}
-						// "string"
 						else if (_format.find(kFormatCharString) != std::string::npos)	{
 							_fixedText = _format;
 							_fixedText.erase(std::remove(_fixedText.begin(), _fixedText.end(), *kFormatCharString), _fixedText.end());
 						}
-						// 'string'
 						else if (_format.find(kFormatString) != std::string::npos)	{
 							_fixedText = _format;
 							_fixedText.erase(std::remove(_fixedText.begin(), _fixedText.end(), *kFormatString), _fixedText.end());
+						}
+						else{
+							_fixedText = _format;
 						}
 					}
 					virtual ~FixedTextDateTimeSource() = default;
