@@ -42,7 +42,7 @@ namespace macsa
 					 * @brief Returns format specifier converted to value
 					 * - Check if format is uppercase(ex: FFF) or lowercase(ex: fff)
 					 */
-					std::string GetData(const struct tm& time) override
+					std::string GetData(Context* context) override
 					{
 						switch (_format.length())
 						{

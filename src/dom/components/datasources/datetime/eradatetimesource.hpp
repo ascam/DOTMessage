@@ -29,7 +29,7 @@ namespace macsa
 					/**
 					 * @brief NOT IMPLEMENTED : Returns format specifier converted to value
 					 */
-					std::string GetData(const struct tm& time) override
+					std::string GetData(Context* context) override
 					{
 						switch (_format.length())
 						{

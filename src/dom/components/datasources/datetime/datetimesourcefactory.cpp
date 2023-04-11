@@ -18,8 +18,10 @@
 #include "perioddatetimesource.hpp"
 #include "weekdatetimesource.hpp"
 #include "fixedtextdatetimesource.hpp"
-//#include "datecodedatetimesource.hpp"
+#include "datecodedatetimesource.hpp"
 #include "datetimeformats.h"
+#include "utils/macsalogger.hpp"
+
 // Non implemented DateTimeSource
 // #include "eradatetimesource.hpp"
 // #include "timezonedatetimesource.hpp"
@@ -39,7 +41,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 	std::string tempFormat = format;
 	std::regex formatQuotedStringRegex("[\",\'].*[\",\']");
 	std::regex formatDCRegex("\\[DC:.*\\]");
-	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[j]{1,3}|[w]{1,2}");
+	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[J]{1,3}|[w]{1,2}");
 	std::regex formatTimeRegex("[h]{1,2}|[H]{1,2}|[m]{1,2}|[s]{1,2}|[t]{1,2}");
 	std::regex formatTextRegex(".*");
 
@@ -87,7 +89,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 					return (regexMath1.second.position < regexMath2.second.position);
 				});
 
-				if (minIt->second.position != 0)	{ // em trobat un altre element amb zero position en el vector.
+				if (minIt->second.position != 0) {
 					MatchResult mr;
 					mr.format = tempFormat.substr(0, minIt->second.position);
 					mr.position = 0;
@@ -96,7 +98,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 					regexMatches.insert(std::make_pair<std::string, MatchResult>("Text", std::move(mr)));
 				}
 			}
-			else	{
+			else {
 				insertMatchResult(regexMatches, "Text", resultTextRegex);
 			}
 		}
@@ -168,6 +170,10 @@ std::unique_ptr<DateTimeSource> DateTimeSourceFactory::getDateTimeSpecifiers(con
 	}
 	else if (format == kFormatw || format == kFormatww) {
 		returnValue = make_unique<WeekDateTimeSource>(format);
+	}
+	else{
+		WLog() << "unknown datetime source for format : " << format;
+		returnValue = make_unique<FixedTextDateTimeSource>(format);
 	}
 
 	return returnValue;

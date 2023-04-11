@@ -3,6 +3,7 @@
 
 #include <string>
 #include <locale>
+#include <iostream>
 
 #include "dom/components/datasources/datetimesource.hpp"
 #include "datetimeformats.h"
@@ -44,6 +45,9 @@ namespace macsa
 						{
 							case 1:     // J
 								strftime(buffer, kBufferSize, "%j", &context->time);
+
+								std::cout << buffer << std::endl;
+
 								for (auto& b : buffer) {
 									if (b != '0') {
 										return &b;
