@@ -40,10 +40,7 @@ namespace macsa
 					 */
 					std::string GetData(Context* context) override
 					{
-						std::string data = _format;
-						context->dateCodes.parserDateTime(data, context->time);
-
-						return data;
+						return context->dateCodes.parserDateTime(_format, context->time);
 					}
 			};
 		}
