@@ -34,8 +34,9 @@ namespace macsa
 						if (_format == kFormatColon || _format == kFormatSlash || format == kFormatPercentage) {
 							_fixedText = _format;
 						}
-						else if (format == kFormatSlash) { //@jsubi work in progress!!
+						else if (_format.find(kFormatEscapeChar) != std::string::npos)	{
 							_fixedText = _format;
+							_fixedText.erase(std::remove(_fixedText.begin(), _fixedText.end(), *kFormatEscapeChar), _fixedText.end());
 						}
 						else if (_format.find(kFormatCharString) != std::string::npos)	{
 							_fixedText = _format;
