@@ -38,7 +38,6 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 
 	std::string tempFormat = format;
 	std::regex formatQuotedStringRegex("[\",\'].*[\",\']");
-	//std::regex formatCharRegex("[/\\/].?");
 	std::regex formatDCRegex("\\[DC:.*\\]");
 	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[j]{1,3}|[w]{1,2}");
 	std::regex formatTimeRegex("[h]{1,2}|[H]{1,2}|[m]{1,2}|[s]{1,2}|[t]{1,2}");
@@ -46,7 +45,6 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 
 	std::map<std::string, MatchResult> regexMatches;
 	std::smatch resultQuotedStringRegex;
-	//std::smatch resultCharRegex;
 	std::smatch resultDCRegex;
 	std::smatch resultDateRegex;
 	std::smatch resultTimeRegex;
@@ -60,11 +58,15 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 			insertMatchResult(regexMatches, "QuotedString", resultQuotedStringRegex);
 		}
 
-		/*
-		if (std::regex_search(tempFormat, resultCharRegex, formatCharRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "EscapedChar", resultCharRegex);
+		auto backSlashPos = tempFormat.find('\\');
+		if (backSlashPos != std::string::npos)	{
+			MatchResult mr;
+			mr.format = tempFormat.substr(backSlashPos, 2);
+			mr.position = backSlashPos;
+			mr.suffix = tempFormat.substr(backSlashPos + 2);
+
+			regexMatches.insert(std::make_pair<std::string, MatchResult>("Text", std::move(mr)));
 		}
-		*/
 
 		if (std::regex_search(tempFormat, resultDCRegex, formatDCRegex, std::regex_constants::match_default))	{
 			insertMatchResult(regexMatches, "DC", resultDCRegex);
@@ -126,7 +128,7 @@ void DateTimeSourceFactory::insertMatchResult(std::map<std::string, MatchResult>
 
 void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeSource>>& dateTimeSources, const std::string& type, std::string format)
 {
-	if (type == "QuotedString" || type == "Text" || type == "EscapedChar") {
+	if (type == "QuotedString" || type == "Text") {
 		dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(format));
 	}
 	else if (type == "DC")	{
@@ -135,57 +137,6 @@ void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeS
 	else if (type == "Date" || type == "Time")	{
 		dateTimeSources.push_back(getDateTimeSpecifiers(format));
 	}
-}
-
-std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormat(const std::string& format)
-{
-	std::vector<std::unique_ptr<DateTimeSource>> dateTimeSources;
-
-	for (auto formatIndex = 0u; formatIndex < format.length();) {
-		const char c = format.at(formatIndex);
-		// String
-		if (c == *kFormatString || c == *kFormatCharString) { // \" or \'
-			auto endPos = format.find(c, formatIndex + 1);
-			if (endPos == std::string::npos) {
-				++formatIndex;
-				// next char we go back to for!
-				// continue!
-			}
-			else {
-				//int strLen = endPos - (formatIndex + 1);
-				//dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(std::string(1, c), format.substr(formatIndex + 1, strLen)));
-				formatIndex = endPos + 1;
-			}
-		}
-		// Escape char
-		else if (c == *kFormatEscapeChar) {
-			if (formatIndex + 1  < format.length()) {
-				//dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(std::string(1, c), format.substr(formatIndex + 1, 1)));
-			}
-			formatIndex += 2;
-		}
-		// DateCodes
-		else if (format.find("[DC:", formatIndex) == formatIndex) {
-			size_t closeBrackedPos = format.find_first_of(']', formatIndex);
-			if (closeBrackedPos == std::string::npos) {
-				break;
-			}
-			std::string strFormat = format.substr(formatIndex, closeBrackedPos - formatIndex + 1);
-			dateTimeSources.push_back(make_unique<DateCodeDateTimeSource>(strFormat));
-			formatIndex += strFormat.length();
-		}
-		// Date Time specifiers
-		else {
-			std::unique_ptr<DateTimeSource> dateTimeSource = nullptr;
-			if (dateTimeSource != nullptr) {
-				dateTimeSources.push_back(std::move(dateTimeSource));
-			}
-
-			++formatIndex;
-		}
-	}
-
-	return dateTimeSources;
 }
 
 int DateTimeSourceFactory::containsFormat(const std::string& source, const std::string& format, int pos)

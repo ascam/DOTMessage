@@ -26,7 +26,6 @@ namespace macsa
 					/**
 					 * @brief Convert format specifiers into the corresponding DateTimeSource sub-class
 					 */
-					std::vector<std::unique_ptr<DateTimeSource>> parseFormat(const std::string& format);
 					std::vector<std::unique_ptr<DateTimeSource>> parseFormatRegex(const std::string& format);
 
 				private:
