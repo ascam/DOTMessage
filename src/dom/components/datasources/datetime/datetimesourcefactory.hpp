@@ -37,11 +37,6 @@ namespace macsa
 					};
 
 					/**
-					 * @brief Check if source contains format at pos
-					 */
-					int containsFormat(const std::string& source, const std::string& format, int pos);
-
-					/**
 					 * @brief Allocate DateTimeSource derived class corresponding to the given format
 					 */
 					std::unique_ptr<DateTimeSource> getDateTimeSpecifiers(const std::string& format);

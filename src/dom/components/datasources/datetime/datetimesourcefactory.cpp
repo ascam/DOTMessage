@@ -58,7 +58,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 			insertMatchResult(regexMatches, "QuotedString", resultQuotedStringRegex);
 		}
 
-		auto backSlashPos = tempFormat.find('\\');
+		auto backSlashPos = tempFormat.find('\\'); // unable to do it using regular expression.
 		if (backSlashPos != std::string::npos)	{
 			MatchResult mr;
 			mr.format = tempFormat.substr(backSlashPos, 2);
@@ -107,7 +107,6 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 
 		if (minIt != regexMatches.cend()) {
 			tempFormat = minIt->second.suffix;
-
 			pushDataSource(dateTimeSources, minIt->first, minIt->second.format);
 		}
 	}
@@ -139,187 +138,36 @@ void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeS
 	}
 }
 
-int DateTimeSourceFactory::containsFormat(const std::string& source, const std::string& format, int pos)
-{
-	if (source.find(format, pos) == static_cast<size_t>(pos)) {
-		return format.size();
-	}
-
-	return 0;
-}
-
-// Returns current specifier update frequency and allocates the corresponding DateTimeSource
-// derived class to the input parameter format. Returns NONE when no match.
 std::unique_ptr<DateTimeSource> DateTimeSourceFactory::getDateTimeSpecifiers(const std::string& format)
 {
-	auto pos = 0u;
-	int length = 0;
-	const char next = format.at(pos);
-
 	std::unique_ptr<DateTimeSource> returnValue;
 
-	if (next == *kFormatBracketsdddd) {
-		// day
-		if ((length = containsFormat(format, kFormatBracketsdddd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatdddd, true);
-		}
-		else if ((length = containsFormat(format, kFormatBracketsddd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatddd, true);
-		}
-
-		// month
-		if ((length = containsFormat(format, kFormatBracketsMMMM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatMMMM, true);
-		}
-		else if ((length = containsFormat(format, kFormatBracketsMMM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatMMM, true);
-		}
-
-		// julian date -> deprecated
-		if ((length = containsFormat(format, kFormatBracketsJJJ, pos))) {
-			pos += length;
-			returnValue = make_unique<JulianDateTimeSource>(kFormatJJJ);
-		}
-		else if ((length = containsFormat(format, kFormatBracketsJ, pos))) {
-			pos += length;
-			returnValue = make_unique<JulianDateTimeSource>(kFormatJ);
-		}
+	if (format == kFormatdddd || format == kFormatddd || format == kFormatdd || format == kFormatd) {
+		returnValue = make_unique<DayDateTimeSource>(format);
 	}
-
-	// day
-	if (next == *kFormatdddd) {
-		if ((length = containsFormat(format, kFormatdddd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatdddd);
-		}
-		else if ((length = containsFormat(format, kFormatddd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatddd);
-		}
-		else if ((length = containsFormat(format, kFormatdd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatdd);
-		}
-		else if ((length = containsFormat(format, kFormatd, pos))) {
-			pos += length;
-			returnValue = make_unique<DayDateTimeSource>(kFormatd);
-		}
+	else if (format == kFormatyyyy || format == kFormatyyy || format == kFormatyy || format == kFormaty) {
+		returnValue = make_unique<YearDateTimeSource>(format);
 	}
-	// year
-	else if (next == *kFormatyyyy) {
-		if ((length = containsFormat(format, kFormatyyyy, pos))) {
-			pos += length;
-			returnValue = make_unique<YearDateTimeSource>(kFormatyyyy);
-		}
-		else if ((length = containsFormat(format, kFormatyyy, pos))) {
-			pos += length;
-			returnValue = make_unique<YearDateTimeSource>(kFormatyyy);
-		}
-		else if ((length = containsFormat(format, kFormatyy, pos))) {
-			pos += length;
-			returnValue = make_unique<YearDateTimeSource>(kFormatyy);
-		}
-		else if ((length = containsFormat(format, kFormaty, pos))) {
-			pos += length;
-			returnValue = make_unique<YearDateTimeSource>(kFormaty);
-		}
+	else if (format == kFormatHH || format == kFormathh || format == kFormatH || format == kFormath) {
+		returnValue = make_unique<HourDateTimeSource>(format);
 	}
-	// hour
-	else if (next == *kFormathh || next == *kFormatHH) {
-		if ((length = containsFormat(format, kFormathh, pos))) {
-			pos += length;
-			returnValue = make_unique<HourDateTimeSource>(kFormathh);
-		}
-		else if ((length = containsFormat(format, kFormath, pos))) {
-			pos += length;
-			returnValue = make_unique<HourDateTimeSource>(kFormath);
-		}
-		else if ((length = containsFormat(format, kFormatHH, pos))) {
-			pos += length;
-			returnValue = make_unique<HourDateTimeSource>(kFormatHH);
-		}
-		else if ((length = containsFormat(format, kFormatH, pos))) {
-			pos += length;
-			returnValue = make_unique<HourDateTimeSource>(kFormatH);
-		}
+	else if (format == kFormatm || format == kFormatmm) {
+		returnValue = make_unique<MinuteDateTimeSource>(format);
 	}
-	// minute
-	else if (next == *kFormatmm) {
-		if ((length = containsFormat(format, kFormatmm, pos))) {
-			pos += length;
-			returnValue = make_unique<MinuteDateTimeSource>(kFormatmm);
-		}
-		else if ((length = containsFormat(format, kFormatm, pos))) {
-			pos += length;
-			returnValue = make_unique<MinuteDateTimeSource>(kFormatm);
-		}
+	else if (format == kFormatMMMM || format == kFormatMMM || format == kFormatMM || format == kFormatM) {
+		returnValue = make_unique<MonthDateTimeSource>(format);
 	}
-	// month
-	else if (next == *kFormatMMMM) {
-		if ((length = containsFormat(format, kFormatMMMM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatMMMM);
-		}
-		else if ((length = containsFormat(format, kFormatMMM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatMMM);
-		}
-		else if ((length = containsFormat(format, kFormatMM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatMM);
-		}
-		else if ((length = containsFormat(format, kFormatM, pos))) {
-			pos += length;
-			returnValue = make_unique<MonthDateTimeSource>(kFormatM);
-		}
+	else if (format == kFormatJJJ || format == kFormatJ) {
+		returnValue = make_unique<JulianDateTimeSource>(format);
 	}
-	// julian date
-	else if (next == *kFormatJJJ) {
-		if ((length = containsFormat(format, kFormatJJJ, pos))) {
-			pos += length;
-			returnValue = make_unique<JulianDateTimeSource>(kFormatJJJ);
-		}
-		else if ((length = containsFormat(format, kFormatJ, pos))) {
-			pos += length;
-			returnValue = make_unique<JulianDateTimeSource>(kFormatJ);
-		}
+	else if (format == kFormats || format == kFormatss) {
+		returnValue = make_unique<SecondDateTimeSource>(format);
 	}
-	// second
-	else if (next == *kFormatss) {
-		if ((length = containsFormat(format, kFormatss, pos))) {
-			pos += length;
-			returnValue = make_unique<SecondDateTimeSource>(kFormatss);
-		}
-		else if ((length = containsFormat(format, kFormats, pos))) {
-			pos += length;
-			returnValue = make_unique<SecondDateTimeSource>(kFormats);
-		}
+	else if (format == kFormattt || format == kFormatt) {
+		returnValue = make_unique<PeriodDateTimeSource>(format);
 	}
-	// period
-	else if (next == *kFormattt) {
-		if ((length = containsFormat(format, kFormattt, pos))) {
-			pos += length;
-			returnValue = make_unique<PeriodDateTimeSource>(kFormattt);
-		}
-		else if ((length = containsFormat(format, kFormatt, pos))) {
-			pos += length;
-			returnValue = make_unique<PeriodDateTimeSource>(kFormatt);
-		}
-	}
-	// week
-	else if (next == *kFormatww) {
-		if ((length = containsFormat(format, kFormatww, pos))) {
-			pos += length;
-			returnValue = make_unique<WeekDateTimeSource>(kFormatww);
-		}
-		else if ((length = containsFormat(format, kFormatw, pos))) {
-			pos += length;
-			returnValue = make_unique<WeekDateTimeSource>(kFormatw);
-		}
+	else if (format == kFormatw || format == kFormatww) {
+		returnValue = make_unique<WeekDateTimeSource>(format);
 	}
 
 	return returnValue;
