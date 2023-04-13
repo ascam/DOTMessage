@@ -21,22 +21,53 @@ namespace macsa
 
 			public:
 				struct tm GetTimeWithOffset();
-				struct tm GetTimeWithOffset(const time_t& rawtime);
-				int GetOffsetDays() const {return _offsetDays;}
-				void SetOffsetDays(const int& offsetDays)
-				{_offsetDays = offsetDays; _lastOffsetUpdate = -1;}
-				int GetOffsetMonths() const {return _offsetMonths;}
-				void SetOffsetMonths(const int& offsetMonths)
-				{_offsetMonths = offsetMonths; _lastOffsetUpdate = -1;}
-				int GetOffsetYears() const {return _offsetYears;}
-				void SetOffsetYears(const int& offsetYears)
-				{_offsetYears = offsetYears; _lastOffsetUpdate = -1;}
-				int GetHourDaysStart() const {return _hourDayStart;}
-				void SetHourDaysStart(const int& hourDayStart)
-				{ _hourDayStart = (hourDayStart > kMaxHourDay) ? (hourDayStart % kMaxHourDay) :
-																hourDayStart; _lastOffsetUpdate = -1;}
+				struct tm GetTimeWithOffset(time_t rawtime);
 
-				struct tm operator()() {return GetTimeWithOffset();}
+				int GetOffsetDays() const 	{
+					return _offsetDays;
+				}
+
+				void SetOffsetDays(int offsetDays)
+				{
+					_offsetDays = offsetDays;
+					_lastOffsetUpdate = -1;
+				}
+
+				int GetOffsetMonths() const
+				{
+					return _offsetMonths;
+				}
+
+				void SetOffsetMonths(int offsetMonths)
+				{
+					_offsetMonths = offsetMonths;
+					_lastOffsetUpdate = -1;
+				}
+
+				int GetOffsetYears() const {
+					return _offsetYears;
+				}
+
+				void SetOffsetYears(int offsetYears)
+				{
+					_offsetYears = offsetYears;
+					_lastOffsetUpdate = -1;
+				}
+
+				int GetHourDaysStart() const {
+					return _hourDayStart;
+				}
+
+				void SetHourDaysStart(int hourDayStart)
+				{
+					_hourDayStart = (hourDayStart > kMaxHourDay) ? (hourDayStart % kMaxHourDay) : hourDayStart;
+					_lastOffsetUpdate = -1;
+				}
+
+				struct tm operator()()
+				{
+					return GetTimeWithOffset();
+				}
 
 			private:
 				time_t _internalOffset;

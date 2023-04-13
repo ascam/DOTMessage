@@ -33,7 +33,7 @@ struct tm OffsetTime::GetTimeWithOffset()
 	return GetTimeWithOffset(rawTime);
 }
 
-struct tm OffsetTime::GetTimeWithOffset(const time_t& rawTime)
+struct tm OffsetTime::GetTimeWithOffset(time_t rawTime)
 {
 	if (_lastOffsetUpdate < 0 || rawTime < _lastOffsetUpdate ||
 		(rawTime - _lastOffsetUpdate) >= kSecondsInADay) {

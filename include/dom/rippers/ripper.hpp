@@ -8,8 +8,6 @@
 #include <map>
 #include <string>
 
-#include <QObject>
-
 #include "dom/document.hpp"
 #include "dom/rippers/context.hpp"
 

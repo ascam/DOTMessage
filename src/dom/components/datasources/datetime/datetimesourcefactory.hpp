@@ -29,6 +29,12 @@ namespace macsa
 					std::vector<std::unique_ptr<DateTimeSource>> parseFormatRegex(const std::string& format);
 
 				private:
+					/**
+					 * @brief struct to group result data from regex matches.
+					 * @param position: index of the match in the searched string
+					 * @param format: found text that matches de regex.
+					 * @suffix: remaining text that is not a regex match.
+					 */
 					struct MatchResult
 					{
 						int position;

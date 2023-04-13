@@ -1,50 +1,53 @@
-#pragma once
+#ifndef DOT_MESSAGE_DATETIME_FORMATS_HPP
+#define DOT_MESSAGE_DATETIME_FORMATS_HPP
 
 // Fixed text specifiers
-constexpr const char* kFormatSlash ="/";
-constexpr const char* kFormatColon =":";
-constexpr const char* kFormatEscapeChar ="\\";
-constexpr const char* kFormatString ="\"";
-constexpr const char* kFormatCharString ="\'";
-constexpr const char* kFormatPercentage ="%'";
+static constexpr const char* kFormatSlash ="/";
+static constexpr const char* kFormatColon =":";
+static constexpr const char* kFormatEscapeChar ="\\";
+static constexpr const char* kFormatString ="\"";
+static constexpr const char* kFormatCharString ="\'";
+static constexpr const char* kFormatPercentage ="%'";
 // Day specifiers
-constexpr const char* kFormatdddd ="dddd";
-constexpr const char* kFormatddd ="ddd";
-constexpr const char* kFormatdd ="dd";
-constexpr const char* kFormatd ="d";
-constexpr const char* kFormatBracketsddd ="[ddd]";
-constexpr const char* kFormatBracketsdddd ="[dddd]";
+static constexpr const char* kFormatdddd ="dddd";
+static constexpr const char* kFormatddd ="ddd";
+static constexpr const char* kFormatdd ="dd";
+static constexpr const char* kFormatd ="d";
+static constexpr const char* kFormatBracketsddd ="[ddd]";
+static constexpr const char* kFormatBracketsdddd ="[dddd]";
 // Year specifiers
-constexpr const char* kFormatyyyy ="yyyy";
-constexpr const char* kFormatyyy ="yyy";
-constexpr const char* kFormatyy ="yy";
-constexpr const char* kFormaty ="y";
+static constexpr const char* kFormatyyyy ="yyyy";
+static constexpr const char* kFormatyyy ="yyy";
+static constexpr const char* kFormatyy ="yy";
+static constexpr const char* kFormaty ="y";
 // Hour specifiers
-constexpr const char* kFormathh ="hh";
-constexpr const char* kFormath ="h";
-constexpr const char* kFormatHH ="HH";
-constexpr const char* kFormatH ="H";
+static constexpr const char* kFormathh ="hh";
+static constexpr const char* kFormath ="h";
+static constexpr const char* kFormatHH ="HH";
+static constexpr const char* kFormatH ="H";
 // Minute specifiers
-constexpr const char* kFormatmm ="mm";
-constexpr const char* kFormatm ="m";
+static constexpr const char* kFormatmm ="mm";
+static constexpr const char* kFormatm ="m";
 // Month specifiers
-constexpr const char* kFormatMMMM ="MMMM";
-constexpr const char* kFormatMMM ="MMM";
-constexpr const char* kFormatMM ="MM";
-constexpr const char* kFormatM ="M";
-constexpr const char* kFormatBracketsMMM ="[MMM]";
-constexpr const char* kFormatBracketsMMMM ="[MMMM]";
+static constexpr const char* kFormatMMMM ="MMMM";
+static constexpr const char* kFormatMMM ="MMM";
+static constexpr const char* kFormatMM ="MM";
+static constexpr const char* kFormatM ="M";
+static constexpr const char* kFormatBracketsMMM ="[MMM]";
+static constexpr const char* kFormatBracketsMMMM ="[MMMM]";
 // Julina date specifiers
-constexpr const char* kFormatJJJ ="JJJ";
-constexpr const char* kFormatJ ="J";
-constexpr const char* kFormatBracketsJ ="[J]";      // deprecated in current nisx version
-constexpr const char* kFormatBracketsJJJ ="[JJJ]";  // deprecated in current nisx version
+static constexpr const char* kFormatJJJ ="JJJ";
+static constexpr const char* kFormatJ ="J";
+static constexpr const char* kFormatBracketsJ ="[J]";      // deprecated in current nisx version
+static constexpr const char* kFormatBracketsJJJ ="[JJJ]";  // deprecated in current nisx version
 // Second specifiers
-constexpr const char* kFormatss ="ss";
-constexpr const char* kFormats ="s";
+static constexpr const char* kFormatss ="ss";
+static constexpr const char* kFormats ="s";
 // Period specifiers
-constexpr const char* kFormattt ="tt";
-constexpr const char* kFormatt ="t";
+static constexpr const char* kFormattt ="tt";
+static constexpr const char* kFormatt ="t";
 // Week specifiers
-constexpr const char* kFormatww ="ww";
-constexpr const char* kFormatw ="w";
+static constexpr const char* kFormatww ="ww";
+static constexpr const char* kFormatw ="w";
+
+#endif

@@ -41,25 +41,23 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 	std::string tempFormat = format;
 	std::regex formatQuotedStringRegex("[\",\'].*[\",\']");
 	std::regex formatDCRegex("\\[DC:.*\\]");
+	std::regex formatBackSlashRegex("\\\\.{1,1}");
 	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[J]{1,3}|[w]{1,2}");
 	std::regex formatTimeRegex("[h]{1,2}|[H]{1,2}|[m]{1,2}|[s]{1,2}|[t]{1,2}");
 	std::regex formatTextRegex(".*");
 
 	std::map<std::string, MatchResult> regexMatches;
-	std::smatch resultQuotedStringRegex;
-	std::smatch resultDCRegex;
-	std::smatch resultDateRegex;
-	std::smatch resultTimeRegex;
-	std::smatch resultTextRegex;
+	std::smatch matchResult;
 
 	do
 	{
 		regexMatches.clear();
 
-		if (std::regex_search(tempFormat, resultQuotedStringRegex, formatQuotedStringRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "QuotedString", resultQuotedStringRegex);
+		if (std::regex_search(tempFormat, matchResult, formatQuotedStringRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "QuotedString", matchResult);
 		}
 
+/*
 		auto backSlashPos = tempFormat.find('\\'); // unable to do it using regular expression.
 		if (backSlashPos != std::string::npos)	{
 			MatchResult mr;
@@ -69,22 +67,27 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 
 			regexMatches.insert(std::make_pair<std::string, MatchResult>("Text", std::move(mr)));
 		}
+*/
 
-		if (std::regex_search(tempFormat, resultDCRegex, formatDCRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "DC", resultDCRegex);
+		if (std::regex_search(tempFormat, matchResult, formatBackSlashRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "Text", matchResult);
 		}
 
-		if (std::regex_search(tempFormat, resultDateRegex, formatDateRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "Date", resultDateRegex);
+		if (std::regex_search(tempFormat, matchResult, formatDCRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "DC", matchResult);
 		}
 
-		if (std::regex_search(tempFormat, resultTimeRegex, formatTimeRegex, std::regex_constants::match_default))	{
-			insertMatchResult(regexMatches, "Time", resultTimeRegex);
+		if (std::regex_search(tempFormat, matchResult, formatDateRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "Date", matchResult);
 		}
 
-		if (std::regex_search(tempFormat, resultTextRegex, formatTextRegex, std::regex_constants::match_default))	{
+		if (std::regex_search(tempFormat, matchResult, formatTimeRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "Time", matchResult);
+		}
 
-			if (resultTextRegex.position() == 0 && !regexMatches.empty())	{
+		if (std::regex_search(tempFormat, matchResult, formatTextRegex, std::regex_constants::match_default))	{
+
+			if (matchResult.position() == 0 && !regexMatches.empty())	{
 				auto minIt = std::min_element(regexMatches.cbegin(), regexMatches.cend(), [&](const std::pair<std::string, MatchResult>& regexMath1, const std::pair<std::string, MatchResult>& regexMath2){
 					return (regexMath1.second.position < regexMath2.second.position);
 				});
@@ -99,7 +102,7 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 				}
 			}
 			else {
-				insertMatchResult(regexMatches, "Text", resultTextRegex);
+				insertMatchResult(regexMatches, "Text", matchResult);
 			}
 		}
 
