@@ -57,18 +57,6 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 			insertMatchResult(regexMatches, "QuotedString", matchResult);
 		}
 
-/*
-		auto backSlashPos = tempFormat.find('\\'); // unable to do it using regular expression.
-		if (backSlashPos != std::string::npos)	{
-			MatchResult mr;
-			mr.format = tempFormat.substr(backSlashPos, 2);
-			mr.position = backSlashPos;
-			mr.suffix = tempFormat.substr(backSlashPos + 2);
-
-			regexMatches.insert(std::make_pair<std::string, MatchResult>("Text", std::move(mr)));
-		}
-*/
-
 		if (std::regex_search(tempFormat, matchResult, formatBackSlashRegex, std::regex_constants::match_default))	{
 			insertMatchResult(regexMatches, "Text", matchResult);
 		}
