@@ -1,4 +1,5 @@
 #include <memory>
+#include <time.h>
 #include <gtest/gtest.h>
 
 #include "utils/macsalogger.hpp"
@@ -195,7 +196,7 @@ TEST_F(DateTimeDataSourceParserUt, ParseCompositeFormat_ReturnExpectedString)
 	const static std::string format = "\\j 'macsa' dd.MM.yyyy # HH:mm:ss \"id\"";
 
 	auto dataSources = _dateTimeFactoryParser.parseFormatRegex(format);
-	EXPECT_EQ(dataSources.size(), 5);
+	EXPECT_EQ(dataSources.size(), 17);
 
 	std::stringstream ss;
 	std::for_each(dataSources.cbegin(), dataSources.cend(), [&ss, this](const std::unique_ptr<DateTimeSource>& dataSource){
@@ -216,6 +217,66 @@ TEST_F(DateTimeDataSourceParserUt, ParseCompositeFormat_ReturnExpectedString)
 	ssExpectedResult << " # ";
 	ssExpectedResult << (hour+":"+minute+":"+second);
 	ssExpectedResult << " id";
+
+	EXPECT_EQ(ss.str(), ssExpectedResult.str());
+}
+
+// Test composite string
+TEST_F(DateTimeDataSourceParserUt, ParseComplexCompositeFormat_ReturnExpectedString)
+{
+	const static std::string format = "HH:mm:ss JJJ w_ww*hh:mm:sstt\" Hola \"d-dd 'Mundo \"disco\"'";
+
+	auto dataSources = _dateTimeFactoryParser.parseFormatRegex(format);
+	EXPECT_EQ(dataSources.size(), 24);
+
+	std::stringstream ss;
+	std::for_each(dataSources.cbegin(), dataSources.cend(), [&ss, this](const std::unique_ptr<DateTimeSource>& dataSource){
+		ss << dataSource->GetData(&_context);
+	});
+
+	int hour = _context.time.tm_hour;
+	if (hour > 12)	{
+		hour -= 12;
+	}
+	else if (hour == 0)	{
+		hour = 12;
+	}
+
+	auto&& hour12 = macsa::utils::stringutils::ToString(hour, 2);
+	auto&& minute = macsa::utils::stringutils::ToString(_context.time.tm_min, 2);
+	auto&& second = macsa::utils::stringutils::ToString(_context.time.tm_sec, 2);
+
+	char julianDate[kBufferSize] = {0};
+	strftime(julianDate, kBufferSize, "%j", &_context.time);
+
+	char weekDate[kBufferSize] = {0};
+	strftime(weekDate, kBufferSize, "%V", &_context.time);
+	std::string singleDigitWeekDate = weekDate;
+	if (singleDigitWeekDate.front() == '0')	{
+		singleDigitWeekDate.erase(0,1);
+	}
+
+	char doubleWeekDate[kBufferSize] = {0};
+	strftime(doubleWeekDate, kBufferSize, "%V", &_context.time);
+
+	auto&& hour24 = macsa::utils::stringutils::ToString(_context.time.tm_hour, 2);
+	auto period = _context.time.tm_hour < 12 ? "AM" : "PM";
+
+	std::stringstream ssExpectedResult;
+	ssExpectedResult << (hour24+":"+minute+":"+second);
+	ssExpectedResult << " ";
+	ssExpectedResult << julianDate;
+	ssExpectedResult << " ";
+	ssExpectedResult << singleDigitWeekDate;
+	ssExpectedResult << "_";
+	ssExpectedResult << doubleWeekDate;
+	ssExpectedResult << "*";
+	ssExpectedResult << (hour12+":"+minute+":"+second+period);
+	ssExpectedResult << " Hola ";
+	ssExpectedResult << macsa::utils::stringutils::ToString(_context.time.tm_mday);
+	ssExpectedResult << "-";
+	ssExpectedResult << macsa::utils::stringutils::ToString(_context.time.tm_mday, 2);
+	ssExpectedResult << " Mundo \"disco\"";
 
 	EXPECT_EQ(ss.str(), ssExpectedResult.str());
 }
