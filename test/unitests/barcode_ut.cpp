@@ -1,6 +1,6 @@
 #include "dom/barcode.hpp"
 #include "utils/macsalogger.hpp"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 using macsa::dot::Barcode;
 using macsa::dot::NBarcodeSymbol;

@@ -39,8 +39,9 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 	std::vector<std::unique_ptr<DateTimeSource>> dateTimeSources;
 
 	std::string tempFormat = format;
-	std::regex formatQuotedStringRegex("[\",\'].*[\",\']");
-	std::regex formatDCRegex("\\[DC:.*\\]");
+	std::regex formatDoubleQuotedStringRegex("[\"][^\"]*[\"]");
+	std::regex formatQuotedStringRegex("[\'][^\']*[\']");
+	std::regex formatDCRegex("\\[DC:.{1,2}\\]");
 	std::regex formatBackSlashRegex("\\\\.{1,1}");
 	std::regex formatDateRegex("[d]{1,4}|[M]{1,4}|[y]{1,4}|[J]{1,3}|[w]{1,2}");
 	std::regex formatTimeRegex("[h]{1,2}|[H]{1,2}|[m]{1,2}|[s]{1,2}|[t]{1,2}");
@@ -52,6 +53,10 @@ std::vector<std::unique_ptr<DateTimeSource>> DateTimeSourceFactory::parseFormatR
 	do
 	{
 		regexMatches.clear();
+
+		if (std::regex_search(tempFormat, matchResult, formatDoubleQuotedStringRegex, std::regex_constants::match_default))	{
+			insertMatchResult(regexMatches, "DoubleQuotedString", matchResult);
+		}
 
 		if (std::regex_search(tempFormat, matchResult, formatQuotedStringRegex, std::regex_constants::match_default))	{
 			insertMatchResult(regexMatches, "QuotedString", matchResult);
@@ -120,7 +125,7 @@ void DateTimeSourceFactory::insertMatchResult(std::map<std::string, MatchResult>
 
 void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeSource>>& dateTimeSources, const std::string& type, std::string format)
 {
-	if (type == "QuotedString" || type == "Text") {
+	if (type == "QuotedString" || type == "DoubleQuotedString" || type == "Text") {
 		dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(format));
 	}
 	else if (type == "DC")	{
