@@ -28,9 +28,6 @@
 // #include "timeoffsetdatetimesource.hpp"
 // #include "secondmultiplesdatetimesource.hpp"
 
-#include "utils/make_unique.hpp"
-
-
 using namespace macsa::utils;
 using namespace macsa::dot::datetime;
 
@@ -126,10 +123,10 @@ void DateTimeSourceFactory::insertMatchResult(std::map<std::string, MatchResult>
 void DateTimeSourceFactory::pushDataSource(std::vector<std::unique_ptr<DateTimeSource>>& dateTimeSources, const std::string& type, std::string format)
 {
 	if (type == "QuotedString" || type == "DoubleQuotedString" || type == "Text") {
-		dateTimeSources.push_back(make_unique<FixedTextDateTimeSource>(format));
+		dateTimeSources.push_back(std::make_unique<FixedTextDateTimeSource>(format));
 	}
 	else if (type == "DC")	{
-		dateTimeSources.push_back(make_unique<DateCodeDateTimeSource>(format));
+		dateTimeSources.push_back(std::make_unique<DateCodeDateTimeSource>(format));
 	}
 	else if (type == "Date" || type == "Time")	{
 		dateTimeSources.push_back(getDateTimeSpecifiers(format));
@@ -141,35 +138,35 @@ std::unique_ptr<DateTimeSource> DateTimeSourceFactory::getDateTimeSpecifiers(con
 	std::unique_ptr<DateTimeSource> returnValue;
 
 	if (format == kFormatdddd || format == kFormatddd || format == kFormatdd || format == kFormatd) {
-		returnValue = make_unique<DayDateTimeSource>(format);
+		returnValue = std::make_unique<DayDateTimeSource>(format);
 	}
 	else if (format == kFormatyyyy || format == kFormatyyy || format == kFormatyy || format == kFormaty) {
-		returnValue = make_unique<YearDateTimeSource>(format);
+		returnValue = std::make_unique<YearDateTimeSource>(format);
 	}
 	else if (format == kFormatHH || format == kFormathh || format == kFormatH || format == kFormath) {
-		returnValue = make_unique<HourDateTimeSource>(format);
+		returnValue = std::make_unique<HourDateTimeSource>(format);
 	}
 	else if (format == kFormatm || format == kFormatmm) {
-		returnValue = make_unique<MinuteDateTimeSource>(format);
+		returnValue = std::make_unique<MinuteDateTimeSource>(format);
 	}
 	else if (format == kFormatMMMM || format == kFormatMMM || format == kFormatMM || format == kFormatM) {
-		returnValue = make_unique<MonthDateTimeSource>(format);
+		returnValue = std::make_unique<MonthDateTimeSource>(format);
 	}
 	else if (format == kFormatJJJ || format == kFormatJ) {
-		returnValue = make_unique<JulianDateTimeSource>(format);
+		returnValue = std::make_unique<JulianDateTimeSource>(format);
 	}
 	else if (format == kFormats || format == kFormatss) {
-		returnValue = make_unique<SecondDateTimeSource>(format);
+		returnValue = std::make_unique<SecondDateTimeSource>(format);
 	}
 	else if (format == kFormattt || format == kFormatt) {
-		returnValue = make_unique<PeriodDateTimeSource>(format);
+		returnValue = std::make_unique<PeriodDateTimeSource>(format);
 	}
 	else if (format == kFormatw || format == kFormatww) {
-		returnValue = make_unique<WeekDateTimeSource>(format);
+		returnValue = std::make_unique<WeekDateTimeSource>(format);
 	}
 	else{
 		WLog() << "unknown datetime source for format : " << format;
-		returnValue = make_unique<FixedTextDateTimeSource>(format);
+		returnValue = std::make_unique<FixedTextDateTimeSource>(format);
 	}
 
 	return returnValue;
