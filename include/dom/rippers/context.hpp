@@ -13,6 +13,7 @@ namespace macsa
 			int counter;
 			macsa::printers::DateCodes dateCodes;
 			dot::Document* document;
+			tm time;
 		};
 	}
 }

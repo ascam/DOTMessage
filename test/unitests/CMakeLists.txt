@@ -11,6 +11,7 @@ set(SRC_TEST ${SRC_TEST}
 	${CMAKE_CURRENT_SOURCE_DIR}/document_ut.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/variableobject_ut.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/barcode_ut.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/datetimedatasourceparser_ut.cpp
 	PARENT_SCOPE
     )
 

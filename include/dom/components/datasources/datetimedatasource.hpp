@@ -4,6 +4,8 @@
 #include <string>
 
 #include "dom/components/datasources/datasource.hpp"
+#include "dom/components/datasources/datetimesource.hpp"
+#include "dom/components/datasources/offsettime.hpp"
 #include "dom/rippers/context.hpp"
 #include "signal/signal.hpp"
 
@@ -35,23 +37,14 @@ namespace macsa {
 				 * @return The date and time format used to return
 				 * the data
 				 */
-				std::string GetFormat() const
-				{
-					return _format;
-				}
+				std::string GetFormat() const;
 
 				/**
 				 * @brief SetFormat. Setter method for date and time
 				 * format.
 				 * @param format: The date and time format.
 				 */
-				void SetFormat(const std::string& format)
-				{
-					if (format != _format)	{
-						_format = format;
-						FormatChanged.Emit();
-					}
-				}
+				void SetFormat(const std::string& format);
 
 				/**
 				 * @brief DaysOffset. Getter method for the days
@@ -59,7 +52,7 @@ namespace macsa {
 				 * @return the days offset applied at the current date.
 				 */
 				int GetDaysOffset() const {
-					return _daysOffset;
+					return _time.GetOffsetDays();
 				}
 
 				/**
@@ -68,9 +61,9 @@ namespace macsa {
 				 * @param DaysOffset: the days offset to apply at the
 				 * current date.
 				 */
-				void SetDaysOffset(int offset) {
-					if (offset != _daysOffset)	{
-						_daysOffset = offset;
+				void SetDaysOffset(int daysOffset) {
+					if (daysOffset != _time.GetOffsetDays())	{
+						_time.SetOffsetDays(daysOffset);
 						DaysOffsetChanged.Emit();
 					}
 				}
@@ -81,7 +74,7 @@ namespace macsa {
 				 * @return the months offset applied at the current date.
 				 */
 				int GetMonthsOffset() const {
-					return _monthsOffset;
+					return _time.GetOffsetMonths();
 				}
 
 				/**
@@ -90,9 +83,9 @@ namespace macsa {
 				 * @param offset: the months offset to apply at the
 				 * current date.
 				 */
-				void SetMonthsOffset(int offset) {
-					if (offset != _monthsOffset)	{
-						_monthsOffset = offset;
+				void SetMonthsOffset(int monthsOffset) {
+					if (monthsOffset != _time.GetOffsetMonths())	{
+						_time.SetOffsetMonths(monthsOffset);
 						MonthOffsetChanged.Emit();
 					}
 				}
@@ -103,7 +96,7 @@ namespace macsa {
 				 * @return the years offset applied at the current date.
 				 */
 				int GetYearsOffset() const {
-					return _yearsOffset;
+					return  _time.GetOffsetYears();
 				}
 
 				/**
@@ -112,9 +105,9 @@ namespace macsa {
 				 * @param offset: the years offset to apply at the
 				 * current date.
 				 */
-				void SetYearsOffset(int offset) {
-					if (offset != _yearsOffset)	{
-						_yearsOffset = offset;
+				void SetYearsOffset(int yearsOffset) {
+					if (yearsOffset != _time.GetOffsetYears())	{
+						_time.SetOffsetYears(yearsOffset);
 						YearsOffsetChanged.Emit();
 					}
 				}
@@ -124,8 +117,8 @@ namespace macsa {
 				 * which the day starts.
 				 * @return the hour were the day changes to the next day.
 				 */
-				uint32_t GetHourDaysStart() const {
-					return _hourDaysStart;
+				int GetHourDaysStart() const {
+					return _time.GetHourDaysStart();
 				}
 
 				/**
@@ -133,9 +126,9 @@ namespace macsa {
 				 * which the day starts.
 				 * @param hourDayStart: the hour were the day changes to the next day.
 				 */
-				void SetHourDaysStart(uint32_t hourDayStart) {
-					if (hourDayStart != _hourDaysStart)	{
-						_hourDaysStart = hourDayStart;
+				void SetHourDaysStart(int hourDayStart) {
+					if (hourDayStart != _time.GetHourDaysStart())	{
+						_time.SetHourDaysStart(hourDayStart);
 						HourDaysStartChanged.Emit();
 					}
 				}
@@ -154,12 +147,9 @@ namespace macsa {
 				Signal<> FormatChanged;
 
 			private:
-				std::string _format;
-				int _daysOffset;
-				int _monthsOffset;
-				int _yearsOffset;
-				uint32_t _hourDaysStart;
 				static bool _registered;
+				mutable OffsetTime _time;
+				std::vector<std::unique_ptr<datetime::DateTimeSource>> _dateTimeSources;
 		};
 	}
 }

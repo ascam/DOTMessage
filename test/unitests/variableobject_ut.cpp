@@ -2,7 +2,7 @@
 
 #include "mockvariableobject.hpp"
 #include "utils/macsalogger.hpp"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 using macsa::dot::VariableObject;
 using macsa::dot::VariableObjectMock;

@@ -43,7 +43,7 @@ bool DOTRipper::getPrintHiddenItems() const	{
 bool DOTRipper::GetRawData(bitmap& bitmap) const
 {
 	if (!_doc) {
-		ELog() << "Invalid nisx document";
+		ELog() << "Invalid document";
 		return false;
 	}
 
@@ -54,7 +54,7 @@ bool DOTRipper::GetRawData(bitmap& bitmap) const
 bool DOTRipper::GetDataMono(bitmap& bitmap, bool invertBytes)
 {
 	if (!_doc) {
-		ELog() << "Invalid nisx document";
+		ELog() << "Invalid document";
 		return false;
 	}
 
@@ -70,7 +70,7 @@ bool DOTRipper::GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2,
 									  uint32_t colOffset, bool invertBytes)
 {
 	if (!_doc) {
-		ELog() << "Invalid nisx document";
+		ELog() << "Invalid document";
 		return false;
 	}
 
@@ -94,8 +94,10 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 
 void DOTRipper::Update(Context* context)
 {
+	ELog() << "dotripper::Update";
+
 	if (!_doc) {
-		ELog() << "Invalid nisx document";
+		ELog() << "Invalid document";
 		return;
 	}
 
@@ -108,8 +110,10 @@ void DOTRipper::Update(Context* context)
 
 void DOTRipper::UpdateVariableFields(Context* context)
 {
+	ELog() << "dotripper::UpdateVariableFields";
+
 	if (!_doc) {
-		ELog() << "Invalid nisx document";
+		ELog() << "Invalid document";
 		return;
 	}
 
@@ -117,18 +121,6 @@ void DOTRipper::UpdateVariableFields(Context* context)
 		DLog() << "Updating variable pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
 		_generator->UpdateVariableFields(_doc, context);
-	}
-}
-
-macsa::dot::RefreshPolicy DOTRipper::GetUpdateFrequency() const
-{
-	if (_doc){
-		// @jsubi, per tractar!
-		//return _doc->GetUpdateRatio();
-		return RefreshPolicy::kNone;
-	}
-	else {
-		return RefreshPolicy::kNone;
 	}
 }
 

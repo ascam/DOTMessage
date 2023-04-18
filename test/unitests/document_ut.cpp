@@ -1,6 +1,6 @@
 #include "dom/document.hpp"
 #include "utils/macsalogger.hpp"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 using macsa::dot::Document;
 using macsa::utils::MacsaLogger;
