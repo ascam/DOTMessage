@@ -45,15 +45,11 @@ QtGenerator::QtGenerator() : BitmapGenerator(),
 	_idth(std::this_thread::get_id()),
 #endif
 	_bgColor(Qt::white),
-	_colorsPalette(),
-	_pixmapFixed(),
-	_pixmapFull()
+	_colorsPalette()
 {}
 
 QtGenerator::~QtGenerator()
 {
-	_pixmapFixed.reset();
-	_pixmapFull.reset();
 #ifndef BACKEND_QT_NATIVE
 	if (std::this_thread::get_id() != _idth) {
 		ELog() << "Invalid thread. QtGenerator must be managed in the same thread" << std::endl << " This Generator was created in the thread: "
@@ -70,17 +66,17 @@ QtGenerator::~QtGenerator()
 
 uint32_t QtGenerator::GetWidth() const
 {
-	return _pixmapFull->width();
+	return _pixmap.width();
 }
 
 uint32_t QtGenerator::GetHeight() const
 {
-	return _pixmapFull->height();
+	return _pixmap.height();
 }
 
 int QtGenerator::GetRawData(bitmap& buff) const
 {
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 	unsigned size = img.height() * img.bytesPerLine();
 	buff.clear();
 	buff.reserve(size);
@@ -101,12 +97,12 @@ int QtGenerator::GetRawData(bitmap& buff) const
 
 void QtGenerator::GetBitmapMono(bitmap& buffer, bool invertBytes) const
 {
-	if (!_pixmapFull || _pixmapFull->isNull()) {
+	if (_pixmap.isNull()) {
 		WLog() << "Unable to get buffer. Invalid pixmap pointer";
 		return;
 	}
 
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 	// TODO(jpinyot): Compare printig using QImage::Format_Mono and invertBytes() with
 	// QImage::Format_MonoLSB
 
@@ -139,9 +135,7 @@ void QtGenerator::GetBitmapMono(bitmap& buffer, bool invertBytes) const
 void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 										 uint32_t colOffset, bool invertBytes) const
 {
-	if (_pixmapFull == nullptr) {return;}
-
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 
 	// get buffer size
 #if QT_VERSION_MAJOR >= 5
@@ -183,36 +177,40 @@ void QtGenerator::Update(Document* doc, Context* context)
 {
 	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotation : " << doc->GetCanvasRotation();
 
-	if (!doc) {
+	if (doc == nullptr) {
 		ELog() << "Invalid DOM";
 		return;
 	}
 
 	// Get size in pixels taking in mind the resolution
-	int w = 0, h = 0;
+	int w = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth() / kMMPerInch);
+	int h = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
+
 	if (doc->GetCanvasRotation() == 90) { // TODO : @jsubi, cal implementar la rotació dels missatges.
-		h = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth()  / kMMPerInch);
-		w = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
-	}
-	else {
-		w = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth()  / kMMPerInch);
-		h = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
+		std::swap(w, h);
 	}
 
-	if (!buildCanvas(w, h)) {
-		ELog() << "Unable to build de painter device";
-		return;
-	}
+	QPixmap pixmap(w, h);
+	pixmap.fill(_bgColor);
+
+	_pixmap = std::move(pixmap);
 
 	_colorsPalette.clear();
-	const auto palette = doc->GetColorsPalette();
+	const auto& palette = doc->GetColorsPalette();
 	for (const auto& color : palette) {
 		_colorsPalette.insert(color.first.c_str(),
 				 QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
 	}
 
-	// Points the painter to the base pixmap
-	QPainter painter (_pixmapFull.get());
+	auto canvasXOffset = (doc->GetCanvasXOffset() / kMMPerInch) * GetHorizontalResolution();
+	auto canvasYOffset = (doc->GetCanvasYOffset() / kMMPerInch) * GetVerticalResolution();
+
+	_transformation.reset();
+	_transformation.translate(canvasXOffset, canvasYOffset);
+
+	QPainter painter(&_pixmap);
+	painter.save();
+	painter.setTransform(_transformation);
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
@@ -226,25 +224,21 @@ void QtGenerator::Update(Document* doc, Context* context)
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	renderFixedFields(&visitor);
 	renderVariableFields(&visitor);
+	painter.restore();
 }
 
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 {
-	if (!doc) {
+	if (doc == nullptr) {
 		WLog() << "Invalid DOM";
 		return;
 	}
 
-	if (!_pixmapFixed) {
-		WLog() << "Invalid pixmap base. Load full file needed";
-		return;
-	}
-
-	//Restore the full pixmap with the stored fixed pixmap
-	_pixmapFull.reset(new QPixmap(*_pixmapFixed));
+	// Restore the full pixmap with the stored fixed pixmap
+	_pixmap = _pixmapFixed;
 
 	// Points the painter to the base pixmap
-	QPainter painter(_pixmapFull.get());
+	QPainter painter(&_pixmap);
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
@@ -256,19 +250,15 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 
 void QtGenerator::SaveToBmpFile(const std::string& filename)
 {
-	if (_pixmapFull != nullptr && !_pixmapFull->isNull() &&
-		_pixmapFull->width() > 0 &&	_pixmapFull->height() > 0)
-	{
+	if (!_pixmap.isNull() && _pixmap.width() > 0 &&	_pixmap.height() > 0)	{
 		DLog() << "Saving image to: " << filename;
-		_pixmapFull->save(filename.c_str()) ;
+		_pixmap.save(filename.c_str()) ;
 	}
 }
 
 void QtGenerator::Clear()
 {
 	_colorsPalette.clear();
-	_pixmapFixed.reset();
-	_pixmapFull.reset();
 }
 
 void QtGenerator::AddFontsDirectory(const std::string& fullpath)
@@ -310,22 +300,6 @@ void QtGenerator::SetBackgroundColorFromRGBA(uint32_t rgba)
 	_bgColor = QColor(red, green, blue, alpha);
 }
 
-bool QtGenerator::buildCanvas(int width, int height)
-{
-	// clear smart pointers
-	_pixmapFixed.reset();
-
-	// Build the pixmap base
-	_pixmapFull.reset(new QPixmap(width, height));
-	if (!_pixmapFull) {
-		return false;
-	}
-
-	_pixmapFull->fill(_bgColor); //Fill pixmap with background color
-
-	return true;
-}
-
 void QtGenerator::classifyObjects(const std::deque<Object*>& objects)
 {
 	_variableObjects.clear();
@@ -345,26 +319,15 @@ void QtGenerator::classifyObjects(const std::deque<Object*>& objects)
 
 void QtGenerator::renderFixedFields(QtRasterVisitor* visitor)
 {
-	if (!_pixmapFull) {
-		ELog() << "Invalid base pixmap";
-		return;
-	}
-
 	for (const auto obj : _fixedObject) {
 		obj->Accept(visitor);
 	}
 
-	// Store the current pixmap with only the static elements
-	_pixmapFixed.reset(new QPixmap(*_pixmapFull));
+	_pixmapFixed = _pixmap;
 }
 
 void QtGenerator::renderVariableFields(QtRasterVisitor* visitor)
 {
-	if (!_pixmapFull) {
-		ELog() << "Invalid base pixmap";
-		return;
-	}
-
 	for (const auto obj : _variableObjects) {
 		obj->Accept(visitor);
 	}

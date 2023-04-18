@@ -28,7 +28,7 @@ namespace macsa
 				QtGenerator();
 				virtual ~QtGenerator();
 
-				void* NativeHandler() const override {return  (void*)_pixmapFull.get();}
+				void* NativeHandler() const override {return  (void*) &_pixmap;}
 				uint32_t GetWidth() const override;
 				uint32_t GetHeight() const override;
 				int GetRawData(bitmap& buff) const override;
@@ -61,12 +61,12 @@ namespace macsa
 				QFontDatabase _fonts;
 				QColor _bgColor;
 				QMap<QString, QColor> _colorsPalette;
-				std::unique_ptr<QPixmap>  _pixmapFixed;
-				std::unique_ptr<QPixmap>  _pixmapFull;
+				QPixmap _pixmapFixed;
+				QPixmap _pixmap;
+				QTransform _transformation;
 				std::vector<const Object*>  _fixedObject;
 				std::vector<const Object*>  _variableObjects;
 
-				bool buildCanvas(int width, int height);
 				void classifyObjects(const std::deque<Object*>& objects);
 				void renderFixedFields(QtRasterVisitor* visitor);
 				void renderVariableFields(QtRasterVisitor* visitor);
