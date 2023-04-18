@@ -193,7 +193,7 @@ TEST_F(DateTimeDataSourceParserUt, ParseSecond_ReturnExpectedSecond)
 // Test composite string
 TEST_F(DateTimeDataSourceParserUt, ParseCompositeFormat_ReturnExpectedString)
 {
-	const static std::string format = "\\j 'macsa' dd.MM.yyyy # HH:mm:ss \"id\"";
+	const static std::string format = "\\j 'macsa' \"'macsa'\" dd.MM.yyyy # HH:mm:ss \"id\"";
 
 	auto dataSources = _dateTimeFactoryParser.parseFormatRegex(format);
 	EXPECT_EQ(dataSources.size(), 17);
@@ -212,7 +212,7 @@ TEST_F(DateTimeDataSourceParserUt, ParseCompositeFormat_ReturnExpectedString)
 	auto&& second = macsa::utils::stringutils::ToString(_context.time.tm_sec, 2);
 
 	std::stringstream ssExpectedResult;
-	ssExpectedResult << "j macsa ";
+	ssExpectedResult << "j macsa 'macsa' ";
 	ssExpectedResult << (day+"."+month+"."+year);
 	ssExpectedResult << " # ";
 	ssExpectedResult << (hour+":"+minute+":"+second);
