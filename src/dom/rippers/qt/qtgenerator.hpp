@@ -28,7 +28,10 @@ namespace macsa
 				QtGenerator();
 				virtual ~QtGenerator();
 
-				void* NativeHandler() const override {return  (void*) &_pixmap;}
+				void* NativeHandler() const override
+				{
+					return  (void*) &_pixmap;
+				}
 				uint32_t GetWidth() const override;
 				uint32_t GetHeight() const override;
 				int GetRawData(bitmap& buff) const override;
@@ -63,7 +66,6 @@ namespace macsa
 				QMap<QString, QColor> _colorsPalette;
 				QPixmap _pixmapFixed;
 				QPixmap _pixmap;
-				QTransform _transformation;
 				std::vector<const Object*>  _fixedObject;
 				std::vector<const Object*>  _variableObjects;
 

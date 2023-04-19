@@ -175,22 +175,23 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 
 void QtGenerator::Update(Document* doc, Context* context)
 {
-	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotation : " << doc->GetCanvasRotation();
-
-	if (doc == nullptr) {
+	if (doc == nullptr || context == nullptr) {
 		ELog() << "Invalid DOM";
 		return;
 	}
 
-	// Get size in pixels taking in mind the resolution
-	int w = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth() / kMMPerInch);
-	int h = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
+	int viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
+	int viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
 
-	if (doc->GetCanvasRotation() == 90) { // TODO : @jsubi, cal implementar la rotació dels missatges.
-		std::swap(w, h);
+	int canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
+	int canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+
+	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
+		std::swap(viewportWidth, viewportHeight);
+		std::swap(canvasWidth, canvasHeight);
 	}
 
-	QPixmap pixmap(w, h);
+	QPixmap pixmap(viewportWidth, viewportHeight);
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
@@ -202,22 +203,30 @@ void QtGenerator::Update(Document* doc, Context* context)
 				 QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
 	}
 
-	auto canvasXOffset = (doc->GetCanvasXOffset() / kMMPerInch) * GetHorizontalResolution();
-	auto canvasYOffset = (doc->GetCanvasYOffset() / kMMPerInch) * GetVerticalResolution();
-
-	_transformation.reset();
-	_transformation.translate(canvasXOffset, canvasYOffset);
-
 	QPainter painter(&_pixmap);
 	painter.save();
-	painter.setTransform(_transformation);
+
+	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0.) {
+		auto canvasXOffset = (doc->GetCanvasXOffset() / kMMPerInch) * GetHorizontalResolution();
+		auto canvasYOffset = (doc->GetCanvasYOffset() / kMMPerInch) * GetVerticalResolution();
+
+		QTransform transformation;
+		transformation.translate(canvasXOffset, canvasYOffset);
+		painter.setTransform(transformation);
+	}
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
-	painter.setBackgroundMode(Qt::OpaqueMode);
-	painter.setBackground(QBrush(Qt::white));
 
 	if (doc->GetCanvasRotation() == 90) {
-		painter.translate(QPointF(w, 0));
+		painter.translate(QPointF(canvasWidth, 0));
 		painter.rotate(doc->GetCanvasRotation());
+	}
+
+	// paint canvas
+	if (_bgColor != Qt::white)	{
+		QBrush brush(Qt::white);
+		painter.setBrush(brush);
+		painter.setPen(Qt::white);
+		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
 
 	classifyObjects(doc->GetObjects());
@@ -251,7 +260,6 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 void QtGenerator::SaveToBmpFile(const std::string& filename)
 {
 	if (!_pixmap.isNull() && _pixmap.width() > 0 &&	_pixmap.height() > 0)	{
-		DLog() << "Saving image to: " << filename;
 		_pixmap.save(filename.c_str()) ;
 	}
 }
@@ -259,6 +267,7 @@ void QtGenerator::SaveToBmpFile(const std::string& filename)
 void QtGenerator::Clear()
 {
 	_colorsPalette.clear();
+	_pixmap = QPixmap();
 }
 
 void QtGenerator::AddFontsDirectory(const std::string& fullpath)
@@ -287,6 +296,7 @@ void QtGenerator::SetBackgroundColorFromRGBA(const std::string& rgba)
 		int green = stringutils::HexToUInt(rgba.substr(3, byteLenght));
 		int blue = stringutils::HexToUInt(rgba.substr(5, byteLenght));
 		int alpha = stringutils::HexToUInt(rgba.substr(7, byteLenght));
+
 		_bgColor = QColor(red, green, blue, alpha);
 	}
 }
@@ -297,6 +307,7 @@ void QtGenerator::SetBackgroundColorFromRGBA(uint32_t rgba)
 	int green = (rgba >> 16) & 0xFF;
 	int blue  = (rgba >> 8)  & 0xFF;
 	int alpha = rgba & 0xFF;
+
 	_bgColor = QColor(red, green, blue, alpha);
 }
 
