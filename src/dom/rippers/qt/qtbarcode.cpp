@@ -181,7 +181,8 @@ int QtBarcode::getZintSymbology(const BarcodeSymbol& symbology) const
 		// case NBarcodeSymbology::kFrenchPostal39AR:      return ; // Not implemented
 
 		case NBarcodeSymbol::kGS1128:
-		//case NBarcodeSymbology::kUccEan128:		return BARCODE_EAN128;
+		//case NBarcodeSymbology::kUccEan128:		
+			return BARCODE_EAN128;
 
 		case NBarcodeSymbol::kEan128CCA:
 		case NBarcodeSymbol::kEan128CCB:
