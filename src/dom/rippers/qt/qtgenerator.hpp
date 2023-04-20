@@ -45,7 +45,7 @@ namespace macsa
 				void GetDoubleColBitmapMono(bitmap& buff1, bitmap& buff2, uint32_t colOffset,
 											bool invertByte = true) const override;
 
-				void Update(Document* doc, Context* context) override;
+				void Update(Document* doc, Context* context, bool editorMode = false) override;
 				void UpdateVariableFields(Document* doc, Context* context) override;
 				void SaveToBmpFile(const std::string& filename) override;
 				void Clear() override;
@@ -55,6 +55,11 @@ namespace macsa
 
 				void SetBackgroundColorFromRGBA(const std::string& rgba) override;
 				void SetBackgroundColorFromRGBA(uint32_t rgba) override;
+
+				std::pair<float, float> getCanvasOffset() const override
+				{
+					return {_canvasOffset.x(), _canvasOffset.y()};
+				}
 
 			private:
 #ifndef BACKEND_QT_NATIVE
@@ -68,6 +73,7 @@ namespace macsa
 				QPixmap _pixmap;
 				std::vector<const Object*>  _fixedObject;
 				std::vector<const Object*>  _variableObjects;
+				QPointF _canvasOffset;
 
 				void classifyObjects(const std::deque<Object*>& objects);
 				void renderFixedFields(QtRasterVisitor* visitor);
@@ -79,6 +85,8 @@ namespace macsa
 				 * @return the numbers of bytes copied
 				 */
 				uint32_t insertLine(const uchar *bytes, uint32_t size, bitmap& buffer, uint32_t pos, bool invertBytes) const;
+
+				std::pair<QSize, QPoint> getOutOfCanvasBounds(Document* doc);
 		};
 	}
 }

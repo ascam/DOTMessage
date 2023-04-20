@@ -44,7 +44,7 @@ namespace macsa
 				 */
 				virtual void SaveToBmpFile(const std::string& filename) = 0;
 
-				virtual void Update(dot::Document* doc, Context* context) = 0;
+				virtual void Update(dot::Document* doc, Context* context, bool editorMode = false) = 0;
 				virtual void UpdateVariableFields(dot::Document* doc, Context* context) = 0;
 				virtual void Clear() = 0;
 
@@ -74,6 +74,8 @@ namespace macsa
 				bool getPrintHiddenItems() const	{
 					return _printHiddenItems;
 				}
+
+				virtual std::pair<float, float> getCanvasOffset() const = 0;
 
 			protected:
 				uint32_t _hres;

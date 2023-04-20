@@ -173,18 +173,108 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 	}
 }
 
-void QtGenerator::Update(Document* doc, Context* context)
+std::pair<QSize, QPoint> QtGenerator::getOutOfCanvasBounds(Document* doc)
+{
+	float canvasWidth = doc->GetCanvasWidth();
+	float canvasHeight = doc->GetCanvasHeight();
+
+	float canvasXOffset = 0.;
+	float canvasYOffset = 0.;
+
+	const auto& objects = doc->GetObjects();
+
+	auto itMaxXObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return (obj1->GetGeometry().position.x + obj1->GetGeometry().size.width) < (obj2->GetGeometry().position.x + obj2->GetGeometry().size.width);
+	});
+
+	if (itMaxXObj != objects.cend())	{
+		auto geometry = (*itMaxXObj)->GetGeometry();
+		if ((geometry.position.x + geometry.size.width) > canvasWidth)	{
+			canvasWidth = (geometry.position.x + geometry.size.width);
+		}
+	}
+
+	auto itMaxYObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return (obj1->GetGeometry().position.y + obj1->GetGeometry().size.height) < (obj2->GetGeometry().position.y + obj2->GetGeometry().size.height);
+	});
+
+	if (itMaxYObj != objects.cend())	{
+		auto geometry = (*itMaxYObj)->GetGeometry();
+		if ((geometry.position.y + geometry.size.height) > canvasHeight )	{
+			canvasHeight = (geometry.position.y + geometry.size.height);
+		}
+	}
+
+	auto itMinXObj = std::min_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return obj1->GetGeometry().position.x < obj2->GetGeometry().position.x;
+	});
+
+	if (itMinXObj != objects.cend())	{
+		auto geometry = (*itMinXObj)->GetGeometry();
+		if (geometry.position.x < 0)	{
+			_canvasOffset.setX(geometry.position.x);
+			canvasXOffset = -geometry.position.x;
+			canvasWidth += -geometry.position.x;
+		}
+	}
+
+	auto itMinYObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return obj1->GetGeometry().position.y > obj2->GetGeometry().position.y;
+	});
+
+	if (itMinYObj != objects.cend())	{
+		auto geometry = (*itMinYObj)->GetGeometry();
+		if (geometry.position.y < 0)	{
+			_canvasOffset.setY(geometry.position.y);
+			canvasYOffset = -geometry.position.y;
+			canvasHeight += -geometry.position.y;
+		}
+	}
+
+	int canvasPixelWidth = std::round(GetHorizontalResolution() * (canvasWidth / kMMPerInch));
+	int canvasPixelHeight = std::round(GetVerticalResolution() * (canvasHeight / kMMPerInch));
+
+	int canvasPixelXOffset = std::round(GetHorizontalResolution() * (canvasXOffset / kMMPerInch));
+	int canvasPixelYOffset = std::round(GetVerticalResolution() * (canvasYOffset/ kMMPerInch));
+
+	QPoint point{canvasPixelXOffset, canvasPixelYOffset};
+	QSize size{canvasPixelWidth, canvasPixelHeight};
+
+	return {size, point};
+}
+
+void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 {
 	if (doc == nullptr || context == nullptr) {
 		ELog() << "Invalid DOM";
 		return;
 	}
 
-	int viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
-	int viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
-
 	int canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
 	int canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+
+	int viewportWidth = 0;
+	int viewportHeight = 0;
+
+	int canvasXOffset = 0;
+	int canvasYOffset = 0;
+
+	_canvasOffset.setX(0.);
+	_canvasOffset.setY(0.);
+
+	if (editorMode)	{
+		auto&& canvasOffset = getOutOfCanvasBounds(doc);
+
+		viewportWidth = canvasOffset.first.width();
+		viewportHeight = canvasOffset.first.height();
+
+		canvasXOffset = canvasOffset.second.x();
+		canvasYOffset = canvasOffset.second.y();
+	}
+	else	{
+		viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
+		viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
+	}
 
 	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
 		std::swap(viewportWidth, viewportHeight);
@@ -199,21 +289,26 @@ void QtGenerator::Update(Document* doc, Context* context)
 	_colorsPalette.clear();
 	const auto& palette = doc->GetColorsPalette();
 	for (const auto& color : palette) {
-		_colorsPalette.insert(color.first.c_str(),
-				 QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
+		_colorsPalette.insert(color.first.c_str(), QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
 	}
 
 	QPainter painter(&_pixmap);
 	painter.save();
 
-	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0.) {
-		auto canvasXOffset = (doc->GetCanvasXOffset() / kMMPerInch) * GetHorizontalResolution();
-		auto canvasYOffset = (doc->GetCanvasYOffset() / kMMPerInch) * GetVerticalResolution();
+	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0. && !editorMode) {
+		canvasXOffset = std::round(GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch));
+		canvasYOffset = std::round(GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch));
+	}
+	if (!editorMode) {
+		painter.setClipRect(QRectF(canvasXOffset, canvasYOffset, canvasWidth, canvasHeight), Qt::IntersectClip);
+	}
 
+	if (canvasXOffset != 0. || canvasYOffset != 0.)	{
 		QTransform transformation;
 		transformation.translate(canvasXOffset, canvasYOffset);
 		painter.setTransform(transformation);
 	}
+
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
 	if (doc->GetCanvasRotation() == 90) {
@@ -221,13 +316,14 @@ void QtGenerator::Update(Document* doc, Context* context)
 		painter.rotate(doc->GetCanvasRotation());
 	}
 
-	// paint canvas
 	if (_bgColor != Qt::white)	{
 		QBrush brush(Qt::white);
 		painter.setBrush(brush);
 		painter.setPen(Qt::white);
 		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
+
+
 
 	classifyObjects(doc->GetObjects());
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
