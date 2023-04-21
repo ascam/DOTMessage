@@ -323,8 +323,6 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
 
-
-
 	classifyObjects(doc->GetObjects());
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	renderFixedFields(&visitor);
