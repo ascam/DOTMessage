@@ -21,7 +21,7 @@ namespace macsa
 				BitmapGenerator() :
 					_hres(300),
 					_vres(300),
-					_printHiddenItems(true)
+					_printHiddenItems(false)
 				{}
 				virtual ~BitmapGenerator() = default;
 				virtual void* NativeHandler() const =0;
