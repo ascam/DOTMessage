@@ -8,7 +8,7 @@ using macsa::dot::Document;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-static constexpr const char* kElementName = "PROPERTIES";
+static constexpr const char* kSubHeader = "PROPERTIES";
 static constexpr const char* kMeasureUnits = "MEASURE_UNITS";
 static constexpr const char* kResolution = "RESOLUTION";
 static constexpr const char* kMinUnit = "MIN_UNIT";
@@ -40,8 +40,8 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 		std::string strHeight(ToString(element.GetText()));
 		_document.SetCanvasHeight(ToDouble(strHeight));
 	}
-	else if (eName != kElementName) {
+	else if (eName != kSubHeader) {
 		WLog() << "Unknown element name \"" << eName << "\"";
 	}
-	return (eName == kElementName);
+	return (eName == kSubHeader);
 }

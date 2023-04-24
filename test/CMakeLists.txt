@@ -35,6 +35,12 @@ ${UTILS_DIR}/threadsmap/threadsmap.cpp
     ${EXECUTABLE_DIR}/main.cpp
     )
 
+if (${ENABLE_TESTS})
+        set(SRC_TEST)
+	set(HDRS_TEST)
+	add_subdirectory(unitests)
+endif()
+
 cmrc_add_resource_library(domTesterFiles
         NAMESPACE dot
 	WHENCE rc
@@ -52,13 +58,24 @@ cmrc_add_resource_library(domTesterFiles
 	rc/TEST_V.nisx
 	rc/testParserNisx.nisx
 	rc/GALLO.nisx
-        )
-
-if (${ENABLE_TESTS})
-        set(SRC_TEST)
-	set(HDRS_TEST)
-	add_subdirectory(unitests)
-endif()
+        rc/linx/linxformatted.ciff
+        rc/linx/msj_01_tto_formatted.ciff
+        rc/linx/msj_jovi.ciff
+        rc/linx/textofijo.ciff
+        rc/linx/EFAPEL.ciff
+        rc/linx/frankfurt.ciff
+        rc/linx/NORTE_EUROCAO.ciff
+        rc/linx/Pan_molde.ciff
+        rc/linx/Pan_molde_4_dias.ciff
+        rc/linx/tt3fira.ciff
+        rc/linx/tt5nou.ciff
+        rc/linx/tt10_HSPCK2015.ciff
+        rc/linx/VARIABLE.ciff
+        rc/linx/VARIABLE2.ciff
+        rc/linx/Yogur_35_dias.ciff
+        rc/linx/frankfurtUTF16.ciff
+	)
+>>>>>>> Stashed changes
 
 ####################  TARGETS  #############################
 if(STANDALONE)
