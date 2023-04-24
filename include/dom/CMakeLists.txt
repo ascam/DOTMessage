@@ -6,6 +6,7 @@ add_subdirectory(components)
 add_subdirectory(builders)
 add_subdirectory(writers)
 add_subdirectory(rippers)
+add_subdirectory(visitors)
 
 set(SOURCES ${SOURCES}
     PARENT_SCOPE

@@ -1,7 +1,8 @@
 #ifndef MACSA_NISX_PARSER_HPP
 #define MACSA_NISX_PARSER_HPP
 
-#include "dom/idocumentbuilder.hpp"
+#include "../idocumentbuilder.hpp"
+
 namespace macsa {
 	namespace dot {
 

@@ -10,6 +10,9 @@ namespace macsa {
 			public:
 				LineParser(dot::Object* primitive);
 				virtual ~LineParser() = default;
+
+			private:
+				static bool _registered;
 		};
 	}
 }

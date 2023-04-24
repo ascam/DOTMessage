@@ -13,9 +13,7 @@ using macsa::dot::DataTypeMode;
 using macsa::dot::NDataTypeMode;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool UserInputFactoryRegistered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
-}
+bool UserInputDataSource::_registered = macsa::dot::ConcreteDataSourceFactory<UserInputDataSource>::Register(macsa::dot::NDataSourceType::kUserInput);
 
 UserInputDataSource::UserInfo::UserInfo() :
 	device{},
@@ -73,8 +71,8 @@ const std::vector<std::pair<NDataTypeMode, std::string>>& DataTypeMode::getData(
 	return kNDataTypeModeData;
 }
 
-UserInputDataSource::UserInputDataSource() :
-	DataSource(NDataSourceType::kUserInput),
+UserInputDataSource::UserInputDataSource(const macsa::dot::Object &obj) :
+	DataSource(NDataSourceType::kUserInput, obj),
 	_prompt{},
 	_value{},
 	_userText{},
@@ -93,4 +91,9 @@ bool UserInputDataSource::Accept(IDocumentVisitor* visitor)
 		return visitor->Visit(*this);
 	}
 	return false;
+}
+
+std::string UserInputDataSource::GetData(Context* context) const
+{
+	return GetValue();
 }

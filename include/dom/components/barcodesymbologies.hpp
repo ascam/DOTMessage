@@ -181,12 +181,11 @@ namespace macsa {
 					return *this;
 				}
 
-			private:
 				const std::vector<std::pair<NBarcodeSymbol,std::string>>& getData() const override;
 		};
 
 		/**
-		 * @brief Bearer bar style for Nisx Barcode
+		 * @brief Bearer bar style for Barcode
 		 */
 		enum class NBearerBarStyle
 		{

@@ -14,13 +14,15 @@ using macsa::utils::MacsaLogger;
 using macsa::dot::IDocumentVisitor;
 using namespace std::placeholders;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Barcode>::Register(macsa::dot::NObjectType::kBarcode);
-}
+bool Barcode::_registered = macsa::dot::ConcreteObjectsFactory<Barcode>::Register(macsa::dot::NObjectType::kBarcode);
 
 Barcode::Barcode(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kBarcode, geometry),
 	_symbology{SymbologyFactory::Get(NBarcodeSymbol::kCode128)}
+{}
+
+// Destructor must be here due to Symbology forward declaration
+Barcode::~Barcode()
 {}
 
 bool Barcode::Accept(IDocumentVisitor* visitor) const
@@ -169,6 +171,16 @@ void Barcode::SetRatio(double ratio)
 	}
 }
 
+bool Barcode::IsKeepAspectRatioSupported() const
+{
+	bool returnValue = false;
+	if (_symbology) {
+		 returnValue =_symbology->IsKeepAspectRatioSupported();
+	}
+
+	return returnValue;
+}
+
 bool Barcode::GetKeepAspectRatio() const
 {
 	bool enabled = true;
@@ -255,6 +267,17 @@ void Barcode::SetShowHumanReadableCode(bool show)
 			ShowHumanReadableCodeChanged.Emit();
 		}
 	}
+}
+
+bool Barcode::IsBearerBarStyleSupported() const
+{
+	bool returnValue = false;
+
+	if (_symbology != nullptr)	{
+		returnValue = _symbology->IsBearerBarStyleSupported();
+	}
+
+	return returnValue;
 }
 
 macsa::dot::BearerBarStyle Barcode::GetBearerBarStyle() const

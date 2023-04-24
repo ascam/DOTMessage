@@ -17,6 +17,7 @@ namespace macsa {
 
 			private:
 				dot::Image* _image;
+				static bool _registered;
 
 				void parseAlignment(const std::string& adjust);
 

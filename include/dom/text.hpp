@@ -8,7 +8,7 @@
 
 namespace macsa {
 	namespace dot {
-		
+
 		class IDocumentVisitor;
 
 		/**
@@ -22,13 +22,6 @@ namespace macsa {
 				Text(const std::string& id, const Geometry& geometry = Geometry());
 				Text(const Text&) = delete;
 				virtual ~Text() = default;
-
-				/**
-				 * @brief IsVariable. Overrided method of Object::IsVariable
-				 * @return true if the object can change the inner value,
-				 * false if the object is static.
-				 */
-				bool IsVariable() const override;
 
 				/**
 				 * @brief Accept: Allow the visitor to visit this object.
@@ -116,6 +109,7 @@ namespace macsa {
 				Color _foreColor;
 				Color _backgroundColor;
 				TextBoxProperties _textBoxProperties;
+				static bool _registered;
 		};
 	}
 }

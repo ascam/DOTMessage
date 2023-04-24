@@ -11,9 +11,7 @@ using tinyxml2::XMLAttribute;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteDataSourceParserFactory<DatabaseParser>::Register(macsa::nisx::kDataSourceDatabase);
-}
+bool DatabaseParser::_registered = macsa::nisx::ConcreteDataSourceParserFactory<DatabaseParser>::Register(macsa::nisx::kDataSourceDatabase);
 
 static constexpr const char* kFieldName = "FIELDNAME";
 static constexpr const char* kConnection = "CONNECTION";

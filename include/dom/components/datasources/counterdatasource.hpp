@@ -3,8 +3,10 @@
 
 #include <string>
 #include <cstdint>
+
+#include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
-#include <signal/signal.hpp>
 
 namespace macsa {
 	namespace dot {
@@ -18,8 +20,8 @@ namespace macsa {
 		class CounterDataSource final : public DataSource
 		{
 			public:
-				CounterDataSource();
-				virtual ~CounterDataSource();
+				CounterDataSource(const dot::Object& obj);
+				virtual ~CounterDataSource() = default;
 
 				/**
 				 * @brief Accept: Allow the visitor to visit this object.
@@ -28,27 +30,6 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) override;
-
-				/**
-				 * @brief GetCounterValue. Getter method for the current
-				 * source counter value.
-				 * @return The current source counter value
-				 */
-				int GetCounterValue() const {
-					return _counter;
-				}
-
-				/**
-				 * @brief SetCounterValue. Setter method for the current
-				 * source counter value.
-				 * @param value: source counter value
-				 */
-				void SetCounterValue(int counter) {
-					if (counter != _counter)	{
-						_counter = counter;
-						CounterValueChanged.Emit();
-					}
-				}
 
 				/**
 				 * @brief GetLeadingZeros. Getter method for number of
@@ -118,7 +99,7 @@ namespace macsa {
 				 * @return how many times the counter will be the same
 				 * before jump to the next value.
 				 */
-				uint GetRepeatCounter() const {
+				uint32_t GetRepeatCounter() const {
 					return _repeatCounter;
 				}
 
@@ -153,21 +134,26 @@ namespace macsa {
 					}
 				}
 
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				std::string GetData(Context* context) const override;
+
 			public:
 				Signal<> StepChanged;
 				Signal<> RepeatCounterChanged;
 				Signal<> MaxValueChanged;
 				Signal<> MinValueChanged;
 				Signal<> LeadingZerosChanged;
-				Signal<> CounterValueChanged;
 
 			private:
-				int _counter;
 				uint32_t _leadingZeros;
 				int _minValue;
 				int _maxValue;
 				int _step;
-				uint _repeatCounter;
+				uint32_t _repeatCounter;
+				static bool _registered;
 		};
 	}
 }

@@ -14,11 +14,9 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
-}
+bool TextParser::_registered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
 
-TextParser::TextParser(dot::Object *text) :
+TextParser::TextParser(dot::Object* text) :
 	ObjectParser(macsa::nisx::kTextField, text),
 	_text{dynamic_cast<Text*>(text)},
 	_font{}

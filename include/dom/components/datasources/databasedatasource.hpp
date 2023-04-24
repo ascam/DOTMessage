@@ -2,6 +2,8 @@
 #define DOT_MESSAGE_DATABASE_DATASOURCE_HPP
 
 #include <string>
+
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
@@ -17,7 +19,7 @@ namespace macsa {
 		class DatabaseDataSource final : public DataSource
 		{
 			public:
-				DatabaseDataSource();
+				DatabaseDataSource(const dot::Object& obj);
 				virtual ~DatabaseDataSource() = default;
 
 				/**
@@ -115,12 +117,19 @@ namespace macsa {
 					_tableName = name;
 				}
 
+				/**
+				* @brief GetData. Get data source updated data result.
+				* @return data source text result data.
+				*/
+				std::string GetData(Context* context) const override;
+
 			private:
 				std::string _fieldName;
 				std::string _defaultValue;
 				std::string _value;
 				std::string _connectionName;
 				std::string _tableName;
+				static bool _registered;
 		};
 	}
 }

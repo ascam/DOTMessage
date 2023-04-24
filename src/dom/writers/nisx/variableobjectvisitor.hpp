@@ -2,7 +2,6 @@
 #define MACSA_NISX_VARIABLE_OBJECT_VISITOR_HPP
 
 #include "dom/documentvisitor.hpp"
-#include "dom/variableobject.hpp"
 #include "objectvisitor.hpp"
 
 namespace macsa {

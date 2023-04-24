@@ -16,6 +16,7 @@ namespace macsa {
 
 			private:
 				dot::UserInputDataSource* _userInput;
+				static bool _registered;
 		};
 
 		class UserInfoParser: public tinyxml2::XMLVisitor
