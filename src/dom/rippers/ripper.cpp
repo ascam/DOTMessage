@@ -94,15 +94,13 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 
 void DOTRipper::Update(Context* context, bool editorMode)
 {
-	ELog() << "dotripper::Update";
-
 	if (!_doc) {
 		ELog() << "Invalid document";
 		return;
 	}
 
 	{
-		ILog() << "Updating full pixmap";
+		DLog() << "Updating full pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
 		_generator->Update(_doc, context, editorMode);
 	}
@@ -110,8 +108,6 @@ void DOTRipper::Update(Context* context, bool editorMode)
 
 void DOTRipper::UpdateVariableFields(Context* context)
 {
-	ELog() << "dotripper::UpdateVariableFields";
-
 	if (!_doc) {
 		ELog() << "Invalid document";
 		return;
