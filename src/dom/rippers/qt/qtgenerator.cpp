@@ -45,15 +45,11 @@ QtGenerator::QtGenerator() : BitmapGenerator(),
 	_idth(std::this_thread::get_id()),
 #endif
 	_bgColor(Qt::white),
-	_colorsPalette(),
-	_pixmapFixed(),
-	_pixmapFull()
+	_colorsPalette()
 {}
 
 QtGenerator::~QtGenerator()
 {
-	_pixmapFixed.reset();
-	_pixmapFull.reset();
 #ifndef BACKEND_QT_NATIVE
 	if (std::this_thread::get_id() != _idth) {
 		ELog() << "Invalid thread. QtGenerator must be managed in the same thread" << std::endl << " This Generator was created in the thread: "
@@ -70,17 +66,17 @@ QtGenerator::~QtGenerator()
 
 uint32_t QtGenerator::GetWidth() const
 {
-	return _pixmapFull->width();
+	return _pixmap.width();
 }
 
 uint32_t QtGenerator::GetHeight() const
 {
-	return _pixmapFull->height();
+	return _pixmap.height();
 }
 
 int QtGenerator::GetRawData(bitmap& buff) const
 {
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 	unsigned size = img.height() * img.bytesPerLine();
 	buff.clear();
 	buff.reserve(size);
@@ -101,12 +97,12 @@ int QtGenerator::GetRawData(bitmap& buff) const
 
 void QtGenerator::GetBitmapMono(bitmap& buffer, bool invertBytes) const
 {
-	if (!_pixmapFull || _pixmapFull->isNull()) {
+	if (_pixmap.isNull()) {
 		WLog() << "Unable to get buffer. Invalid pixmap pointer";
 		return;
 	}
 
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 	// TODO(jpinyot): Compare printig using QImage::Format_Mono and invertBytes() with
 	// QImage::Format_MonoLSB
 
@@ -139,9 +135,7 @@ void QtGenerator::GetBitmapMono(bitmap& buffer, bool invertBytes) const
 void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 										 uint32_t colOffset, bool invertBytes) const
 {
-	if (_pixmapFull == nullptr) {return;}
-
-	QImage img = _pixmapFull->toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
+	QImage img = _pixmap.toImage().convertToFormat(QImage::Format_Mono, Qt::ThresholdDither);
 
 	// get buffer size
 #if QT_VERSION_MAJOR >= 5
@@ -179,72 +173,175 @@ void QtGenerator::GetDoubleColBitmapMono(bitmap& buffer1, bitmap& buffer2,
 	}
 }
 
-void QtGenerator::Update(Document* doc, Context* context)
+std::pair<QSize, QPoint> QtGenerator::getOutOfCanvasBounds(Document* doc)
 {
-	DLog() << "Updating bmp in " << _hres << "x" << _vres << " rotation : " << doc->GetCanvasRotation();
+	float canvasWidth = doc->GetCanvasWidth();
+	float canvasHeight = doc->GetCanvasHeight();
 
-	if (!doc) {
+	float canvasXOffset = 0.;
+	float canvasYOffset = 0.;
+
+	const auto& objects = doc->GetObjects();
+
+	auto itMaxXObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return (obj1->GetGeometry().position.x + obj1->GetGeometry().size.width) < (obj2->GetGeometry().position.x + obj2->GetGeometry().size.width);
+	});
+
+	if (itMaxXObj != objects.cend())	{
+		auto geometry = (*itMaxXObj)->GetGeometry();
+		if ((geometry.position.x + geometry.size.width) > canvasWidth)	{
+			canvasWidth = (geometry.position.x + geometry.size.width);
+		}
+	}
+
+	auto itMaxYObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return (obj1->GetGeometry().position.y + obj1->GetGeometry().size.height) < (obj2->GetGeometry().position.y + obj2->GetGeometry().size.height);
+	});
+
+	if (itMaxYObj != objects.cend())	{
+		auto geometry = (*itMaxYObj)->GetGeometry();
+		if ((geometry.position.y + geometry.size.height) > canvasHeight )	{
+			canvasHeight = (geometry.position.y + geometry.size.height);
+		}
+	}
+
+	auto itMinXObj = std::min_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return obj1->GetGeometry().position.x < obj2->GetGeometry().position.x;
+	});
+
+	if (itMinXObj != objects.cend())	{
+		auto geometry = (*itMinXObj)->GetGeometry();
+		if (geometry.position.x < 0)	{
+			_canvasOffset.setX(geometry.position.x);
+			canvasXOffset = -geometry.position.x;
+			canvasWidth += -geometry.position.x;
+		}
+	}
+
+	auto itMinYObj = std::max_element(objects.cbegin(), objects.cend(), [](const auto& obj1, const auto& obj2){
+		return obj1->GetGeometry().position.y > obj2->GetGeometry().position.y;
+	});
+
+	if (itMinYObj != objects.cend())	{
+		auto geometry = (*itMinYObj)->GetGeometry();
+		if (geometry.position.y < 0)	{
+			_canvasOffset.setY(geometry.position.y);
+			canvasYOffset = -geometry.position.y;
+			canvasHeight += -geometry.position.y;
+		}
+	}
+
+	int canvasPixelWidth = std::round(GetHorizontalResolution() * (canvasWidth / kMMPerInch));
+	int canvasPixelHeight = std::round(GetVerticalResolution() * (canvasHeight / kMMPerInch));
+
+	int canvasPixelXOffset = std::round(GetHorizontalResolution() * (canvasXOffset / kMMPerInch));
+	int canvasPixelYOffset = std::round(GetVerticalResolution() * (canvasYOffset/ kMMPerInch));
+
+	QPoint point{canvasPixelXOffset, canvasPixelYOffset};
+	QSize size{canvasPixelWidth, canvasPixelHeight};
+
+	return {size, point};
+}
+
+void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
+{
+	if (doc == nullptr || context == nullptr) {
 		ELog() << "Invalid DOM";
 		return;
 	}
 
-	// Get size in pixels taking in mind the resolution
-	int w = 0, h = 0;
-	if (doc->GetCanvasRotation() == 90) { // TODO : @jsubi, cal implementar la rotació dels missatges.
-		h = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth()  / kMMPerInch);
-		w = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
+	int canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
+	int canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+
+	int viewportWidth = 0;
+	int viewportHeight = 0;
+
+	int canvasXOffset = 0;
+	int canvasYOffset = 0;
+
+	_canvasOffset.setX(0.);
+	_canvasOffset.setY(0.);
+
+	if (editorMode)	{
+		auto&& canvasOffset = getOutOfCanvasBounds(doc);
+
+		viewportWidth = canvasOffset.first.width();
+		viewportHeight = canvasOffset.first.height();
+
+		canvasXOffset = canvasOffset.second.x();
+		canvasYOffset = canvasOffset.second.y();
 	}
-	else {
-		w = std::round(static_cast<double>(_hres) * doc->GetCanvasWidth()  / kMMPerInch);
-		h = std::round(static_cast<double>(_vres) * doc->GetCanvasHeight() / kMMPerInch);
+	else	{
+		viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
+		viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
 	}
 
-	if (!buildCanvas(w, h)) {
-		ELog() << "Unable to build de painter device";
-		return;
+	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
+		std::swap(viewportWidth, viewportHeight);
+		std::swap(canvasWidth, canvasHeight);
 	}
+
+	QPixmap pixmap(viewportWidth, viewportHeight);
+	pixmap.fill(_bgColor);
+
+	_pixmap = std::move(pixmap);
 
 	_colorsPalette.clear();
-	const auto palette = doc->GetColorsPalette();
+	const auto& palette = doc->GetColorsPalette();
 	for (const auto& color : palette) {
-		_colorsPalette.insert(color.first.c_str(),
-				 QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
+		_colorsPalette.insert(color.first.c_str(), QColor(color.second.GetRed(), color.second.GetGreen(), color.second.GetBlue(), color.second.GetAlpha()));
 	}
 
-	// Points the painter to the base pixmap
-	QPainter painter (_pixmapFull.get());
+	QPainter painter(&_pixmap);
+	painter.save();
+
+	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0. && !editorMode) {
+		canvasXOffset = std::round(GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch));
+		canvasYOffset = std::round(GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch));
+	}
+	if (!editorMode) {
+		painter.setClipRect(QRectF(canvasXOffset, canvasYOffset, canvasWidth, canvasHeight), Qt::IntersectClip);
+	}
+
+	if (canvasXOffset != 0. || canvasYOffset != 0.)	{
+		QTransform transformation;
+		transformation.translate(canvasXOffset, canvasYOffset);
+		painter.setTransform(transformation);
+	}
+
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
-	painter.setBackgroundMode(Qt::OpaqueMode);
-	painter.setBackground(QBrush(Qt::white));
 
 	if (doc->GetCanvasRotation() == 90) {
-		painter.translate(QPointF(w, 0));
+		painter.translate(QPointF(canvasWidth, 0));
 		painter.rotate(doc->GetCanvasRotation());
+	}
+
+	if (_bgColor != Qt::white)	{
+		QBrush brush(Qt::white);
+		painter.setBrush(brush);
+		painter.setPen(Qt::white);
+		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
 
 	classifyObjects(doc->GetObjects());
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	renderFixedFields(&visitor);
 	renderVariableFields(&visitor);
+	painter.restore();
 }
 
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 {
-	if (!doc) {
+	if (doc == nullptr) {
 		WLog() << "Invalid DOM";
 		return;
 	}
 
-	if (!_pixmapFixed) {
-		WLog() << "Invalid pixmap base. Load full file needed";
-		return;
-	}
-
-	//Restore the full pixmap with the stored fixed pixmap
-	_pixmapFull.reset(new QPixmap(*_pixmapFixed));
+	// Restore the full pixmap with the stored fixed pixmap
+	_pixmap = _pixmapFixed;
 
 	// Points the painter to the base pixmap
-	QPainter painter(_pixmapFull.get());
+	QPainter painter(&_pixmap);
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setBackgroundMode(Qt::OpaqueMode);
 	painter.setBackground(QBrush(Qt::white));
@@ -256,19 +353,15 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 
 void QtGenerator::SaveToBmpFile(const std::string& filename)
 {
-	if (_pixmapFull != nullptr && !_pixmapFull->isNull() &&
-		_pixmapFull->width() > 0 &&	_pixmapFull->height() > 0)
-	{
-		DLog() << "Saving image to: " << filename;
-		_pixmapFull->save(filename.c_str()) ;
+	if (!_pixmap.isNull() && _pixmap.width() > 0 &&	_pixmap.height() > 0)	{
+		_pixmap.save(filename.c_str()) ;
 	}
 }
 
 void QtGenerator::Clear()
 {
 	_colorsPalette.clear();
-	_pixmapFixed.reset();
-	_pixmapFull.reset();
+	_pixmap = QPixmap();
 }
 
 void QtGenerator::AddFontsDirectory(const std::string& fullpath)
@@ -297,6 +390,7 @@ void QtGenerator::SetBackgroundColorFromRGBA(const std::string& rgba)
 		int green = stringutils::HexToUInt(rgba.substr(3, byteLenght));
 		int blue = stringutils::HexToUInt(rgba.substr(5, byteLenght));
 		int alpha = stringutils::HexToUInt(rgba.substr(7, byteLenght));
+
 		_bgColor = QColor(red, green, blue, alpha);
 	}
 }
@@ -307,23 +401,8 @@ void QtGenerator::SetBackgroundColorFromRGBA(uint32_t rgba)
 	int green = (rgba >> 16) & 0xFF;
 	int blue  = (rgba >> 8)  & 0xFF;
 	int alpha = rgba & 0xFF;
+
 	_bgColor = QColor(red, green, blue, alpha);
-}
-
-bool QtGenerator::buildCanvas(int width, int height)
-{
-	// clear smart pointers
-	_pixmapFixed.reset();
-
-	// Build the pixmap base
-	_pixmapFull.reset(new QPixmap(width, height));
-	if (!_pixmapFull) {
-		return false;
-	}
-
-	_pixmapFull->fill(_bgColor); //Fill pixmap with background color
-
-	return true;
 }
 
 void QtGenerator::classifyObjects(const std::deque<Object*>& objects)
@@ -345,26 +424,15 @@ void QtGenerator::classifyObjects(const std::deque<Object*>& objects)
 
 void QtGenerator::renderFixedFields(QtRasterVisitor* visitor)
 {
-	if (!_pixmapFull) {
-		ELog() << "Invalid base pixmap";
-		return;
-	}
-
 	for (const auto obj : _fixedObject) {
 		obj->Accept(visitor);
 	}
 
-	// Store the current pixmap with only the static elements
-	_pixmapFixed.reset(new QPixmap(*_pixmapFull));
+	_pixmapFixed = _pixmap;
 }
 
 void QtGenerator::renderVariableFields(QtRasterVisitor* visitor)
 {
-	if (!_pixmapFull) {
-		ELog() << "Invalid base pixmap";
-		return;
-	}
-
 	for (const auto obj : _variableObjects) {
 		obj->Accept(visitor);
 	}

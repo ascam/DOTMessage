@@ -92,26 +92,22 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 	}
 }
 
-void DOTRipper::Update(Context* context)
+void DOTRipper::Update(Context* context, bool editorMode)
 {
-	ELog() << "dotripper::Update";
-
 	if (!_doc) {
 		ELog() << "Invalid document";
 		return;
 	}
 
 	{
-		ILog() << "Updating full pixmap";
+		DLog() << "Updating full pixmap";
 		std::unique_lock<std::mutex>lck(_mutex);
-		_generator->Update(_doc, context);
+		_generator->Update(_doc, context, editorMode);
 	}
 }
 
 void DOTRipper::UpdateVariableFields(Context* context)
 {
-	ELog() << "dotripper::UpdateVariableFields";
-
 	if (!_doc) {
 		ELog() << "Invalid document";
 		return;
@@ -122,6 +118,17 @@ void DOTRipper::UpdateVariableFields(Context* context)
 		std::unique_lock<std::mutex>lck(_mutex);
 		_generator->UpdateVariableFields(_doc, context);
 	}
+}
+
+std::pair<float, float> DOTRipper::getCanvasOffset()
+{
+	std::pair<float, float> returnValue;
+
+	if (_generator)	{
+		returnValue = _generator->getCanvasOffset();
+	}
+
+	return returnValue;
 }
 
 void DOTRipper::Clear()

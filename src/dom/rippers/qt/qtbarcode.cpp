@@ -92,7 +92,7 @@ void QtBarcode::Render(const std::string& text)
 	}
 	zintCode.setWhitespace(whitespace);
 
-	if (_barcode->HasShavingMode()){
+	if (_barcode->HasShavingMode() && _barcode->IsShavingModeEnabled()) {
 		zintCode.setOutputOptions(BARCODE_DOTTY_MODE);
 		zintCode.setShaving(static_cast<float>(_barcode->GetShavingValue()));
 	}

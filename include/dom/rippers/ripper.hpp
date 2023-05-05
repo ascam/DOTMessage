@@ -35,7 +35,7 @@ namespace macsa
 				bool GetDoubleColDataMono(bitmap& bitmap1, bitmap& bitmap2, uint32_t colOffset, bool invertBytes);
 				void SaveToBmpFile(const std::string& filepath);
 
-				void Update(Context* context);
+				void Update(Context* context, bool editorMode = false);
 				void UpdateVariableFields(Context* context);
 				void Clear();
 
@@ -85,6 +85,8 @@ namespace macsa
 				static uint8_t GetMajorVersion();
 				static uint8_t GetMinorVersion();
 				static uint8_t GetPatchVersion();
+
+				std::pair<float, float> getCanvasOffset();
 
 			protected:
 				std::mutex _mutex;

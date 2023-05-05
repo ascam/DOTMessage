@@ -28,7 +28,10 @@ namespace macsa
 				QtGenerator();
 				virtual ~QtGenerator();
 
-				void* NativeHandler() const override {return  (void*)_pixmapFull.get();}
+				void* NativeHandler() const override
+				{
+					return  (void*) &_pixmap;
+				}
 				uint32_t GetWidth() const override;
 				uint32_t GetHeight() const override;
 				int GetRawData(bitmap& buff) const override;
@@ -42,7 +45,7 @@ namespace macsa
 				void GetDoubleColBitmapMono(bitmap& buff1, bitmap& buff2, uint32_t colOffset,
 											bool invertByte = true) const override;
 
-				void Update(Document* doc, Context* context) override;
+				void Update(Document* doc, Context* context, bool editorMode = false) override;
 				void UpdateVariableFields(Document* doc, Context* context) override;
 				void SaveToBmpFile(const std::string& filename) override;
 				void Clear() override;
@@ -53,6 +56,11 @@ namespace macsa
 				void SetBackgroundColorFromRGBA(const std::string& rgba) override;
 				void SetBackgroundColorFromRGBA(uint32_t rgba) override;
 
+				std::pair<float, float> getCanvasOffset() const override
+				{
+					return {_canvasOffset.x(), _canvasOffset.y()};
+				}
+
 			private:
 #ifndef BACKEND_QT_NATIVE
 				QApplication _app;
@@ -61,12 +69,12 @@ namespace macsa
 				QFontDatabase _fonts;
 				QColor _bgColor;
 				QMap<QString, QColor> _colorsPalette;
-				std::unique_ptr<QPixmap>  _pixmapFixed;
-				std::unique_ptr<QPixmap>  _pixmapFull;
+				QPixmap _pixmapFixed;
+				QPixmap _pixmap;
 				std::vector<const Object*>  _fixedObject;
 				std::vector<const Object*>  _variableObjects;
+				QPointF _canvasOffset;
 
-				bool buildCanvas(int width, int height);
 				void classifyObjects(const std::deque<Object*>& objects);
 				void renderFixedFields(QtRasterVisitor* visitor);
 				void renderVariableFields(QtRasterVisitor* visitor);
@@ -77,6 +85,8 @@ namespace macsa
 				 * @return the numbers of bytes copied
 				 */
 				uint32_t insertLine(const uchar *bytes, uint32_t size, bitmap& buffer, uint32_t pos, bool invertBytes) const;
+
+				std::pair<QSize, QPoint> getOutOfCanvasBounds(Document* doc);
 		};
 	}
 }
