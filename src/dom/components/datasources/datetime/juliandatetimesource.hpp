@@ -62,6 +62,11 @@ namespace macsa
 						};
 						return {};
 					}
+					/**
+					 * @brief GetRefreshPolicy Returns Refresh Policy (by kCounter,  kSeconds, kMinutes,...)
+					 * @return 'enum class RefreshPolicy'
+					 */
+					RefreshPolicy GetRefreshPolicy() override { return dot::RefreshPolicy::kNone; }
 			};
 		}
 	}
