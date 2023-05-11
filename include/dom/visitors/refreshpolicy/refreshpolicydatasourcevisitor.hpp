@@ -34,8 +34,7 @@ namespace macsa
 
 			bool Visit(const DateTimeDataSource& ds)
 			{
-				//TODO : @jsubi, parse formula to obtain refresh policy
-				_result |= static_cast <unsigned int>(RefreshPolicy::kSeconds);
+				_result |= static_cast <unsigned int>(ds.GetRefreshPolicy());
 
 				return true;
 			}
