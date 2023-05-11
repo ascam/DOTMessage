@@ -10,7 +10,7 @@ namespace macsa
 	{
 		struct Context
 		{
-			int counter;
+			unsigned int counter;
 			macsa::printers::DateCodes dateCodes;
 			dot::Document* document;
 			tm time;
