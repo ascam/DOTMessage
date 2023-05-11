@@ -9,11 +9,11 @@
 
 namespace macsa {
 	namespace dot {
-		class RefreshPolicyVisitor : public dot::IDocumentVisitor
+		class RefreshPolicyObjectVisitor : public dot::IDocumentVisitor
 		{
 			public:
-				RefreshPolicyVisitor(dot::Document* doc, Context* context);
-				virtual ~RefreshPolicyVisitor() = default;
+				RefreshPolicyObjectVisitor(dot::Document* doc, Context* context);
+				virtual ~RefreshPolicyObjectVisitor() = default;
 
 				/**
 				 * @brief VisitEnter. Start the visit in a Text object

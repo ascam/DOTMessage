@@ -3,7 +3,7 @@
 #####################################
 
 set(SOURCES ${SOURCES}
-	${CMAKE_CURRENT_SOURCE_DIR}/refreshpolicyelementvisitor.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/refreshpolicyobjectvisitor.cpp
 	PARENT_SCOPE
 )
 
