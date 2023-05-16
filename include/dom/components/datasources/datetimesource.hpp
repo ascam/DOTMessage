@@ -4,6 +4,7 @@
 #include <string>
 
 #include "dom/rippers/context.hpp"
+#include "dom/refreshpolicy.hpp"
 
 constexpr int kBufferSize = 256;
 
@@ -48,6 +49,12 @@ namespace macsa
 					 */
 					virtual std::string GetData(Context* context) = 0;
 					virtual std::string GetFormat() {return _format;}
+
+					/**
+					 * @brief GetRefreshPolicy Returns Refresh Policy (by kCounter,  kSeconds, kMinutes,...)
+					 * @return 'enum class RefreshPolicy'
+					 */
+					virtual RefreshPolicy GetRefreshPolicy() = 0;
 
 				protected:
 					std::string _format;

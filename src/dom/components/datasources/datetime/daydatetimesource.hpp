@@ -73,6 +73,11 @@ namespace macsa
 					{
 						return (_uppercase) ? "[" + _format + "]" : _format;
 					}
+					/**
+					 * @brief GetRefreshPolicy Returns Refresh Policy (by kCounter,  kSeconds, kMinutes,...)
+					 * @return 'enum class RefreshPolicy'
+					 */
+					RefreshPolicy GetRefreshPolicy() override { return dot::RefreshPolicy::kDays; }
 
 				private:
 					bool _uppercase;

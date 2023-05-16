@@ -27,15 +27,14 @@ namespace macsa
 
 			bool Visit(const CounterDataSource& ds)
 			{
-				_result.flip(static_cast<std::underlying_type<RefreshPolicy>::type>(RefreshPolicy::kCounter));
+				_result |= static_cast <unsigned int>(RefreshPolicy::kCounter);
 
 				return true;
 			}
 
 			bool Visit(const DateTimeDataSource& ds)
 			{
-				//TODO : @jsubi, parse formula to obtain refresh policy
-				_result.flip(static_cast<std::underlying_type<RefreshPolicy>::type>(RefreshPolicy::kSeconds));
+				_result |= static_cast <unsigned int>(ds.GetRefreshPolicy());
 
 				return true;
 			}
