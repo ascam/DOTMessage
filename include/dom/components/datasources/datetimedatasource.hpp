@@ -139,6 +139,8 @@ namespace macsa {
 				 */
 				std::string GetData(Context* context) const override;
 
+				RefreshPolicy GetRefreshPolicy() const;
+
 			public:
 				Signal<> HourDaysStartChanged;
 				Signal<> YearsOffsetChanged;

@@ -42,6 +42,12 @@ namespace macsa
 					{
 						return context->dateCodes.parserDateTime(_format, context->time);
 					}
+
+					/**
+					 * @brief GetRefreshPolicy Returns Refresh Policy (by kCounter,  kSeconds, kMinutes,...)
+					 * @return 'enum class RefreshPolicy'
+					 */
+					RefreshPolicy GetRefreshPolicy() override { return dot::RefreshPolicy::kMinutes; } //TODO: Review
 			};
 		}
 	}
