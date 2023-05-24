@@ -1,19 +1,19 @@
-#include "dom/visitors/refreshpolicy/refreshpolicyelementvisitor.hpp"
+#include "dom/visitors/refreshpolicy/refreshpolicyobjectvisitor.hpp"
 
 #include "dom/text.hpp"
 #include "dom/barcode.hpp"
 #include "dom/visitors/refreshpolicy/refreshpolicydatasourcevisitor.hpp"
 
 using macsa::dot::Document;
-using macsa::dot::RefreshPolicyVisitor;
+using macsa::dot::RefreshPolicyObjectVisitor;
 
-RefreshPolicyVisitor::RefreshPolicyVisitor(dot::Document* doc, Context* context) :
+RefreshPolicyObjectVisitor::RefreshPolicyObjectVisitor(dot::Document* doc, Context* context) :
 	dot::IDocumentVisitor(),
 	_doc(doc),
 	_context{context}
 {}
 
-bool RefreshPolicyVisitor::VisitEnter(const dot::Text& text)
+bool RefreshPolicyObjectVisitor::VisitEnter(const dot::Text& text)
 {
 	if (text.IsVariable())	{
 		RefreshPolicyDataSourceVisitor dsv(_context);
@@ -24,7 +24,7 @@ bool RefreshPolicyVisitor::VisitEnter(const dot::Text& text)
 	return false;
 }
 
-bool RefreshPolicyVisitor::VisitEnter(const dot::Barcode& barcode)
+bool RefreshPolicyObjectVisitor::VisitEnter(const dot::Barcode& barcode)
 {
 	if (barcode.IsVariable())	{
 		RefreshPolicyDataSourceVisitor dsv(_context);
