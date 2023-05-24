@@ -38,6 +38,17 @@ std::string DateTimeDataSource::GetData(Context* context) const
 	return ss.str();
 }
 
+macsa::dot::RefreshPolicy DateTimeDataSource::GetRefreshPolicy() const
+{
+	RefreshPolicy refreshPolicy = dot::RefreshPolicy::kNone;
+	for (const auto& dateTimeSource : _dateTimeSources) {
+		if (dateTimeSource) {
+			refreshPolicy |= dateTimeSource->GetRefreshPolicy();
+		}
+	}
+	return refreshPolicy;
+}
+
 std::string DateTimeDataSource::GetFormat() const
 {
 	std::stringstream ss;
