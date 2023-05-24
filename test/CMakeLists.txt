@@ -29,9 +29,10 @@ option(STANDALONE "Build as standalone executable" OFF)
 set(SOURCES)
 set(HEADERS)
 
+add_subdirectory(${UTILS_DIR}/utfconverter ${CMAKE_BINARY_DIR}/utfconverter)
 set(SOURCES ${SOURCES}
     ${UTILS_DIR}/macsalogger/macsalogger.cpp
-${UTILS_DIR}/threadsmap/threadsmap.cpp
+    ${UTILS_DIR}/threadsmap/threadsmap.cpp
     ${EXECUTABLE_DIR}/main.cpp
     )
 
@@ -73,9 +74,12 @@ cmrc_add_resource_library(domTesterFiles
         rc/linx/VARIABLE.ciff
         rc/linx/VARIABLE2.ciff
         rc/linx/Yogur_35_dias.ciff
-        rc/linx/frankfurtUTF16.ciff
+        rc/linx/utf16/frankfurt.ciff
+        rc/linx/Full_barcodes.ciff
+        rc/linx/pedro.ciff
+        rc/linx/barcodes_full.ciff
+        rc/linx/datas_full.ciff
 	)
->>>>>>> Stashed changes
 
 ####################  TARGETS  #############################
 if(STANDALONE)
@@ -97,7 +101,8 @@ target_include_directories(${PROJECT_NAME}
 	        ${PROJECT_SOURCE_DIR}/include
 		${PROJECT_SOURCE_DIR}/src
 		${UTILS_DIR}/include
-		${PRINTER_DM_DIR}/include
+                ${PRINTER_DM_DIR}/include
+                ${UTILS_DIR}/utfconverter/include
 	)
 
 #linking dependencies

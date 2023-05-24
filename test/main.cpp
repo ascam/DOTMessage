@@ -26,6 +26,7 @@
 // Utils
 #include "utils/macsalogger.hpp"
 #include "utils/chronometer.hpp"
+#include "utfconverter/utfconverter.hpp"
 
 CMRC_DECLARE(dot);
 
@@ -34,6 +35,7 @@ CMRC_DECLARE(dot);
 using namespace macsa::dot;
 using macsa::utils::MacsaLogger;
 using macsa::utils::Chronometer;
+using macsa::utils::UTFConverter;
 
 //constexpr const int kCurrentMessage = 1;
 const std::vector<std::string> kNisxTestFiles {
@@ -53,22 +55,26 @@ const std::vector<std::string> kNisxTestFiles {
 };
 
 const std::vector<std::string> kLinxTestFiles {
-	//"messages/linx/linxformatted.ciff",
-	//"messages/linx/textofijo.ciff",
-	//"messages/linx/EFAPEL.ciff",
+	"messages/linx/linxformatted.ciff",
+	"messages/linx/textofijo.ciff",
+	"messages/linx/EFAPEL.ciff",
 	"messages/linx/frankfurt.ciff",
-	"messages/linx/frankfurtUTF16.ciff"
-	//"messages/linx/NORTE_EUROCAO.ciff",
-	//"messages/linx/Pan_molde.ciff",
-	//"messages/linx/Pan_molde_4_dias.ciff",
-	//"messages/linx/tt3fira.ciff",
-	//"messages/linx/tt5nou.ciff",
-	//"messages/linx/tt10_HSPCK2015.ciff",
-	//"messages/linx/VARIABLE.ciff",
-	//"messages/linx/VARIABLE2.ciff",
-	//"messages/linx/Yogur_35_dias.ciff",
-	//"messages/linx/msj_01_tto_formatted.ciff",
-	//"messages/linx/msj_jovi.ciff"
+	"messages/linx/utf16/frankfurt.ciff",
+	"messages/linx/NORTE_EUROCAO.ciff",
+	"messages/linx/Pan_molde.ciff",
+	"messages/linx/Pan_molde_4_dias.ciff",
+	"messages/linx/tt3fira.ciff",
+	"messages/linx/tt5nou.ciff",
+	"messages/linx/tt10_HSPCK2015.ciff",
+	"messages/linx/VARIABLE.ciff",
+	"messages/linx/VARIABLE2.ciff",
+	"messages/linx/Yogur_35_dias.ciff",
+	"messages/linx/msj_01_tto_formatted.ciff",
+	"messages/linx/msj_jovi.ciff",
+	"messages/linx/Full_barcodes.ciff",
+	"messages/linx/pedro.ciff",
+	"messages/linx/barcodes_full.ciff",
+	"messages/linx/datas_full.ciff"
 };
 
 struct Benchmark {
@@ -80,90 +86,9 @@ struct Benchmark {
 	{}
 };
 
-//static bool isUTF16LE(const std::string& filepath) {
-//	std::wifstream file(filepath, std::ios::in | std::ios::binary);
-//	if (!file) {
-//		ELog() << "Error al abrir el archivo " << filepath << std::endl;
-//		return false;
-//	}
-
-//	file.imbue(std::locale(file.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-
-//	wchar_t bom;
-//	file.read(&bom, 1);
-//	if (file.fail()) {
-//		ELog() << "Error al leer los primeros 2 bytes del archivo " << filepath;
-//		return false;
-//	}
-
-//	return bom == 0xFEFF;
-//}
-
-static bool isUTF16LE(const char* buffer, size_t size) {
-	/*
-	if (size < 2) {
-		return false;
-	}
-
-	const uint16_t bom = *((const uint16_t*)buffer);
-	return (bom == 0xFEFF);
-	*/
-	if (size < 2) {
-		return false;
-	}
-	const unsigned char* bytes = reinterpret_cast<const unsigned char*>(buffer);
-	if (bytes[0] == 0x00 && bytes[1] == 0x00) {
-		// UTF-16 sin BOM
-		return true;
-	}
-	if (bytes[0] == 0xFF && bytes[1] == 0xFE) {
-		// UTF-16 LE con BOM
-		return true;
-	}
-	return false;
-}
-
-//bool isUTF16LE(const std::string& filepath) {
-//	std::wifstream file(filepath);
-//	if (!file) {
-//		ELog() << "is utf 16 - Error al abrir el archivo " << filepath << std::endl;
-//		return false;
-//	}
-//	file.imbue(std::locale(file.getloc(),
-//		new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-//	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-//	std::string contents = converter.to_bytes(std::wstring(
-//		std::istreambuf_iterator<wchar_t>(file),
-//		std::istreambuf_iterator<wchar_t>()));
-//	return contents.substr(0, 2) == "\xff\xfe";
-//}
-
-std::string convertir_utf16_a_utf8(const std::wstring& wstr) {
-	std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
-	return conv.to_bytes(wstr);
-}
-
-//std::string convertir_utf16_a_utf8(const std::string& ruta_entrada) {
-//	// Abrir el archivo en modo lectura en formato binario
-//	std::wifstream archivo(ruta_entrada, std::ios::binary);
-//	if (!archivo) {
-//		ELog() <<  "convertir utf16 - Error al abrir el archivo " << ruta_entrada;
-//		return "";
-//	}
-//
-//	// Configurar la codificación de caracteres de entrada
-//	archivo.imbue(std::locale(std::locale(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::little_endian>));
-//
-//	// Leer todo el archivo en un string de wstring
-//	std::wstring wstr((std::istreambuf_iterator<wchar_t>(archivo)), std::istreambuf_iterator<wchar_t>());
-//
-//	// Convertir el string de wstring a un string de utf8
-//	std::wstring_convert<std::codecvt_utf8<wchar_t>> convertidor;
-//	return convertidor.to_bytes(wstr);
-//}
-
 int main(int argc, char *argv[])
 {
+	std::setlocale(LC_ALL, "en_US.UTF-8");
 	macsa::utils::ThreadsMap::instance().AddThread(std::this_thread::get_id(), "Main");
 	MLog() << "Macsa Dot Message tester v" << DOM_TESTER_VERSION;
 	MacsaLogger::SetCurrentLevel(macsa::utils::NLogLevel::kInfo);
@@ -186,19 +111,18 @@ int main(int argc, char *argv[])
 
 	for (const auto& filepath : *files) {
 		auto file = fs.open(filepath);
-
 		std::string data;
-		if (isUTF16LE(file.begin(), file.size())){
-			std::wstring utf16Buffer = (wchar_t*)file.begin();
-			data = convertir_utf16_a_utf8(utf16Buffer);
+		const wchar_t* buff = (const wchar_t*)file.begin();
+		DLog() << "Buff[0]: " << std::hex << *buff << std::dec;
+
+		if (UTFConverter::IsUTF16(file.begin(), file.size())){
+			data = UTFConverter::ConvertFromUtf16ToUtf8(file.begin(), file.size());
 		}
 		else{
 			data = file.begin();
 		}
-//		auto file = fs.open(filepath);
-
 		std::cout << std::endl;
-		MLog() << "Parsing " << filepath << " file";
+		ILog() << "Parsing " << filepath << " file";
 		size_t slash = filepath.find_last_of("/");
 		std::string result = "./results/";
 		std::string filename {(slash != std::string::npos) ? filepath.substr(slash + 1): filepath};
