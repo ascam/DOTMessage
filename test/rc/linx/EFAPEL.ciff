@@ -1,0 +1,327 @@
+﻿<ImageDesign InternalName="" xml:space="default">
+	<Header DesignedWith="CLARiSOFT">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vRUW6NVVIKEV48RpLRb3IDPFIBQXBVKSCESIhVEeP2KQRF2FRD4U4Ii1RqRJqLTp2EEQLgVFTMSpJK_A9!FTSMRj9OT4QAL2yTGm99JIMCKTXTA556j34c0VGNB76NW47sUUS7IlIM_P3c4B_9IfFAvSLg0HHRQ!KMaVJnMVpPA0ULGLAU3NZJGNDVt93dF2KI</ClStVersionInfo>
+	</Header>
+	<SubImage ImageReference="1">
+		<SubHeader FormatName="Default">
+			<ImageWidth>5492</ImageWidth>
+			<ImageHeight>3909</ImageHeight>
+			<MaxImageWidth>5500</MaxImageWidth>
+			<MaxImageHeight>4000</MaxImageHeight>
+			<XRes>0.120000</XRes>
+		</SubHeader>
+		<Field Name="Field00">
+			<FldType>FixedText</FldType>
+			<CLSID>{BB0561B2-C54F-11D4-A995-00010212D541}</CLSID>
+			<X>483</X>
+			<Y>0</Y>
+			<W>2717</W>
+			<H>642</H>
+			<CalcData>
+				<![CDATA[LOGUS 90]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>8</MaxNoOfChars>
+					<Default>
+						<![CDATA[LOGUS 90]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Arial]]>
+					</Face>
+					<Pitch>16</Pitch>
+					<TTSize>1</TTSize>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Field01">
+			<FldType>FixedText</FldType>
+			<CLSID>{BB0561B2-C54F-11D4-A995-00010212D541}</CLSID>
+			<X>483</X>
+			<Y>525</Y>
+			<W>4242</W>
+			<H>975</H>
+			<CalcData>
+				<![CDATA[90051 KBR]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>9</MaxNoOfChars>
+					<Default>
+						<![CDATA[90051 KBR]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Arial]]>
+					</Face>
+					<Pitch>24</Pitch>
+					<XMag>93</XMag>
+					<TTSize>1</TTSize>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Field02">
+			<FldType>Barcode</FldType>
+			<CLSID>{7A4AA4CF-F5CD-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>125</X>
+			<Y>1490</Y>
+			<W>3783</W>
+			<H>1200</H>
+			<CalcData>
+				<![CDATA[5603011540890]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>13</MaxNoOfChars>
+					<Default>
+						<![CDATA[5603011540890]]>
+					</Default>
+				</Object>
+			</Data>
+			<Barcode>
+				<Mag>1010</Mag>
+				<BcH>958</BcH>
+				<HR>
+					<HRDisplayed>1</HRDisplayed>
+					<HRFont>
+						<Face>
+							<![CDATA[OCRB]]>
+						</Face>
+						<Family>DontCare</Family>
+						<Pitch>10</Pitch>
+						<TTSize>0</TTSize>
+					</HRFont>
+				</HR>
+				<CheckDigit>1</CheckDigit>
+				<EAN13>
+					<GuardBars>1</GuardBars>
+				</EAN13>
+			</Barcode>
+		</Field>
+		<Field Name="Field03">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>0</X>
+			<Y>2708</Y>
+			<W>892</W>
+			<H>892</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\cebec.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>86</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\cebec.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>2333</GfxW>
+				<GfxH>2333</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field04">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>933</X>
+			<Y>2941</Y>
+			<W>800</W>
+			<H>475</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\kemapetit.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>90</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\kemapetit.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>558</GfxW>
+				<GfxH>333</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field05">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>1883</X>
+			<Y>2874</Y>
+			<W>825</W>
+			<H>557</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\NFpetit.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>88</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\NFpetit.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>333</GfxW>
+				<GfxH>225</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field06">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>2782</X>
+			<Y>2799</Y>
+			<W>808</W>
+			<H>792</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\DVEpetit.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>89</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\DVEpetit.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>383</GfxW>
+				<GfxH>375</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field07">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>3725</X>
+			<Y>2882</Y>
+			<W>825</W>
+			<H>542</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\CEpetit.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>88</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\CEpetit.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>342</GfxW>
+				<GfxH>225</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field08">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>4692</X>
+			<Y>2900</Y>
+			<W>800</W>
+			<H>542</H>
+			<CalcData>
+				<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\NFpetit.bmp]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>88</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Documents and Settings\jperramon\Mis documentos\Mis imágenes\logosmagneto\NFpetit.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>333</GfxW>
+				<GfxH>225</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field09">
+			<FldType>FixedText</FldType>
+			<CLSID>{BB0561B2-C54F-11D4-A995-00010212D541}</CLSID>
+			<X>58</X>
+			<Y>3642</Y>
+			<W>833</W>
+			<H>267</H>
+			<CalcData>
+				<![CDATA[EFAPEL]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>6</MaxNoOfChars>
+					<Default>
+						<![CDATA[EFAPEL]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Arial]]>
+					</Face>
+					<Pitch>6</Pitch>
+					<TTSize>1</TTSize>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Field10">
+			<FldType>FixedText</FldType>
+			<CLSID>{BB0561B2-C54F-11D4-A995-00010212D541}</CLSID>
+			<X>926</X>
+			<Y>3642</Y>
+			<W>4542</W>
+			<H>267</H>
+			<CalcData>
+				<![CDATA[- Empresa Fabril de Productos Eléctricos, S.A.]]>
+			</CalcData>
+			<Data>
+				<Object Index="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>46</MaxNoOfChars>
+					<Default>
+						<![CDATA[- Empresa Fabril de Productos Eléctricos, S.A.]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Arial]]>
+					</Face>
+					<Pitch>6</Pitch>
+					<TTSize>1</TTSize>
+				</Font>
+			</Text>
+		</Field>
+	</SubImage>
+	<GenericSettings>
+		<ImageMapping>
+			<Map SubIMageRef="1">1</Map>
+		</ImageMapping>
+	</GenericSettings>
+</ImageDesign>
