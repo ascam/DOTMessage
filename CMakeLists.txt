@@ -52,9 +52,11 @@ endif()
 
 ## Add printers generic datamodel ##
 add_subdirectory(${PRINTER_DM_DIR}            ${PROJECT_BINARY_DIR}/printer)
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/src	${PROJECT_BINARY_DIR}/src)
 add_subdirectory(${PROJECT_SOURCE_DIR}/include	${PROJECT_BINARY_DIR}/include)
+## Add utfconverter
+add_subdirectory(${UTILS_DIR}/utfconverter)
+
 
 if (RASTERIZATION)
         set(BACKEND_LIBS)
@@ -93,8 +95,6 @@ set (SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS})
 
-include_directories(${PRINTER_DM_DIR}/include)
-
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 if(WIN32)
@@ -111,10 +111,12 @@ target_include_directories(${PROJECT_NAME}_lib
         PUBLIC
 	        ${CMAKE_CURRENT_SOURCE_DIR}/include
 		${UTILS_DIR}/include
+                ${PRINTER_DM_DIR}/include
 	PRIVATE
-	        ${CMAKE_CURRENT_SOURCE_DIR}/src
+                ${CMAKE_CURRENT_SOURCE_DIR}/src
 		${UTILS_DIR}/tinyxml2/include
-	)
+                ${UTILS_DIR}/utfconverter/include
+	)    
 
 if(NOT BUILD_SHARED_LIBS)
         if (UNIX)
