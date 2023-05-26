@@ -13,6 +13,7 @@ using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
 static constexpr const char* kText = "Text";
+static constexpr uint8_t kVariableFieldsLayer = 1;
 
 TextParser::TextParser(dot::Object *text, LinxParserContext& context) :
 	ObjectParser(),
@@ -91,9 +92,9 @@ bool TextParser::VisitExit(const XMLElement& element)
 	else if (eName == kData){
 		if (_dataParser.get()) {
 			if (_text->IsVariable()) {
-				_text->SetLayer(1);
+				_text->SetLayer(kVariableFieldsLayer);
 				std::string calcData = _text->GetText();
-				if (_text->GetDatasource()->GetType()() == dot::NDataSourceType::kUserInput) {
+				if (_text->GetDatasource()->GetType() == dot::NDataSourceType::kUserInput) {
 					auto* userInput = dynamic_cast<dot::UserInputDataSource*>(_text->GetDatasource());
 					userInput->SetValue(calcData);
 				}
