@@ -2,7 +2,7 @@
 #define MACSA_LINX_OFFSET_DATE_PARSER_HPP
 
 #include "tinyxml2.h"
-#include "offsetDate.hpp"
+#include "offsetdate.hpp"
 
 namespace macsa {
 	namespace linx {

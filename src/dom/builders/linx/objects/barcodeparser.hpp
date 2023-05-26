@@ -4,7 +4,7 @@
 #include <memory>
 #include "dom/barcode.hpp"
 #include "dom/builders/linx/linxparsercontext.hpp"
-#include "dom/builders/linx/offsetDate.hpp"
+#include "dom/builders/linx/offsetdate.hpp"
 #include "objectparser.hpp"
 #include "tinyxml2.h"
 

@@ -1,7 +1,7 @@
 #ifndef MACSA_LINX_DATA_PARSER_HPP
 #define MACSA_LINX_DATA_PARSER_HPP
 
-#include "dom/builders/linx/offsetDate.hpp"
+#include "dom/builders/linx/offsetdate.hpp"
 #include "dom/variableobject.hpp"
 #include "tinyxml2.h"
 #include <string>

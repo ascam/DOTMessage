@@ -2,7 +2,7 @@
 #define MACSA_LINX_DOCUMENT_PARSER_HPP
 
 #include "dom/document.hpp"
-#include "offsetDate.hpp"
+#include "offsetdate.hpp"
 #include "linxparsercontext.hpp"
 #include "tinyxml2.h"
 

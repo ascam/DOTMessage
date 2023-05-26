@@ -8,7 +8,7 @@
 #include "datasources/dataparser.hpp"
 #include "dom/text.hpp"
 #include "dom/builders/linx/linxparsercontext.hpp"
-#include "dom/builders/linx/offsetDate.hpp"
+#include "dom/builders/linx/offsetdate.hpp"
 
 namespace macsa {
 	namespace linx {
