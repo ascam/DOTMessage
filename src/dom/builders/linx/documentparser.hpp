@@ -2,7 +2,6 @@
 #define MACSA_LINX_DOCUMENT_PARSER_HPP
 
 #include "dom/document.hpp"
-#include "offsetdate.hpp"
 #include "linxparsercontext.hpp"
 #include "tinyxml2.h"
 
@@ -28,7 +27,6 @@ namespace macsa {
 				LinxParserContext _context;
 				std::array<uint8_t,3> getDocumentVersion(const std::string& versionAttribute) const;
 				void parseConcreteField(const tinyxml2::XMLElement& element, std::string& fieldName, std::string& fieldType);
-				OffsetDateMap _offsetDateMap;
 		};
 	}
 }

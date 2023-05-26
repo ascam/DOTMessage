@@ -3,9 +3,26 @@
 
 #include "dom/document.hpp"
 #include <string>
+#include <map>
 
 namespace macsa {
 	namespace linx {
+		struct OffsetDate
+		{
+				int day;
+				int month;
+				int year;
+				std::string prompt;
+
+				OffsetDate() :
+					day{},
+					month{},
+					year{},
+					prompt{}
+				{}
+		};
+		using OffsetDateMap = std::map<std::string, OffsetDate>;
+
 		class LinxParserContext
 		{
 			public:
@@ -18,21 +35,14 @@ namespace macsa {
 				void SetUnitsRatio(double ratio);
 				double ConvertUnits(double units);
 				dot::Geometry CheckGeometry(dot::Geometry geometry);
-				//dot::Geometry ConvertGeometry(const dot::Geometry& geometry) {
-
-				//	dot::Geometry convertedGeometry{};
-				//	convertedGeometry.position.x  = ConvertUnits(geometry.position.x);
-				//	convertedGeometry.position.y  = ConvertUnits(geometry.position.y);
-				//	convertedGeometry.size.height = ConvertUnits(geometry.size.height);
-				//	convertedGeometry.size.width  = ConvertUnits(geometry.size.width);
-				//	convertedGeometry.rotation = geometry.rotation;
-				//	return convertedGeometry;
-				//}
+				OffsetDateMap& GetOffsetDateMap();
+				void AddOffsetDate(std::string& name, OffsetDate& offset);
 
 			private:
 				dot::Document& _doc;
-				std::string _units; // Smart enum?
+				std::string _units;
 				double _unitsRatio;
+				OffsetDateMap _offsetDateMap;
 		};
 	}
 }

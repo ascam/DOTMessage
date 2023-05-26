@@ -1,7 +1,7 @@
 #ifndef MACSA_LINX_DATA_PARSER_HPP
 #define MACSA_LINX_DATA_PARSER_HPP
 
-#include "dom/builders/linx/offsetdate.hpp"
+#include "dom/builders/linx/linxparsercontext.hpp"
 #include "dom/variableobject.hpp"
 #include "tinyxml2.h"
 #include <string>
@@ -22,7 +22,7 @@ namespace macsa {
 		class DataParser : public tinyxml2::XMLVisitor
 		{
 			public:
-				DataParser(dot::VariableObject* object, OffsetDateMap& offsetDateMap);
+				DataParser(dot::VariableObject* object, LinxParserContext& context);
 				virtual ~DataParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
@@ -30,7 +30,7 @@ namespace macsa {
 
 			private:
 				dot::VariableObject* _object;
-				OffsetDateMap& _offsetDateMap;
+				LinxParserContext& _context;
 				struct OffsetDate _offsetDate;
 				uint _dataType;
 				uint _maxLength;

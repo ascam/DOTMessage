@@ -4,6 +4,7 @@
 using namespace macsa::dot;
 using macsa::utils::MacsaLogger;
 using macsa::linx::LinxParserContext;
+using macsa::linx::OffsetDateMap;
 
 constexpr const char* kDots = "dots";
 constexpr uint8_t kPrecision = 100;
@@ -13,7 +14,8 @@ constexpr uint16_t k270Degrees = 270;
 LinxParserContext::LinxParserContext(macsa::dot::Document& doc):
 	_doc{doc},
 	_units{"mm"},
-	_unitsRatio{0.12}
+	_unitsRatio{0.12},
+	_offsetDateMap{}
 {}
 
 Document &LinxParserContext::GetDocument() const
@@ -58,4 +60,13 @@ Geometry LinxParserContext::CheckGeometry(dot::Geometry geometry)
 		geometry.size.width  /= kPrecision;
 	}
 	return geometry;
+}
+
+OffsetDateMap& LinxParserContext::GetOffsetDateMap(){
+	return _offsetDateMap;
+}
+
+void LinxParserContext::AddOffsetDate(std::string& name, OffsetDate& offset)
+{
+	_offsetDateMap.emplace(name, offset);
 }

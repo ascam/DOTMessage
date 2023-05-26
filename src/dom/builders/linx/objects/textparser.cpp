@@ -14,16 +14,15 @@ using namespace macsa::utils::stringutils;
 
 static constexpr const char* kText = "Text";
 
-TextParser::TextParser(dot::Object *text, LinxParserContext& context, OffsetDateMap& offsetDateMap) :
+TextParser::TextParser(dot::Object *text, LinxParserContext& context) :
 	ObjectParser(),
 	_context(context),
-	_offsetDateMap{offsetDateMap},
 	_text{dynamic_cast<Text*>(text)},
 	_font{},
 	_textBoxProperties{},
 	_dataParser{}
 {
-	if (!text || !_text) {
+	if (!_text) {
 		std::stringstream message;
 		message << "Unable to parse text field to a ";
 		if (!text) {
@@ -44,8 +43,6 @@ TextParser::TextParser(dot::Object *text, LinxParserContext& context, OffsetDate
 bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
 	if (eName == kField){
 		return true;
 	}
@@ -60,11 +57,11 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 		return false;
 	}
 	if (eName == kCalcData) {
-		_text->SetText(eValue);
+		_text->SetText(ToString(element.GetText()));
 		return false;
 	}
 	else if (eName == kData){
-		_dataParser = std::unique_ptr<DataParser>(new DataParser(_text, _offsetDateMap));
+		_dataParser = std::unique_ptr<DataParser>(new DataParser(_text, _context));
 		element.Accept(_dataParser.get());
 		return false;
 	}

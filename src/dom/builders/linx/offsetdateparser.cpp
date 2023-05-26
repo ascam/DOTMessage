@@ -19,8 +19,8 @@ static constexpr const char* kResetOnSel = "ResetOnSel";
 static constexpr const char* kMinOffset = "MinOffset";
 static constexpr const char* kMaxOffset = "MaxOffset";
 
-OffsetDateParser::OffsetDateParser(OffsetDateMap& offsetDateMap):
-	_offsetDateMap{offsetDateMap}
+OffsetDateParser::OffsetDateParser(LinxParserContext &context):
+	_context{context}
 {}
 
 bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
@@ -53,6 +53,7 @@ bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &eleme
 	}
 	else if (eName == kPrompt) {
 		_offsetDate.prompt = ToString(element.GetText());
+		WLog() << " OFFSET PROMPT : " << _offsetDate.prompt;
 		return false;
 	}
 	else if (eName == kResetOnSel) {
@@ -82,9 +83,9 @@ bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &eleme
 bool macsa::linx::OffsetDateParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kDefaultOffset) {
+	if (eName == kDateOffset) {
 		if (!_offsetName.empty()) {
-			_offsetDateMap.emplace(_offsetName, _offsetDate);
+			_context.AddOffsetDate(_offsetName, _offsetDate);
 		}
 	}
 	return true;

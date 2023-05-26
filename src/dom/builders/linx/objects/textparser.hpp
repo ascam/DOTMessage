@@ -8,14 +8,13 @@
 #include "datasources/dataparser.hpp"
 #include "dom/text.hpp"
 #include "dom/builders/linx/linxparsercontext.hpp"
-#include "dom/builders/linx/offsetdate.hpp"
 
 namespace macsa {
 	namespace linx {
 		class TextParser : public ObjectParser
 		{
 			public:
-				TextParser(dot::Object* text, LinxParserContext& context, OffsetDateMap& offsetDateMap);
+				TextParser(dot::Object* text, LinxParserContext& context);
 				virtual ~TextParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
@@ -23,7 +22,6 @@ namespace macsa {
 
 			private:
 				LinxParserContext& _context;
-				OffsetDateMap& _offsetDateMap;
 				dot::Text* _text;
 				dot::Geometry _geometry;
 				dot::Font _font;

@@ -54,11 +54,10 @@ static constexpr const char* kPDF417= "PDF417";
 // RSS
 static constexpr const char* kRSSExpanded = "RSSExpanded";
 
-BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context, OffsetDateMap& offsetDateMap):
+BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
 	ObjectParser(),
 	_barcode{dynamic_cast<Barcode*>(barcode)},
-	_context{context},
-	_offsetDateMap(offsetDateMap)
+	_context{context}
 {
 	if (!barcode || !_barcode) {
 		std::stringstream message;
@@ -102,7 +101,7 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 		return false;
 	}
 	else if (eName == kData){
-		DataParser dataParser(_barcode, _offsetDateMap);
+		DataParser dataParser(_barcode, _context);
 		element.Accept(&dataParser);
 		return false;
 	}

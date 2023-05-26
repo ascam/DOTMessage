@@ -42,7 +42,6 @@ DocumentParser::DocumentParser(macsa::dot::Document& document) :
 	_doc{document},
 	_context{_doc}
 {
-	_offsetDateMap.clear();
 	dot::ColorsPalette palette;
 	palette.emplace("black", dot::Color("black", 0, 0, 0));
 	palette.emplace("white", dot::Color("white", 255, 255, 255));
@@ -105,7 +104,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 		return false;
 	}
 	else if (eName == kDateOffset) {
-		OffsetDateParser offsetDateParser(_offsetDateMap);
+		OffsetDateParser offsetDateParser(_context);
 		element.Accept(&offsetDateParser);
 		return false;
 	}
@@ -199,7 +198,7 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to add new text object: " << fieldName;
 			return;
 		}
-		TextParser textParser(text, _context, _offsetDateMap);
+		TextParser textParser(text, _context);
 		element.Accept(&textParser);
 	}
 	else if (fieldType == kBarcodeField){
@@ -208,7 +207,7 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to add new barcode object: " << fieldName;
 			return;
 		}
-		BarcodeParser barcodeParser(barcode, _context, _offsetDateMap);
+		BarcodeParser barcodeParser(barcode, _context);
 		element.Accept(&barcodeParser);
 	}
 

@@ -4,7 +4,6 @@
 #include <memory>
 #include "dom/barcode.hpp"
 #include "dom/builders/linx/linxparsercontext.hpp"
-#include "dom/builders/linx/offsetdate.hpp"
 #include "objectparser.hpp"
 #include "tinyxml2.h"
 
@@ -14,7 +13,7 @@ namespace macsa {
 		class BarcodeParser : public ObjectParser
 		{
 			public:
-				BarcodeParser(dot::Object* barcode, LinxParserContext& context, OffsetDateMap& _offsetDateMap);
+				BarcodeParser(dot::Object* barcode, LinxParserContext& context);
 				virtual ~BarcodeParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute) override;
@@ -23,7 +22,6 @@ namespace macsa {
 			private:
 				dot::Barcode* _barcode;
 				LinxParserContext& _context;
-				OffsetDateMap& _offsetDateMap;
 				dot::Geometry _geometry;
 		};
 		class BarcodeInfoParser : public tinyxml2::XMLVisitor

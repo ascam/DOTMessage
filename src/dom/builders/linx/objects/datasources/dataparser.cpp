@@ -38,9 +38,9 @@ using namespace macsa::dot;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-DataParser::DataParser(VariableObject *object, OffsetDateMap& offsetDateMap):
+DataParser::DataParser(VariableObject *object, macsa::linx::LinxParserContext &context):
 	_object{object},
-	_offsetDateMap{offsetDateMap},
+	_context{context},
 	_offsetDate{},
 	_dataType{},
 	_maxLength{},
@@ -52,15 +52,15 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 {
 		std::string eName {ToString(element.Name())};
 		std::string eValue {ToString(element.GetText())};
-		DLog() << eName << " : " << eValue;
-		if (eName == kData){
+
+		if (eName == kData) {
 			return true;
 		}
-		else if (eName == kObject){
+		else if (eName == kObject) {
 			return true;
 		}
-		else if (eName == kDataType){
-			if (_dataType != Composite){
+		else if (eName == kDataType) {
+			if (_dataType != Composite) {
 				_dataType = ToUInt(eValue);
 				if (_dataType == StaticOffsetDateTime) {
 					_object->SetDatasource(dot::NDataSourceType::kUserInput);
@@ -68,39 +68,39 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 			}
 			return false;
 		}
-		else if (eName == kMaxNoOfChars){
+		else if (eName == kMaxNoOfChars) {
 			_maxLength = ToUInt(eValue);
 			return false;
 		}
-		else if (eName == kDefault){
+		else if (eName == kDefault) {
 			_defaultValue = eValue;
 			fillGs1Values(eValue);
 			return false;
 		}
-		else if (eName == kFixedLen){;
+		else if (eName == kFixedLen) {;
 			return false;
 		}
-		else if (eName == kSrcField){
-			if (attribute && ToString(attribute->Name()) == kSrcFieldName){
+		else if (eName == kSrcField) {
+			if (attribute && ToString(attribute->Name()) == kSrcFieldName) {
 				std::string attValue = ToString(attribute->Value());
 				std::stringstream source;
 				source << kFormulaField << attValue << kFormulaSeparator;
 				_formula.append(source.str());
-				if (_isGS1Format){
+				if (_isGS1Format) {
 					_gs1Values.back().second = source.str();
 					_srcItems.emplace_back(attValue, _defaultValue);
 				}
 			}
 			return false;
 		}
-		else if (eName == kLocale){
+		else if (eName == kLocale) {
 			return false;
 		}
-		else if (eName == kOffsetDate){
-			if (attribute && ToString(attribute->Name()) == kSrcOffset){
-				std::string offsetName = attribute->Value();
-				for (auto& offset : _offsetDateMap){
-					if (offset.first == offsetName){
+		else if (eName == kOffsetDate) {
+			if (attribute && ToString(attribute->Name()) == kSrcOffset) {
+				std::string offsetName {ToString(attribute->Value())};
+				for (auto& offset : _context.GetOffsetDateMap()) {
+					if (offset.first == offsetName) {
 						_offsetDate.day = offset.second.day;
 						_offsetDate.month = offset.second.month;
 						_offsetDate.year = offset.second.year;
@@ -138,7 +138,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kData) {
-		if (_isGS1Format){
+		if (_isGS1Format) {
 			getGs1Value();
 		}
 		DLog() << "Default value: " << _defaultValue;
@@ -169,7 +169,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 			case OffsetDate:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kDateTime);
-					if (datasource){
+					if (datasource) {
 						auto* datetime = dynamic_cast<dot::DateTimeDataSource*>(datasource);
 						datetime->SetFormat(checkDateTimeFormat(_defaultValue));
 						datetime->SetDaysOffset(_offsetDate.day);
@@ -184,7 +184,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 			case Counter:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kCounter);
-					if (!datasource){
+					if (!datasource) {
 						DLog() << " has no datasource available";
 					}
 				}
@@ -192,7 +192,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 			case Composite:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kComposite);
-					if (datasource){
+					if (datasource) {
 						auto* composite = dynamic_cast<dot::CompositeDataSource*>(datasource);
 						composite->SetFormula(_formula);
 					}
@@ -209,12 +209,12 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 
 void DataParser::fillGs1Values(std::string value)
 {
-	if (!_isGS1Format && (value == kGs1Char || value == kGs1Char2)){
+	if (!_isGS1Format && (value == kGs1Char || value == kGs1Char2)) {
 		_isGS1Format = true;
 		DLog() << " Code has GS1 Format";
 	}
-	else if (_isGS1Format && value != kGs1Char && value != kGs1Char2){
-		if (!_gs1Values.empty() && _gs1Values.back().second.empty()){
+	else if (_isGS1Format && value != kGs1Char && value != kGs1Char2) {
+		if (!_gs1Values.empty() && _gs1Values.back().second.empty()) {
 			_gs1Values.back().second = value;
 		}
 		else {
@@ -226,10 +226,10 @@ void DataParser::fillGs1Values(std::string value)
 void DataParser::getGs1Value()
 {
 	std::stringstream value;
-	if (_dataType == Composite){
-		for (const auto& gs1Value : _gs1Values){
+	if (_dataType == Composite) {
+		for (const auto& gs1Value : _gs1Values) {
 			value << kFormulaFixed << "\"[" << gs1Value.first << "]\"" << kFormulaSeparator;
-			if (gs1Value.second.find(kFormulaField) != std::string::npos){
+			if (gs1Value.second.find(kFormulaField) != std::string::npos) {
 				value << gs1Value.second;
 			}
 			else{
@@ -239,21 +239,21 @@ void DataParser::getGs1Value()
 		_formula = value.str();
 	}
 	else{
-		for (const auto& gs1Value : _gs1Values){
+		for (const auto& gs1Value : _gs1Values) {
 			value << "[" << gs1Value.first << "]" << gs1Value.second;
 		}
 	}
 	_defaultValue = value.str();
 	_defaultValue = std::regex_replace(_defaultValue, std::regex(kFormulaChars), "");
-	for (const auto &srcItem : _srcItems){
+	for (const auto &srcItem : _srcItems) {
 		_defaultValue = std::regex_replace(_defaultValue, std::regex(srcItem.first), srcItem.second);
 	}
 
 	auto objectType = _object->GetType();
-	if (objectType == NObjectType::kBarcode){
+	if (objectType == NObjectType::kBarcode) {
 		dynamic_cast<Barcode*>(_object)->SetCode(_defaultValue);
 	}
-	else if (objectType == NObjectType::kText){
+	else if (objectType == NObjectType::kText) {
 		dynamic_cast<Text*>(_object)->SetText(_defaultValue);
 	}
 }
