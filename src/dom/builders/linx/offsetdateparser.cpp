@@ -26,46 +26,45 @@ OffsetDateParser::OffsetDateParser(OffsetDateMap& offsetDateMap):
 bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
-	DLog() << eName;
-	if (eName == kDateOffset){
-		while (attribute){
-			std::string attName = attribute->Name();
-			if (attName == kName){
+	if (eName == kDateOffset) {
+		while (attribute) {
+			std::string attName {attribute->Name()};
+			if (attName == kName) {
 				_offsetName = ToString(attribute->Value());
 			}
 			attribute = attribute->Next();
 		}
 		return true;
 	}
-	else if (eName == kDefaultOffset){
+	else if (eName == kDefaultOffset) {
 		return true;
 	}
-	else if (eName == kDay){
+	else if (eName == kDay) {
 		_offsetDate.day = ToInt(element.GetText());
 		return false;
 	}
-	else if (eName == kMonth){
+	else if (eName == kMonth) {
 		_offsetDate.month = ToInt(element.GetText());
 		return false;
 	}
-	else if (eName == kYear){
+	else if (eName == kYear) {
 		_offsetDate.year = ToInt(element.GetText());
 		return false;
 	}
-	else if (eName == kPrompt){
+	else if (eName == kPrompt) {
 		_offsetDate.prompt = ToString(element.GetText());
 		return false;
 	}
-	else if (eName == kResetOnSel){
+	else if (eName == kResetOnSel) {
 		return false;
 	}
-	else if (eName == kCurrentOffset){
+	else if (eName == kCurrentOffset) {
 		return false;
 	}
-	else if (eName == kMinOffset){
+	else if (eName == kMinOffset) {
 		return false;
 	}
-	else if (eName == kMaxOffset){
+	else if (eName == kMaxOffset) {
 		return false;
 	}
 	else {
@@ -83,9 +82,9 @@ bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &eleme
 bool macsa::linx::OffsetDateParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kDefaultOffset){
-		if (!_offsetName.empty()){
-			_offsetDateMap.emplace(std::make_pair(_offsetName,_offsetDate));
+	if (eName == kDefaultOffset) {
+		if (!_offsetName.empty()) {
+			_offsetDateMap.emplace(_offsetName, _offsetDate);
 		}
 	}
 	return true;
