@@ -25,6 +25,7 @@ static constexpr const char* kBearerBars = "BearerBars";
 static constexpr const char* kThickThinRatio = "ThickThinRatio";
 static constexpr float  kDefaultRatio = 2.5;
 static constexpr uint8_t kPrecision = 100;
+static constexpr bool  kDefaultShowHRT = true;
 
 // EAN13
 static constexpr const char* kEAN13 = "EAN13";
@@ -81,14 +82,14 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 {
 	std::string eName {ToString(element.Name())};
 
-	if (eName == kField){
+	if (eName == kField) {
 		return true;
 	}
-	else if (eName == kDisplayed){
-		_barcode->SetPrintable(ToBool(element.GetText()));
+	else if (eName == kDisplayed) {
+		_barcode->SetPrintable(element.BoolText());
 		return false;
 	}
-	else if (parseCommonElements(element)){
+	else if (parseCommonElements(element)) {
 		return false;
 	}
 	else if (parseGeometry(element, _geometry)) {
@@ -98,12 +99,12 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 		_barcode->SetCode(ToString(element.GetText()));
 		return false;
 	}
-	else if (eName == kData){
+	else if (eName == kData) {
 		DataParser dataParser(_barcode, _context);
 		element.Accept(&dataParser);
 		return false;
 	}
-	else if (eName == kBarcode){
+	else if (eName == kBarcode) {
 		BarcodeInfoParser barcodeInfo(_barcode);
 		element.Accept(&barcodeInfo);
 		return false;
@@ -123,9 +124,9 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 bool BarcodeParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kField){
+	if (eName == kField) {
 		_barcode->SetGeometry(_context.ConvertGeometry(_geometry));
-		if (_barcode->IsVariable()){
+		if (_barcode->IsVariable()) {
 			_barcode->SetLayer(1);
 		}
 	}
@@ -139,105 +140,104 @@ macsa::linx::BarcodeInfoParser::BarcodeInfoParser(dot::Barcode *barcode):
 bool macsa::linx::BarcodeInfoParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
+
 	if (eName == kBarcode) {
 		return true;
 	}
-	else if (eName == kMag){
+	else if (eName == kMag) {
 		return false;
 	}
-	else if (eName == kBcH){
+	else if (eName == kBcH) {
 		return false;
 	}
-	else if (eName == kHR){
+	else if (eName == kHR) {
 		return true;
 	}
-	else if (eName == kHRDisplayed){
-		_barcode->SetShowHumanReadableCode(ToBool(eValue));
+	else if (eName == kHRDisplayed) {
+		_barcode->SetShowHumanReadableCode(element.BoolText(kDefaultShowHRT));
 		return true;
 	}
-	else if (eName == kHRFont){
+	else if (eName == kHRFont) {
 		dot::TextBoxProperties prop;
 		FontParser fontParser(_font, prop);
 		element.Accept(&fontParser);
 		return false;
 	}
-	else if (eName == kCheckDigit){
-		_barcode->SetDisplayChecksum(ToBool(eValue));
+	else if (eName == kCheckDigit) {
+		_barcode->SetDisplayChecksum(element.BoolText());
 		return false;
 	}
-	else if (eName == kQuietMargin){
+	else if (eName == kQuietMargin) {
 		return false;
 	}
-	else if(eName == kEAN8){
+	else if(eName == kEAN8) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kEan8);
 		return false;
 	}
-	else if (eName == kEAN13){
+	else if (eName == kEAN13) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kEan13);
 		return false;
 	}
-	else if (eName == kCode39){
+	else if (eName == kCode39) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kCode39);
 		return true;
 	}
-	else if (eName == kEAN128 || eName == kCode128){
+	else if (eName == kEAN128 || eName == kCode128) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kCode128);
 		return true;
 	}
-	else if(eName == kGS1128){
+	else if(eName == kGS1128) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kGS1128);
 		return true;
 	}
-	else if(eName == kUPCA){
+	else if(eName == kUPCA) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kUpcA);
 		return false;
 	}
-	else if(eName == kUPCE){
+	else if(eName == kUPCE) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kUpcA); // NO HAY UPCE
 		return false;
 	}
-	else if(eName == kITF14){
+	else if(eName == kITF14) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kItf14);
 		return true;
 	}
-	else if (eName == kRSSExpanded){
+	else if (eName == kRSSExpanded) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kGS1DataBarExpanded);
 		return false;
 	}
-	else if (eName == kQR){
+	else if (eName == kQR) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kQRCode);
 		return false;
 	}
-	else if(eName == kDataMatrix){
+	else if(eName == kDataMatrix) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kDataMatrix);
 		return false;
 	}
-	else if (eName == kPDF417){
+	else if (eName == kPDF417) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kPdf417);
 		return false;
 	}
-	else if (eName == kMicroPDF417){
+	else if (eName == kMicroPDF417) {
 		_barcode->SetSymbology(dot::NBarcodeSymbol::kMicroPdf417);
 		return false;
 	}
-	else if (eName == kBearerBox){
+	else if (eName == kBearerBox) {
 		_barcode->SetBearerBarStyle(dot::NBearerBarStyle::kFrame);
 		return false;
 	}
-	else if (eName == kBearerBars){
+	else if (eName == kBearerBars) {
 		_barcode->SetBearerBarStyle(dot::NBearerBarStyle::kHorizontalRules);
 		return false;
 	}
-	else if (eName == kThickThinRatio){
+	else if (eName == kThickThinRatio) {
 		_barcode->SetRatio(ToDouble(element.GetText())/kPrecision);
 		return false;
 	}
-	else if (eName == kHRStyle){
+	else if (eName == kHRStyle) {
 		return false;
 	}
-	else if (eName == kHGauge){
+	else if (eName == kHGauge) {
 		return false;
 	}
 	else{
@@ -254,10 +254,10 @@ bool macsa::linx::BarcodeInfoParser::VisitEnter(const tinyxml2::XMLElement &elem
 bool macsa::linx::BarcodeInfoParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kBarcode){
+	if (eName == kBarcode) {
 		_barcode->SetKeepAspectRatio(false);
 	}
-	else if (eName == kHRFont){
+	else if (eName == kHRFont) {
 		_barcode->SetFont(_font);
 	}
 	return true;

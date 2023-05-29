@@ -1,7 +1,6 @@
 #ifndef MACSA_LINX_BARCODE_PARSER_HPP
 #define MACSA_LINX_BARCODE_PARSER_HPP
 
-#include <memory>
 #include "dom/barcode.hpp"
 #include "dom/builders/linx/linxparsercontext.hpp"
 #include "objectparser.hpp"
