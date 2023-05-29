@@ -2,6 +2,7 @@
 #define MACSA_LINX_PARSER_HPP
 
 #include "dom/idocumentbuilder.hpp"
+
 namespace macsa {
 	namespace dot {
 		class LinxParser : public IDocumentBuilder

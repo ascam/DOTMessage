@@ -1,10 +1,9 @@
 #include "dom/builders/linxparser.hpp"
 #include "linx/documentparser.hpp"
-#include <clocale>
+#include <locale>
+#include "utfconverter/utfconverter.hpp"
 #include "utils/macsalogger.hpp"
 #include "tinyxml2.h"
-#include <locale>
-#include <codecvt>
 
 using macsa::dot::LinxParser;
 using macsa::dot::Document;
