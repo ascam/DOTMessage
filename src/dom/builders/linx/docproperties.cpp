@@ -16,12 +16,13 @@ static constexpr const char* kMaxImageWidth = "MaxImageWidth";
 static constexpr const char* kMaxImageHeight = "MaxImageHeight";
 static constexpr const char* kXRes = "XRes";
 static constexpr const char* kCurrentOrientation = "CurrentOrientation";
+static constexpr uint8_t kPrecision = 10;
 
 DocumentPropertiesParser::DocumentPropertiesParser(LinxParserContext& context) :
 	_context{context},
-	_width{0},
-	_height{0},
-	_canvasRotated{false}
+	_width{},
+	_height{},
+	_canvasRotated{}
 {}
 
 DocumentPropertiesParser::~DocumentPropertiesParser()
@@ -30,10 +31,7 @@ DocumentPropertiesParser::~DocumentPropertiesParser()
 bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
-
-	if (eName == kSubHeader){
+	if (eName == kSubHeader) {
 		return true;
 	}
 	else if (eName == kImageWidth) {
@@ -43,21 +41,21 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 		return false;
 	}
 	else if (eName == kImageRotation) {
-		if (attribute && ToString(attribute->Name()) == kEnabled){
-			_canvasRotated = ToBool(attribute->Value()) && ToInt(eValue) > 0;
+		if (attribute && ToString(attribute->Name()) == kEnabled && ToBool(attribute->Value())) {
+			_canvasRotated =  element.IntText() / kPrecision;
 		}
 		return false;
 	}
 	else if (eName == kMaxImageWidth) {
-		_width = ToDouble(eValue);
+		_width = element.DoubleText();
 		return false;
 	}
 	else if (eName == kMaxImageHeight) {
-		_height = ToDouble(eValue);
+		_height = element.DoubleText();
 		return false;
 	}
 	else if (eName == kXRes) {
-		_context.SetUnitsRatio(ToDouble(eValue));
+		_context.SetUnitsRatio(element.DoubleText());
 		return false;
 	}
 	else if (eName == kCurrentOrientation) {
@@ -77,12 +75,10 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 bool DocumentPropertiesParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kSubHeader){
-		if (_canvasRotated){
-			std::swap(_width, _height);
-		}
+	if (eName == kSubHeader) {
 		_context.GetDocument().SetCanvasWidth(_context.ConvertUnits(_width));
 		_context.GetDocument().SetCanvasHeight(_context.ConvertUnits(_height));
+		_context.GetDocument().SetCanvasRotation(_canvasRotated);
 	}
 	return true;
 }

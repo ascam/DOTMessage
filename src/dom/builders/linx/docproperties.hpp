@@ -19,7 +19,7 @@ namespace macsa {
 				LinxParserContext& _context;
 				double _width;
 				double _height;
-				bool _canvasRotated;
+				uint16_t _canvasRotated;
 		};
 	}
 }
