@@ -127,7 +127,7 @@ bool PrimitiveParser::VisitExit(const tinyxml2::XMLElement &element)
 			ELog() << "Unable to add new primitive object - field name: " << _fieldName;
 			return false;
 		}
-		object->SetGeometry(_context.CheckGeometry(_geometry));
+		object->SetGeometry(_context.ConvertGeometry(_geometry));
 	}
 	return true;
 }

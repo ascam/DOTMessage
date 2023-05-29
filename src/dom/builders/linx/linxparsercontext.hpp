@@ -39,7 +39,7 @@ namespace macsa {
 				void SetUnits(const std::string& units);
 				void SetUnitsRatio(double ratio);
 				double ConvertUnits(double units);
-				dot::Geometry CheckGeometry(dot::Geometry geometry);
+				dot::Geometry ConvertGeometry(dot::Geometry geometry);
 				OffsetDateMap& GetOffsetDateMap();
 				void AddOffsetDate(std::string& name, OffsetDate& offset);
 				dot::ColorsPalette& GetColorsPalette();

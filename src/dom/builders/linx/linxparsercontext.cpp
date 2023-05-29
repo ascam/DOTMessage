@@ -46,7 +46,7 @@ double LinxParserContext::ConvertUnits(double units)
 	return convertedUnits;
 }
 
-Geometry LinxParserContext::CheckGeometry(dot::Geometry geometry)
+Geometry LinxParserContext::ConvertGeometry(dot::Geometry geometry)
 {
 	if (geometry.rotation == k90Degrees || geometry.rotation == k270Degrees) {
 		std::swap(geometry.size.width, geometry.size.height);

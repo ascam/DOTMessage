@@ -125,7 +125,7 @@ bool BarcodeParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField){
-		_barcode->SetGeometry(_context.CheckGeometry(_geometry));
+		_barcode->SetGeometry(_context.ConvertGeometry(_geometry));
 		if (_barcode->IsVariable()){
 			_barcode->SetLayer(1);
 		}

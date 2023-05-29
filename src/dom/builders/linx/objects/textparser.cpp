@@ -86,7 +86,7 @@ bool TextParser::VisitExit(const XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField) {
-		_text->SetGeometry(_context.CheckGeometry(_geometry));
+		_text->SetGeometry(_context.ConvertGeometry(_geometry));
 	}
 	else if (eName == kData) {
 		if (_dataParser.get()) {

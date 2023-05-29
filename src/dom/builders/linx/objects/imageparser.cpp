@@ -86,7 +86,7 @@ bool ImageParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField){
-		_image->SetGeometry(_context.CheckGeometry(_geometry));
+		_image->SetGeometry(_context.ConvertGeometry(_geometry));
 	}
 	return true;
 }
