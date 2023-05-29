@@ -21,17 +21,16 @@ static constexpr const char* kFilledBox = "FilledBox";
 static constexpr const char* kOutlineBox = "OutlineBox";
 static constexpr const char* kFilledEllipse = "FilledEllipse";
 static constexpr const char* kOutlineEllipse = "OutlineEllipse";
-static constexpr const char* kBlack = "black";
 static constexpr const float kDotsPerInch = 0.12;
 
 PrimitiveParser::PrimitiveParser(LinxParserContext& context, std::string &fieldName):
 	ObjectParser{},
 	_context{context},
 	_fieldName{fieldName},
-	_displayed{true},
 	_geometry{},
+	_rotation{0},
 	_filled{false},
-	_rotation{0}
+	_displayed{true}
 {}
 
 bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)

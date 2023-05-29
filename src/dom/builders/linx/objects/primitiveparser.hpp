@@ -20,12 +20,12 @@ namespace macsa {
 			private:
 				LinxParserContext& _context;
 				std::string& _fieldName;
-				bool _displayed;
 				dot::Geometry _geometry;
 				dot::NObjectType _objectType;
 				dot::Pen _pen;
-				bool _filled;
 				int _rotation;
+				bool _filled;
+				bool _displayed;
 		};
 	}
 }
