@@ -29,7 +29,6 @@ option(STANDALONE "Build as standalone executable" OFF)
 set(SOURCES)
 set(HEADERS)
 
-add_subdirectory(${UTILS_DIR}/utfconverter ${CMAKE_BINARY_DIR}/utfconverter)
 set(SOURCES ${SOURCES}
     ${UTILS_DIR}/macsalogger/macsalogger.cpp
     ${UTILS_DIR}/threadsmap/threadsmap.cpp

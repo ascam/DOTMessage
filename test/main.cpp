@@ -26,7 +26,7 @@
 // Utils
 #include "utils/macsalogger.hpp"
 #include "utils/chronometer.hpp"
-#include "utfconverter/utfconverter.hpp"
+
 
 CMRC_DECLARE(dot);
 
@@ -35,7 +35,6 @@ CMRC_DECLARE(dot);
 using namespace macsa::dot;
 using macsa::utils::MacsaLogger;
 using macsa::utils::Chronometer;
-using macsa::utils::UTFConverter;
 
 //constexpr const int kCurrentMessage = 1;
 const std::vector<std::string> kNisxTestFiles {
@@ -111,17 +110,7 @@ int main(int argc, char *argv[])
 
 	for (const auto& filepath : *files) {
 		auto file = fs.open(filepath);
-		std::string data;
-		const wchar_t* buff = (const wchar_t*)file.begin();
-		DLog() << "Buff[0]: " << std::hex << *buff << std::dec;
 
-		if (UTFConverter::IsUTF16(file.begin(), file.size())){
-			data = UTFConverter::ConvertFromUtf16ToUtf8(file.begin(), file.size());
-		}
-		else{
-			data = file.begin();
-		}
-		std::cout << std::endl;
 		ILog() << "Parsing " << filepath << " file";
 		size_t slash = filepath.find_last_of("/");
 		std::string result = "./results/";
@@ -134,7 +123,7 @@ int main(int argc, char *argv[])
 		maxLength = std::max(maxLength, filename.size());
 		{
 			Chronometer chrono;
-			if (!builder->BuildFromData(data.c_str(), data.size(), doc)) {
+			if (!builder->BuildFromData(file.begin(), file.size(), doc)) {
 				ELog() << "Parser return failure when parsing message file";
 			}
 			else {
