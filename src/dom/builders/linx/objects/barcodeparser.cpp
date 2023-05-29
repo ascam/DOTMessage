@@ -59,7 +59,7 @@ BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
 	_barcode{dynamic_cast<Barcode*>(barcode)},
 	_context{context}
 {
-	if (!barcode || !_barcode) {
+	if (!_barcode) {
 		std::stringstream message;
 		message << "Unable to parse text field to a ";
 		if (!barcode) {
@@ -80,8 +80,7 @@ BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
 bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
+
 	if (eName == kField){
 		return true;
 	}
@@ -96,7 +95,7 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 		return false;
 	}
 	else if (eName == kCalcData) {
-		_barcode->SetCode(eValue);
+		_barcode->SetCode(ToString(element.GetText()));
 		return false;
 	}
 	else if (eName == kData){
