@@ -6,16 +6,20 @@ using macsa::utils::MacsaLogger;
 using macsa::linx::LinxParserContext;
 using macsa::linx::OffsetDateMap;
 
-constexpr const char* kDots = "dots";
-constexpr uint8_t kPrecision = 100;
-constexpr uint8_t k90Degrees = 90;
-constexpr uint16_t k270Degrees = 270;
+static constexpr const char* kDots = "dots";
+static constexpr uint8_t kPrecision = 100;
+static constexpr uint8_t k90Degrees = 90;
+static constexpr uint16_t k270Degrees = 270;
+static constexpr double kDefaultUnitsRatio = 0.12;
 
 LinxParserContext::LinxParserContext(macsa::dot::Document& doc):
 	_doc{doc},
 	_units{"mm"},
-	_unitsRatio{0.12},
-	_offsetDateMap{}
+	_unitsRatio{kDefaultUnitsRatio},
+	_offsetDateMap{},
+	_colorsPalette{{kBlack, dot::Color(kBlack, 0, 0, 0)},
+				   {kWhite, dot::Color(kWhite, 255, 255, 255)},
+				   {kTransparent, dot::Color(kTransparent, 255, 255, 255, 0)}}
 {}
 
 Document &LinxParserContext::GetDocument() const
@@ -62,11 +66,17 @@ Geometry LinxParserContext::CheckGeometry(dot::Geometry geometry)
 	return geometry;
 }
 
-OffsetDateMap& LinxParserContext::GetOffsetDateMap(){
+OffsetDateMap& LinxParserContext::GetOffsetDateMap()
+{
 	return _offsetDateMap;
 }
 
 void LinxParserContext::AddOffsetDate(std::string& name, OffsetDate& offset)
 {
 	_offsetDateMap.emplace(name, offset);
+}
+
+ColorsPalette &LinxParserContext::GetColorsPalette()
+{
+	return _colorsPalette;
 }

@@ -71,9 +71,8 @@ BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
 		throw (std::invalid_argument(message.str()));
 	}
 	else{
-		dot::ColorsPalette palette = _context.GetDocument().GetColorsPalette();
-		_barcode->SetBackgroundColor(palette.at("transparent"));
-		_barcode->SetForegroundColor(palette.at("black"));
+		_barcode->SetBackgroundColor(_context.GetColorsPalette().at(kTransparent));
+		_barcode->SetForegroundColor(_context.GetColorsPalette().at(kBlack));
 		_barcode->SetRatio(kDefaultRatio);
 	}
 }

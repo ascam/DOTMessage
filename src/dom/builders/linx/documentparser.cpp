@@ -42,11 +42,7 @@ DocumentParser::DocumentParser(macsa::dot::Document& document) :
 	_doc{document},
 	_context{_doc}
 {
-	dot::ColorsPalette palette;
-	palette.emplace("black", dot::Color("black", 0, 0, 0));
-	palette.emplace("white", dot::Color("white", 255, 255, 255));
-	palette.emplace("transparent", dot::Color("transparent", 255, 255, 255, 0));
-	_doc.SetColorsPalette(palette);
+	_doc.SetColorsPalette(_context.GetColorsPalette());
 	_doc.SetUnits(kMillimeters);
 }
 

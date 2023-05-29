@@ -7,6 +7,11 @@
 
 namespace macsa {
 	namespace linx {
+
+		static constexpr const char* kBlack = "Black";
+		static constexpr const char* kWhite = "White";
+		static constexpr const char* kTransparent = "Transparent";
+
 		struct OffsetDate
 		{
 				int day;
@@ -37,12 +42,14 @@ namespace macsa {
 				dot::Geometry CheckGeometry(dot::Geometry geometry);
 				OffsetDateMap& GetOffsetDateMap();
 				void AddOffsetDate(std::string& name, OffsetDate& offset);
+				dot::ColorsPalette& GetColorsPalette();
 
 			private:
 				dot::Document& _doc;
 				std::string _units;
 				double _unitsRatio;
 				OffsetDateMap _offsetDateMap;
+				dot::ColorsPalette _colorsPalette;
 		};
 	}
 }

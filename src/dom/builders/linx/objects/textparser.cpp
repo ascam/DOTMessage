@@ -35,9 +35,8 @@ TextParser::TextParser(dot::Object *text, LinxParserContext& context) :
 		throw (std::invalid_argument(message.str()));
 	}
 	else{
-		dot::ColorsPalette palette = _context.GetDocument().GetColorsPalette();
-		_text->SetBackgroundColor(palette.at("transparent"));
-		_text->SetForegroundColor(palette.at("black"));
+		_text->SetBackgroundColor(_context.GetColorsPalette().at(kTransparent));
+		_text->SetForegroundColor(_context.GetColorsPalette().at(kBlack));
 	}
 }
 
