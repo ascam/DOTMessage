@@ -192,8 +192,13 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 		}
 	}
 	else if (fieldType == kPrimitiveField) {
-		PrimitiveParser primitiveParser(_context, fieldName);
-		element.Accept(&primitiveParser);
+		try {
+			PrimitiveParser primitiveParser(_context, fieldName);
+			element.Accept(&primitiveParser);
+		}
+		catch (const std::exception& exc) {
+			ELog() << "Unable to create a PrimitiveParser" << exc.what();
+		}
 	}
 	else if (fieldType == kMergeField) {
 		WLog() << " FieldType 'MergeField' is not supported. (line" << element.GetLineNum() << ")";
