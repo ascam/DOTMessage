@@ -55,7 +55,7 @@ bool ObjectParser::parseGeometry(const tinyxml2::XMLElement &element, dot::Geome
 		found  = true;
 		geometry.size.height = element.DoubleText();
 	}
-	else if (eName == kOrientation){
+	else if (eName == kOrientation) {
 		found  = true;
 		geometry.rotation = element.IntText();
 	}
