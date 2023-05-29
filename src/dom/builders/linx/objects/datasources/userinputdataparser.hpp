@@ -19,7 +19,7 @@ namespace macsa {
 				dot::VariableObject* _object;
 				dot::UserInputDataSource* _userInput;
 
-				dot::DataTypeMode getMask(const std::string & mask);
+				dot::DataTypeMode getInputMask(const std::string & mask);
 		};
 	}
 }

@@ -20,26 +20,26 @@ UserInputDataParser::UserInputDataParser(dot::VariableObject *obj):
 
 bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *firstAttribute)
 {
-	if (_userInput){
+	if (_userInput) {
 		std::string eName {ToString(element.Name())};
-		std::string eValue {ToString(element.GetText())};
-		if (eName == kVarText){
-			DLog() << eName;
+
+		if (eName == kVarText) {
+			return true;
 		}
-		else if (eName == kPrompt){
-			DLog() << eName << " : " << eValue;
-			_userInput->SetPrompt(eValue);
+		else if (eName == kPrompt) {
+			_userInput->SetPrompt(ToString(element.GetText()));
+			return false;
 		}
-		else if (eName == kMask){
-			DLog() << eName << " : " << eValue;
-			_userInput->SetDataTypeMode(getMask(eValue));
+		else if (eName == kMask) {
+			_userInput->SetDataTypeMode(getInputMask(ToString(element.GetText())));
+			return false;
 		}
-		else if (eName == kUserEnterData){
-			DLog() << eName << " : " << eValue;
-			_userInput->SetUserText(eValue);
+		else if (eName == kUserEnterData) {
+			_userInput->SetUserText(ToString(element.GetText()));
+			return false;
 		}
-		else if (eName == kResetOnSel){
-			DLog() << eName << " : " << eValue;
+		else if (eName == kResetOnSel) {
+			return false;
 		}
 		else{
 			std::stringstream trace;
@@ -56,15 +56,12 @@ bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement &element, const 
 	return (_userInput != nullptr);
 }
 
-DataTypeMode UserInputDataParser::getMask(const std::string &mask)
+DataTypeMode UserInputDataParser::getInputMask(const std::string &mask)
 {
 	DLog() << "Mask = " << mask;
 	DataTypeMode mode;
-	if (mask == "0-9"){
+	if (mask == "0-9") {
 		mode = NDataTypeMode::kNumeric;
 	}
-//	else if (){ ##TODO alex: crear un userinput de otro tipo
-//
-//	}
 	return mode;
 }
