@@ -39,47 +39,47 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 	std::string eValue {ToString(element.GetText())};
 	DLog() << eName << " : " << eValue;
 
-	if (eName == kField){
+	if (eName == kField) {
 		return true;
 	}
-	else if (eName == kDisplayed){
+	else if (eName == kDisplayed) {
 		_displayed = ToBool(element.GetText());
 		return false;
 	}
-	else if (parseCommonElements(element)){
+	else if (parseCommonElements(element)) {
 		return false;
 	}
 	else if (parseGeometry(element, _geometry)) {
 		return false;
 	}
-	else if (eName == kData){
+	else if (eName == kData) {
 		return false;
 	}
-	else if (eName == kGraphic){
+	else if (eName == kGraphic) {
 		return true;
 	}
-	else if (eName == kGfxW){
+	else if (eName == kGfxW) {
 		return false;
 	}
-	else if (eName == kGfxH){
+	else if (eName == kGfxH) {
 		return false;
 	}
-	else if (eName == kPrimitive){
+	else if (eName == kPrimitive) {
 		return true;
 	}
-	else if (eName == kShape){
-		if (eValue == kFilledBox){
+	else if (eName == kShape) {
+		if (eValue == kFilledBox) {
 			_objectType = dot::NObjectType::kRectangle;
 			_filled = true;
 		}
-		else if (eValue == kOutlineBox){
+		else if (eValue == kOutlineBox) {
 			_objectType = dot::NObjectType::kRectangle;
 		}
-		else if (eValue == kFilledEllipse){
+		else if (eValue == kFilledEllipse) {
 			_objectType = dot::NObjectType::kEllipse;
 			_filled = true;
 		}
-		else if (eValue == kOutlineEllipse){
+		else if (eValue == kOutlineEllipse) {
 			_objectType = dot::NObjectType::kEllipse;
 		}
 		else{
@@ -87,7 +87,7 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 		}
 		return false;
 	}
-	else if(eName == kLineW){
+	else if(eName == kLineW) {
 		int lineWidth = std::round(ToDouble(eValue)*kDotsPerInch);
 		_pen.SetWidth(lineWidth);
 		return false;
@@ -106,12 +106,12 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 bool PrimitiveParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kField){
+	if (eName == kField) {
 		auto* object = _context.GetDocument().AddObject(_fieldName, _objectType);
-		if (object){
+		if (object) {
 			object->SetPrintable(_displayed);
 			auto* primitive = dynamic_cast<dot::Primitive*>(object);
-			if (primitive){
+			if (primitive) {
 				primitive->SetRotation(_rotation);
 				primitive->SetGeometry(_geometry);
 				primitive->SetFilled(_filled);
