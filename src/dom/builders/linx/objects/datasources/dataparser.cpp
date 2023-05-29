@@ -129,7 +129,7 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 			WLog() << trace.str();
 		}
 
-	return (eName == kData);
+	return false;
 }
 
 bool DataParser::VisitExit(const tinyxml2::XMLElement &element)

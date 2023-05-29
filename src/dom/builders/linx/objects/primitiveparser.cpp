@@ -36,14 +36,12 @@ PrimitiveParser::PrimitiveParser(LinxParserContext& context, std::string &fieldN
 bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
 
 	if (eName == kField) {
 		return true;
 	}
 	else if (eName == kDisplayed) {
-		_displayed = ToBool(element.GetText());
+		_displayed = element.BoolText();
 		return false;
 	}
 	else if (parseCommonElements(element)) {
@@ -68,6 +66,7 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 		return true;
 	}
 	else if (eName == kShape) {
+		std::string eValue {ToString(element.GetText())};
 		if (eValue == kFilledBox) {
 			_objectType = dot::NObjectType::kRectangle;
 			_filled = true;
@@ -88,7 +87,7 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 		return false;
 	}
 	else if(eName == kLineW) {
-		int lineWidth = std::round(ToDouble(eValue)*kDotsPerInch);
+		int lineWidth = std::round(element.DoubleText()*kDotsPerInch);
 		_pen.SetWidth(lineWidth);
 		return false;
 	}

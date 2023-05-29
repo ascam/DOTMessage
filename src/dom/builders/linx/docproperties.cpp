@@ -31,6 +31,7 @@ DocumentPropertiesParser::~DocumentPropertiesParser()
 bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
+
 	if (eName == kSubHeader) {
 		return true;
 	}
