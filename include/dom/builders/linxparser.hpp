@@ -15,6 +15,9 @@ namespace macsa {
 
 				bool BuildFromFile(const std::string& filepath, Document& document) override;
 				bool BuildFromData(const char* data, uint length, Document& document) override;
+
+			private:
+				bool buildFromData(const char* data, uint length, Document& document);
 		};
 	}
 }
