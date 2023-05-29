@@ -116,7 +116,7 @@ bool PrimitiveParser::VisitExit(const tinyxml2::XMLElement &element)
 				primitive->SetGeometry(_geometry);
 				primitive->SetFilled(_filled);
 				primitive->SetPen(_pen);
-				primitive->SetBrush(dot::Color(kBlack));
+				primitive->SetBrush(_context.GetColorsPalette().at(kBlack));
 			}
 			else{
 				ELog() << "Primitive object is not avalaible - field name: " << _fieldName;
