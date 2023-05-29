@@ -51,7 +51,6 @@ DataParser::DataParser(VariableObject *object, macsa::linx::LinxParserContext &c
 bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 		std::string eName {ToString(element.Name())};
-		std::string eValue {ToString(element.GetText())};
 
 		if (eName == kData) {
 			return true;
@@ -60,21 +59,21 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 			return true;
 		}
 		else if (eName == kDataType) {
-			if (_dataType != Composite) {
-				_dataType = ToUInt(eValue);
-				if (_dataType == StaticOffsetDateTime) {
+			if (_dataType != LinxDataType::kComposite) {
+				_dataType = static_cast<LinxDataType>(element.IntText());
+				if (_dataType == LinxDataType::kStaticOffsetDateTime) {
 					_object->SetDatasource(dot::NDataSourceType::kUserInput);
 				}
 			}
 			return false;
 		}
 		else if (eName == kMaxNoOfChars) {
-			_maxLength = ToUInt(eValue);
+			_maxLength = element.IntText();
 			return false;
 		}
 		else if (eName == kDefault) {
-			_defaultValue = eValue;
-			fillGs1Values(eValue);
+			_defaultValue = {ToString(element.GetText())};
+			fillGs1Values(_defaultValue);
 			return false;
 		}
 		else if (eName == kFixedLen) {;
@@ -99,14 +98,13 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 		else if (eName == kOffsetDate) {
 			if (attribute && ToString(attribute->Name()) == kSrcOffset) {
 				std::string offsetName {ToString(attribute->Value())};
-				for (auto& offset : _context.GetOffsetDateMap()) {
-					if (offset.first == offsetName) {
-						_offsetDate.day = offset.second.day;
-						_offsetDate.month = offset.second.month;
-						_offsetDate.year = offset.second.year;
-						_offsetDate.prompt = offset.second.prompt;
+				auto offset = _context.GetOffsetDateMap().find(offsetName);
+					if (offset != _context.GetOffsetDateMap().end()) {
+						_offsetDate.day = offset->second.day;
+						_offsetDate.month = offset->second.month;
+						_offsetDate.year = offset->second.year;
+						_offsetDate.prompt = offset->second.prompt;
 					}
-				}
 			}
 			return false;
 		}
@@ -139,17 +137,16 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 	std::string eName {ToString(element.Name())};
 	if (eName == kData) {
 		if (_isGS1Format) {
-			getGs1Value();
+			processGs1Value();
 		}
-		DLog() << "Default value: " << _defaultValue;
 		switch (_dataType) {
-			case FixedOrUserInput:
-			case StaticOffsetDateTime:
+			case LinxDataType::kFixedOrUserInput:
+			case LinxDataType::kStaticOffsetDateTime:
 				{
 					auto* userInput = dynamic_cast<dot::UserInputDataSource*>(_object->GetDatasource());
 					if (userInput) {
 						DLog() << _object->GetId() << " is user input";
-						if (_dataType == StaticOffsetDateTime) {
+						if (_dataType == LinxDataType::kStaticOffsetDateTime) {
 							userInput->SetPrompt(_offsetDate.prompt);
 						}
 						userInput->SetDefaultValue(_defaultValue);
@@ -164,9 +161,9 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 					}
 					break;
 				}
-			case Date:
-			case Time:
-			case OffsetDate:
+			case LinxDataType::kDate:
+			case LinxDataType::kTime:
+			case LinxDataType::kOffsetDate:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kDateTime);
 					if (datasource) {
@@ -181,7 +178,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 					}
 				}
 				break;
-			case Counter:
+			case LinxDataType::kCounter:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kCounter);
 					if (!datasource) {
@@ -189,7 +186,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
 					}
 				}
 				break;
-			case Composite:
+			case LinxDataType::kComposite:
 				{
 					auto* datasource = _object->SetDatasource(NDataSourceType::kComposite);
 					if (datasource) {
@@ -223,10 +220,10 @@ void DataParser::fillGs1Values(std::string value)
 	}
 }
 
-void DataParser::getGs1Value()
+void DataParser::processGs1Value()
 {
 	std::stringstream value;
-	if (_dataType == Composite) {
+	if (_dataType == LinxDataType::kComposite) {
 		for (const auto& gs1Value : _gs1Values) {
 			value << kFormulaFixed << "\"[" << gs1Value.first << "]\"" << kFormulaSeparator;
 			if (gs1Value.second.find(kFormulaField) != std::string::npos) {
@@ -261,8 +258,7 @@ void DataParser::getGs1Value()
 std::string DataParser::checkDateTimeFormat(std::string &datetime)
 {
 	datetime = std::regex_replace(datetime, std::regex("cl:"), "");
-	datetime = std::regex_replace(datetime, std::regex("JJ"), "JJJ");
-	datetime = std::regex_replace(datetime, std::regex("jj"), "JJJ");
+	datetime = std::regex_replace(datetime, std::regex("JJ | jj"), "JJJ");
 	datetime = std::regex_replace(datetime, std::regex("j"), "J");
 	return datetime;
 }

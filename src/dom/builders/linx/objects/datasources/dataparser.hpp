@@ -8,15 +8,15 @@
 
 namespace macsa {
 	namespace linx {
-		enum LinxDataType {
-			FixedOrUserInput = 0,
-			Time = 1,
-			Date = 2,
-			OffsetDate = 3,
-			Counter = 4,
-			Composite = 5,
+		enum class LinxDataType : int {
+			kFixedOrUserInput = 0,
+			kTime = 1,
+			kDate = 2,
+			kOffsetDate = 3,
+			kCounter = 4,
+			kComposite = 5,
 			// 6 ??
-			StaticOffsetDateTime = 7 //userinput with date format
+			kStaticOffsetDateTime = 7 //userinput with date format
 		};
 
 		class DataParser : public tinyxml2::XMLVisitor
@@ -25,24 +25,27 @@ namespace macsa {
 				DataParser(dot::VariableObject* object, LinxParserContext& context);
 				virtual ~DataParser() = default;
 
-				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
+				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute) override;
 				bool VisitExit( const tinyxml2::XMLElement& element) override;
 
 			private:
+				using CompositeElements = std::vector<std::pair<std::string, std::string>>;
+
 				dot::VariableObject* _object;
 				LinxParserContext& _context;
 				struct OffsetDate _offsetDate;
-				uint _dataType;
+				LinxDataType _dataType;
 				uint _maxLength;
 				std::string _defaultValue;
 				std::string _formula;
-				std::vector <std::pair<std::string, std::string>> _srcItems;
+				CompositeElements _srcItems;
+				CompositeElements _gs1Values;
 				bool _isGS1Format;
-				std::vector<std::pair<std::string, std::string>> _gs1Values;
 
 				void fillGs1Values(std::string value);
-				void getGs1Value();
+				void processGs1Value();
 				std::string checkDateTimeFormat(std::string& datetime);
+
 		};
 	}
 }
