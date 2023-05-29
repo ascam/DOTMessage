@@ -26,51 +26,45 @@ CounterDataParser::CounterDataParser(dot::VariableObject* obj):
 
 bool CounterDataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
-	if (_counter){
+	if (_counter) {
 		std::string eName {ToString(element.Name())};
-		std::string eValue {ToString(element.GetText())};
-		DLog() << eName << " : " << eValue;
-		if (eName == kCounterText){
+
+		if (eName == kCounterText) {
 			return true;
 		}
-		else if (eName == kResetOnSel){
+		else if (eName == kResetOnSel) {
 			return false;
 		}
-		else if (eName == kSubCnt){
+		else if (eName == kSubCnt) {
 			return true;
 		}
-		else if (eName == kPrnPerCnt){
+		else if (eName == kPrnPerCnt) {
 			return false;
 		}
-		else if (eName == kNoOfChars){
-			_counter->SetLeadingZeros(ToInt(eValue));
+		else if (eName == kNoOfChars) {
+			_counter->SetLeadingZeros(element.IntText());
 			return false;
 		}
-		else if (eName == kStartVal){
-			_counter->SetMinValue(ToInt(eValue));
+		else if (eName == kStartVal) {
+			_counter->SetMinValue(element.IntText());
 			return false;
 		}
-		else if (eName == kEndVal){
-			_counter->SetMaxValue(ToInt(eValue));
+		else if (eName == kEndVal) {
+			_counter->SetMaxValue(element.IntText());
 			return false;
 		}
-		else if (eName == kCurrVal){
+		else if (eName == kCurrVal) {
 			return false;
 		}
-		else if (eName == kLeadingChars){
+		else if (eName == kLeadingChars) {
 			return false;
 		}
-		else if (eName == kStepSize){
-			std::string eValue = element.GetText();
-			if (StartsWith(eValue, "-")){
-				WLog() << " Counter negative steps are not available. Value: " << eValue;
-			}
-			else{
-				_counter->SetStep(ToInt(Replace(eValue,"+","")));
-			}
+		else if (eName == kStepSize) {
+			std::string eValue = ToString(element.GetText());
+			_counter->SetStep(ToInt(Replace(eValue,"+","")));
 			return false;
 		}
-		else if (eName == kClrStCntType){
+		else if (eName == kClrStCntType) {
 			return false;
 		}
 		else{
