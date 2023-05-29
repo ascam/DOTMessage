@@ -257,8 +257,8 @@ void DataParser::processGs1Value()
 
 std::string DataParser::checkDateTimeFormat(std::string &datetime)
 {
-	datetime = std::regex_replace(datetime, std::regex("cl:"), "");
-	datetime = std::regex_replace(datetime, std::regex("JJ | jj"), "JJJ");
+	datetime = std::regex_replace(datetime, std::regex("cl:|'"), "");
+	datetime = std::regex_replace(datetime, std::regex("JJ|jj"), "JJJ");
 	datetime = std::regex_replace(datetime, std::regex("j"), "J");
 	return datetime;
 }
