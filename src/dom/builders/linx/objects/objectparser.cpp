@@ -24,9 +24,6 @@ ObjectParser::ObjectParser()
 bool ObjectParser::parseCommonElements(const tinyxml2::XMLElement &element) const
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-
-	DLog() << eName << " : " << eValue;
 
 	return (eName == kFldType ||
 			eName == kCLSID	||
@@ -41,28 +38,26 @@ bool ObjectParser::parseGeometry(const tinyxml2::XMLElement &element, dot::Geome
 {
 	bool found = false;
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
 
-	DLog() << eName << " : " << eValue;
 	if (eName == kPosX) {
 		found  = true;
-		geometry.position.x = ToDouble(eValue);
+		geometry.position.x = element.DoubleText();
 	}
 	else if (eName == kPosY) {
 		found  = true;
-		geometry.position.y = ToDouble(eValue);
+		geometry.position.y = element.DoubleText();
 	}
 	else if (eName == kWidth) {
 		found  = true;
-		geometry.size.width = ToDouble(eValue);
+		geometry.size.width = element.DoubleText();
 	}
 	else if (eName == kHeight) {
 		found  = true;
-		geometry.size.height = ToDouble(eValue);
+		geometry.size.height = element.DoubleText();
 	}
 	else if (eName == kOrientation){
 		found  = true;
-		geometry.rotation = ToInt(eValue);
+		geometry.rotation = element.IntText();
 	}
 	return found;
 }
