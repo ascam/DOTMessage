@@ -26,11 +26,13 @@ OffsetDateParser::OffsetDateParser(LinxParserContext &context):
 bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
+
 	if (eName == kDateOffset) {
 		while (attribute) {
 			std::string attName {attribute->Name()};
 			if (attName == kName) {
 				_offsetName = ToString(attribute->Value());
+				break;
 			}
 			attribute = attribute->Next();
 		}
@@ -53,7 +55,6 @@ bool macsa::linx::OffsetDateParser::VisitEnter(const tinyxml2::XMLElement &eleme
 	}
 	else if (eName == kPrompt) {
 		_offsetDate.prompt = ToString(element.GetText());
-		WLog() << " OFFSET PROMPT : " << _offsetDate.prompt;
 		return false;
 	}
 	else if (eName == kResetOnSel) {
