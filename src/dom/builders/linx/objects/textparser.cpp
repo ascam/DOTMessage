@@ -34,7 +34,7 @@ TextParser::TextParser(dot::Object *text, LinxParserContext& context) :
 		}
 		throw (std::invalid_argument(message.str()));
 	}
-	else{
+	else {
 		_text->SetBackgroundColor(_context.GetColorsPalette().at(kTransparent));
 		_text->SetForegroundColor(_context.GetColorsPalette().at(kBlack));
 	}
@@ -43,29 +43,29 @@ TextParser::TextParser(dot::Object *text, LinxParserContext& context) :
 bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kField){
+	if (eName == kField) {
 		return true;
 	}
-	else if (eName == kDisplayed){
+	else if (eName == kDisplayed) {
 		_text->SetPrintable(ToBool(element.GetText()));
 		return false;
 	}
-	else if (parseCommonElements(element)){
+	else if (parseCommonElements(element)) {
 		return false;
 	}
-	else if (parseGeometry(element, _geometry)){
+	else if (parseGeometry(element, _geometry)) {
 		return false;
 	}
 	if (eName == kCalcData) {
 		_text->SetText(ToString(element.GetText()));
 		return false;
 	}
-	else if (eName == kData){
+	else if (eName == kData) {
 		_dataParser = std::unique_ptr<DataParser>(new DataParser(_text, _context));
 		element.Accept(_dataParser.get());
 		return false;
 	}
-	else if (eName == kText){
+	else if (eName == kText) {
 		FontParser fontParser(_font, _textBoxProperties);
 		element.Accept(&fontParser);
 		return false;
@@ -85,10 +85,10 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 bool TextParser::VisitExit(const XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kField){
+	if (eName == kField) {
 		_text->SetGeometry(_context.CheckGeometry(_geometry));
 	}
-	else if (eName == kData){
+	else if (eName == kData) {
 		if (_dataParser.get()) {
 			if (_text->IsVariable()) {
 				_text->SetLayer(kVariableFieldsLayer);
