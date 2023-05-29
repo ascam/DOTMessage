@@ -14,7 +14,6 @@ namespace macsa {
 				virtual ~DocumentParser() = default;
 
 				static std::string GetSupportedLinxVersion();
-
 				virtual bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute);
 
 			private:
