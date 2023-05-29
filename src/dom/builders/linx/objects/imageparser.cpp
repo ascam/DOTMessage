@@ -33,42 +33,31 @@ ImageParser::ImageParser(Object* image, LinxParserContext &context):
 bool ImageParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
 
-	if (eName == kField){
+	if (eName == kField) {
 		return true;
 	}
-	else if (eName == kFldType){
-		return true;
-	}
-	else if (eName == kCLSID){
+	else if (parseCommonElements(element)) {
 		return false;
 	}
 	else if (parseGeometry(element, _geometry)) {
 		return false;
 	}
-	else if (eName == kLn){
-		return false;
-	}
-	else if (eName == kLoggedField){
-		return false;
-	}
 	if (eName == kCalcData) {
+		std::string eValue {ToString(element.GetText())};
 		size_t pos = eValue.find_last_of(kBackSlash);
 		if (pos == std::string::npos) {
 			pos = eValue.find_last_of(kSlash);
 		}
 		pos++;
-
 		eValue.replace(0, pos, kImagesDir);
 		_image->SetFilepath(eValue);
-		return true;
-	}
-	else if (eName == kData){
 		return false;
 	}
-	else if (eName == kGraphic){
+	else if (eName == kData) {
+		return false;
+	}
+	else if (eName == kGraphic) {
 		return false;
 	}
 	else{
@@ -85,7 +74,7 @@ bool ImageParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2
 bool ImageParser::VisitExit(const tinyxml2::XMLElement &element)
 {
 	std::string eName {ToString(element.Name())};
-	if (eName == kField){
+	if (eName == kField) {
 		_image->SetGeometry(_context.ConvertGeometry(_geometry));
 	}
 	return true;
