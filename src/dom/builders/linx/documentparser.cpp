@@ -64,7 +64,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 			std::array<uint8_t, 3> version{};
 			version[0] = static_cast<uint8_t>(attribute->IntValue());
 			_doc.SetVersion(version);
-			if (version[0] > kSupportedVersion){
+			if (version[0] > kSupportedVersion) {
 				WLog() << "Document's version not supported : " << version[0];
 			}
 		}
@@ -74,7 +74,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 		return true;
 	}
 	else if (eName == kHeader) {
-		while (attribute){
+		while (attribute) {
 			std::string eAttName = ToString(attribute->Name());
 			if (eAttName == kDesignedFor) {
 				DLog() << "Document designed for: " << ToString(attribute->Value());
@@ -116,10 +116,10 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 	else if (eName == kField) {
 		std::string attrName {attribute ? ToString(attribute->Name()) : ""};
 		std::string firstChildName {element.FirstChildElement() ? ToString(element.FirstChildElement()->Name()) : ""};
-		if (attrName == kName && firstChildName == kFldType){
+		if (attrName == kName && firstChildName == kFldType) {
 			std::string fieldType {ToString(element.FirstChildElement(kFldType)->GetText())};
 			std::string fieldName {attribute ? ToString(attribute->Value()) : ""};
-			if (fieldName.empty()){
+			if (fieldName.empty()) {
 				fieldName = fieldType;
 				fieldName.append(std::to_string(_doc.GetObjects().size()));
 				WLog() << "Missing field name, new name = " << fieldName;
@@ -149,7 +149,7 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 {
 	DLog() << " FieldName: " << fieldName;
 	DLog() << " FieldType: " << fieldType;
-	if (utils::stringutils::EndsWith(fieldType, kText)){
+	if (utils::stringutils::EndsWith(fieldType, kText)) {
 		auto* text = _doc.AddObject(fieldName, dot::NObjectType::kText);
 		if (!text) {
 			ELog() << "Unable to add new text object: " << fieldName;
@@ -163,9 +163,9 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to create a TextParser" << exc.what();
 		}
 	}
-	else if (fieldType == kBarcodeField){
+	else if (fieldType == kBarcodeField) {
 		auto* barcode = _doc.AddObject(fieldName, dot::NObjectType::kBarcode);
-		if (!barcode){
+		if (!barcode) {
 			ELog() << "Unable to add new barcode object: " << fieldName;
 			return;
 		}
@@ -178,9 +178,9 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 		}
 	}
 
-	else if (fieldType == kImageField){
+	else if (fieldType == kImageField) {
 		auto* image = _doc.AddObject(fieldName, dot::NObjectType::kImage);
-		if (!image){
+		if (!image) {
 			ELog() << "Unable to add new barcode object: " << fieldName;
 		}
 		try {
@@ -191,11 +191,11 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to create a ImageParser" << exc.what();
 		}
 	}
-	else if (fieldType == kPrimitiveField){
+	else if (fieldType == kPrimitiveField) {
 		PrimitiveParser primitiveParser(_context, fieldName);
 		element.Accept(&primitiveParser);
 	}
-	else if (fieldType == kMergeField){
+	else if (fieldType == kMergeField) {
 		WLog() << " FieldType 'MergeField' is not supported. (line" << element.GetLineNum() << ")";
 	}
 	else{
