@@ -56,19 +56,16 @@ std::string DocumentParser::GetSupportedLinxVersion()
 bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eAttName;
-	if (attribute){
-		eAttName = ToString(attribute->Name());
-	}
 
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 
 	if (eName == kImageDesign) {
-		if (eAttName == kVersion) {
-			std::string version {ToString(attribute->Value())};
-			_doc.SetVersion(getDocumentVersion(version));
-			if (utils::stringutils::ToInt(version) > kSupportedVersion){
-				WLog() << "Document version not supported : " << version;
+		if (attribute && ToString(attribute->Name()) == kVersion) {
+			std::array<uint8_t, 3> version{};
+			version[0] = static_cast<uint8_t>(attribute->IntValue());
+			_doc.SetVersion(version);
+			if (version[0] > kSupportedVersion){
+				WLog() << "Document's version not supported : " << version[0];
 			}
 		}
 		else {
@@ -76,25 +73,26 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 		}
 		return true;
 	}
-	else if (eName == kHeader){
+	else if (eName == kHeader) {
 		while (attribute){
-			if (eAttName == kDesignedFor){
+			std::string eAttName = ToString(attribute->Name());
+			if (eAttName == kDesignedFor) {
 				DLog() << "Document designed for: " << ToString(attribute->Value());
 			}
-			else if (eAttName == kDesignedWith){
-				DLog() << "Document designed for: " << ToString(attribute->Value());
+			else if (eAttName == kDesignedWith) {
+				DLog() << "Document designed with: " << ToString(attribute->Value());
 			}
 			attribute = attribute->Next();
 		}
 		return true;
 	}
-	else if (eName == kClStVersionInfo){
+	else if (eName == kClStVersionInfo) {
 		return false;
 	}
-	else if (eName == kLastDownloaded){
+	else if (eName == kLastDownloaded) {
 		return false;
 	}
-	else if (eName == kUnits){
+	else if (eName == kUnits) {
 		std::string eUnits = ToString(element.GetText());
 		_context.SetUnits(ToLower(eUnits));
 		return false;
@@ -116,15 +114,16 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 		return false;
 	}
 	else if (eName == kField) {
-		std::string attrName = ToString(element.FirstAttribute()->Name());
-		std::string firstChildName = element.FirstAttribute() ? ToString(element.FirstChildElement()->Name()) : "";
+		std::string attrName {attribute ? ToString(attribute->Name()) : ""};
+		std::string firstChildName {element.FirstChildElement() ? ToString(element.FirstChildElement()->Name()) : ""};
 		if (attrName == kName && firstChildName == kFldType){
-			std::string fieldName {ToString(element.FirstAttribute()->Value())};
+			std::string fieldType {ToString(element.FirstChildElement(kFldType)->GetText())};
+			std::string fieldName {attribute ? ToString(attribute->Value()) : ""};
 			if (fieldName.empty()){
+				fieldName = fieldType;
 				fieldName.append(std::to_string(_doc.GetObjects().size()));
 				WLog() << "Missing field name, new name = " << fieldName;
 			}
-			std::string fieldType {ToString(element.FirstChildElement(kFldType)->GetText())};
 			parseConcreteField(element, fieldName, fieldType);
 		}
 		else{
@@ -143,45 +142,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 		}
 		WLog() << trace.str();
 	}
-	return true; //Continue parsing
-}
-
-bool DocumentParser::Visit(const tinyxml2::XMLDeclaration& declaration)
-{
-	DLog() << "XMLDeclaration (line " << declaration.GetLineNum() << "): "
-		   << macsa::utils::ColorLog::kLightGreen << declaration.Value()
-		   << macsa::utils::ColorLog::kNoColor;
 	return true;
-}
-
-bool DocumentParser::Visit(const tinyxml2::XMLText& text)
-{
-	ILog() << "text element line: " << text.GetLineNum() << " - " << text.Value();
-	return true;
-}
-
-bool DocumentParser::Visit(const tinyxml2::XMLComment& comment)
-{
-	DLog() << "XMLComment line: " << comment.GetLineNum();
-	return true;
-}
-
-bool DocumentParser::Visit(const tinyxml2::XMLUnknown& unknown)
-{
-	ELog() << "XMLUnknown line: " << unknown.GetLineNum();
-	return true;
-}
-
-std::array<uint8_t,3> DocumentParser::getDocumentVersion(const std::string &versionAttribute) const
-{
-	std::array<uint8_t,3> docVersion{};
-	auto version = Split(versionAttribute, ".");
-	for (uint index = 0; index < 3; index++) {
-		if (version.size() > index) {
-			docVersion[index] = static_cast<uint8_t>(ToInt(version.at(index)));
-		}
-	}
-	return docVersion;
 }
 
 void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std::string& fieldName, std::string &fieldType)
@@ -194,8 +155,13 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to add new text object: " << fieldName;
 			return;
 		}
-		TextParser textParser(text, _context);
-		element.Accept(&textParser);
+		try {
+			TextParser textParser(text, _context);
+			element.Accept(&textParser);
+		}
+		catch(const std::exception& exc) {
+			ELog() << "Unable to create a TextParser" << exc.what();
+		}
 	}
 	else if (fieldType == kBarcodeField){
 		auto* barcode = _doc.AddObject(fieldName, dot::NObjectType::kBarcode);
@@ -203,8 +169,13 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to add new barcode object: " << fieldName;
 			return;
 		}
-		BarcodeParser barcodeParser(barcode, _context);
-		element.Accept(&barcodeParser);
+		try {
+			BarcodeParser barcodeParser(barcode, _context);
+			element.Accept(&barcodeParser);
+		}
+		catch(const std::exception& exc) {
+			ELog() << "Unable to create a BarcodeParser" << exc.what();
+		}
 	}
 
 	else if (fieldType == kImageField){
@@ -212,8 +183,13 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 		if (!image){
 			ELog() << "Unable to add new barcode object: " << fieldName;
 		}
-		ImageParser imageParser(image, _context);
-		element.Accept(&imageParser);
+		try {
+			ImageParser imageParser(image, _context);
+			element.Accept(&imageParser);
+		}
+		catch(const std::exception& exc) {
+			ELog() << "Unable to create a ImageParser" << exc.what();
+		}
 	}
 	else if (fieldType == kPrimitiveField){
 		PrimitiveParser primitiveParser(_context, fieldName);
