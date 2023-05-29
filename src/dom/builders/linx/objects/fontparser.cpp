@@ -20,9 +20,9 @@ constexpr const char* kTxtDir = "TxtDir";
 constexpr const char* kXMag = "XMag";
 constexpr const char* kPitchResolution = "PitchResolution";
 constexpr const char* kBold = "Bold";
-constexpr const char* kItalic = "Italic"; //Verificar
-constexpr const char* kUnderline = "Underline"; //Verificar
-constexpr const char* kStrikeout = "Strikeout"; //Verificar
+constexpr const char* kItalic = "Italic";
+constexpr const char* kUnderline = "Underline";
+constexpr const char* kStrikeout = "Strikeout";
 constexpr const char* kBlock = "Block";
 
 FontParser::FontParser(Font& font, dot::TextBoxProperties& textBoxProperties) :
@@ -33,52 +33,51 @@ FontParser::FontParser(Font& font, dot::TextBoxProperties& textBoxProperties) :
 bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
 {
 	std::string eName {ToString(element.Name())};
-	std::string eValue {ToString(element.GetText())};
-	DLog() << eName << " : " << eValue;
-	if (eName == kText || eName == kHRFont){
+
+	if (eName == kText || eName == kHRFont) {
 		return true;
 	}
-	else if (eName == kFont){
+	else if (eName == kFont) {
 		return true;
 	}
-	else if (eName == kFace || eName == kFamily){
-		_font.family = eValue;
+	else if (eName == kFace || eName == kFamily) {
+		_font.family = ToString(element.GetText());
 		return true;
 	}
-	else if (eName == kPitch){
-		_font.size = ToInt(eValue);
+	else if (eName == kPitch) {
+		_font.size = element.IntText();
 		return true;
 	}
-	else if (eName == kPitchResolution){
-		uint8_t pitchRes = ToUInt(eValue);
-		if (pitchRes){
+	else if (eName == kPitchResolution) {
+		int pitchRes = element.IntText();
+		if (pitchRes) {
 			_font.size /= pitchRes;
 		}
 		return false;
 	}
-	else if (eName == kTTSize){
+	else if (eName == kTTSize) {
 		return false;
 	}
-	else if (eName == kTxtDir){
+	else if (eName == kTxtDir) {
 		return false;
 	}
-	else if (eName == kXMag){
+	else if (eName == kXMag) {
 		return false;
 	}
 	else if (eName == kBold) {
-		_font.bold = ToBool(eValue);
+		_font.bold = element.BoolText();
 		return false;
 	}
 	else if (eName == kItalic) {
-		_font.italic = ToBool(eValue);
+		_font.italic = element.BoolText();
 		return false;
 	}
 	else if (eName == kUnderline) {
-		_font.underline = ToBool(eValue);
+		_font.underline = element.BoolText();
 		return false;
 	}
 	else if (eName == kStrikeout) {
-		_font.strikeout = ToBool(eValue);
+		_font.strikeout = element.BoolText();
 		return false;
 	}
 	else if (eName == kBlock) {
