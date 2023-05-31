@@ -55,7 +55,7 @@ static constexpr const char* kPDF417= "PDF417";
 // RSS
 static constexpr const char* kRSSExpanded = "RSSExpanded";
 
-BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
+BarcodeParser::BarcodeParser(Object* barcode, LinxParserContext& context):
 	ObjectParser(),
 	_barcode{dynamic_cast<Barcode*>(barcode)},
 	_context{context}
@@ -78,7 +78,7 @@ BarcodeParser::BarcodeParser(Object *barcode, LinxParserContext &context):
 	}
 }
 
-bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
 
@@ -121,7 +121,7 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxm
 	return (eName == kField);
 }
 
-bool BarcodeParser::VisitExit(const tinyxml2::XMLElement &element)
+bool BarcodeParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField) {
@@ -133,11 +133,11 @@ bool BarcodeParser::VisitExit(const tinyxml2::XMLElement &element)
 	return true;
 }
 
-macsa::linx::BarcodeInfoParser::BarcodeInfoParser(dot::Barcode *barcode):
+macsa::linx::BarcodeInfoParser::BarcodeInfoParser(dot::Barcode* barcode):
 	_barcode{barcode}
 {}
 
-bool macsa::linx::BarcodeInfoParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool macsa::linx::BarcodeInfoParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
 
@@ -251,7 +251,7 @@ bool macsa::linx::BarcodeInfoParser::VisitEnter(const tinyxml2::XMLElement &elem
 	return (eName == kBarcode);
 }
 
-bool macsa::linx::BarcodeInfoParser::VisitExit(const tinyxml2::XMLElement &element)
+bool macsa::linx::BarcodeInfoParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kBarcode) {

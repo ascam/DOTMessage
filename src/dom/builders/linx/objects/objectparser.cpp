@@ -21,7 +21,7 @@ static constexpr const char* kOrientation = "Orientation";
 ObjectParser::ObjectParser()
 {}
 
-bool ObjectParser::parseCommonElements(const tinyxml2::XMLElement &element) const
+bool ObjectParser::parseCommonElements(const tinyxml2::XMLElement& element) const
 {
 	std::string eName {ToString(element.Name())};
 
@@ -34,7 +34,7 @@ bool ObjectParser::parseCommonElements(const tinyxml2::XMLElement &element) cons
 			eName == kOverrideThis;
 }
 
-bool ObjectParser::parseGeometry(const tinyxml2::XMLElement &element, dot::Geometry& geometry) const
+bool ObjectParser::parseGeometry(const tinyxml2::XMLElement& element, dot::Geometry& geometry) const
 {
 	bool found = false;
 	std::string eName {ToString(element.Name())};

@@ -73,7 +73,7 @@ bool DocumentPropertiesParser::VisitEnter(const tinyxml2::XMLElement& element, c
 	return (eName == kSubHeader);
 }
 
-bool DocumentPropertiesParser::VisitExit(const tinyxml2::XMLElement &element)
+bool DocumentPropertiesParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kSubHeader) {

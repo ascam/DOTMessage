@@ -23,7 +23,7 @@ static constexpr const char* kFilledEllipse = "FilledEllipse";
 static constexpr const char* kOutlineEllipse = "OutlineEllipse";
 static constexpr const float kDotsPerInch = 0.12;
 
-PrimitiveParser::PrimitiveParser(LinxParserContext& context, const std::string &fieldName):
+PrimitiveParser::PrimitiveParser(LinxParserContext& context, const std::string& fieldName):
 	ObjectParser{},
 	_context{context},
 	_fieldName{fieldName},
@@ -33,7 +33,7 @@ PrimitiveParser::PrimitiveParser(LinxParserContext& context, const std::string &
 	_displayed{true}
 {}
 
-bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
 
@@ -102,7 +102,7 @@ bool PrimitiveParser::VisitEnter(const tinyxml2::XMLElement &element, const tiny
 	return (eName == kField);
 }
 
-bool PrimitiveParser::VisitExit(const tinyxml2::XMLElement &element)
+bool PrimitiveParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField) {

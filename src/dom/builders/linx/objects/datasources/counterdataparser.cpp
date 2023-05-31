@@ -24,7 +24,7 @@ CounterDataParser::CounterDataParser(dot::VariableObject* obj):
 	_counter{dynamic_cast<dot::CounterDataSource*>(_object->GetDatasource())}
 {}
 
-bool CounterDataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool CounterDataParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	if (_counter) {
 		std::string eName {ToString(element.Name())};

@@ -13,7 +13,7 @@ static constexpr const char* kImagesDir = "/images/";
 static constexpr const char* kBackSlash = "\\";
 static constexpr const char* kSlash = "/";
 
-ImageParser::ImageParser(Object* image, LinxParserContext &context):
+ImageParser::ImageParser(Object* image, LinxParserContext& context):
 	_image{dynamic_cast<Image*>(image)},
 	_context{context}
 {
@@ -30,7 +30,7 @@ ImageParser::ImageParser(Object* image, LinxParserContext &context):
 	}
 }
 
-bool ImageParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool ImageParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
 
@@ -71,7 +71,7 @@ bool ImageParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2
 	return (eName == kField);
 }
 
-bool ImageParser::VisitExit(const tinyxml2::XMLElement &element)
+bool ImageParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kField) {

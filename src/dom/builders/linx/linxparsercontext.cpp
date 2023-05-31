@@ -22,12 +22,12 @@ LinxParserContext::LinxParserContext(macsa::dot::Document& doc):
 				   {kTransparent, dot::Color(kTransparent, 255, 255, 255, 0)}}
 {}
 
-Document &LinxParserContext::GetDocument() const
+Document& LinxParserContext::GetDocument() const
 {
 	return _doc;
 }
 
-void LinxParserContext::SetUnits(const std::string &units)
+void LinxParserContext::SetUnits(const std::string& units)
 {
 	_units = units;
 }
@@ -76,7 +76,7 @@ void LinxParserContext::AddOffsetDate(std::string& name, OffsetDate& offset)
 	_offsetDateMap.emplace(name, offset);
 }
 
-ColorsPalette &LinxParserContext::GetColorsPalette()
+ColorsPalette& LinxParserContext::GetColorsPalette()
 {
 	return _colorsPalette;
 }

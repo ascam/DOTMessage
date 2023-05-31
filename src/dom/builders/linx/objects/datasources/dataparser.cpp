@@ -38,7 +38,7 @@ using namespace macsa::dot;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-DataParser::DataParser(VariableObject *object, macsa::linx::LinxParserContext &context):
+DataParser::DataParser(VariableObject* object, macsa::linx::LinxParserContext& context):
 	_object{object},
 	_context{context},
 	_offsetDate{},
@@ -48,7 +48,7 @@ DataParser::DataParser(VariableObject *object, macsa::linx::LinxParserContext &c
 	_isGS1Format{false}
 {}
 
-bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *attribute)
+bool DataParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 		std::string eName {ToString(element.Name())};
 
@@ -132,7 +132,7 @@ bool DataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2:
 	return false;
 }
 
-bool DataParser::VisitExit(const tinyxml2::XMLElement &element)
+bool DataParser::VisitExit(const tinyxml2::XMLElement& element)
 {
 	std::string eName {ToString(element.Name())};
 	if (eName == kData) {
@@ -242,7 +242,7 @@ void DataParser::processGs1Value()
 	}
 	_defaultValue = value.str();
 	_defaultValue = std::regex_replace(_defaultValue, std::regex(kFormulaChars), "");
-	for (const auto &srcItem : _srcItems) {
+	for (const auto& srcItem : _srcItems) {
 		_defaultValue = std::regex_replace(_defaultValue, std::regex(srcItem.first), srcItem.second);
 	}
 
@@ -255,7 +255,7 @@ void DataParser::processGs1Value()
 	}
 }
 
-std::string DataParser::checkDateTimeFormat(std::string &datetime)
+std::string DataParser::checkDateTimeFormat(std::string& datetime)
 {
 	datetime = std::regex_replace(datetime, std::regex("cl:|'"), "");
 	datetime = std::regex_replace(datetime, std::regex("JJ|jj"), "JJJ");

@@ -13,13 +13,13 @@ namespace macsa {
 				UserInputDataParser(dot::VariableObject* obj);
 				virtual ~UserInputDataParser() = default;
 
-				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
+				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute) override;
 
 			private:
 				dot::VariableObject* _object;
 				dot::UserInputDataSource* _userInput;
 
-				dot::DataTypeMode getInputMask(const std::string & mask);
+				dot::DataTypeMode getInputMask(const std::string& mask);
 		};
 	}
 }

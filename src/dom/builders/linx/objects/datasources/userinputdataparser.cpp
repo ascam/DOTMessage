@@ -18,7 +18,7 @@ UserInputDataParser::UserInputDataParser(dot::VariableObject *obj):
 	_userInput {dynamic_cast<dot::UserInputDataSource*>(_object->GetDatasource())}
 {}
 
-bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement &element, const tinyxml2::XMLAttribute *firstAttribute)
+bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	if (_userInput) {
 		std::string eName {ToString(element.Name())};
@@ -44,8 +44,8 @@ bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement &element, const 
 		else{
 			std::stringstream trace;
 			trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
-			if (firstAttribute) {
-				trace << "\n\tattribute: " << ToString(firstAttribute->Name());
+			if (attribute) {
+				trace << "\n\tattribute: " << ToString(attribute->Name());
 			}
 			WLog() << trace.str();
 		}
@@ -56,12 +56,14 @@ bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement &element, const 
 	return (_userInput != nullptr);
 }
 
-DataTypeMode UserInputDataParser::getInputMask(const std::string &mask)
+DataTypeMode UserInputDataParser::getInputMask(const std::string& mask)
 {
-	DLog() << "Mask = " << mask;
 	DataTypeMode mode;
 	if (mask == "0-9") {
 		mode = NDataTypeMode::kNumeric;
+	}
+	else{
+		WLog() << "Mask not supported";
 	}
 	return mode;
 }

@@ -30,7 +30,7 @@ FontParser::FontParser(Font& font, dot::TextBoxProperties& textBoxProperties) :
 	_textBoxProperties(textBoxProperties)
 {}
 
-bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* firstAttribute)
+bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
 
@@ -87,8 +87,8 @@ bool FontParser::VisitEnter(const XMLElement& element, const XMLAttribute* first
 	else {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();
-		if (firstAttribute && firstAttribute->Name()) {
-			trace << "\n\tattribute: " << firstAttribute->Name();
+		if (attribute && attribute->Name()) {
+			trace << "\n\tattribute: " << attribute->Name();
 		}
 		WLog() << trace.str();
 		return true;

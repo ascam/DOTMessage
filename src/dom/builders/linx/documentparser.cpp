@@ -145,7 +145,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 	return true;
 }
 
-void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, const std::string& fieldName, const std::string& fieldType)
+void DocumentParser::parseConcreteField(const tinyxml2::XMLElement& element, const std::string& fieldName, const std::string& fieldType)
 {
 	DLog() << " FieldName: " << fieldName;
 	DLog() << " FieldType: " << fieldType;
