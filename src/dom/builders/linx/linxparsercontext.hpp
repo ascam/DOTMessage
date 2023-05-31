@@ -73,7 +73,7 @@ namespace macsa {
 				///
 				void AddOffsetDate(std::string& name, OffsetDate& offset);
 				///
-				/// \brief GetColorsPalette
+				/// \brief GetColorsPalette of the document.
 				/// \return
 				///
 				dot::ColorsPalette& GetColorsPalette();
