@@ -11,7 +11,7 @@ namespace macsa {
 		class PrimitiveParser : public ObjectParser
 		{
 			public:
-				PrimitiveParser(LinxParserContext& context, std::string& fieldName);
+				PrimitiveParser(LinxParserContext& context, const std::string& fieldName);
 				virtual ~PrimitiveParser() = default;
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute) override;
@@ -19,7 +19,7 @@ namespace macsa {
 
 			private:
 				LinxParserContext& _context;
-				std::string& _fieldName;
+				const std::string& _fieldName;
 				dot::Geometry _geometry;
 				dot::NObjectType _objectType;
 				dot::Pen _pen;

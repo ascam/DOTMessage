@@ -19,7 +19,7 @@ namespace macsa {
 			private:
 				dot::Document& _doc;
 				LinxParserContext _context;
-				void parseConcreteField(const tinyxml2::XMLElement& element, std::string& fieldName, std::string& fieldType);
+				void parseConcreteField(const tinyxml2::XMLElement &element, const std::string& fieldName, const std::string& fieldType);
 		};
 	}
 }

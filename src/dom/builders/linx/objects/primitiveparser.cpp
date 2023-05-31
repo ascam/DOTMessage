@@ -23,7 +23,7 @@ static constexpr const char* kFilledEllipse = "FilledEllipse";
 static constexpr const char* kOutlineEllipse = "OutlineEllipse";
 static constexpr const float kDotsPerInch = 0.12;
 
-PrimitiveParser::PrimitiveParser(LinxParserContext& context, std::string &fieldName):
+PrimitiveParser::PrimitiveParser(LinxParserContext& context, const std::string &fieldName):
 	ObjectParser{},
 	_context{context},
 	_fieldName{fieldName},

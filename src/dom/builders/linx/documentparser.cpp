@@ -145,7 +145,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 	return true;
 }
 
-void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std::string& fieldName, std::string &fieldType)
+void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, const std::string& fieldName, const std::string& fieldType)
 {
 	DLog() << " FieldName: " << fieldName;
 	DLog() << " FieldType: " << fieldType;
@@ -177,7 +177,6 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 			ELog() << "Unable to create a BarcodeParser" << exc.what();
 		}
 	}
-
 	else if (fieldType == kImageField) {
 		auto* image = _doc.AddObject(fieldName, dot::NObjectType::kImage);
 		if (!image) {
@@ -192,13 +191,8 @@ void DocumentParser::parseConcreteField(const tinyxml2::XMLElement &element, std
 		}
 	}
 	else if (fieldType == kPrimitiveField) {
-		try {
-			PrimitiveParser primitiveParser(_context, fieldName);
-			element.Accept(&primitiveParser);
-		}
-		catch (const std::exception& exc) {
-			ELog() << "Unable to create a PrimitiveParser" << exc.what();
-		}
+		PrimitiveParser primitiveParser(_context, fieldName);
+		element.Accept(&primitiveParser);
 	}
 	else if (fieldType == kMergeField) {
 		WLog() << " FieldType 'MergeField' is not supported. (line" << element.GetLineNum() << ")";
