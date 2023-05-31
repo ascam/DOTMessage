@@ -17,7 +17,7 @@ ImageParser::ImageParser(Object* image, LinxParserContext& context):
 	_image{dynamic_cast<Image*>(image)},
 	_context{context}
 {
-	if (!_image || !image) {
+	if (!_image) {
 		std::stringstream message;
 		message << "Unable to parse text field to a ";
 		if (!image) {
