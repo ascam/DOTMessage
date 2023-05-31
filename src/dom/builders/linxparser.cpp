@@ -28,7 +28,11 @@ bool LinxParser::BuildFromFile(const std::string& filepath, Document& document)
 {
 	if (UTFConverter::IsUTF16(filepath)) {
 		auto content = UTFConverter::ConvertFromUtf16ToUtf8(filepath);
-		return buildFromData(content.c_str(), content.size(), document);
+		bool success = buildFromData(content.c_str(), content.size(), document);
+		if (success){
+			document.SetName(filepath);
+		}
+		return success;
 	}
 	else {
 		std::setlocale(LC_ALL, "en_US.UTF-8");
@@ -46,7 +50,6 @@ bool LinxParser::BuildFromFile(const std::string& filepath, Document& document)
 			return doc.Accept(&visitor);
 		}
 	}
-
 	return false;
 }
 
@@ -61,7 +64,7 @@ bool LinxParser::BuildFromData(const char* data, uint length, Document& document
 	}
 }
 
-bool LinxParser::buildFromData(const char *data, uint length, Document &document)
+bool LinxParser::buildFromData(const char* data, uint length, Document& document)
 {
 	std::setlocale(LC_ALL, "en_US.UTF-8");
 	XMLDocument doc;
@@ -74,7 +77,6 @@ bool LinxParser::buildFromData(const char *data, uint length, Document &document
 	}
 	else {
 		document.Clear();
-		document.SetName("New document");
 		DocumentParser visitor(document);
 		return doc.Accept(&visitor);
 	}
