@@ -44,7 +44,7 @@ namespace macsa {
 
 				void fillGs1Values(std::string value);
 				void processGs1Value();
-				std::string checkDateTimeFormat(std::string& datetime);
+				std::string convertDateTimeFormat(const std::string& datetime) const;
 
 		};
 	}

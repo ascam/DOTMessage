@@ -168,7 +168,7 @@ bool DataParser::VisitExit(const tinyxml2::XMLElement& element)
 					auto* datasource = _object->SetDatasource(NDataSourceType::kDateTime);
 					if (datasource) {
 						auto* datetime = dynamic_cast<dot::DateTimeDataSource*>(datasource);
-						datetime->SetFormat(checkDateTimeFormat(_defaultValue));
+						datetime->SetFormat(convertDateTimeFormat(_defaultValue));
 						datetime->SetDaysOffset(_offsetDate.day);
 						datetime->SetMonthsOffset(_offsetDate.month);
 						datetime->SetYearsOffset(_offsetDate.year);
@@ -255,10 +255,11 @@ void DataParser::processGs1Value()
 	}
 }
 
-std::string DataParser::checkDateTimeFormat(std::string& datetime)
+std::string DataParser::convertDateTimeFormat(const std::string& datetime) const
 {
-	datetime = std::regex_replace(datetime, std::regex("cl:|'"), "");
-	datetime = std::regex_replace(datetime, std::regex("JJ|jj"), "JJJ");
-	datetime = std::regex_replace(datetime, std::regex("j"), "J");
-	return datetime;
+	std::string convertedDateTime = datetime;
+	convertedDateTime = std::regex_replace(convertedDateTime, std::regex("cl:|'"), "");
+	convertedDateTime = std::regex_replace(convertedDateTime, std::regex("JJ|jj"), "JJJ");
+	convertedDateTime = std::regex_replace(convertedDateTime, std::regex("j"), "J");
+	return convertedDateTime;
 }
