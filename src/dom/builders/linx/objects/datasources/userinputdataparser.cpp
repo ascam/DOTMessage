@@ -56,7 +56,7 @@ bool UserInputDataParser::VisitEnter(const tinyxml2::XMLElement& element, const 
 	return (_userInput != nullptr);
 }
 
-DataTypeMode UserInputDataParser::getInputMask(const std::string& mask)
+DataTypeMode UserInputDataParser::getInputMask(const std::string& mask) const
 {
 	DataTypeMode mode;
 	if (mask == "0-9") {
