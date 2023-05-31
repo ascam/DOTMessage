@@ -7,6 +7,7 @@ using macsa::linx::LinxParserContext;
 using macsa::linx::OffsetDateMap;
 
 static constexpr const char* kDots = "dots";
+static constexpr const char* kMilimeters = "mm";
 static constexpr uint8_t kPrecision = 100;
 static constexpr uint8_t k90Degrees = 90;
 static constexpr uint16_t k270Degrees = 270;
@@ -14,7 +15,7 @@ static constexpr double kDefaultUnitsRatio = 0.12;
 
 LinxParserContext::LinxParserContext(macsa::dot::Document& doc):
 	_doc{doc},
-	_units{"mm"},
+	_units{kMilimeters},
 	_unitsRatio{kDefaultUnitsRatio},
 	_offsetDateMap{},
 	_colorsPalette{{kBlack, dot::Color(kBlack, 0, 0, 0)},

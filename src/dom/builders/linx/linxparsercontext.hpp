@@ -34,14 +34,48 @@ namespace macsa {
 				LinxParserContext(dot::Document& doc);
 				~LinxParserContext() = default;
 
+				///
+				/// \brief GetDocument
+				/// \return
+				///
 				dot::Document& GetDocument() const;
-
+				///
+				/// \brief SetUnits of the document, normally mm or dots
+				/// \param units
+				///
 				void SetUnits(const std::string& units);
+				///
+				/// \brief SetUnitsRatio, dots x mm
+				/// \param ratio
+				///
 				void SetUnitsRatio(double ratio);
+				///
+				/// \brief Converts units to mm
+				/// \param units
+				/// \return
+				///
 				double ConvertUnits(double units);
+				///
+				/// \brief ConvertGeometry to mm and rotates if it's need it
+				/// \param geometry
+				/// \return
+				///
 				dot::Geometry ConvertGeometry(dot::Geometry geometry);
+				///
+				/// \brief GetOffsetDateMap
+				/// \return
+				///
 				OffsetDateMap& GetOffsetDateMap();
+				///
+				/// \brief AddOffsetDate, adds an offsetDate to offsetDateMap
+				/// \param name
+				/// \param offset
+				///
 				void AddOffsetDate(std::string& name, OffsetDate& offset);
+				///
+				/// \brief GetColorsPalette
+				/// \return
+				///
 				dot::ColorsPalette& GetColorsPalette();
 
 			private:
