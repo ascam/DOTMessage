@@ -5,7 +5,7 @@
 #include <locale>
 
 #include "dom/components/datasources/datetimesource.hpp"
-#include "printer/datecodes.hpp"
+#include "model/datecodes.hpp"
 
 namespace macsa
 {
@@ -40,7 +40,7 @@ namespace macsa
 					 */
 					std::string GetData(Context* context) override
 					{
-						return context->dateCodes.parserDateTime(_format, context->time);
+						return context->dateCodes.ParserDateTime(_format, context->time);
 					}
 
 					/**
