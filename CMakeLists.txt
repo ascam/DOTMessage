@@ -51,10 +51,11 @@ if (${BUILD_TEST_EXECUTABLE})
 endif()
 
 ## Add printers generic datamodel ##
-add_subdirectory(${PRINTER_DM_DIR}            ${PROJECT_BINARY_DIR}/printer)
-
-add_subdirectory(${PROJECT_SOURCE_DIR}/src	${PROJECT_BINARY_DIR}/src)
+add_subdirectory(${PRINTER_DM_DIR}              ${PROJECT_BINARY_DIR}/printer)
+add_subdirectory(${PROJECT_SOURCE_DIR}/src	    ${PROJECT_BINARY_DIR}/src)
 add_subdirectory(${PROJECT_SOURCE_DIR}/include	${PROJECT_BINARY_DIR}/include)
+## Add utfconverter
+add_subdirectory(${UTILS_DIR}/utfconverter ${CMAKE_BINARY_DIR}/utfconverter)
 
 if (RASTERIZATION)
         set(BACKEND_LIBS)
@@ -93,8 +94,6 @@ set (SOURCES ${SOURCES}
 
 set(HEADERS ${HEADERS})
 
-include_directories(${PRINTER_DM_DIR}/include)
-
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 if(WIN32)
@@ -108,35 +107,37 @@ endif()
 add_library(${PROJECT_NAME}_lib OBJECT ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}_lib
-        PUBLIC
-	        ${CMAKE_CURRENT_SOURCE_DIR}/include
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}/include
 		${UTILS_DIR}/include
+		${PRINTER_DM_DIR}/include
 	PRIVATE
-	        ${CMAKE_CURRENT_SOURCE_DIR}/src
+		${CMAKE_CURRENT_SOURCE_DIR}/src
 		${UTILS_DIR}/tinyxml2/include
-	)
+		${UTILS_DIR}/utfconverter/include
+	)    
 
 if(NOT BUILD_SHARED_LIBS)
-        if (UNIX)
-	    set(STATIC_DEPENDENCIES ${CMAKE_BINARY_DIR}/lib/printerdm.a)
+	if (UNIX)
+		set(STATIC_DEPENDENCIES ${CMAKE_BINARY_DIR}/lib/printerdm.a)
 	elseif(WIN32)
-	        set(STATIC_DEPENDENCIES
-		${CMAKE_BINARY_DIR}/lib/printerdm.lib)
+		set(STATIC_DEPENDENCIES ${CMAKE_BINARY_DIR}/lib/printerdm.lib)
 	endif()
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating static library")
 	message("-- STATIC Public dependencies: ${STATIC_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	add_library(${PROJECT_NAME} STATIC $<TARGET_OBJECTS:${PROJECT_NAME}_lib>)
 	target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${STATIC_DEPENDENCIES})
-	install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/ DESTINATION ${INSTALL_DIR}/lib FILES_MATCHING PATTERN "*.so*")
 else()
-        set(SHARED_DEPENDENCIES printerdm)
+	set(SHARED_DEPENDENCIES printerdm)
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating dynamic library")
 	message("-- SHARED Public dependencies: ${SHARED_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	set_property(TARGET ${PROJECT_NAME}_lib PROPERTY POSITION_INDEPENDENT_CODE 1)
 	add_library(${PROJECT_NAME} SHARED $<TARGET_OBJECTS:${PROJECT_NAME}_lib>)
-	set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
-	                                                                          SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+				VERSION ${PROJECT_VERSION}
+				SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
 	target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${SHARED_DEPENDENCIES})
+	install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/ DESTINATION ${INSTALL_DIR}/lib FILES_MATCHING PATTERN "*.so*")
 endif()

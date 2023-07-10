@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<ImageDesign Version="23" xml:space="default">
+	<Header DesignedFor="TT5 - Intermittent">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vRUWGTJCN9OLx0VwH0b3MV3EiA5hQ5QLSs2K9H6bM6XESVU1fLVh6Ep6UbFKE78GHT_63gT3oDPSOV!TJZ4BSRMtBHqUK_7QzAMiN2pBSIGTzGUwUGXH11V3BD0y62LMSJJHY8ATL3sV</ClStVersionInfo>
+		<LastDownloaded>43416.579861</LastDownloaded>
+	</Header>
+	<SubImage>
+		<SubHeader PrinterFormatName="Default">
+			<ImageWidth>2625</ImageWidth>
+			<ImageHeight>1742</ImageHeight>
+			<MaxImageWidth>5333</MaxImageWidth>
+			<MaxImageHeight>7500</MaxImageHeight>
+			<CurrentOrientation>0</CurrentOrientation>
+		</SubHeader>
+		<Field Name="Articulo">
+			<FldType>FixedText</FldType>
+			<X>392</X>
+			<Y>0</Y>
+			<W>941</W>
+			<H>217</H>
+			<CalcData>
+				<![CDATA[561 Marrón]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[561 Marrón]]>
+					</Default>
+					<VarText>
+						<UserEnterData>
+							<![CDATA[561 Marrón]]>
+						</UserEnterData>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Field00">
+			<FldType>FixedText</FldType>
+			<X>17</X>
+			<Y>0</Y>
+			<W>300</W>
+			<H>217</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[Art.]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>4</MaxNoOfChars>
+					<Default>
+						<![CDATA[Art.]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Lot">
+			<FldType>FixedText</FldType>
+			<X>1883</X>
+			<Y>0</Y>
+			<W>742</W>
+			<H>192</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[127258-1]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>8</MaxNoOfChars>
+					<Default>
+						<![CDATA[127258-1]]>
+					</Default>
+					<FixedLen/>
+					<VarText>
+						<UserEnterData>
+							<![CDATA[127258-1]]>
+						</UserEnterData>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="EAN13">
+			<FldType>Barcode</FldType>
+			<CLSID>{7A4AA4CF-F5CD-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>225</X>
+			<Y>217</Y>
+			<W>2375</W>
+			<H>700</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[841202702919]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object>
+					<DataType>5</DataType>
+					<Default>
+						<![CDATA[841202702919]]>
+					</Default>
+					<SrcField SrcFieldName="Barcode"/>
+				</Object>
+			</Data>
+			<Barcode>
+				<Mag>757</Mag>
+				<BcH>700</BcH>
+				<HR>
+					<HRFont>
+						<Family>DontCare</Family>
+						<Pitch>10</Pitch>
+					</HRFont>
+				</HR>
+				<CheckDigit>1</CheckDigit>
+				<QuietMargin>0</QuietMargin>
+				<EAN13/>
+			</Barcode>
+		</Field>
+		<Field Name="Barcode">
+			<FldType>FixedText</FldType>
+			<X>658</X>
+			<Y>917</Y>
+			<W>1500</W>
+			<H>200</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[841202702919]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<MaxNoOfChars>12</MaxNoOfChars>
+					<Default>
+						<![CDATA[841202702919]]>
+					</Default>
+					<FixedLen/>
+					<VarText>
+						<Mask>
+							<![CDATA[0-9]]>
+						</Mask>
+						<UserEnterData>
+							<![CDATA[841202702919]]>
+						</UserEnterData>
+						<ResetOnSel>ContinueWithCurrentVal</ResetOnSel>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+					<XMag>125</XMag>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Copy of Field00">
+			<FldType>FixedText</FldType>
+			<X>125</X>
+			<Y>1133</Y>
+			<W>1042</W>
+			<H>217</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[Preservative:]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>13</MaxNoOfChars>
+					<Default>
+						<![CDATA[Preservative:]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Ingredientes 1">
+			<FldType>FixedText</FldType>
+			<X>1192</X>
+			<Y>1133</Y>
+			<W>1341</W>
+			<H>217</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[DMDM Hydantoin]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[DMDM Hydantoin]]>
+					</Default>
+					<VarText>
+						<UserEnterData>
+							<![CDATA[DMDM Hydantoin]]>
+						</UserEnterData>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Ingredientes 2">
+			<FldType>FixedText</FldType>
+			<X>1192</X>
+			<Y>1350</Y>
+			<W>1166</W>
+			<H>192</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[Glutaraldehyde]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[Glutaraldehyde]]>
+					</Default>
+					<VarText>
+						<UserEnterData>
+							<![CDATA[Glutaraldehyde]]>
+						</UserEnterData>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Ingredientes 3">
+			<FldType>FixedText</FldType>
+			<X>1192</X>
+			<Y>1542</Y>
+			<W>691</W>
+			<H>200</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[Bronopol]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Static="0">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[Bronopol]]>
+					</Default>
+					<VarText>
+						<UserEnterData>
+							<![CDATA[Bronopol]]>
+						</UserEnterData>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>5</Pitch>
+				</Font>
+			</Text>
+		</Field>
+	</SubImage>
+	<GenericSettings>
+		<ImageMapping>
+			<Map SubIMageRef="1">1</Map>
+		</ImageMapping>
+		<Parameters>
+			<ParamSet Name="Local">
+				<Param Name="Devices/PHds/1/PrintInformation/ContinuousRepeatDistanceTmm">1000</Param>
+				<Param Name="Devices/PHds/1/IAssure/RejectMachineCyclesDelay">15</Param>
+				<Param Name="Devices/PHds/1/PrintInformation/ContinuousPrintsPerSignal">1</Param>
+				<Param Name="Devices/PHds/1/PrintInformation/ContinuousRegistrationDelayTmm">0</Param>
+				<Param Name="Devices/PHds/1/PrintInformation/IntermittentPrintRegistrationTmm">0</Param>
+			</ParamSet>
+		</Parameters>
+	</GenericSettings>
+</ImageDesign>
+

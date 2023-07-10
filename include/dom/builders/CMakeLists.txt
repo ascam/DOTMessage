@@ -7,7 +7,8 @@ set(SOURCES ${SOURCES}
     )
 
 set(HEADERS ${HEADERS}
-	${CMAKE_CURRENT_SOURCE_DIR}/nisxparser.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/nisxparser.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/linxparser.hpp
     PARENT_SCOPE
     )
 
