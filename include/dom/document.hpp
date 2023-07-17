@@ -30,6 +30,7 @@ namespace macsa {
 
 			public:
 				static std::string GetLibraryVersion();
+				static std::string GetLibraryName();
 
 				Document(const std::string& name = "");
 				~Document();

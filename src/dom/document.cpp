@@ -23,6 +23,11 @@ std::string Document::GetLibraryVersion()
 	return version.str();
 }
 
+std::string Document::GetLibraryName()
+{
+	return DOT_MESSAGE_LIB_NAME;
+}
+
 Document::Document(const std::string& name) :
 	_name{name},
 	_versions{},
