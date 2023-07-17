@@ -11,9 +11,7 @@ using macsa::dot::Barcode;
 using macsa::utils::MacsaLogger;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
-}
+bool BarcodeParser::_registered = macsa::nisx::ConcreteObjectParserFactory<BarcodeParser>::Register(macsa::nisx::kBarcodeField);
 
 BarcodeParser::BarcodeParser(dot::Object* barcode) :
 	ObjectParser(macsa::nisx::kBarcodeField, barcode),
@@ -96,9 +94,9 @@ bool BarcodeParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxm
 				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kType) {
 					std::string attrValue {ToString(attribute->Value())};
-					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _barcode);
+					std::unique_ptr<macsa::nisx::DataSourceParser> dataSourceParser{DataSourceParsersFactory::Get(attrValue, _barcode)};
 					if (dataSourceParser){
-						element.Accept(dataSourceParser);
+						element.Accept(dataSourceParser.get());
 					}
 					else {
 						ELog() << "Unable to parse datasource of type: \"" << attrValue << "\".";

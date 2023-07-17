@@ -31,12 +31,18 @@ set(HEADERS)
 
 set(SOURCES ${SOURCES}
     ${UTILS_DIR}/macsalogger/macsalogger.cpp
-	${UTILS_DIR}/threadsmap/threadsmap.cpp
+    ${UTILS_DIR}/threadsmap/threadsmap.cpp
     ${EXECUTABLE_DIR}/main.cpp
     )
 
+if (${ENABLE_TESTS})
+        set(SRC_TEST)
+	set(HDRS_TEST)
+	add_subdirectory(unitests)
+endif()
+
 cmrc_add_resource_library(domTesterFiles
-	NAMESPACE dot
+        NAMESPACE dot
 	WHENCE rc
 	PREFIX messages
 	rc/CQ.nisx
@@ -52,28 +58,69 @@ cmrc_add_resource_library(domTesterFiles
 	rc/TEST_V.nisx
 	rc/testParserNisx.nisx
 	rc/GALLO.nisx
+        rc/linx/linxformatted.ciff
+        rc/linx/msj_01_tto_formatted.ciff
+        rc/linx/msj_jovi.ciff
+        rc/linx/textofijo.ciff
+        rc/linx/EFAPEL.ciff
+        rc/linx/frankfurt.ciff
+        rc/linx/NORTE_EUROCAO.ciff
+        rc/linx/Pan_molde.ciff
+        rc/linx/Pan_molde_4_dias.ciff
+        rc/linx/tt3fira.ciff
+        rc/linx/tt5nou.ciff
+        rc/linx/tt10_HSPCK2015.ciff
+        rc/linx/VARIABLE.ciff
+        rc/linx/VARIABLE2.ciff
+        rc/linx/Yogur_35_dias.ciff
+        rc/linx/utf16/frankfurt.ciff
+        rc/linx/Full_barcodes.ciff
+        rc/linx/pedro.ciff
+        rc/linx/barcodes_full.ciff
+        rc/linx/datas_full.ciff
 	)
 
 ####################  TARGETS  #############################
-if(STANDALONE) 
-	 ## Add windows OS support
+if(STANDALONE)
+         ## Add windows OS support
 	set(DEPENDENCIES
-		${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libdotmessage.a
-		)
+	        ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libdotmessage.a
+	        )
 else()
-	set(DEPENDENCIES 
-		dotmessage
-		)
+        set(DEPENDENCIES
+	        dotmessage
+		printerdm
+	        )
 endif()
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME}
-	PUBLIC
-		${PROJECT_SOURCE_DIR}/include
+        PUBLIC
+	        ${PROJECT_SOURCE_DIR}/include
+		${PROJECT_SOURCE_DIR}/src
 		${UTILS_DIR}/include
+                ${PRINTER_DM_DIR}/include
+                ${UTILS_DIR}/utfconverter/include
 	)
 
 #linking dependencies
 target_link_libraries(${PROJECT_NAME} PUBLIC ${DEPENDENCIES} PRIVATE domTesterFiles)
 target_link_directories(${PROJECT_NAME} PUBLIC ${LIB_PREFIX}/lib ${CMAKE_BINARY_DIR}/lib)
+
+
+if (${ENABLE_TESTS})
+        message("Adding ${PROJECT_NAME} tests dir ${PROJECT_BINARY_DIR}" )
+	set(PROJECT_TEST_NAME ${PROJECT_NAME}_UT)
+	add_executable(${PROJECT_TEST_NAME} ${SRC_TEST} ${HDRS_TEST})
+	target_include_directories(${PROJECT_TEST_NAME}
+	        PUBLIC
+		        ${PROJECT_SOURCE_DIR}/include
+			${PROJECT_SOURCE_DIR}/src
+			${UTILS_DIR}/include
+			${PRINTER_DM_DIR}/include
+		)
+	target_link_directories(${PROJECT_TEST_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
+	target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_LIBS} ${EXTERNAL_LIBS} ${DEPENDENCIES})
+	add_test(${PROJECT_NAME} ${PROJECT_TEST_NAME})
+endif()

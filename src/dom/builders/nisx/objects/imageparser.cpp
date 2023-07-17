@@ -20,9 +20,7 @@ static constexpr const char* kTopRight = "TopRight";
 static constexpr const char* kMiddleRight = "MiddleRight";
 static constexpr const char* kBottomRight = "BottomRight";
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<ImageParser>::Register(macsa::nisx::kImageField);
-}
+bool ImageParser::_registered = macsa::nisx::ConcreteObjectParserFactory<ImageParser>::Register(macsa::nisx::kImageField);
 
 ImageParser::ImageParser(dot::Object *image) :
 	ObjectParser(macsa::nisx::kImageField, image),

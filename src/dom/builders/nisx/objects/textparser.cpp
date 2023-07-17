@@ -14,11 +14,9 @@ using tinyxml2::XMLElement;
 using tinyxml2::XMLAttribute;
 using namespace macsa::utils::stringutils;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
-}
+bool TextParser::_registered = macsa::nisx::ConcreteObjectParserFactory<TextParser>::Register(macsa::nisx::kTextField);
 
-TextParser::TextParser(dot::Object *text) :
+TextParser::TextParser(dot::Object* text) :
 	ObjectParser(macsa::nisx::kTextField, text),
 	_text{dynamic_cast<Text*>(text)},
 	_font{}
@@ -63,9 +61,9 @@ bool TextParser::VisitEnter(const XMLElement& element, const XMLAttribute* attri
 				std::string attrName {ToString(attribute->Name())};
 				if (attrName == kType) {
 					std::string attrValue {ToString(attribute->Value())};
-					auto* dataSourceParser = DataSourceParsersFactory::Get(attrValue, _text);
+					std::unique_ptr<macsa::nisx::DataSourceParser> dataSourceParser{DataSourceParsersFactory::Get(attrValue, _text)};
 					if (dataSourceParser){
-						element.Accept(dataSourceParser);
+						element.Accept(dataSourceParser.get());
 					}
 					else {
 						ELog() << "Unable to parse datasource of type: \"" << attrValue << "\".";

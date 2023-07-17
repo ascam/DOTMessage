@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<ImageDesign Version="23" xml:space="default">
+	<Header DesignedFor="TT750 (53mm) - Continuous">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vRUWB5V7MzGSi7Hx4PXGH14RuTSg5BDJ1TIFhA9oB1aMG4QH84Ec4HJNCDKLuPJqIUoNNyC0cSNLR6oLVTAOS5Ez47mAGI8UjN0pHFKSIi2N!TJNQPESPy73oHVUG7eD2qI62ORmFPRA8wDVYDNTGTLCVhUOa35w7K!7PwP9uUFtBUKKQh2AbKN4VKyDAl9Od1</ClStVersionInfo>
+	</Header>
+	<SubImage ImageReference="1">
+		<SubHeader FormatName="Default" PrinterFormatName="Default">
+			<ImageWidth>5000</ImageWidth>
+			<ImageHeight>7475</ImageHeight>
+			<MaxImageWidth>5333</MaxImageWidth>
+			<MaxImageHeight>7500</MaxImageHeight>
+			<XRes>0.120000</XRes>
+			<CurrentOrientation>0</CurrentOrientation>
+		</SubHeader>
+		<Field Name="Field00">
+			<FldType>FixedText</FldType>
+			<X>158</X>
+			<Y>275</Y>
+			<W>2508</W>
+			<H>992</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[TEXTO FIJO]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+					<MaxNoOfChars>10</MaxNoOfChars>
+					<Default>
+						<![CDATA[TEXTO FIJO]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>25</Pitch>
+					<XMag>48</XMag>
+				</Font>
+			</Text>
+		</Field>
+	</SubImage>	
+ma</ImageDesign>

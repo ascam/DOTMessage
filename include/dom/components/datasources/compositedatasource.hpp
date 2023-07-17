@@ -4,6 +4,7 @@
 #include <string>
 
 #include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
 #include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
@@ -18,7 +19,7 @@ namespace macsa {
 		class CompositeDataSource final : public DataSource
 		{
 			public:
-				CompositeDataSource();
+				CompositeDataSource(const dot::Object& obj);
 				virtual ~CompositeDataSource() = default;
 
 				/**
@@ -44,11 +45,22 @@ namespace macsa {
 				 */
 				void SetFormula(const std::string& formula);
 
+				/**
+				 * @brief GetData. Get data source updated data result.
+				 * @return data source text result data.
+				 */
+				std::string GetData(Context* context) const override;
+
 			public:
 				Signal<> FormulaChanged;
 
 			private:
+				static bool _registered;
 				std::string _formula;
+				mutable std::map<std::string, std::string> _visitedFields;
+
+				std::string getCompositeData(Context* context, const std::vector<std::string>& tokens) const;
+				std::string getObjectData(Context* context, const Object* object) const;
 		};
 	}
 }

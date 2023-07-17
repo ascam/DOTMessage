@@ -10,6 +10,9 @@ namespace macsa {
 			public:
 				DiamondParser(dot::Object* primitive);
 				virtual ~DiamondParser() = default;
+
+			private:
+				static bool _registered;
 		};
 	}
 }

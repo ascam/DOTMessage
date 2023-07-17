@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<ImageDesign Version="23" xml:space="default">
+	<Header DesignedFor="TT750 (53mm) - Continuous">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vRUWB5V7MzGSi7Hx4PXGH14RuTSg5BDJ1TIFhA9oB1aMG4QH84Ec4HJNCDKLuPJqIUoNNyC0cSNLR6oLVTAOS5Ez47mAGI8UjN0pHFKSIi2N!TJNQPESPy73oHVUG7eD2qI62ORmFPRA8wDVYDNTGTLCVhUOa35w7K!7PwP9uUFtBUKKQh2AbKN4VKyDAl9Od1</ClStVersionInfo>
+	</Header>
+	<SubImage ImageReference="1">
+		<SubHeader FormatName="Default" PrinterFormatName="Default">
+			<ImageWidth>5000</ImageWidth>
+			<ImageHeight>7475</ImageHeight>
+			<MaxImageWidth>5333</MaxImageWidth>
+			<MaxImageHeight>7500</MaxImageHeight>
+			<XRes>0.120000</XRes>
+			<CurrentOrientation>0</CurrentOrientation>
+		</SubHeader>
+		<Field Name="Field00">
+			<FldType>FixedText</FldType>
+			<X>158</X>
+			<Y>275</Y>
+			<W>2508</W>
+			<H>992</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[TEXTO FIJO]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+					<MaxNoOfChars>10</MaxNoOfChars>
+					<Default>
+						<![CDATA[TEXTO FIJO]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>25</Pitch>
+					<XMag>48</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Field01">
+			<FldType>DateText</FldType>
+			<X>192</X>
+			<Y>1875</Y>
+			<W>2500</W>
+			<H>867</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[17/Feb/2023]]>
+			</CalcData>
+			<Data>
+				<Object Static="0" Parse="1" Reference="">
+					<DataType>2</DataType>
+					<Default>
+						<![CDATA[dd'/'MMM'/'yyyy]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Calibri]]>
+					</Face>
+					<Pitch>20</Pitch>
+					<XMag>66</XMag>
+				</Font>
+				<Bold Weight="2">1</Bold>
+			</Text>
+		</Field>
+		<Field Name="Field02">
+			<FldType>CounterText</FldType>
+			<X>225</X>
+			<Y>2733</Y>
+			<W>1567</W>
+			<H>600</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[0000]]>
+			</CalcData>
+			<Data>
+				<Object Static="0" Reference="">
+					<DataType>4</DataType>
+					<Default>
+						<![CDATA[0000]]>
+					</Default>
+					<CounterText>
+						<SubCnt Significance="0">
+							<NoOfChars>4</NoOfChars>
+							<ClrStCntType></ClrStCntType>
+						</SubCnt>
+					</CounterText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>15</Pitch>
+					<XMag>131</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Field03">
+			<FldType>Barcode</FldType>
+			<CLSID>{7A4AA4CF-F5CD-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>200</X>
+			<Y>3650</Y>
+			<W>4708</W>
+			<H>1517</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[1234367390125]]>
+			</CalcData>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+					<MaxNoOfChars>13</MaxNoOfChars>
+					<Default>
+						<![CDATA[1234367390125]]>
+					</Default>
+				</Object>
+			</Data>
+			<Barcode>
+				<Mag>1262</Mag>
+				<BcH>1358</BcH>
+				<HR>
+					<HRDisplayed>1</HRDisplayed>
+					<HRFont>
+						<Family>DontCare</Family>
+						<Pitch>10</Pitch>
+					</HRFont>
+				</HR>
+				<CheckDigit>1</CheckDigit>
+				<EAN13>
+					<GuardBars>1</GuardBars>
+				</EAN13>
+			</Barcode>
+		</Field>
+		<Field Name="Field04">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>208</X>
+			<Y>5400</Y>
+			<W>1933</W>
+			<H>1967</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[C:\Users\a.dorado\Downloads\starbucks.jpg]]>
+			</CalcData>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+					<MaxNoOfChars>41</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Users\a.dorado\Downloads\starbucks.jpg]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>6133</GfxW>
+				<GfxH>6233</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+		<Field Name="Field05">
+			<FldType>FixedText</FldType>
+			<X>133</X>
+			<Y>1242</Y>
+			<W>2242</W>
+			<H>700</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[user input]]>
+			</CalcData>
+			<Data>
+				<Object Static="0" Reference="">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[user input]]>
+					</Default>
+					<VarText>
+						<Prompt>
+							<![CDATA[Introduce valor del campo]]>
+						</Prompt>
+						<UserEnterData>
+							<![CDATA[user input]]>
+						</UserEnterData>
+						<ResetOnSel>ContinueWithCurrentVal</ResetOnSel>
+					</VarText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>18</Pitch>
+					<XMag>78</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Field06">
+			<FldType>Barcode</FldType>
+			<CLSID>{7A4AA4CF-F5CD-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>2100</X>
+			<Y>5275</Y>
+			<W>2200</W>
+			<H>2200</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[TEXTO FIJO17/Feb/2023]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Reference="">
+					<DataType>5</DataType>
+					<Default>
+						<![CDATA[TEXTO FIJO]]>
+					</Default>
+					<SrcField SrcFieldName="Field00"/>
+				</Object>
+				<Object Index="1" Reference="">
+					<DataType>5</DataType>
+					<Default>
+						<![CDATA[17/Feb/2023]]>
+					</Default>
+					<SrcField SrcFieldName="Field01"/>
+				</Object>
+			</Data>
+			<Barcode>
+				<BcH>1914</BcH>
+				<HR>
+					<HRFont/>
+				</HR>
+				<QR>
+					<ModuleSize>67</ModuleSize>
+					<QuietMarginSize>0</QuietMarginSize>
+				</QR>
+			</Barcode>
+		</Field>
+		<Field Name="Field07">
+			<FldType>GraphicPrimitive</FldType>
+			<CLSID>{DC1F7EC4-7698-11D5-8036-005004D10645}</CLSID>
+			<X>2933</X>
+			<Y>250</Y>
+			<W>1442</W>
+			<H>1350</H>
+			<Ln>1</Ln>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>1442</GfxW>
+				<GfxH>1350</GfxH>
+				<Primitive>
+					<Shape>FilledBox</Shape>
+					<LineW>25</LineW>
+				</Primitive>
+			</Graphic>
+		</Field>
+		<Field Name="Field08">
+			<FldType>ComplexText</FldType>
+			<CLSID>{9A1D9CED-4EA5-11D5-8DAE-0050DAFE8A9F}</CLSID>
+			<X>2983</X>
+			<Y>1808</Y>
+			<W>2017</W>
+			<H>1750</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[LOREM IPSUM
+DOLOR SIT AMET]]>
+			</CalcData>
+			<LoggedField></LoggedField>
+			<Data>
+				<Object Reference="">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[LOREM IPSUM
+DOLOR SIT AMET]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Comic Sans MS Bold]]>
+					</Face>
+					<Pitch>10</Pitch>
+				</Font>
+				<Block Compatibility="0">
+					<BlkW>2017</BlkW>
+					<BlkH>1750</BlkH>
+					<MinFontSize>4</MinFontSize>
+				</Block>
+			</Text>
+		</Field>
+	</SubImage>
+	<GenericSettings>
+		<ImageMapping>
+			<Map SubIMageRef="1">1</Map>
+		</ImageMapping>
+	</GenericSettings>
+</ImageDesign>

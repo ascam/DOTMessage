@@ -11,12 +11,10 @@ using macsa::dot::Line;
 using macsa::dot::NObjectType;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool RectangleFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Rectangle>::Register(macsa::dot::NObjectType::kRectangle);
-	static const bool EllipseFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Ellipse>::Register(macsa::dot::NObjectType::kEllipse);
-	static const bool DiamondFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Diamond>::Register(macsa::dot::NObjectType::kDiamond);
-	static const bool LineFactoryRegistered = macsa::dot::ConcreteObjectsFactory<Line>::Register(macsa::dot::NObjectType::kLine);
-}
+bool Rectangle::_registered = macsa::dot::ConcreteObjectsFactory<Rectangle>::Register(macsa::dot::NObjectType::kRectangle);
+bool Ellipse::_registered = macsa::dot::ConcreteObjectsFactory<Ellipse>::Register(macsa::dot::NObjectType::kEllipse);
+bool Diamond::_registered = macsa::dot::ConcreteObjectsFactory<Diamond>::Register(macsa::dot::NObjectType::kDiamond);
+bool Line::_registered = macsa::dot::ConcreteObjectsFactory<Line>::Register(macsa::dot::NObjectType::kLine);
 
 Primitive::Primitive(const std::string& id, const Geometry& geometry, const macsa::dot::ObjectType& primitiveType) :
 	Object(id, primitiveType, geometry),

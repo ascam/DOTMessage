@@ -211,6 +211,7 @@ namespace macsa {
 				std::string _algorithm;
 				uint32_t _topThreshold;
 				uint32_t _downThreshold;
+				static bool _registered;
 		};
 	}
 }

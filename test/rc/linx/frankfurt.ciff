@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="UTF-16"?>
+<ImageDesign Version="16" xml:space="default">
+	<Header DesignedFor="TT10 - Continuous">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93HlAQhRHW1Km45WMUNP5yPP05GN5AYODOCC99HxAFl14G2KVQP_9Sq5024HFA1gAF50PuKLkJQc5VC60oBUL7PlFCo4EQUKJ5A5CLdIAwID!60jQ0x5Np6AF93cNQhFJoEUIKDi88lH6dMQRPNtKQcAISGMTM2t4VU43WC8KHM!A3YTM60UfUDuASkOHQUST7HJEOT6Tb2RJ9C75SW4</ClStVersionInfo>
+		<DateOffset Name="4 meses">
+			<DefaultOffset>
+				<Month>4</Month>
+			</DefaultOffset>
+			<CurrentOffset>
+				<Day>23</Day>
+				<Month>10</Month>
+				<Year>2015</Year>
+			</CurrentOffset>
+		</DateOffset>
+	</Header>
+	<SubImage ImageReference="1">
+		<SubHeader FormatName="Default">
+			<ImageWidth>9608</ImageWidth>
+			<ImageHeight>10858</ImageHeight>
+			<MaxImageWidth>10000</MaxImageWidth>
+			<MaxImageHeight>11000</MaxImageHeight>
+			<XRes>0.120000</XRes>
+			<CurrentOrientation>0</CurrentOrientation>
+		</SubHeader>
+		<Field Name="Campo00">
+			<FldType>Barcode</FldType>
+			<CLSID>{43C2458C-D5B0-11D4-800A-005004D10645}</CLSID>
+			<X>358</X>
+			<Y>208</Y>
+			<W>10542</W>
+			<H>2767</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[æ0108435176900168151510221015062303]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[æ]]>
+					</Default>
+				</Object>
+				<Object Index="1">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[01]]>
+					</Default>
+				</Object>
+				<Object Index="2">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[08435176900168]]>
+					</Default>
+				</Object>
+				<Object Index="3">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[15]]>
+					</Default>
+				</Object>
+				<Object Index="4" Parse="1">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[151022]]>
+					</Default>
+				</Object>
+				<Object Index="5">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[10]]>
+					</Default>
+				</Object>
+				<Object Index="6">
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[15062303]]>
+					</Default>
+				</Object>
+			</Data>
+			<Barcode>
+				<Mag>416</Mag>
+				<BcH>2500</BcH>
+				<HR>
+					<HRDisplayed>1</HRDisplayed>
+					<HRFont>
+						<Family>DontCare</Family>
+						<Pitch>20</Pitch>
+					</HRFont>
+				</HR>
+				<CheckDigit>1</CheckDigit>
+				<EAN128>
+					<IntelligentEan128>1</IntelligentEan128>
+				</EAN128>
+			</Barcode>
+		</Field>
+		<Field Name="Campo01">
+			<FldType>FixedText</FldType>
+			<X>8950</X>
+			<Y>525</Y>
+			<W>6158</W>
+			<H>658</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[1505104   FRANKFURT]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>19</MaxNoOfChars>
+					<Default>
+						<![CDATA[1505104   FRANKFURT]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Face>
+						<![CDATA[Arial Bold]]>
+					</Face>
+					<Pitch>16</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo02">
+			<FldType>FixedText</FldType>
+			<X>8217</X>
+			<Y>3383</Y>
+			<W>3392</W>
+			<H>392</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[Peso unidad Congelado]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>21</MaxNoOfChars>
+					<Default>
+						<![CDATA[Peso unidad Congelado]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>10</Pitch>
+					<XMag>90</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo03">
+			<FldType>FixedText</FldType>
+			<X>7575</X>
+			<Y>3408</Y>
+			<W>1117</W>
+			<H>642</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[70 g]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>4</MaxNoOfChars>
+					<Default>
+						<![CDATA[70 g]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>16</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo04">
+			<FldType>FixedText</FldType>
+			<X>7475</X>
+			<Y>7783</Y>
+			<W>309</W>
+			<H>642</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[0]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>1</MaxNoOfChars>
+					<Default>
+						<![CDATA[0]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>16</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo05">
+			<FldType>ComplexText</FldType>
+			<CLSID>{9A1D9CED-4EA5-11D5-8DAE-0050DAFE8A9F}</CLSID>
+			<X>6025</X>
+			<Y>467</Y>
+			<W>10366</W>
+			<H>1333</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[Ingredientes: Harina de TRIGO, agua, sal, levadura, azúcar, grasa vegetal(palma), GLUTEN de TRIGO, suero de LECHE, emulgente E-471 y E-491, aroma, antioxidante E-300, enzimas (TRIGO)]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[Ingredientes: Harina de TRIGO, agua, sal, levadura, azúcar, grasa vegetal(palma), GLUTEN de TRIGO, suero de LECHE, emulgente E-471 y E-491, aroma, antioxidante E-300, enzimas (TRIGO)]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+				<Block Compatibility="0">
+					<BlkW>10366</BlkW>
+					<BlkH>1333</BlkH>
+					<MinFontSize>4</MinFontSize>
+				</Block>
+			</Text>
+		</Field>
+		<Field Name="Campo06">
+			<FldType>ComplexText</FldType>
+			<CLSID>{9A1D9CED-4EA5-11D5-8DAE-0050DAFE8A9F}</CLSID>
+			<X>5217</X>
+			<Y>475</Y>
+			<W>10050</W>
+			<H>1025</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[CONTIENE GLUTEN DE TRIGO, DERIVADOS LACTEOS
+PUEDE CONTENER TRAZAS DE SOJA Y SESAMO]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<Default>
+						<![CDATA[CONTIENE GLUTEN DE TRIGO, DERIVADOS LACTEOS
+PUEDE CONTENER TRAZAS DE SOJA Y SESAMO]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+				<Block Compatibility="0">
+					<BlkW>10042</BlkW>
+					<BlkH>1025</BlkH>
+					<MinFontSize>4</MinFontSize>
+				</Block>
+			</Text>
+		</Field>
+		<Field Name="Campo07">
+			<FldType>FixedText</FldType>
+			<X>4475</X>
+			<Y>475</Y>
+			<W>4433</W>
+			<H>333</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[Consumir preferentemente antes del:]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>35</MaxNoOfChars>
+					<Default>
+						<![CDATA[Consumir preferentemente antes del:]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>8</Pitch>
+					<XMag>90</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo08">
+			<FldType>OffsetDateText</FldType>
+			<X>4425</X>
+			<Y>4975</Y>
+			<W>1742</W>
+			<H>383</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[23/10/2015]]>
+			</CalcData>
+			<Data>
+				<Object Static="0" Parse="1">
+					<DataType>3</DataType>
+					<Default>
+						<![CDATA[dd'/'MM'/'yyyy]]>
+					</Default>
+					<OffsetDate SrcOffset="4 meses"/>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>10</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo09">
+			<FldType>FixedText</FldType>
+			<X>4475</X>
+			<Y>7333</Y>
+			<W>884</W>
+			<H>333</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[Lote nº]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>7</MaxNoOfChars>
+					<Default>
+						<![CDATA[Lote nº]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>8</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo10">
+			<FldType>FixedText</FldType>
+			<X>4408</X>
+			<Y>8258</Y>
+			<W>1525</W>
+			<H>375</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[15062303]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>8</MaxNoOfChars>
+					<Default>
+						<![CDATA[15062303]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>10</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo11">
+			<FldType>FixedText</FldType>
+			<X>4092</X>
+			<Y>667</Y>
+			<W>9808</W>
+			<H>333</H>
+			<Ln>1</Ln>
+			<Orientation>90</Orientation>
+			<CalcData>
+				<![CDATA[Producto ultracongelado.   Conservar a -18 C. Una vez descongelado, no volver a congelar]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>88</MaxNoOfChars>
+					<Default>
+						<![CDATA[Producto ultracongelado.   Conservar a -18 C. Una vez descongelado, no volver a congelar]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>8</Pitch>
+					<XMag>89</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo12">
+			<FldType>GraphicPrimitive</FldType>
+			<CLSID>{DC1F7EC4-7698-11D5-8036-005004D10645}</CLSID>
+			<X>7425</X>
+			<Y>450</Y>
+			<W>1267</W>
+			<H>2833</H>
+			<Ln>1</Ln>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>1267</GfxW>
+				<GfxH>2833</GfxH>
+				<Primitive>
+					<Shape>OutlineBox</Shape>
+					<LineW>25</LineW>
+				</Primitive>
+			</Graphic>
+		</Field>
+		<Field Name="Campo13">
+			<FldType>GraphicPrimitive</FldType>
+			<CLSID>{DC1F7EC4-7698-11D5-8036-005004D10645}</CLSID>
+			<X>7425</X>
+			<Y>3258</Y>
+			<W>1267</W>
+			<H>3742</H>
+			<Ln>1</Ln>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>1267</GfxW>
+				<GfxH>3742</GfxH>
+				<Primitive>
+					<Shape>OutlineBox</Shape>
+					<LineW>25</LineW>
+				</Primitive>
+			</Graphic>
+		</Field>
+		<Field Name="Campo14">
+			<FldType>GraphicPrimitive</FldType>
+			<CLSID>{DC1F7EC4-7698-11D5-8036-005004D10645}</CLSID>
+			<X>3833</X>
+			<Y>358</Y>
+			<W>4950</W>
+			<H>10500</H>
+			<Ln>1</Ln>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>4950</GfxW>
+				<GfxH>10500</GfxH>
+				<Primitive>
+					<Shape>OutlineBox</Shape>
+					<LineW>25</LineW>
+				</Primitive>
+			</Graphic>
+		</Field>
+	</SubImage>
+	<GenericSettings>
+		<ImageMapping>
+			<Map SubIMageRef="1">1</Map>
+		</ImageMapping>
+	</GenericSettings>
+</ImageDesign>

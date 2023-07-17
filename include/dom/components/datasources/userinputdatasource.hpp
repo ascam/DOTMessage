@@ -2,8 +2,10 @@
 #define DOT_MESSAGE_USER_INPUT_DATASOURCE_HPP
 
 #include <string>
-#include "dom/components/datasources/datasource.hpp"
+
 #include "signal/signal.hpp"
+#include "dom/rippers/context.hpp"
+#include "dom/components/datasources/datasource.hpp"
 
 namespace macsa {
 	namespace dot {
@@ -223,7 +225,7 @@ namespace macsa {
 				};
 
 			public:
-				UserInputDataSource();
+				UserInputDataSource(const dot::Object& obj);
 				virtual ~UserInputDataSource() = default;
 
 				/**
@@ -435,6 +437,12 @@ namespace macsa {
 					}
 				}
 
+				/**
+				* @brief GetData. Get data source updated data result.
+				* @return data source text result data.
+				*/
+				std::string GetData(Context* context) const override;
+
 			public:
 				Signal<> PromptChanged;
 				Signal<> ValueChanged;
@@ -458,6 +466,7 @@ namespace macsa {
 				PromptBehavior _promptBehavior;
 				InputTextAttributes _inputTextAttributes;
 				bool _required;
+				static bool _registered;
 		};
 	}
 }

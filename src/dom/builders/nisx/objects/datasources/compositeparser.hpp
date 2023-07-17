@@ -16,6 +16,7 @@ namespace macsa {
 
 			private:
 				dot::CompositeDataSource* _composite;
+				static bool _registered;
 		};
 	}
 }

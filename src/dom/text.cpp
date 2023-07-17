@@ -3,14 +3,11 @@
 #include "dom/factories/abstractobjectfactory.hpp"
 
 using macsa::dot::Text;
-using macsa::dot::RefreshPolicy;
 using macsa::dot::Font;
 using macsa::dot::TextBoxProperties;
 using macsa::dot::IDocumentVisitor;
 
-namespace  {
-	static const bool FactoryRegistered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
-}
+bool Text::_registered = macsa::dot::ConcreteObjectsFactory<Text>::Register(macsa::dot::NObjectType::kText);
 
 Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	VariableObject(id, NObjectType::kText, geometry),
@@ -20,11 +17,6 @@ Text::Text(const std::string& id, const macsa::dot::Geometry& geometry) :
 	_backgroundColor{},
 	_textBoxProperties{}
 {}
-
-bool Text::IsVariable() const
-{
-	return _datasource.get() != nullptr;
-}
 
 bool Text::Accept(IDocumentVisitor* visitor) const
 {

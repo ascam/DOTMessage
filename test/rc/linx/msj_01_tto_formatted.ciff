@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ImageDesign Version="17" xml:space="default">
+   <Header DesignedFor="Videojet NiceLabel Driver">
+      <ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vRUW6NVVIKEV4BRrNNCDVJQPSTSWI8FGS17FZ06NIOl83W62LJSGURd43d8NCAVg30uCVM3HdIBNS3m4E76M!F4jDL!P0iSBRSJz1SsQ3_CB7JEU9JGRV6UCeFPDFEAM0V78n88kTNbH2GGL!QQAT</ClStVersionInfo>
+      <LastDownloaded>43416.579236</LastDownloaded>
+   </Header>
+   <SubImage>
+      <SubHeader>
+         <ImageWidth>5300</ImageWidth>
+         <ImageHeight>5300</ImageHeight>
+         <MaxImageWidth>5300</MaxImageWidth>
+         <MaxImageHeight>5300</MaxImageHeight>
+         <XRes>0.118100</XRes>
+         <CurrentOrientation>0</CurrentOrientation>
+      </SubHeader>
+      <Field Name="Field2">
+         <FldType>GraphicPrimitive</FldType>
+         <X>322</X>
+         <Y>93</Y>
+         <W>4581</W>
+         <H>4902</H>
+         <Ln>1</Ln>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>4581</GfxW>
+            <GfxH>4902</GfxH>
+            <Primitive>
+               <Shape>OutlineBox</Shape>
+               <LineW>42</LineW>
+            </Primitive>
+         </Graphic>
+      </Field>
+      <Field Name="Field3">
+         <FldType>GraphicPrimitive</FldType>
+         <X>322</X>
+         <Y>567</Y>
+         <W>4581</W>
+         <H>42</H>
+         <Ln>1</Ln>
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>4581</GfxW>
+            <GfxH>42</GfxH>
+            <Primitive>
+               <Shape>Line</Shape>
+               <LineW>42</LineW>
+            </Primitive>
+         </Graphic>
+      </Field>
+      <Field Name="Graph0">
+         <FldType>StaticGraphic</FldType>
+         <X>322</X>
+         <Y>1973</Y>
+         <W>4581</W>
+         <H>59</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Grph_01_0000.bmp]]></CalcData>
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>16</MaxNoOfChars>
+               <Default><![CDATA[Grph_01_0000.bmp]]></Default>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>4581</GfxW>
+            <GfxH>59</GfxH>
+            <StaticGfx />
+         </Graphic>
+      </Field>
+      <Field Name="Field5">
+         <FldType>GraphicPrimitive</FldType>
+         <X>313</X>
+         <Y>3404</Y>
+         <W>4589</W>
+         <H>42</H>
+         <Ln>1</Ln>
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>4589</GfxW>
+            <GfxH>42</GfxH>
+            <Primitive>
+               <Shape>Line</Shape>
+               <LineW>42</LineW>
+            </Primitive>
+         </Graphic>
+      </Field>
+      <Field Name="Text_0">
+         <FldType>FixedText</FldType>
+         <X>1761</X>
+         <Y>152</Y>
+         <W>1880</W>
+         <H>271</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[www.macsa.com]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>13</MaxNoOfChars>
+               <Default><![CDATA[www.macsa.com]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>696</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_1">
+         <FldType>FixedText</FldType>
+         <X>432</X>
+         <Y>677</Y>
+         <W>2159</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Prod. Terminado]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>15</MaxNoOfChars>
+               <Default><![CDATA[Prod. Terminado]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Field8">
+         <FldType>GraphicPrimitive</FldType>
+         <X>2642</X>
+         <Y>593</Y>
+         <W>42</W>
+         <H>1397</H>
+         <Ln>1</Ln>
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>42</GfxW>
+            <GfxH>1397</GfxH>
+            <Primitive>
+               <Shape>Line</Shape>
+               <LineW>1397</LineW>
+            </Primitive>
+         </Graphic>
+      </Field>
+      <Field Name="Text_2">
+         <FldType>FixedText</FldType>
+         <X>3107</X>
+         <Y>677</Y>
+         <W>1228</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Unidades]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>8</MaxNoOfChars>
+               <Default><![CDATA[Unidades]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_3">
+         <FldType>FixedText</FldType>
+         <X>432</X>
+         <Y>2125</Y>
+         <W>1516</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Descripción]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>12</MaxNoOfChars>
+               <Default><![CDATA[Descripción]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_4">
+         <FldType>FixedText</FldType>
+         <X>1177</X>
+         <Y>3607</Y>
+         <W>567</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Lote]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>4</MaxNoOfChars>
+               <Default><![CDATA[Lote]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_5">
+         <FldType>FixedText</FldType>
+         <X>3200</X>
+         <Y>3573</Y>
+         <W>1465</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[Cons. Pref.]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>11</MaxNoOfChars>
+               <Default><![CDATA[Cons. Pref.]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Field13">
+         <FldType>GraphicPrimitive</FldType>
+         <X>2667</X>
+         <Y>3429</Y>
+         <W>42</W>
+         <H>1516</H>
+         <Ln>1</Ln>
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+            </Object>
+         </Data>
+         <Graphic>
+            <GfxW>42</GfxW>
+            <GfxH>1516</GfxH>
+            <Primitive>
+               <Shape>Line</Shape>
+               <LineW>1516</LineW>
+            </Primitive>
+         </Graphic>
+      </Field>
+      <Field Name="Text_6">
+         <FldType>FixedText</FldType>
+         <X>686</X>
+         <Y>1168</Y>
+         <W>1676</W>
+         <H>550</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[102213]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>6</MaxNoOfChars>
+               <Default><![CDATA[102213]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>1392</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_7">
+         <FldType>FixedText</FldType>
+         <X>3531</X>
+         <Y>1118</Y>
+         <W>559</W>
+         <H>550</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[10]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>2</MaxNoOfChars>
+               <Default><![CDATA[10]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>1392</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_8">
+         <FldType>FixedText</FldType>
+         <X>644</X>
+         <Y>4098</Y>
+         <W>1676</W>
+         <H>550</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[L22182]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>6</MaxNoOfChars>
+               <Default><![CDATA[L22182]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>1392</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_9">
+         <FldType>FixedText</FldType>
+         <X>2862</X>
+         <Y>4098</Y>
+         <W>1964</W>
+         <H>550</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[01.07.23]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>8</MaxNoOfChars>
+               <Default><![CDATA[01.07.23]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>1392</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+      <Field Name="Text_10">
+         <FldType>FixedText</FldType>
+         <X>432</X>
+         <Y>2464</Y>
+         <W>4394</W>
+         <H>313</H>
+         <Ln>1</Ln>
+         <CalcData><![CDATA[SURTIDO CUETARA 625g]]></CalcData>
+         <LoggedField />
+         <Data>
+            <Object>
+               <DataType>0</DataType>
+               <MaxNoOfChars>20</MaxNoOfChars>
+               <Default><![CDATA[SURTIDO CUETARA 625g]]></Default>
+            </Object>
+         </Data>
+         <Text>
+            <Font>
+               <Pitch>792</Pitch>
+               <PitchResolution>100</PitchResolution>
+            </Font>
+         </Text>
+      </Field>
+   </SubImage>
+   <GenericSettings>
+      <ImageMapping>
+         <Map SubIMageRef="1">1</Map>
+      </ImageMapping>
+      <Parameters>
+         <ParamSet Name="Local">
+            <Param Name="Imaging/JobOrientation" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/ImageInformation/PrintOrientation" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/PrintDarkness">75</Param>
+            <Param Name="Devices/PHds/1/ImageInformation/MirroredImage" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/VerticalRegistration">0</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/ContinuousRegistrationDelay">0</Param>
+            <Param Name="Devices/PHds/1/PrinterConfiguration/PrintingMode" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/RibbonSaveMode" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/Consumables/RibbonColour" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/Consumables/RibbonType" Type="Sta">0</Param>
+            <Param Name="Devices/PHds/1/Consumables/RibbonWidth">55</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/ContinuousRepeatDistanceTmm">1000</Param>
+            <Param Name="Devices/PHds/1/IAssure/RejectMachineCyclesDelay">15</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/ContinuousPrintsPerSignal">1</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/ContinuousRegistrationDelayTmm">0</Param>
+            <Param Name="Devices/PHds/1/PrintInformation/IntermittentPrintRegistrationTmm">0</Param>
+         </ParamSet>
+      </Parameters>
+   </GenericSettings>
+</ImageDesign>

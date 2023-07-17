@@ -1,0 +1,291 @@
+﻿<ImageDesign Version="16" xml:space="default">
+	<Header DesignedFor="TT3 (Full Driver)">
+		<ClStVersionInfo>PyOA!LMe37jF5gGD_OEeQJPAIR3Et2HVCOk4RKDB93Hl9AjBVgIOzL2x64vPUXIVG5MjS7_ONj03n9L093KTNd7Se6IsQI5UGvASgGAhLQiAJt4EyM6o04yODqJLDLJQD5L3Ko9VC37tQ49VTa94c7KQ4IoPODV9SGRu7SjOGW8E!U6e80p4S0GUy45l8L_5UyJIsU1TOU611l3NMKOhNTbV4ALFK16uLBn1VV7CzHOe5IWCNyCRvQPl3RNL</ClStVersionInfo>
+		<DateOffset Name="fecha cad">
+			<DefaultOffset>
+				<Month>6</Month>
+			</DefaultOffset>
+			<CurrentOffset>
+				<Day>20</Day>
+				<Month>10</Month>
+				<Year>2015</Year>
+			</CurrentOffset>
+		</DateOffset>
+		<DataSource DataSourceIndex="UniqueJobCode" DataSourceName="Table containing Index Fields" DataSourceTable="JOBS">
+			<![CDATA[Provider=Microsoft.Jet.OLEDB.4.0;Password="";Data Source=C:\CLARICOMDATA\Clarisoft-Sample.mdb;Persist Security Info=True]]>
+		</DataSource>
+	</Header>
+	<SubImage ImageReference="1">
+		<SubHeader FormatName="LH Intermittent">
+			<ImageWidth>3183</ImageWidth>
+			<ImageHeight>2983</ImageHeight>
+			<MaxImageWidth>3200</MaxImageWidth>
+			<MaxImageHeight>3000</MaxImageHeight>
+			<XRes>0.120000</XRes>
+		</SubHeader>
+		<Field Name="Campo09">
+			<FldType>GraphicPrimitive</FldType>
+			<CLSID>{DC1F7EC4-7698-11D5-8036-005004D10645}</CLSID>
+			<X>75</X>
+			<Y>50</Y>
+			<W>3108</W>
+			<H>2933</H>
+			<Ln>1</Ln>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>3109</GfxW>
+				<GfxH>2933</GfxH>
+				<Primitive>
+					<Shape>OutlineBox</Shape>
+					<LineW>50</LineW>
+				</Primitive>
+			</Graphic>
+		</Field>
+		<Field Name="Campo00">
+			<FldType>FixedText</FldType>
+			<X>158</X>
+			<Y>108</Y>
+			<W>2909</W>
+			<H>484</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[HISPACK 2015]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>12</MaxNoOfChars>
+					<Default>
+						<![CDATA[HISPACK 2015]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>12</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo02">
+			<FldType>FixedText</FldType>
+			<X>475</X>
+			<Y>1008</Y>
+			<W>1008</W>
+			<H>359</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[F.Fab.:]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>7</MaxNoOfChars>
+					<Default>
+						<![CDATA[F.Fab.:]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo03">
+			<FldType>FixedText</FldType>
+			<X>483</X>
+			<Y>1400</Y>
+			<W>984</W>
+			<H>358</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[F.Cad.:]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>7</MaxNoOfChars>
+					<Default>
+						<![CDATA[F.Cad.:]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+					<XMag>95</XMag>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo04">
+			<FldType>FixedText</FldType>
+			<X>467</X>
+			<Y>1750</Y>
+			<W>1358</W>
+			<H>358</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[Cantidad:]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>9</MaxNoOfChars>
+					<Default>
+						<![CDATA[Cantidad:]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo01">
+			<FldType>FixedText</FldType>
+			<X>483</X>
+			<Y>600</Y>
+			<W>2275</W>
+			<H>358</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[LOT.: 125A-45T]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>14</MaxNoOfChars>
+					<Default>
+						<![CDATA[LOT.: 125A-45T]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo06">
+			<FldType>DateText</FldType>
+			<X>1525</X>
+			<Y>1017</Y>
+			<W>1233</W>
+			<H>358</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[20/04/15]]>
+			</CalcData>
+			<Data>
+				<Object Parse="1" Static="0">
+					<DataType>2</DataType>
+					<Default>
+						<![CDATA[dd'/'MM'/'yy]]>
+					</Default>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo07">
+			<FldType>OffsetDateText</FldType>
+			<X>1500</X>
+			<Y>1417</Y>
+			<W>1233</W>
+			<H>358</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[20/10/15]]>
+			</CalcData>
+			<Data>
+				<Object Parse="1" Static="0">
+					<DataType>3</DataType>
+					<Default>
+						<![CDATA[dd'/'MM'/'yy]]>
+					</Default>
+					<OffsetDate SrcOffset="fecha cad"/>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo08">
+			<FldType>CounterText</FldType>
+			<X>1900</X>
+			<Y>1758</Y>
+			<W>700</W>
+			<H>359</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[0001]]>
+			</CalcData>
+			<Data>
+				<Object Static="0">
+					<DataType>4</DataType>
+					<Default>
+						<![CDATA[0001]]>
+					</Default>
+					<CounterText>
+						<SubCnt Significance="0">
+							<NoOfChars>4</NoOfChars>
+							<StartVal>
+								<![CDATA[0001]]>
+							</StartVal>
+							<CurrVal>
+								<![CDATA[0000]]>
+							</CurrVal>
+							<ClrStCntType/>
+						</SubCnt>
+					</CounterText>
+				</Object>
+			</Data>
+			<Text>
+				<Font>
+					<Pitch>9</Pitch>
+				</Font>
+			</Text>
+		</Field>
+		<Field Name="Campo05">
+			<FldType>StaticGraphic</FldType>
+			<CLSID>{6AE09851-D80F-11D4-8DAE-0050DAFE8A9F}</CLSID>
+			<X>467</X>
+			<Y>2150</Y>
+			<W>2266</W>
+			<H>750</H>
+			<Ln>1</Ln>
+			<CalcData>
+				<![CDATA[C:\Users\mmanrique\Desktop\MACSA Logo.bmp]]>
+			</CalcData>
+			<Data>
+				<Object>
+					<DataType>0</DataType>
+					<MaxNoOfChars>41</MaxNoOfChars>
+					<Default>
+						<![CDATA[C:\Users\mmanrique\Desktop\MACSA Logo.bmp]]>
+					</Default>
+				</Object>
+			</Data>
+			<Graphic>
+				<GfxW>14583</GfxW>
+				<GfxH>4833</GfxH>
+				<StaticGfx/>
+			</Graphic>
+		</Field>
+	</SubImage>
+	<GenericSettings>
+		<ImageMapping>
+			<Map SubIMageRef="1">1</Map>
+		</ImageMapping>
+	</GenericSettings>
+</ImageDesign>

@@ -16,6 +16,7 @@ namespace macsa {
 
 			private:
 				dot::DatabaseDataSource* _database;
+				static bool _registered;
 		};
 	}
 }
