@@ -10,6 +10,7 @@ add_subdirectory(rippers)
 add_subdirectory(visitors)
 
 set(SOURCES ${SOURCES}
+	${CMAKE_CURRENT_SOURCE_DIR}/dotmessage.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/document.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/object.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/text.cpp

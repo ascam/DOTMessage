@@ -13,6 +13,7 @@ set(SOURCES ${SOURCES}
     )
 
 set(HEADERS ${HEADERS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/dotmessage.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/document.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/object.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/objecttype.hpp

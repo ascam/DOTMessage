@@ -14,19 +14,6 @@ using macsa::dot::ObjectType;
 using macsa::dot::IDocumentVisitor;
 using macsa::utils::MacsaLogger;
 
-std::string Document::GetLibraryVersion()
-{
-	std::stringstream version;
-	version << DOT_MESSAGE_LIB_VERSION_MAJOR << "."
-			<< DOT_MESSAGE_LIB_VERSION_MINOR << "."
-			<< DOT_MESSAGE_LIB_VERSION_BUILD;
-	return version.str();
-}
-
-std::string Document::GetLibraryName()
-{
-	return DOT_MESSAGE_LIB_NAME;
-}
 
 Document::Document(const std::string& name) :
 	_name{name},
