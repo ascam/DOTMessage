@@ -9,12 +9,11 @@ FetchContent_Declare(utils
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/utils
 )
 
-## TODO(iserra): Replace with DOTModel
-## ## Macsa Printers base repository
-FetchContent_Declare(printer
-   GIT_REPOSITORY git@github.com:ascam/corePrinter.git
+## Macsa DOTSystem base repository
+FetchContent_Declare(dotsystem
+   GIT_REPOSITORY git@github.com:ascam/DOTSystem
    GIT_TAG development
-   SOURCE_DIR ${CMAKE_SOURCE_DIR}/printer
+   SOURCE_DIR ${CMAKE_SOURCE_DIR}/dotsystem
 )
 
 # Loading utils repository
@@ -26,5 +25,5 @@ if (UTILS_DIR)
 	include(${UTILS_DIR}/cmake/test.cmake)  #configuration test enabled and GTest requiered configuration
 endif()
 
-findModule(PRINTER_DM_DIR "printer")
-set(PRINTER_DM_DIR ${MODULE_BASE_PATH}/printer/datamodel)
+findModule(DOTSYSTEM_DIR "dotsystem")
+set(DOTSYSTEM_DIR ${MODULE_BASE_PATH}/dotsystem)
