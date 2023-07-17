@@ -44,8 +44,6 @@ else()
     set(BACKEND_SDL2 OFF CACHE BOOL "Use SDL2 based generator" FORCE)
 endif()
 
-## Add Macsa systems datamodel ##
-add_subdirectory(${DOTSYSTEM_DIR}            ${PROJECT_BINARY_DIR}/dotsystem)
 ## Add Macsa utilities library
 add_subdirectory(${UTILS_DIR}/libutils       ${PROJECT_BINARY_DIR}/libutils)
 add_subdirectory(${UTILS_DIR}/tinyxml2       ${PROJECT_BINARY_DIR}/tinyxml2)
@@ -108,7 +106,6 @@ set(DOTMESSAGE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/include
 target_include_directories(${PROJECT_NAME}_lib
         PUBLIC
 		${DOTMESSAGE_INCLUDE_DIRECTORIES}
-		${DOTSYSTEM_INCLUDE_DIRECTORY}
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/src
 		${UTILS_INCLUDE_DIRECTORY}
@@ -116,12 +113,6 @@ target_include_directories(${PROJECT_NAME}_lib
 	)
 
 if(NOT BUILD_SHARED_LIBS)
-        if (UNIX)
-		set(STATIC_DEPENDENCIES ${CMAKE_BINARY_DIR}/lib/dotsystem.a)
-	elseif(WIN32)
-	        set(STATIC_DEPENDENCIES
-			${CMAKE_BINARY_DIR}/lib/dotsystem.lib)
-	endif()
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating static library")
 	message("-- STATIC Public dependencies: ${STATIC_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	add_library(${PROJECT_NAME} STATIC $<TARGET_OBJECTS:${PROJECT_NAME}_lib>)
@@ -129,7 +120,6 @@ if(NOT BUILD_SHARED_LIBS)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${STATIC_DEPENDENCIES})
 	install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/ DESTINATION ${INSTALL_DIR}/lib FILES_MATCHING PATTERN "*.so*")
 else()
-	set(SHARED_DEPENDENCIES dotsystem)
 	message("lib  ${PROJECT_NAME} v${PROJECT_VERSION} creating dynamic library")
 	message("-- SHARED Public dependencies: ${SHARED_DEPENDENCIES} ${EXTERNAL_LIBS}")
 	set_property(TARGET ${PROJECT_NAME}_lib PROPERTY POSITION_INDEPENDENT_CODE 1)

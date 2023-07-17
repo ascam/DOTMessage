@@ -18,6 +18,7 @@ set(SOURCES ${SOURCES}
 	${CMAKE_CURRENT_SOURCE_DIR}/image.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/primitives.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/variableobject.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/datecodes.cpp
 	PARENT_SCOPE
     )
 
