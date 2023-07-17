@@ -1,7 +1,7 @@
 #ifndef DOTMESSAGE_CONTEXT_HPP
 #define DOTMESSAGE_CONTEXT_HPP
 
-#include "model/datecodes.hpp"
+#include "dom/datecodes.hpp"
 #include "dom/document.hpp"
 
 namespace macsa
@@ -11,8 +11,8 @@ namespace macsa
 		struct Context
 		{
 			unsigned int counter;
-			macsa::dot::DateCodes dateCodes;
-			dot::Document* document;
+			DateCodes dateCodes;
+			Document* document;
 			tm time;
 		};
 	}

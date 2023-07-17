@@ -25,5 +25,6 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/primitives.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/idocumentbuilder.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/documentvisitor.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/datecodes.hpp
     PARENT_SCOPE
     )
