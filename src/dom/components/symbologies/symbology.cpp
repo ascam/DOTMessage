@@ -7,6 +7,7 @@ bool Code128::_registered = ConcreteSymbologyFactory<Code128>::Register(NBarcode
 bool Code39::_registered = ConcreteSymbologyFactory<Code39>::Register(NBarcodeSymbol::kCode39);
 bool Pharmacode::_registered = ConcreteSymbologyFactory<Pharmacode>::Register(NBarcodeSymbol::kPharmacode);
 bool UpcA::_registered = ConcreteSymbologyFactory<UpcA>::Register(NBarcodeSymbol::kUpcA);
+bool UpcE::_registered = ConcreteSymbologyFactory<UpcE>::Register(NBarcodeSymbol::kUpcE);
 bool Interleaved2of5::_registered = ConcreteSymbologyFactory<Interleaved2of5>::Register(NBarcodeSymbol::kInterleaved2of5);
 bool Itf14::_registered = ConcreteSymbologyFactory<Itf14>::Register(NBarcodeSymbol::kItf14);
 bool Ean13::_registered = ConcreteSymbologyFactory<Ean13>::Register(NBarcodeSymbol::kEan13);

@@ -358,6 +358,18 @@ namespace macsa {
 				static bool _registered;
 		};
 
+		class UpcE final : public OneDimensionBarcode
+		{
+			public:
+				UpcE() :
+					OneDimensionBarcode(NBarcodeSymbol::kUpcE)
+				{}
+				virtual ~UpcE() = default;
+
+			private:
+				static bool _registered;
+		};
+
 		class Interleaved2of5 final : public OneDimensionBarcode
 		{
 			public:
@@ -571,11 +583,11 @@ namespace macsa {
 		};
 
 
-		class GS1DataBar14 final : public OneDimensionGS1Barcode
+		class GS1DataBar14 final : public OneDimensionBarcode // it has AI but only "(01)" and zint library puts the AI automatically
 		{
 			public:
 				GS1DataBar14() :
-					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBar14)
+					OneDimensionBarcode(NBarcodeSymbol::kGS1DataBar14)
 				{}
 				virtual ~GS1DataBar14() = default;
 
