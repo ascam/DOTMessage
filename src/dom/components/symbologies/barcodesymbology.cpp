@@ -144,7 +144,7 @@ const std::vector<std::pair<NBarcodeSymbol,std::string>>& BarcodeSymbol::getData
 		{NBarcodeSymbol::kUpcA,"UpcA"},
 		//{NBarcodeSymbol::kUpcACCA,"UpcACCA"},
 		//{NBarcodeSymbol::kUpcACCB,"UpcACCB"},
-		//{NBarcodeSymbol::kUpcE,"UpcE"},
+		{NBarcodeSymbol::kUpcE,"UpcE"},
 		//{NBarcodeSymbol::kUpcECCA,"UpcECCA"},
 		//{NBarcodeSymbol::kUpcECCB,"UpcECCB"},
 		//{NBarcodeSymbol::kUspsFim,"UspsFim"},
