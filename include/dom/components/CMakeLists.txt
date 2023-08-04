@@ -16,5 +16,6 @@ set(HEADERS ${HEADERS}
     ${CMAKE_CURRENT_SOURCE_DIR}/geometry.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/pen.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/textboxproperties.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/barcodeapplications.hpp
     PARENT_SCOPE
     )
