@@ -1,7 +1,8 @@
 #ifndef BARCODE_APPLICATIONS_DOT_MESSAGE
 #define BARCODE_APPLICATIONS_DOT_MESSAGE
 
-#include "utils/smartenum.hpp"
+#include <string>
+#include <vector>
 
 namespace macsa::dot
 {
@@ -31,24 +32,18 @@ namespace macsa::dot
 		k93CompanyInternalInformation
 	};
 
-	class BarcodeApplications final : public utils::SmartEnum<NBarcodeApplications>
+	struct BarcodeApplicationData
+	{
+		NBarcodeApplications type;
+		std::string code;
+		std::string description;
+		std::string format;
+	};
+
+	class BarcodeApplications
 	{
 		public:
-			BarcodeApplications (const NBarcodeApplications& type = NBarcodeApplications::kSerialShippingContainerCode) :
-				utils::SmartEnum<NBarcodeApplications>(type)
-			{}
-			BarcodeApplications (const std::string& type) :
-				utils::SmartEnum<NBarcodeApplications>(NBarcodeApplications::kSerialShippingContainerCode)
-			{
-				fromString(type);
-			}
-
-			const BarcodeApplications& operator = (const std::string& val) {
-				fromString(val);
-				return *this;
-			}
-
-			const std::vector<std::pair<NBarcodeApplications, std::string>>& getData() const override;
+			const static std::vector<BarcodeApplicationData>& getData();
 	};
 }
 
