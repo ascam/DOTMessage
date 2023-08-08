@@ -356,6 +356,12 @@ void QtGenerator::SaveToBmpFile(const std::string& filename)
 	if (!_pixmap.isNull() && _pixmap.width() > 0 &&	_pixmap.height() > 0)	{
 		_pixmap.save(filename.c_str()) ;
 	}
+	else {
+		ELog() << "Unable to save bmp file at " << filename << std::endl
+			   << "pixmap: " << (_pixmap.isNull() ? "null" : "ok") << std::endl
+			   << "Width: " << _pixmap.width() << std::endl
+			   << "Height: " << _pixmap.height();
+	}
 }
 
 void QtGenerator::Clear()
