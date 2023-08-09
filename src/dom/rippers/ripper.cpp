@@ -94,7 +94,7 @@ void DOTRipper::SaveToBmpFile(const std::string &filepath)
 
 void DOTRipper::Update(Context* context, bool editorMode)
 {
-	if (!_doc) {
+	if (!_doc || _doc->GetCanvasSize() == Size()) {
 		ELog() << "Invalid document";
 		return;
 	}

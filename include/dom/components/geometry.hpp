@@ -9,8 +9,8 @@ namespace macsa
 	{
 		struct Point
 		{
-			float x = 0;
-			float y= 0;
+			float x = 0.0;
+			float y= 0.0;
 
 			bool operator == (const Point& other) const {
 				return x == other.x && y == other.y;
@@ -22,8 +22,8 @@ namespace macsa
 
 		struct Size
 		{
-			float width = 0;
-			float height = 0;
+			float width = 0.0;
+			float height = 0.0;
 
 			bool operator == (const Size& other) const {
 				return width == other.width && height == other.height;
