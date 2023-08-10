@@ -37,7 +37,14 @@ bool FieldsParser::VisitEnter(const XMLElement& element, const XMLAttribute* fir
 			if (object) {
 				std::unique_ptr<ObjectParser> parser {ObjectParsersFactory::Get(objectType->first, object)};
 				if (parser.get() != nullptr) {
-					element.Accept(parser.get());
+					try {
+						element.Accept(parser.get());
+					}
+					catch (const std::exception& ex) {
+						ELog() << "Exception catched while parsing object "
+								  << "<"<< fieldType << " Name=\"" << objectId << "\"> :"
+								  << ex.what();
+					}
 				}
 				else {
 					ELog() << "Unable to parser field of type " << fieldType << ". PARSER NOT IMPLEMENTED.";
