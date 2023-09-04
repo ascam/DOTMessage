@@ -319,7 +319,8 @@ int QtBarcode::getZintSymbology(const BarcodeSymbol& symbology) const
 			return BARCODE_UPCA;
 		// case NBarcodeSymbology::kUpcACCA: return ; // Not implemented
 		// case NBarcodeSymbology::kUpcACCB: return ; // Not implemented
-		// case NBarcodeSymbology::kUpcE: return ; // Not implemented
+		case NBarcodeSymbol::kUpcE:
+			return BARCODE_UPCE;
 		// case NBarcodeSymbology::kUpcECCA: return ; // Not implemented
 		// case NBarcodeSymbology::kUpcECCB: return ; // Not implemented
 		// case NBarcodeSymbology::kUspsFim: return ; // Not implemented
@@ -396,6 +397,7 @@ bool QtBarcode::isBarcodeWithTextOutside(const BarcodeSymbol& symbology) const
 		case NBarcodeSymbol::kEan13:
 		case NBarcodeSymbol::kEan8:
 		case NBarcodeSymbol::kUpcA:
+		case NBarcodeSymbol::kUpcE:
 			return true;
 		default:
 			return false;
