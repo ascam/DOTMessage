@@ -250,14 +250,14 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		return;
 	}
 
-	double canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
-	double canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+	double canvasWidth = GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch);
+	double canvasHeight = GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch);
 
-	double viewportWidth = 0;
-	double viewportHeight = 0;
+	double viewportWidth = 0.;
+	double viewportHeight = 0.;
 
-	double canvasXOffset = 0;
-	double canvasYOffset = 0;
+	double canvasXOffset = 0.;
+	double canvasYOffset = 0.;
 
 	_canvasOffset.setX(0.);
 	_canvasOffset.setY(0.);
@@ -276,7 +276,8 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		viewportHeight = GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch);
 	}
 
-	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
+	int canvasRotation = doc->GetCanvasRotation();
+	if (canvasRotation == 90 || canvasRotation == 270) {
 		std::swap(viewportWidth, viewportHeight);
 		std::swap(canvasWidth, canvasHeight);
 	}
@@ -295,29 +296,34 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 	QPainter painter(&_pixmap);
 	painter.save();
 
-	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0. && !editorMode) {
-		canvasXOffset = GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch);
-		canvasYOffset = GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch);
-	}
 	if (!editorMode) {
-		painter.setClipRect(QRectF(canvasXOffset, canvasYOffset, canvasWidth, canvasHeight), Qt::IntersectClip);
-	}
-
-	if (canvasXOffset != 0. || canvasYOffset != 0.)	{
-		QTransform transformation;
-		transformation.translate(canvasXOffset, canvasYOffset);
-		painter.setTransform(transformation);
+		if (doc->GetViewportWidth() != 0. || doc->GetViewportHeight() != 0.) {
+			canvasXOffset = GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch);
+			canvasYOffset = GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch);
+		}
+		painter.setClipRect(QRectF(0, 0, viewportWidth, viewportHeight), Qt::IntersectClip);
 	}
 
 	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 
-	if (doc->GetCanvasRotation() == 90) {
-		painter.translate(QPointF(canvasWidth, 0));
+	if (canvasRotation == 90) {
+		painter.translate(_pixmap.width(), 0);
 		painter.rotate(doc->GetCanvasRotation());
 	}
 
+	if (canvasXOffset != 0. || canvasYOffset != 0.)	{
+		painter.translate(canvasXOffset, canvasYOffset);
+	}
+
+//	bool flip {true}; TODO(ADorado): get print direction to generate mirror image.
+//	if (flip) {
+//		double xPos = (canvasRotation == 90) ? _pixmap.height() : _pixmap.width();
+//		painter.translate(QPointF(xPos, 0));
+//		painter.scale(-1, 1);
+//	}
+
 	if (_bgColor != Qt::white)	{
-		QBrush brush(Qt::white);
+		QBrush brush(Qt::black);
 		painter.setBrush(brush);
 		painter.setPen(Qt::white);
 		painter.drawRect(0, 0, canvasWidth, canvasHeight);
