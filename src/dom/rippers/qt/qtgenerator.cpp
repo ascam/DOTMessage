@@ -323,9 +323,8 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 //	}
 
 	if (_bgColor != Qt::white)	{
-		QBrush brush(Qt::black);
-		painter.setBrush(brush);
-		painter.setPen(Qt::white);
+		painter.setBrush(Qt::white);
+		painter.setPen(Qt::NoPen);
 		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
 
