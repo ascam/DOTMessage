@@ -250,14 +250,14 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		return;
 	}
 
-	int canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
-	int canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+	double canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
+	double canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
 
-	int viewportWidth = 0;
-	int viewportHeight = 0;
+	double viewportWidth = 0;
+	double viewportHeight = 0;
 
-	int canvasXOffset = 0;
-	int canvasYOffset = 0;
+	double canvasXOffset = 0;
+	double canvasYOffset = 0;
 
 	_canvasOffset.setX(0.);
 	_canvasOffset.setY(0.);
@@ -272,8 +272,8 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		canvasYOffset = canvasOffset.second.y();
 	}
 	else	{
-		viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
-		viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
+		viewportWidth = GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch);
+		viewportHeight = GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch);
 	}
 
 	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
@@ -281,7 +281,7 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		std::swap(canvasWidth, canvasHeight);
 	}
 
-	QPixmap pixmap(viewportWidth, viewportHeight);
+	QPixmap pixmap(std::ceil(viewportWidth), std::ceil(viewportHeight));
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
@@ -296,8 +296,8 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 	painter.save();
 
 	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0. && !editorMode) {
-		canvasXOffset = std::round(GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch));
-		canvasYOffset = std::round(GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch));
+		canvasXOffset = GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch);
+		canvasYOffset = GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch);
 	}
 	if (!editorMode) {
 		painter.setClipRect(QRectF(canvasXOffset, canvasYOffset, canvasWidth, canvasHeight), Qt::IntersectClip);
