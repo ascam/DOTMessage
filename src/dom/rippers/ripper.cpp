@@ -259,6 +259,51 @@ uint32_t DOTRipper::GetHorizontalResolution() const
 	return 0;
 }
 
+bool DOTRipper::GetFlipHorizontal() const
+{
+	if (_generator) {
+		return _generator->GetFlipHorizontal();
+	}
+	return false;
+}
+
+void DOTRipper::SetFlipHorizontal(bool flip)
+{
+	if (_generator) {
+		_generator->SetFlipHorizontal(flip);
+	}
+}
+
+void DOTRipper::SetFlipVertical(bool flip)
+{
+	if (_generator) {
+		_generator->SetFlipVertical(flip);
+	}
+}
+
+bool DOTRipper::GetFlipVertical() const
+{
+	if (_generator) {
+		return _generator->GetFlipVertical();
+	}
+	return false;
+}
+
+uint16_t DOTRipper::GetRotation() const
+{
+	if (_generator) {
+		return _generator->GetRotation();
+	}
+	return 0;
+}
+
+void DOTRipper::SetRotation(uint16_t rotation)
+{
+	if (_generator) {
+		return _generator->SetRotation(rotation);
+	}
+}
+
 void DOTRipper::AddFontsDirectory(const std::string &fullpath)
 {
 	if (_generator) {
@@ -285,15 +330,6 @@ void DOTRipper::SetBackgroundColorFromRGBA(uint32_t rgba)
 	if (_generator) {
 		_generator->SetBackgroundColorFromRGBA(rgba);
 	}
-}
-
-int DOTRipper::GetRotation() const
-{
-	if (_doc) {
-		return _doc->GetCanvasRotation();
-	}
-
-	return 0;
 }
 
 void DOTRipper::SetDocument(Document* document)
