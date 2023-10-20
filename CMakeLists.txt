@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.10)
 include_guard(GLOBAL)
 cmake_policy(SET CMP0048 NEW)
 
-project(dotmessage VERSION 1.0.0)
+project(dotmessage VERSION 1.0.1)
 
 set (PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 message("\n## Configuring ${PROJECT_NAME} v${PROJECT_VERSION}")
