@@ -52,6 +52,15 @@ namespace macsa
 				void SetHorizontalResolution(uint32_t hres);
 				uint32_t GetHorizontalResolution() const;
 
+				bool GetFlipHorizontal() const;
+				void SetFlipHorizontal(bool flip);
+
+				void SetFlipVertical(bool flip);
+				bool GetFlipVertical() const;
+
+				uint16_t GetRotation() const;
+				void SetRotation(uint16_t rotation);
+
 				void AddFontsDirectory(const std::string& fullpath);
 				void AddFontFamily(const std::string& fullpath);
 
@@ -65,7 +74,7 @@ namespace macsa
 				void SetBackgroundColorFromRGBA(const std::string& rgba);
 				void SetBackgroundColorFromRGBA(uint32_t rgba);
 
-				int GetRotation() const;
+
 				dot::Document* GetDocument() {return _doc;}
 				void SetDocument(dot::Document* document);
 
