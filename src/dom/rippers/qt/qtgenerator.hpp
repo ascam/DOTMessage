@@ -87,6 +87,8 @@ namespace macsa
 				uint32_t insertLine(const uchar *bytes, uint32_t size, bitmap& buffer, uint32_t pos, bool invertBytes) const;
 
 				std::pair<QSize, QPoint> getOutOfCanvasBounds(Document* doc);
+
+				void preparePainterBeforeRendering(QPainter& painter, QPointF offset, uint16_t rotation) const;
 		};
 	}
 }

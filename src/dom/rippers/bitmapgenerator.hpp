@@ -21,9 +21,13 @@ namespace macsa
 				BitmapGenerator() :
 					_hres(300),
 					_vres(300),
-					_printHiddenItems(false)
+					_rotation(),
+					_hflip(),
+					_vflip(),
+					_printHiddenItems()
 				{}
 				virtual ~BitmapGenerator() = default;
+
 				virtual void* NativeHandler() const =0;
 				virtual uint32_t GetWidth() const = 0;
 				virtual uint32_t GetHeight() const = 0;
@@ -56,8 +60,18 @@ namespace macsa
 
 				void SetVerticalResolution(uint32_t vres) {_vres = vres; }
 				uint32_t GetVerticalResolution() const { return _vres; }
+
 				void SetHorizontalResolution(uint32_t hres) {_hres = hres; }
 				uint32_t GetHorizontalResolution() const { return _hres; }
+
+				void SetFlipHorizontal(bool flip) {_hflip = flip;}
+				bool GetFlipHorizontal() const {return _hflip;}
+
+				void SetFlipVertical(bool flip) {_vflip = flip;}
+				bool GetFlipVertical() const {return _vflip;}
+
+				uint16_t GetRotation() const {return _rotation;}
+				void SetRotation(uint16_t rotation) {_rotation = rotation;}
 
 				/**
 				 * @brief setPrintHiddenItems allow hidden items to be printed
@@ -80,6 +94,9 @@ namespace macsa
 			protected:
 				uint32_t _hres;
 				uint32_t _vres;
+				uint16_t _rotation;
+				bool _hflip;
+				bool _vflip;
 				bool _printHiddenItems;
 		};
 	}

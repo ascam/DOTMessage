@@ -29,8 +29,6 @@ namespace macsa {
 				using DOM = std::deque<std::unique_ptr<Object>>;
 
 			public:
-				static std::string GetLibraryVersion();
-
 				Document(const std::string& name = "");
 				~Document();
 

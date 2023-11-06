@@ -34,6 +34,7 @@ std::string CounterDataSource::GetData(Context* context) const
 		int min = std::min(_minValue, _maxValue);
 		int max = std::max(_minValue, _maxValue);
 		int counter = context->counter;
+		int step = (_step == 0 ? 1 : _step);
 
 		// Rep control
 		if (_repeatCounter > 0) {
@@ -42,21 +43,21 @@ std::string CounterDataSource::GetData(Context* context) const
 		}
 
 		// Range control
-		if ((max > 0) || (_step < 0 && min < 0))
+		if ((max > 0) || (step < 0 && min < 0))
 		{
 			unsigned int range = 1 + (max - min);
-			int nsteps = static_cast<int>(ceil((range*1.0)/_step));
-			if (_step < 0) {
-				nsteps = static_cast<int>(floor((range*1.0)/_step));
+			int nsteps = static_cast<int>(ceil((range * 1.0) / step));
+			if (step < 0) {
+				nsteps = static_cast<int>(floor((range * 1.0) / step));
 			}
 			if (!nsteps) {
 				nsteps = 1;
 			}
 			int modulus = (nsteps + (counter % nsteps)) % nsteps;
-			counter = min + modulus * _step;
+			counter = min + modulus * step;
 		}
 		else {
-			counter = min + counter * _step;
+			counter = min + counter * step;
 		}
 
 		// Format control

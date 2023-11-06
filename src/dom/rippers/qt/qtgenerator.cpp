@@ -243,6 +243,58 @@ std::pair<QSize, QPoint> QtGenerator::getOutOfCanvasBounds(Document* doc)
 	return {size, point};
 }
 
+void QtGenerator::preparePainterBeforeRendering(QPainter& painter, QPointF offset, uint16_t rotation) const
+{
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+	painter.setRenderHint(QPainter::HighQualityAntialiasing);
+#else
+	painter.setRenderHint(QPainter::Antialiasing);
+#endif
+
+	double w = _pixmap.width();
+	double h = _pixmap.height();
+
+	if (rotation) {
+		if (rotation == 90) {
+			w = _pixmap.height();
+			h = _pixmap.width();
+
+			painter.translate(_pixmap.width(), 0);
+			painter.rotate(rotation);
+		}
+		else if (rotation == 180) {
+			painter.translate(_pixmap.width(), _pixmap.height());
+			painter.rotate(rotation);
+		}
+		else if (rotation == 270) {
+			w = _pixmap.height();
+			h = _pixmap.width();
+
+			painter.translate(0, _pixmap.height());
+			painter.rotate(rotation);
+		}
+		else {
+			WLog() << "Unsupported rotation value: " << rotation << " degrees";
+			return;
+		}
+	}
+
+	if (offset.x() != 0. || offset.y() != 0.)	{
+		painter.translate(offset.x(), offset.y());
+	}
+
+	if (_hflip) { // Horizontal mirroring
+		painter.translate(QPointF(w, 0));
+		painter.scale(-1, 1);
+	}
+
+	if (_vflip) { // vertical mirroring
+		painter.translate(QPointF(0, h));
+		painter.scale(1, -1);
+	}
+}
+
 void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 {
 	if (doc == nullptr || context == nullptr) {
@@ -250,14 +302,14 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		return;
 	}
 
-	int canvasWidth = std::round(GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch));
-	int canvasHeight = std::round(GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch));
+	double canvasWidth = GetHorizontalResolution() * (doc->GetCanvasWidth() / kMMPerInch);
+	double canvasHeight = GetVerticalResolution() * (doc->GetCanvasHeight() / kMMPerInch);
 
-	int viewportWidth = 0;
-	int viewportHeight = 0;
+	double viewportWidth = 0.;
+	double viewportHeight = 0.;
 
-	int canvasXOffset = 0;
-	int canvasYOffset = 0;
+	double canvasXOffset = 0.;
+	double canvasYOffset = 0.;
 
 	_canvasOffset.setX(0.);
 	_canvasOffset.setY(0.);
@@ -272,16 +324,17 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		canvasYOffset = canvasOffset.second.y();
 	}
 	else	{
-		viewportWidth = std::round(GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch));
-		viewportHeight = std::round(GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch));
+		viewportWidth = GetHorizontalResolution() * ((doc->GetViewportWidth() ? doc->GetViewportWidth(): doc->GetCanvasWidth()) / kMMPerInch);
+		viewportHeight = GetVerticalResolution() * ((doc->GetViewportHeight() ? doc->GetViewportHeight() : doc->GetCanvasHeight())  / kMMPerInch);
 	}
 
-	if (doc->GetCanvasRotation() == 90 || doc->GetCanvasRotation() == 270) {
+	int canvasRotation = _rotation; // TODO(iserra): review!! doc->GetCanvasRotation();
+	if (canvasRotation == 90 || canvasRotation == 270) {
 		std::swap(viewportWidth, viewportHeight);
 		std::swap(canvasWidth, canvasHeight);
 	}
 
-	QPixmap pixmap(viewportWidth, viewportHeight);
+	QPixmap pixmap(std::ceil(viewportWidth), std::ceil(viewportHeight));
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
@@ -293,33 +346,20 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 	}
 
 	QPainter painter(&_pixmap);
-	painter.save();
 
-	if (doc->GetViewportWidth() != 0. && doc->GetViewportHeight() != 0. && !editorMode) {
-		canvasXOffset = std::round(GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch));
-		canvasYOffset = std::round(GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch));
-	}
 	if (!editorMode) {
-		painter.setClipRect(QRectF(canvasXOffset, canvasYOffset, canvasWidth, canvasHeight), Qt::IntersectClip);
+		if (doc->GetViewportWidth() != 0. || doc->GetViewportHeight() != 0.) {
+			canvasXOffset = GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch);
+			canvasYOffset = GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch);
+		}
+		painter.setClipRect(QRectF(0, 0, viewportWidth, viewportHeight), Qt::IntersectClip);
 	}
 
-	if (canvasXOffset != 0. || canvasYOffset != 0.)	{
-		QTransform transformation;
-		transformation.translate(canvasXOffset, canvasYOffset);
-		painter.setTransform(transformation);
-	}
-
-	painter.setRenderHint(QPainter::HighQualityAntialiasing);
-
-	if (doc->GetCanvasRotation() == 90) {
-		painter.translate(QPointF(canvasWidth, 0));
-		painter.rotate(doc->GetCanvasRotation());
-	}
+	preparePainterBeforeRendering(painter, QPointF(canvasXOffset, canvasYOffset), canvasRotation);
 
 	if (_bgColor != Qt::white)	{
-		QBrush brush(Qt::white);
-		painter.setBrush(brush);
-		painter.setPen(Qt::white);
+		painter.setBrush(Qt::white);
+		painter.setPen(Qt::NoPen);
 		painter.drawRect(0, 0, canvasWidth, canvasHeight);
 	}
 
@@ -327,7 +367,6 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	renderFixedFields(&visitor);
 	renderVariableFields(&visitor);
-	painter.restore();
 }
 
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
@@ -342,9 +381,11 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 
 	// Points the painter to the base pixmap
 	QPainter painter(&_pixmap);
-	painter.setRenderHint(QPainter::HighQualityAntialiasing);
-	painter.setBackgroundMode(Qt::OpaqueMode);
-	painter.setBackground(QBrush(Qt::white));
+
+	double canvasXOffset = 0.; // TODO(iserra) Calculate. See update method
+	double canvasYOffset = 0.; // TODO(iserra) Calculate. See update method
+
+	preparePainterBeforeRendering(painter, QPointF(canvasXOffset, canvasYOffset), _rotation); // TODO(iserra): review!! doc->GetCanvasRotation());
 
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
 	classifyObjects(doc->GetObjects());
@@ -355,6 +396,12 @@ void QtGenerator::SaveToBmpFile(const std::string& filename)
 {
 	if (!_pixmap.isNull() && _pixmap.width() > 0 &&	_pixmap.height() > 0)	{
 		_pixmap.save(filename.c_str()) ;
+	}
+	else {
+		ELog() << "Unable to save bmp file at " << filename << std::endl
+			   << "pixmap: " << (_pixmap.isNull() ? "null" : "ok") << std::endl
+			   << "Width: " << _pixmap.width() << std::endl
+			   << "Height: " << _pixmap.height();
 	}
 }
 
