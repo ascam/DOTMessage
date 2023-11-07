@@ -35,7 +35,7 @@ namespace macsa {
 				LinxParserContext& _context;
 				struct OffsetDate _offsetDate;
 				LinxDataType _dataType;
-				uint _maxLength;
+				uint32_t _maxLength;
 				std::string _defaultValue;
 				std::string _formula;
 				CompositeElements _srcItems;
