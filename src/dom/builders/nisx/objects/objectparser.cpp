@@ -65,12 +65,12 @@ bool ObjectParser::parseCommonElements(const XMLElement &element, const XMLAttri
 	}
 	else if (eName == kLayer) {
 		std::string eValue {ToString(element.GetText())};
-		object->SetLayer(static_cast<uint>(ToInt(eValue)));
+		object->SetLayer(static_cast<uint32_t>(ToInt(eValue)));
 		return true;
 	}
 	else if (eName == kZOrder) {
 		std::string eValue {ToString(element.GetText())};
-		object->SetZOrder(static_cast<uint>(ToInt(eValue)));
+		object->SetZOrder(static_cast<uint32_t>(ToInt(eValue)));
 		return true;
 	}
 

@@ -110,7 +110,7 @@ DocumentParser::DocVersion DocumentParser::getDocumentVersion(const std::string&
 {
 	DocVersion docVersion{};
 	auto version = Split(versionAttribute, ".");
-	for (uint index = 0; index < 3; index++) {
+	for (uint32_t index = 0; index < 3; index++) {
 		if (version.size() > index) {
 			docVersion[index] = static_cast<uint8_t>(ToInt(version.at(index)));
 		}

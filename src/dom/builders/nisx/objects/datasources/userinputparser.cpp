@@ -93,10 +93,10 @@ bool UserInputParser::VisitEnter(const XMLElement& element, const XMLAttribute* 
 			std::string attrName {ToString(attribute->Name())};
 			std::string attrValue {ToString(attribute->Value())};
 			if (attrName == kAttrMin) {
-				textAttributes.range.min = static_cast<uint>(ToInt(attrValue));
+				textAttributes.range.min = static_cast<uint32_t>(ToInt(attrValue));
 			}
 			else if (attrName == kAttrMax) {
-				textAttributes.range.max = static_cast<uint>(ToInt(attrValue));
+				textAttributes.range.max = static_cast<uint32_t>(ToInt(attrValue));
 			}
 			attribute = attribute->Next();
 		}
@@ -158,10 +158,10 @@ bool InputTextAttributesParser::VisitEnter(const XMLElement& element, const XMLA
 	std::string eName {ToString(element.Name())};
 	std::string eValue = {ToString(element.GetText())};
 	if (eName == kMin) {
-		_textAttributes.limits.min = static_cast<uint>(ToInt(eValue));
+		_textAttributes.limits.min = static_cast<uint32_t>(ToInt(eValue));
 	}
 	else if (eName == kMax) {
-		_textAttributes.limits.max = static_cast<uint>(ToInt(eValue));
+		_textAttributes.limits.max = static_cast<uint32_t>(ToInt(eValue));
 	}
 	else if (eName == kPad) {
 		_textAttributes.padding = eValue;

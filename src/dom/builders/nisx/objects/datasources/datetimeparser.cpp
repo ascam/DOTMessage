@@ -47,7 +47,7 @@ bool DateTimeParser::VisitEnter(const XMLElement& element, const XMLAttribute* f
 	}
 	else if (eName == kHourDayStart) {
 		std::string eValue = {ToString(element.GetText())};
-		_datetime->SetHourDaysStart(static_cast<uint>(ToInt(eValue)));
+		_datetime->SetHourDaysStart(static_cast<uint32_t>(ToInt(eValue)));
 	}
 	else if (eName != kDateTime)  {
 		std::stringstream trace;
