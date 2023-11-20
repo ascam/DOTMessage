@@ -15,7 +15,7 @@ namespace macsa {
 				static std::string GetSupportedNisxVersion();
 
 				bool BuildFromFile(const std::string& filepath, dot::Document& document) override;
-				bool BuildFromData(const char* data, uint length, dot::Document& document) override;
+				bool BuildFromData(const char* data, uint32_t length, dot::Document& document) override;
 		};
 	}
 }
