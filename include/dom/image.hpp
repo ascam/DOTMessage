@@ -197,6 +197,11 @@ namespace macsa {
 				 */
 				void SetDownThreshold(uint32_t threshold);
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			public:
 				Signal<> PathChanged;
 				Signal<> ImageDataChanged;

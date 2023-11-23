@@ -11,6 +11,11 @@ namespace macsa {
 				DiamondParser(dot::Object* primitive);
 				virtual ~DiamondParser() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
