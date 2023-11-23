@@ -147,6 +147,11 @@ namespace macsa {
 				Signal<> MinValueChanged;
 				Signal<> LeadingZerosChanged;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				uint32_t _leadingZeros;
 				int _minValue;

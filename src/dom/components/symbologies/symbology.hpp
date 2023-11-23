@@ -318,6 +318,11 @@ namespace macsa {
 				{}
 				virtual ~Code128() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -329,6 +334,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kCode39)
 				{}
 				virtual ~Code39() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -342,6 +352,11 @@ namespace macsa {
 				{}
 				virtual ~Pharmacode() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -353,6 +368,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kUpcA)
 				{}
 				virtual ~UpcA() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -366,6 +386,11 @@ namespace macsa {
 				{}
 				virtual ~UpcE() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -377,6 +402,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kInterleaved2of5)
 				{}
 				virtual ~Interleaved2of5() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -390,6 +420,11 @@ namespace macsa {
 				{}
 				virtual ~Itf14() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -401,6 +436,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan13)
 				{}
 				virtual ~Ean13() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -416,6 +456,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -430,6 +475,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -441,6 +491,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan8)
 				{}
 				virtual ~Ean8() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -456,6 +511,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -470,6 +530,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -481,6 +546,11 @@ namespace macsa {
 					OneDimensionBarcode(NBarcodeSymbol::kEan128)
 				{}
 				virtual ~Ean128() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -496,6 +566,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -509,6 +584,11 @@ namespace macsa {
 				virtual ~Ean128CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -524,6 +604,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 3;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -535,6 +620,11 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1128)
 				{}
 				virtual ~GS1128() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -550,6 +640,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 1;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -563,6 +658,11 @@ namespace macsa {
 				virtual ~GS1128CCB() = default;
 				//Security level
 				int GetSecurityLevel() const override {return 2;}
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -578,6 +678,11 @@ namespace macsa {
 				//Security level
 				int GetSecurityLevel() const override {return 3;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -591,6 +696,11 @@ namespace macsa {
 				{}
 				virtual ~GS1DataBar14() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -602,6 +712,11 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kGS1DataBarExpanded)
 				{}
 				virtual ~GS1DataBarExpanded() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -615,6 +730,11 @@ namespace macsa {
 				{}
 				virtual ~GS1DataBarExpandedStacked() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -627,6 +747,11 @@ namespace macsa {
 				{}
 				virtual ~GS1DataBarStacked() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -638,6 +763,11 @@ namespace macsa {
 					OneDimensionGS1Barcode(NBarcodeSymbol::kRss14StackedOmnidirectional)
 				{}
 				virtual ~Rss14StackedOmnidirectional() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -730,6 +860,11 @@ namespace macsa {
 				{}
 				virtual ~DotCode() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -742,6 +877,11 @@ namespace macsa {
 				{}
 				virtual ~DataMatrix() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -753,6 +893,11 @@ namespace macsa {
 					TwoDimensionsGS1Barcode(NBarcodeSymbol::kGS1DataMatrix)
 				{}
 				virtual ~GS1DataMatrix() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -781,6 +926,11 @@ namespace macsa {
 				virtual ~Pdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -794,6 +944,11 @@ namespace macsa {
 				virtual ~CompactPdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -806,6 +961,11 @@ namespace macsa {
 				{}
 				virtual ~MicroPdf417() = default;
 				bool IsGS1Barcode() const override {return false;}
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -846,6 +1006,11 @@ namespace macsa {
 				{}
 				virtual ~QRCode() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -865,6 +1030,11 @@ namespace macsa {
 					_separator = separator;
 				}
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				GS1AISeparator _separator;
 				static bool _registered;
@@ -877,6 +1047,11 @@ namespace macsa {
 					QrTypeBarcode(NBarcodeSymbol::kMicroQRCode)
 				{}
 				virtual ~MicroQRCode() = default;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;

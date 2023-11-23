@@ -148,6 +148,11 @@ namespace macsa {
 				Signal<> DaysOffsetChanged;
 				Signal<> FormatChanged;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 				mutable OffsetTime _time;

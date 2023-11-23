@@ -288,6 +288,11 @@ namespace macsa {
 				Signal<> QrVersionChanged;
 				Signal<> QrCorrectionLevelChanged;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				std::unique_ptr<Symbology> _symbology;
 				Font _font;

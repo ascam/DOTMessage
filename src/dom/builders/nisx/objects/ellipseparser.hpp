@@ -11,6 +11,11 @@ namespace macsa {
 				EllipseParser(dot::Object* primitive);
 				virtual ~EllipseParser() = default;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};

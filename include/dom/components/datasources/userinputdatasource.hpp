@@ -421,7 +421,8 @@ namespace macsa {
 				 * @return true if the input is required to print the message or false
 				 * if is not required.
 				 */
-				bool GetRequired() const {
+				bool GetRequired() const
+				{
 					return _required;
 				}
 
@@ -442,6 +443,11 @@ namespace macsa {
 				* @return data source text result data.
 				*/
 				std::string GetData(Context* context) const override;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			public:
 				Signal<> PromptChanged;

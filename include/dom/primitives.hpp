@@ -110,6 +110,11 @@ namespace macsa {
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -129,6 +134,11 @@ namespace macsa {
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 		};
@@ -147,6 +157,11 @@ namespace macsa {
 				 * of the visitor object.
 				 */
 				bool Accept(IDocumentVisitor* visitor) const override;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;
@@ -169,6 +184,11 @@ namespace macsa {
 
 				bool IsFilled() const override {return false;}
 				bool HasBorder() const override {return true;}
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				static bool _registered;

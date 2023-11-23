@@ -16,6 +16,11 @@ namespace macsa {
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 				bool VisitExit( const tinyxml2::XMLElement& element) override;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				dot::Barcode* _barcode;
 				dot::Font _font;
