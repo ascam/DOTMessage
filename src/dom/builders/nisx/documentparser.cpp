@@ -32,7 +32,7 @@ std::string DocumentParser::GetSupportedNisxVersion()
 bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-#ifdef PARANOIC_DEBUG
+#if PARANOIC_DEBUG
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 #endif
 	if (eName == kNeoFile) {
@@ -74,7 +74,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 
 bool DocumentParser::VisitExit(const tinyxml2::XMLElement& element)
 {
-#ifdef PARANOIC_DEBUG
+#if PARANOIC_DEBUG
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 #endif
 	return true;
