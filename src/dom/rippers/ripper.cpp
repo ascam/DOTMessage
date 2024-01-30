@@ -120,9 +120,9 @@ void DOTRipper::UpdateVariableFields(Context* context)
 	}
 }
 
-macsa::dot::Size DOTRipper::getCanvasOffset()
+macsa::dot::Point DOTRipper::getCanvasOffset()
 {
-	Size returnValue {};
+	Point returnValue {};
 	if (_generator)	{
 		returnValue = _generator->getCanvasOffset();
 	}

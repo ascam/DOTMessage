@@ -89,7 +89,7 @@ namespace macsa
 					return _printHiddenItems;
 				}
 
-				virtual Size getCanvasOffset() const = 0;
+				virtual Point getCanvasOffset() const = 0;
 
 			protected:
 				uint32_t _hres;

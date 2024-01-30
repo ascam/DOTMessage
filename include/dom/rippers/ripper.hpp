@@ -95,7 +95,7 @@ namespace macsa
 				static uint8_t GetMinorVersion();
 				static uint8_t GetPatchVersion();
 
-				Size getCanvasOffset();
+				Point getCanvasOffset();
 
 			protected:
 				std::mutex _mutex;
