@@ -56,9 +56,8 @@ namespace macsa
 				void SetBackgroundColorFromRGBA(const std::string& rgba) override;
 				void SetBackgroundColorFromRGBA(uint32_t rgba) override;
 
-				std::pair<float, float> getCanvasOffset() const override
-				{
-					return {_canvasOffset.x(), _canvasOffset.y()};
+				Size getCanvasOffset() const override {
+					return {float(_canvasOffset.x()), float(_canvasOffset.y())};
 				}
 
 			private:

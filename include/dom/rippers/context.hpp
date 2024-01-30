@@ -11,7 +11,7 @@ namespace macsa
 		struct Context
 		{
 			unsigned int counter;
-			macsa::dot::DateCodes dateCodes;
+			DateCodes dateCodes;
 			dot::Document* document;
 			tm time;
 		};

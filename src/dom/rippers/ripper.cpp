@@ -120,14 +120,12 @@ void DOTRipper::UpdateVariableFields(Context* context)
 	}
 }
 
-std::pair<float, float> DOTRipper::getCanvasOffset()
+macsa::dot::Size DOTRipper::getCanvasOffset()
 {
-	std::pair<float, float> returnValue;
-
+	Size returnValue {};
 	if (_generator)	{
 		returnValue = _generator->getCanvasOffset();
 	}
-
 	return returnValue;
 }
 

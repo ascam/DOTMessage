@@ -89,7 +89,7 @@ namespace macsa
 					return _printHiddenItems;
 				}
 
-				virtual std::pair<float, float> getCanvasOffset() const = 0;
+				virtual Size getCanvasOffset() const = 0;
 
 			protected:
 				uint32_t _hres;
