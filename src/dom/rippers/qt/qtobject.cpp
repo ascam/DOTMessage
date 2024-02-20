@@ -82,7 +82,7 @@ QColor QtObject::GetColor(const Color& color) const
 	if (_colorsPalette.find(color.GetName().c_str()) != _colorsPalette.end()) {
 		returnValue = _colorsPalette[color.GetName().c_str()];
 	}
-	else	{
+	else {
 		returnValue = {color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha()};
 	}
 

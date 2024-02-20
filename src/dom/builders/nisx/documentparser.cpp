@@ -36,10 +36,8 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 #endif
 	if (eName == kNeoFile) {
-		std::string attName {((attribute != nullptr) ? ToString(attribute->Name()) : "")};
-		if (attName == kVersion) {
-			std::string version {ToString(attribute->Value())};
-			_doc.SetVersion(getDocumentVersion(version));
+		if (attribute != nullptr && ToString(attribute->Name()) == kVersion) {
+			_doc.SetVersion(getDocumentVersion(ToString(attribute->Value())));
 		}
 		else {
 			WLog() << "Invalid version attribute";

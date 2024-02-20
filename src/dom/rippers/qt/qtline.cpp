@@ -21,9 +21,11 @@ void QtLine::Render()
 	scaleForResolution(_painter, angle, rect);
 
 	_painter.setPen(getPen());
+#if defined(EDITOR_MODE)
 	if (!_line->GetPrintable())	{
 		_painter.setOpacity(0.5);
 	}
+#endif
 	_painter.drawLine(QPointF(rect.left(), rect.height() / 2), QPointF(rect.right(), rect.height()/2));
 	_painter.restore();
 
@@ -40,9 +42,11 @@ QPen QtLine::getPen() const
 
 	auto pen = _line->GetPen();
 	auto color = pen.GetColor();
+#if defined(EDITOR_MODE)
 	if (!_line->GetPrintable())	{
 		color.SetAlpha(128);
 	}
+#endif
 	qPen.setColor(GetColor(pen.GetColor()));
 
 	switch (pen.GetStyle().GetLineStyle()()) {
