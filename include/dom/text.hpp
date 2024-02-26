@@ -103,6 +103,11 @@ namespace macsa {
 				Signal<> BackgroundColorChanged;
 				Signal<> TextBoxPropertiesChanged;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				std::string _text;
 				Font _font;

@@ -76,7 +76,7 @@ bool BarcodeVisitor::VisitExit(const Barcode& barcode)
 		writeColor(barcode.GetBackgroundColor(), XmlWriter::CreateChildNode(_xmlDocument, kBackColor, _xmlElement).first);
 		XmlWriter::CreateTextChildNode(_xmlDocument, kBearerStyle, barcode.GetBearerBarStyle().toString(), _xmlElement);
 		if (barcode.IsQrCode()) {
-			XmlWriter::CreateTextChildNode(_xmlDocument, kQrVersion, ToString((uint)barcode.GetQrVersion()), _xmlElement);
+			XmlWriter::CreateTextChildNode(_xmlDocument, kQrVersion, ToString((uint32_t)barcode.GetQrVersion()), _xmlElement);
 			XmlWriter::CreateTextChildNode(_xmlDocument, kQrCorrectionLevel, barcode.GetQrCorrectionLevel().toString(), _xmlElement);
 		}
 		return true;

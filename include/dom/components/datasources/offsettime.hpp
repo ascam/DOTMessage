@@ -82,6 +82,7 @@ namespace macsa
 				 * @brief Calculate internal offset
 				 */
 				void internalOffset(time_t rawtime, int days, int months, int year, int hourDayStart);
+				inline struct tm getLocalTime(const time_t* time) const;
 		};
 	}
 }

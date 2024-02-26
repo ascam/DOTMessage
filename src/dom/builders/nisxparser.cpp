@@ -37,7 +37,7 @@ bool NisxParser::BuildFromFile(const std::string& filepath, Document& document)
 	return parseDocument(doc, document, filepath);
 }
 
-bool NisxParser::BuildFromData(const char* data, uint length, Document& document)
+bool NisxParser::BuildFromData(const char* data, uint32_t length, Document& document)
 {
 	std::setlocale(LC_ALL, "en_US.UTF-8");
 

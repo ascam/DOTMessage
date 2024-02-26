@@ -14,6 +14,11 @@ namespace macsa {
 
 				bool VisitEnter( const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* firstAttribute) override;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				dot::CounterDataSource* _counter;
 				static bool _registered;

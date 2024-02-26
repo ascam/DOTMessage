@@ -104,7 +104,7 @@ bool PrimitivesVisitor::writePen(const Pen& pen, XMLElement* parent) const
 	writeColor((getColor(pen.GetColor().GetName())), xmlPenResult.first);
 	auto xmlPenWidthResult = XmlWriter::CreateChildNode(_xmlDocument, kWidth, xmlPenResult.first);
 	if (xmlPenWidthResult.second) {
-		xmlPenWidthResult.first->SetAttribute(kAttrValue, static_cast<uint>(std::round(pen.GetWidth())));
+		xmlPenWidthResult.first->SetAttribute(kAttrValue, static_cast<uint32_t>(std::round(pen.GetWidth())));
 	}
 	const auto& penStyle = pen.GetStyle();
 	auto lineStyle = penStyle.GetLineStyle();

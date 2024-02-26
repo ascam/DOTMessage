@@ -10,9 +10,11 @@ namespace macsa {
 			public:
 				static std::string GetLibraryVersion();
 				static std::string GetLibraryName();
+#ifdef _WINDOWS
+				static const bool RegisterFactories();
+#endif
 		};
 	}
 }
 
 #endif
-

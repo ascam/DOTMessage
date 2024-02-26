@@ -14,10 +14,10 @@ namespace macsa {
 				static std::string GetSupportedLinxVersion();
 
 				bool BuildFromFile(const std::string& filepath, Document& document) override;
-				bool BuildFromData(const char* data, uint length, Document& document) override;
+				bool BuildFromData(const char* data, uint32_t length, Document& document) override;
 
 			private:
-				bool buildFromData(const char* data, uint length, Document& document);
+				bool buildFromData(const char* data, uint32_t length, Document& document);
 		};
 	}
 }

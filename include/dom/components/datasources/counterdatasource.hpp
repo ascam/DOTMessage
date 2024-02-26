@@ -108,7 +108,7 @@ namespace macsa {
 				 * @param repeatCounter: how many times the counter will be the same
 				 * before jump to the next value.
 				 */
-				void SetRepeatCounter(uint repeatCounter) {
+				void SetRepeatCounter(uint32_t repeatCounter) {
 					if (repeatCounter != _repeatCounter)	{
 						_repeatCounter = repeatCounter;
 						RepeatCounterChanged.Emit();
@@ -146,6 +146,11 @@ namespace macsa {
 				Signal<> MaxValueChanged;
 				Signal<> MinValueChanged;
 				Signal<> LeadingZerosChanged;
+
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
 
 			private:
 				uint32_t _leadingZeros;

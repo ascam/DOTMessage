@@ -29,10 +29,9 @@ bool NisxWriter::Write(ByteArray& data, dot::Document& document)
 	tinyxml2::XMLPrinter printer;
 	xmlDocument.Print(&printer);
 	const char* cStr = printer.CStr();
-	const uint lenght = printer.CStrSize();
-	for (uint byte = 0; byte < lenght; byte++) {
-		data.emplace_back(*(cStr + byte));
-	}
+	const uint32_t length = printer.CStrSize();
+	data.resize(length);
+	memcpy(data.data(), cStr, length);
 
 	return success;
 }

@@ -54,6 +54,11 @@ namespace macsa {
 			public:
 				Signal<> FormulaChanged;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				static bool _registered;
 				std::string _formula;

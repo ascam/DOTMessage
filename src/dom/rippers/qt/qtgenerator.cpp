@@ -45,7 +45,9 @@ QtGenerator::QtGenerator() : BitmapGenerator(),
 	_idth(std::this_thread::get_id()),
 #endif
 	_bgColor(Qt::white),
-	_colorsPalette()
+	_colorsPalette(),
+	_pixmapFixed{},
+	_pixmap{}
 {}
 
 QtGenerator::~QtGenerator()
@@ -338,6 +340,14 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
+	if (_pixmap.isNull()) {
+		ELog() << "Invalid pixmap!! Trying to create a new pixmap with w: " << std::ceil(viewportWidth) << ", h: " << std::ceil(viewportHeight) << std::endl <<
+				  "HRes: " << GetHorizontalResolution() << std::endl <<
+				  "VRes: " << GetVerticalResolution() << std::endl <<
+				  "Viewport (" << doc->GetViewportWidth() << "," << doc->GetViewportHeight() << ")" << std::endl <<
+				  "Canvas (" << doc->GetCanvasWidth() << "," << doc->GetCanvasHeight() << ")";
+		return;
+	}
 
 	_colorsPalette.clear();
 	const auto& palette = doc->GetColorsPalette();
@@ -372,7 +382,7 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 {
 	if (doc == nullptr) {
-		WLog() << "Invalid DOM";
+		ELog() << "Invalid DOM";
 		return;
 	}
 
@@ -388,7 +398,7 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 	preparePainterBeforeRendering(painter, QPointF(canvasXOffset, canvasYOffset), _rotation); // TODO(iserra): review!! doc->GetCanvasRotation());
 
 	QtRasterVisitor visitor(doc, context, &painter, _vres, _hres, _colorsPalette);
-	classifyObjects(doc->GetObjects());
+	classifyObjects(doc->GetObjects());// TODO(iserra) Is required?
 	renderVariableFields(&visitor);
 }
 

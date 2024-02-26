@@ -53,7 +53,7 @@ bool LinxParser::BuildFromFile(const std::string& filepath, Document& document)
 	return false;
 }
 
-bool LinxParser::BuildFromData(const char* data, uint length, Document& document)
+bool LinxParser::BuildFromData(const char* data, uint32_t length, Document& document)
 {
 	if (UTFConverter::IsUTF16(data, length)) {
 		auto content = UTFConverter::ConvertFromUtf16ToUtf8(data, length);
@@ -64,7 +64,7 @@ bool LinxParser::BuildFromData(const char* data, uint length, Document& document
 	}
 }
 
-bool LinxParser::buildFromData(const char* data, uint length, Document& document)
+bool LinxParser::buildFromData(const char* data, uint32_t length, Document& document)
 {
 	std::setlocale(LC_ALL, "en_US.UTF-8");
 	XMLDocument doc;

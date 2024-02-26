@@ -41,18 +41,14 @@ struct tm OffsetTime::GetTimeWithOffset(time_t rawTime)
 		internalOffset(rawTime, _offsetDays, _offsetMonths, _offsetYears, _hourDayStart);
 	}
 	time_t offsetTime = rawTime + _internalOffset;
-	struct  tm timeInfo;
-	localtime_r(&offsetTime, &timeInfo);
-
-	return timeInfo;
+	return getLocalTime(&offsetTime);
 }
 
 void OffsetTime::internalOffset(time_t rawtime, int days,
 								int months, int year, int hourDayStart)
 {
 	time_t offsetTime = rawtime;
-	struct tm timeInfo;
-	localtime_r(&offsetTime, &timeInfo);
+	struct tm timeInfo {getLocalTime(&offsetTime)};
 
 	// HourDayStart
 	if (hourDayStart != 0 && timeInfo.tm_hour >= hourDayStart) {
@@ -63,7 +59,7 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 	offsetTime += days * kSecondsInADay;
 
 	// Struct tm after days offset
-	localtime_r(&offsetTime, &timeInfo);
+	timeInfo = {getLocalTime(&offsetTime)};
 
 	// Years offset
 	timeInfo.tm_year += year;
@@ -91,10 +87,22 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 	_internalOffset = std::mktime(&timeInfo) - rawtime;
 
 	// Set last offset update time
-	struct tm* updateOffset = localtime(&rawtime);
-	updateOffset->tm_hour = hourDayStart;
-	_lastOffsetUpdate = mktime(updateOffset);
+	struct tm updateOffset {getLocalTime(&rawtime)};
+
+	updateOffset.tm_hour = hourDayStart;
+	_lastOffsetUpdate = mktime(&updateOffset);
 	if (rawtime < _lastOffsetUpdate) {
 		_lastOffsetUpdate -= kSecondsInADay;
 	}
+}
+
+inline struct tm OffsetTime::getLocalTime(const time_t* time) const
+{
+	struct tm calendar{};
+#if _WINDOWS
+	localtime_s(&calendar, time);
+#else
+	localtime_r(time, &calendar);
+#endif
+	return calendar;
 }

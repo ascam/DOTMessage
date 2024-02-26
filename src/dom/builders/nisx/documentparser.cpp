@@ -32,14 +32,12 @@ std::string DocumentParser::GetSupportedNisxVersion()
 bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2::XMLAttribute* attribute)
 {
 	std::string eName {ToString(element.Name())};
-#ifdef PARANOIC_DEBUG
+#if PARANOIC_DEBUG
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 #endif
 	if (eName == kNeoFile) {
-		std::string attName {((attribute != nullptr) ? ToString(attribute->Name()) : "")};
-		if (attName == kVersion) {
-			std::string version {ToString(attribute->Value())};
-			_doc.SetVersion(getDocumentVersion(version));
+		if (attribute != nullptr && ToString(attribute->Name()) == kVersion) {
+			_doc.SetVersion(getDocumentVersion(ToString(attribute->Value())));
 		}
 		else {
 			WLog() << "Invalid version attribute";
@@ -74,7 +72,7 @@ bool DocumentParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyx
 
 bool DocumentParser::VisitExit(const tinyxml2::XMLElement& element)
 {
-#ifdef PARANOIC_DEBUG
+#if PARANOIC_DEBUG
 	DLog() << "element (line " << element.GetLineNum() << "): \"" << element.Name() << "\"";
 #endif
 	return true;
@@ -110,7 +108,7 @@ DocumentParser::DocVersion DocumentParser::getDocumentVersion(const std::string&
 {
 	DocVersion docVersion{};
 	auto version = Split(versionAttribute, ".");
-	for (uint index = 0; index < 3; index++) {
+	for (uint32_t index = 0; index < 3; index++) {
 		if (version.size() > index) {
 			docVersion[index] = static_cast<uint8_t>(ToInt(version.at(index)));
 		}

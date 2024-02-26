@@ -8,7 +8,7 @@ namespace macsa {
 		/**
 		 * @brief Enumeration for datasource refresh policy
 		 */
-		enum class RefreshPolicy
+		enum class RefreshPolicy : uint32_t
 		{
 			kNone = 0,         // No update
 			kCounter = 0x1,   // Update frequency when counter changes
@@ -21,6 +21,7 @@ namespace macsa {
 			kMonths  = 0x80,  // Update frequency every month
 			kYears   = 0x100, // Update frequency every year
 		};
+		using RefreshPolicy_t = std::underlying_type_t<RefreshPolicy>;
 
 		inline RefreshPolicy operator|(const RefreshPolicy& lhs, const RefreshPolicy& rhs)
 		{

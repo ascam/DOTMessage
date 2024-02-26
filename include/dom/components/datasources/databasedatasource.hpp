@@ -123,6 +123,11 @@ namespace macsa {
 				*/
 				std::string GetData(Context* context) const override;
 
+				static bool GetRegistered()
+				{
+					return _registered;
+				}
+
 			private:
 				std::string _fieldName;
 				std::string _defaultValue;

@@ -5,14 +5,14 @@ include(${PROJECT_SOURCE_DIR}/cmake/findmodule.cmake)
 ## Utils repository
 FetchContent_Declare(utils
   GIT_REPOSITORY git@github.com:ascam/utils.git
-  GIT_TAG v4.0.0
+  GIT_TAG development
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/utils
 )
 
 ## Macsa DOTSystem base repository
 FetchContent_Declare(dotsystem
    GIT_REPOSITORY git@github.com:ascam/DOTSystem
-   GIT_TAG v0.0.0
+   GIT_TAG development
    SOURCE_DIR ${CMAKE_SOURCE_DIR}/dotsystem
 )
 
