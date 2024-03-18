@@ -7,7 +7,7 @@ Repositorio con la estructura del arbol de objectos (DOM) para la generación de
 [![version][version]][release]
 
 [version]:https://img.shields.io/badge/DotMessage-v1.0.3-green?style=flat
-[release]:https://github.com/ascam/TijGen2Application/releases/tag/v1.0.3
+[release]:https://github.com/ascam/DotMessage/releases/tag/v1.0.3
 
 ### :bookmark: Dependencias:
 
