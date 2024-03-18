@@ -16,7 +16,7 @@ add_definitions(-DDOT_MESSAGE_LIB_VERSION_MAJOR=${PROJECT_VERSION_MAJOR})
 add_definitions(-DDOT_MESSAGE_LIB_VERSION_MINOR=${PROJECT_VERSION_MINOR})
 add_definitions(-DDOT_MESSAGE_LIB_VERSION_BUILD=${PROJECT_VERSION_PATCH})
 add_definitions(-DDOT_MESSAGE_LIB_VERSION="${PROJECT_VERSION}")
-add_definitions(-DDOT_MESSAGE_LIB_NAME="${PROJECT_NAME}")
+add_definitions(-DDOT_MESSAGE_LIB_NAME="DotMessage")
 
 ##################  LOADING MODULES  ###########################
 include(${PROJECT_SOURCE_DIR}/cmake/dependencies.cmake)
