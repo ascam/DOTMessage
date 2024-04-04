@@ -336,7 +336,7 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		std::swap(canvasWidth, canvasHeight);
 	}
 
-	QPixmap pixmap(std::ceil(viewportWidth), std::ceil(viewportHeight));
+	QPixmap pixmap(std::round(viewportWidth), std::round(viewportHeight));
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
