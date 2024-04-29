@@ -2,6 +2,7 @@
 #define DOT_MESSAGE_OFFSETTIME_HPP
 
 #include <string>
+#include "dom/components/datasources/roundingdatepolicy.hpp"
 
 constexpr int kMaxHourDay = 23;
 
@@ -16,7 +17,7 @@ namespace macsa
 		{
 			public:
 				OffsetTime();
-				OffsetTime(int offsetDays, int offsetMonths, int offsetYears, int _hourDayStart);
+				OffsetTime(int offsetDays, int offsetMonths, int offsetYears, int _hourDayStart, const RoundingPolicy& policy, int roundingDay);
 				virtual ~OffsetTime() = default;
 
 			public:
@@ -64,6 +65,26 @@ namespace macsa
 					_lastOffsetUpdate = -1;
 				}
 
+				const RoundingPolicy& GetRoundingPolicy() const {
+					return _roundingPolicy;
+				}
+
+				void SetRoundingPolicy(const RoundingPolicy& policy)
+				{
+					_roundingPolicy = policy;
+					_lastOffsetUpdate = -1;
+				}
+
+				int GetRoundingDay() const {
+					return _roundingDay;
+				}
+
+				void SetRoundingDay(int day)
+				{
+					_roundingDay = day;
+					_lastOffsetUpdate = -1;
+				}
+
 				struct tm operator()()
 				{
 					return GetTimeWithOffset();
@@ -76,12 +97,16 @@ namespace macsa
 				int _offsetMonths;
 				int _offsetYears;
 				int _hourDayStart;
+				RoundingPolicy _roundingPolicy;
+				int _roundingDay;
 
 			private:
 				/**
 				 * @brief Calculate internal offset
 				 */
-				void internalOffset(time_t rawtime, int days, int months, int year, int hourDayStart);
+				void internalOffset(time_t rawtime, int days, int months, int year, int hourDayStart,
+									const RoundingPolicy& policy, int roundingDay);
+
 				inline struct tm getLocalTime(const time_t* time) const;
 		};
 	}

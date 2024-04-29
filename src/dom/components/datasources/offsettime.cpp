@@ -16,15 +16,20 @@ OffsetTime::OffsetTime():
 	_internalOffset(0),
 	_lastOffsetUpdate(-1),
 	_offsetDays(0), _offsetMonths(0), _offsetYears(0),
-	_hourDayStart(0)
+	_hourDayStart(0),
+	_roundingPolicy(),
+	_roundingDay()
 {}
 
 OffsetTime::OffsetTime(int offsetDays, int offsetMonths,
-					   int offsetYears, int hourDayStart):
+					   int offsetYears, int hourDayStart,
+					   const RoundingPolicy& policy, int roundingDay):
 	_internalOffset(0),
 	_lastOffsetUpdate(-1),
 	_offsetDays(offsetDays), _offsetMonths(offsetMonths), _offsetYears(offsetYears),
-	_hourDayStart(hourDayStart)
+	_hourDayStart(hourDayStart),
+	_roundingPolicy(policy),
+	_roundingDay(roundingDay)
 {}
 
 struct tm OffsetTime::GetTimeWithOffset()
@@ -38,14 +43,15 @@ struct tm OffsetTime::GetTimeWithOffset(time_t rawTime)
 	if (_lastOffsetUpdate < 0 || rawTime < _lastOffsetUpdate ||
 		(rawTime - _lastOffsetUpdate) >= kSecondsInADay) {
 		// Update offset.
-		internalOffset(rawTime, _offsetDays, _offsetMonths, _offsetYears, _hourDayStart);
+		internalOffset(rawTime, _offsetDays, _offsetMonths, _offsetYears, _hourDayStart, _roundingPolicy, _roundingDay);
 	}
 	time_t offsetTime = rawTime + _internalOffset;
 	return getLocalTime(&offsetTime);
 }
 
 void OffsetTime::internalOffset(time_t rawtime, int days,
-								int months, int year, int hourDayStart)
+								int months, int year, int hourDayStart,
+								const RoundingPolicy& policy, int roundingDay)
 {
 	time_t offsetTime = rawtime;
 	struct tm timeInfo {getLocalTime(&offsetTime)};
