@@ -49,41 +49,32 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 {
 	time_t offsetTime = rawtime;
 	struct tm timeInfo {getLocalTime(&offsetTime)};
+	timeInfo.tm_gmtoff = 0;
+	timeInfo.tm_zone = "utc";
+	setenv("TZ", "zulu", 1);
+
+	if (year) {
+		// Years offset
+		timeInfo.tm_year += year;
+	}
+	// Months offset
+	if (months) {
+		timeInfo.tm_mon += months;
+	}
+	// Struct tm after year and month offset
+	mktime(&timeInfo);
+
+	timeInfo.tm_mday += days;
 
 	// HourDayStart
 	if (hourDayStart != 0 && timeInfo.tm_hour >= hourDayStart) {
-		offsetTime -= kSecondsInADay;
+		timeInfo.tm_mday += 1;
 	}
-
-	// Days offset
-	offsetTime += days * kSecondsInADay;
 
 	// Struct tm after days offset
-	timeInfo = {getLocalTime(&offsetTime)};
+	mktime(&timeInfo);
 
-	// Years offset
-	timeInfo.tm_year += year;
 
-	// Months offset
-	if (months) {
-		int monthsCount = months + timeInfo.tm_mon;
-		timeInfo.tm_year += (monthsCount / 12);
-		timeInfo.tm_mon = monthsCount % 12;
-		if (timeInfo.tm_mon < 0) {
-			timeInfo.tm_year -= 1;
-			timeInfo.tm_mon += 12;
-		}
-		// Correct max day of the month
-		if (timeInfo.tm_mday > kDaysInMonths[timeInfo.tm_mon]) {
-			// Leep-year
-			if (timeInfo.tm_mon == kFebrary && isLeepYear(timeInfo.tm_year)) {
-				timeInfo.tm_mday = kDaysInMonths[timeInfo.tm_mon] + 1;
-			}
-			else {
-				timeInfo.tm_mday = kDaysInMonths[timeInfo.tm_mon];
-			}
-		}
-	}
 	_internalOffset = std::mktime(&timeInfo) - rawtime;
 
 	// Set last offset update time
@@ -94,6 +85,7 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 	if (rawtime < _lastOffsetUpdate) {
 		_lastOffsetUpdate -= kSecondsInADay;
 	}
+	unsetenv("TZ");
 }
 
 inline struct tm OffsetTime::getLocalTime(const time_t* time) const
