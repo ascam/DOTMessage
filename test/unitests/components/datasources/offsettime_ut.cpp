@@ -203,3 +203,86 @@ TEST_F(OffsetTimeUt, NegativeDaysOffset_returnExpectedDayAndMonth)
 	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
 	EXPECT_EQ(offsetCal.tm_mday, expectedDay);
 }
+
+// Test Offsets
+TEST_F(OffsetTimeUt, RoundToMonthFirst_returnExpectedDayAndMonth)
+{
+	int offsetMonths = 4;
+	auto [time, calendar] = getCalendar(2023, 3, 12, 10, 45, 24);
+	_offsetTime.SetRoundingPolicy(NRoundingPolicy::kRoundFDM);
+	_offsetTime.SetOffsetMonths(offsetMonths);
+	auto offsetCal = _offsetTime.GetTimeWithOffset(time);
+
+	int expectedMonth = calendar.tm_mon + offsetMonths;
+	int expectedDay = 1;
+	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
+	EXPECT_EQ(offsetCal.tm_mday, expectedDay);
+}
+
+// Test Offsets
+TEST_F(OffsetTimeUt, RoundToMonthLast_returnExpectedDayAndMonth)
+{
+	int offsetMonths = 5;
+	auto [time, calendar] = getCalendar(2023, 3, 12, 10, 45, 24);
+	_offsetTime.SetRoundingPolicy(NRoundingPolicy::kRoundLDM);
+	_offsetTime.SetOffsetMonths(offsetMonths);
+	auto offsetCal = _offsetTime.GetTimeWithOffset(time);
+
+	int expectedMonth = calendar.tm_mon + offsetMonths;
+	int expectedDay = daysInMonth[expectedMonth];
+	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
+	EXPECT_EQ(offsetCal.tm_mday, expectedDay);
+}
+
+// Test Offsets
+TEST_F(OffsetTimeUt, RoundToValidDayOfTheMonth_returnExpectedDayAndMonth)
+{
+	int offsetMonths = 5;
+	int roundingDay = 20;
+	auto [time, calendar] = getCalendar(2023, 3, 12, 10, 45, 24);
+	_offsetTime.SetRoundingPolicy(NRoundingPolicy::kRoundDoM);
+	_offsetTime.SetOffsetMonths(offsetMonths);
+	_offsetTime.SetRoundingDay(roundingDay);
+	auto offsetCal = _offsetTime.GetTimeWithOffset(time);
+
+	int expectedMonth = calendar.tm_mon + offsetMonths;
+	int expectedDay = roundingDay;
+	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
+	EXPECT_EQ(offsetCal.tm_mday, expectedDay);
+}
+
+// Test Offsets
+TEST_F(OffsetTimeUt, RoundToInvalidDayOfTheMonth_returnExpectedLastDayOfTheMonth)
+{
+	int offsetMonths = -1;
+	int roundingDay = 31;
+	auto [time, calendar] = getCalendar(2023, 3, 12, 10, 45, 24);
+	_offsetTime.SetRoundingPolicy(NRoundingPolicy::kRoundDoM);
+	_offsetTime.SetOffsetMonths(offsetMonths);
+	_offsetTime.SetRoundingDay(roundingDay);
+	auto offsetCal = _offsetTime.GetTimeWithOffset(time);
+
+	int expectedMonth = calendar.tm_mon + offsetMonths;
+	int expectedDay = daysInMonth[expectedMonth];
+	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
+	EXPECT_EQ(offsetCal.tm_mday, expectedDay);
+}
+
+// Test Offsets
+TEST_F(OffsetTimeUt, RoundToDayOfTheWeek_returnExpectedDayOfTheWeek)
+{
+	int offsetMonths = -1;
+	int roundingWeekDay = 5;// Friday
+	auto [time, calendar] = getCalendar(2023, 3, 12, 10, 45, 24);
+	_offsetTime.SetRoundingPolicy(NRoundingPolicy::kRoundDoW);
+	_offsetTime.SetOffsetMonths(offsetMonths);
+	_offsetTime.SetRoundingDay(roundingWeekDay);
+	auto offsetCal = _offsetTime.GetTimeWithOffset(time);
+
+	int expectedMonth = calendar.tm_mon + offsetMonths;
+
+	EXPECT_NE(calendar.tm_wday, roundingWeekDay);
+
+	EXPECT_EQ(offsetCal.tm_mon, expectedMonth);
+	EXPECT_EQ(offsetCal.tm_wday, roundingWeekDay);
+}
