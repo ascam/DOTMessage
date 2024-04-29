@@ -2,7 +2,7 @@
 #    DOT Messages Unit Tests     #
 ##################################
 
-# add_subdirectory(components)
+add_subdirectory(components)
 # add_subdirectory(writers)
 add_subdirectory(builders)
 # add_subdirectory(rippers)
