@@ -26,12 +26,15 @@ option(STANDALONE "Build as standalone executable" OFF)
 
 ####################  SOURCES AND HEADERS  #############################
 
+## Add Macsa systems datamodel ##
+add_subdirectory(${DOTSYSTEM_DIR}            ${PROJECT_BINARY_DIR}/dotsystem)
+## Add Macsa utilities library
+add_subdirectory(${UTILS_DIR}/libutils       ${PROJECT_BINARY_DIR}/libutils)
+
 set(SOURCES)
 set(HEADERS)
 
 set(SOURCES ${SOURCES}
-    ${UTILS_DIR}/macsalogger/macsalogger.cpp
-    ${UTILS_DIR}/threadsmap/threadsmap.cpp
     ${EXECUTABLE_DIR}/main.cpp
     )
 
@@ -42,7 +45,7 @@ if (${ENABLE_TESTS})
 endif()
 
 cmrc_add_resource_library(domTesterFiles
-        NAMESPACE dot
+	NAMESPACE dot
 	WHENCE rc
 	PREFIX messages
 	rc/CQ.nisx
@@ -58,26 +61,27 @@ cmrc_add_resource_library(domTesterFiles
 	rc/TEST_V.nisx
 	rc/testParserNisx.nisx
 	rc/GALLO.nisx
-        rc/linx/linxformatted.ciff
-        rc/linx/msj_01_tto_formatted.ciff
-        rc/linx/msj_jovi.ciff
-        rc/linx/textofijo.ciff
-        rc/linx/EFAPEL.ciff
-        rc/linx/frankfurt.ciff
-        rc/linx/NORTE_EUROCAO.ciff
-        rc/linx/Pan_molde.ciff
-        rc/linx/Pan_molde_4_dias.ciff
-        rc/linx/tt3fira.ciff
-        rc/linx/tt5nou.ciff
-        rc/linx/tt10_HSPCK2015.ciff
-        rc/linx/VARIABLE.ciff
-        rc/linx/VARIABLE2.ciff
-        rc/linx/Yogur_35_dias.ciff
-        rc/linx/utf16/frankfurt.ciff
-        rc/linx/Full_barcodes.ciff
-        rc/linx/pedro.ciff
-        rc/linx/barcodes_full.ciff
-        rc/linx/datas_full.ciff
+
+	rc/linx/linxformatted.ciff
+	rc/linx/msj_01_tto_formatted.ciff
+	rc/linx/msj_jovi.ciff
+	rc/linx/textofijo.ciff
+	rc/linx/EFAPEL.ciff
+	rc/linx/frankfurt.ciff
+	rc/linx/NORTE_EUROCAO.ciff
+	rc/linx/Pan_molde.ciff
+	rc/linx/Pan_molde_4_dias.ciff
+	rc/linx/tt3fira.ciff
+	rc/linx/tt5nou.ciff
+	rc/linx/tt10_HSPCK2015.ciff
+	rc/linx/VARIABLE.ciff
+	rc/linx/VARIABLE2.ciff
+	rc/linx/Yogur_35_dias.ciff
+	rc/linx/utf16/frankfurt.ciff
+	rc/linx/Full_barcodes.ciff
+	rc/linx/pedro.ciff
+	rc/linx/barcodes_full.ciff
+	rc/linx/datas_full.ciff
 	)
 
 ####################  TARGETS  #############################
@@ -89,7 +93,7 @@ if(STANDALONE)
 else()
         set(DEPENDENCIES
 	        dotmessage
-		printerdm
+			dotsystem
 	        )
 endif()
 
@@ -99,9 +103,8 @@ target_include_directories(${PROJECT_NAME}
         PUBLIC
 	        ${PROJECT_SOURCE_DIR}/include
 		${PROJECT_SOURCE_DIR}/src
-		${UTILS_DIR}/include
-                ${PRINTER_DM_DIR}/include
-                ${UTILS_DIR}/utfconverter/include
+		${DOTSYSTEM_INCLUDE_DIRECTORY}
+		${UTILS_INCLUDE_DIRECTORY}
 	)
 
 #linking dependencies
@@ -117,8 +120,8 @@ if (${ENABLE_TESTS})
 	        PUBLIC
 		        ${PROJECT_SOURCE_DIR}/include
 			${PROJECT_SOURCE_DIR}/src
-			${UTILS_DIR}/include
-			${PRINTER_DM_DIR}/include
+			${DOTSYSTEM_INCLUDE_DIRECTORY}
+			${UTILS_INCLUDE_DIRECTORY}
 		)
 	target_link_directories(${PROJECT_TEST_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_LIBS} ${EXTERNAL_LIBS} ${DEPENDENCIES})

@@ -140,3 +140,9 @@ else()
 	target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${SHARED_DEPENDENCIES})
 endif()
+
+
+if (${ENABLE_TESTS})
+	message("Adding ${PROJECT_NAME} tests dir ${PROJECT_BINARY_DIR}" )
+	add_subdirectory(test)
+endif()
