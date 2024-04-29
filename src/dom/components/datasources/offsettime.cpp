@@ -80,6 +80,7 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 	// Struct tm after days offset
 	mktime(&timeInfo);
 
+	applyRounding(timeInfo, policy, roundingDay);
 
 	_internalOffset = std::mktime(&timeInfo) - rawtime;
 
@@ -92,6 +93,63 @@ void OffsetTime::internalOffset(time_t rawtime, int days,
 		_lastOffsetUpdate -= kSecondsInADay;
 	}
 	unsetenv("TZ");
+}
+
+void OffsetTime::applyRounding(struct tm& calendar, const RoundingPolicy& policy, int roundingDay)
+{
+	//daysInMonth
+	switch (_roundingPolicy()) {
+		case NRoundingPolicy::kRoundFDM:
+			calendar.tm_mday = 1;
+			break;
+		case NRoundingPolicy::kRoundLDM:
+			calendar.tm_mday = daysInMonth(calendar);
+			break;
+		case NRoundingPolicy::kRoundDoM:
+			if (roundingDay) {
+				int maxDays = daysInMonth(calendar);
+				if (roundingDay > maxDays) {
+					roundingDay = maxDays;
+				}
+				calendar.tm_mday = roundingDay;
+			}
+			else {
+				calendar.tm_mday = 1;
+			}
+			break;
+		case NRoundingPolicy::kRoundDoW:
+			{
+				roundingDay %= 7;
+				if (roundingDay == 0) {
+					roundingDay = 7;
+				}
+				auto dow = calendar.tm_wday;
+				dow = (dow == 0 ? 7 : dow);
+				auto offset = roundingDay - dow;
+				calendar.tm_mday += offset;
+				mktime(&calendar);
+			}
+			break;
+		case NRoundingPolicy::kNoRound:
+		default:
+			break;
+	}
+}
+
+int OffsetTime::daysInMonth(int month, int year)
+{
+	month = month % 12;
+
+	int days = kDaysInMonths[month];
+	if (month == kFebrary && isLeepYear(year)) {
+		days++;
+	}
+	return days;
+}
+
+int OffsetTime::daysInMonth(tm& calendar)
+{
+	return daysInMonth(calendar.tm_mon, calendar.tm_year);
 }
 
 inline struct tm OffsetTime::getLocalTime(const time_t* time) const

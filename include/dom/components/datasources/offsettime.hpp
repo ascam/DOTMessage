@@ -107,6 +107,11 @@ namespace macsa
 				void internalOffset(time_t rawtime, int days, int months, int year, int hourDayStart,
 									const RoundingPolicy& policy, int roundingDay);
 
+				void applyRounding(struct tm& calendar, const RoundingPolicy& policy, int roundingDay);
+
+				int daysInMonth(int month, int year);
+				int daysInMonth(struct tm& calendar);
+
 				inline struct tm getLocalTime(const time_t* time) const;
 		};
 	}
