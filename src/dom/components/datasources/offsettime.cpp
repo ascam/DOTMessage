@@ -3,12 +3,11 @@
 #include <locale>
 
 // Return true if 'y' is leep year
-template<typename T> T isLeepYear(T y)
-{return ((y %4) == 0) && (((y % 100) != 0) || ((y % 400) == 0));}
+static constexpr int isLeepYear(int y) {return ((y %4) == 0) && (((y % 100) != 0) || ((y % 400) == 0));}
 
-constexpr int kSecondsInADay = 86400;
-constexpr int kFebrary = 1;
-constexpr int kDaysInMonths[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static constexpr int kSecondsInADay = 86400;
+static constexpr int kFebrary = 1;
+static constexpr int kDaysInMonths[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 using namespace macsa::dot;
 
@@ -136,20 +135,13 @@ void OffsetTime::applyRounding(struct tm& calendar, const RoundingPolicy& policy
 	}
 }
 
-int OffsetTime::daysInMonth(int month, int year)
+int OffsetTime::daysInMonth(tm& calendar) const
 {
-	month = month % 12;
-
-	int days = kDaysInMonths[month];
-	if (month == kFebrary && isLeepYear(year)) {
+	int days = kDaysInMonths[calendar.tm_mon];
+	if (calendar.tm_mon == kFebrary && isLeepYear(calendar.tm_year)) {
 		days++;
 	}
 	return days;
-}
-
-int OffsetTime::daysInMonth(tm& calendar)
-{
-	return daysInMonth(calendar.tm_mon, calendar.tm_year);
 }
 
 inline struct tm OffsetTime::getLocalTime(const time_t* time) const
