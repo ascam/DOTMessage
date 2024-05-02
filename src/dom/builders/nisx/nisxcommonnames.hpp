@@ -94,6 +94,8 @@ namespace macsa {
 		static constexpr const char* kOffsetMonths = "OFFSETMONTHS";
 		static constexpr const char* kOffsetYears = "OFFSETYEARS";
 		static constexpr const char* kHourDayStart = "HOURDAYSTART";
+		static constexpr const char* kRoundingPolicy = "ROUNDINGPOLICY";
+		static constexpr const char* kRoundingDay = "ROUNDINGDAY";
 		  // Composite Data Source
 		static constexpr const char* kComposite = "COMPOSITE";
 		static constexpr const char* kDataSourceComposite = "CibNeoDsCompositeField";

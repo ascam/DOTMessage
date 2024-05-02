@@ -134,6 +134,48 @@ namespace macsa {
 				}
 
 				/**
+				 * @brief GetRoundingPolicy. Getter method for the rounding
+				 * to day policy.
+				 * @return the rounding policy applied at the date.
+				 */
+				const RoundingPolicy& GetRoundingPolicy() const {
+					return _time.GetRoundingPolicy();
+				}
+
+				/**
+				 * @brief SeRoundingPolicy. Getter method for the rounding
+				 * to day policy.
+				 * @param policy: the rounding policy to apply.
+				 */
+				void SetRoundingPolicy(const RoundingPolicy& policy) {
+					if (policy != _time.GetRoundingPolicy())	{
+						_time.SetRoundingPolicy(policy);
+						RoundingPolicyChanged.Emit();
+					}
+				}
+
+				/**
+				 * @brief GetRoundingDay. Getter method for the rounding day.
+				 * @return the rounding day applied at the date. depending on
+				 * the rounding policy.
+				 */
+				int GetRoundingDay() const {
+					return _time.GetRoundingDay();
+				}
+
+				/**
+				 * @brief SeRoundingDay. Getter method for the rounding day.
+				 * @param day: the rounding day to apply, depending on the
+				 * rounding policy.
+				 */
+				void SetRoundingDay(int day) {
+					if (day != _time.GetRoundingDay())	{
+						_time.SetRoundingDay(day);
+						RoundingPolicyChanged.Emit();
+					}
+				}
+
+				/**
 				 * @brief GetData. Get data source updated data result.
 				 * @return data source text result data.
 				 */
@@ -146,6 +188,7 @@ namespace macsa {
 				Signal<> YearsOffsetChanged;
 				Signal<> MonthOffsetChanged;
 				Signal<> DaysOffsetChanged;
+				Signal<> RoundingPolicyChanged;
 				Signal<> FormatChanged;
 
 				static bool GetRegistered()
