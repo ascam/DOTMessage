@@ -36,6 +36,8 @@ static constexpr const char* kOffsetDays = "OFFSETDAYS";
 static constexpr const char* kOffsetMonths = "OFFSETMONTHS";
 static constexpr const char* kOffsetYears = "OFFSETYEARS";
 static constexpr const char* kHourDayStart = "HOURDAYSTART";
+static constexpr const char* kRoundingPolicy = "ROUNDINGPOLICY";
+static constexpr const char* kRoundingDay = "ROUNDINGDAY";
   // Composite Data Source
 static constexpr const char* kComposite = "COMPOSITE";
 static constexpr const char* kDataSourceComposite = "CibNeoDsCompositeField";
@@ -125,6 +127,8 @@ bool VariableObjectVisitor::Visit(const DateTimeDataSource& datetime)
 			XmlWriter::CreateTextChildNode(_xmlDocument, kOffsetMonths, ToString(datetime.GetMonthsOffset()), xmlDatetime);
 			XmlWriter::CreateTextChildNode(_xmlDocument, kOffsetYears, ToString(datetime.GetYearsOffset()), xmlDatetime);
 			XmlWriter::CreateTextChildNode(_xmlDocument, kHourDayStart, ToString(datetime.GetHourDaysStart()), xmlDatetime);
+			XmlWriter::CreateTextChildNode(_xmlDocument, kRoundingPolicy, datetime.GetRoundingPolicy().toString(), xmlDatetime);
+			XmlWriter::CreateTextChildNode(_xmlDocument, kRoundingDay, ToString(datetime.GetRoundingDay()), xmlDatetime);
 			XmlWriter::CreateTextChildNode(_xmlDocument, kFormat, datetime.GetFormat(), xmlDatetime);
 			return true;
 		}

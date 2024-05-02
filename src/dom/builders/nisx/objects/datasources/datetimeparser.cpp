@@ -49,6 +49,15 @@ bool DateTimeParser::VisitEnter(const XMLElement& element, const XMLAttribute* f
 		std::string eValue = {ToString(element.GetText())};
 		_datetime->SetHourDaysStart(static_cast<uint32_t>(ToInt(eValue)));
 	}
+	else if (eName == kRoundingPolicy) {
+		std::string eValue = {ToString(element.GetText())};
+		_datetime->SetRoundingPolicy(eValue);
+	}
+	else if (eName == kRoundingDay) {
+		std::string eValue = {ToString(element.GetText())};
+		_datetime->SetRoundingDay(ToInt(eValue));
+	}
+
 	else if (eName != kDateTime)  {
 		std::stringstream trace;
 		trace << "Unknown element (line " << element.GetLineNum() << "): " << element.Name();

@@ -120,6 +120,30 @@ bool ImageParser::VisitEnter(const tinyxml2::XMLElement& element, const tinyxml2
 				ILog() << "Missing image down threshold attribute";
 			}
 		}
+		else if (eName == kMinThreshold) {
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetBinaryThresholdMin(ToInt(ToString(attribute->Value())));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image binary threshold min attribute";
+			}
+		}
+		else if (eName == kMaxThreshold) {
+			bool success{};
+			if (attribute) {
+				std::string attrName {ToString(attribute->Name())};
+				if (attrName == kAttrValue){
+					_image->SetBinaryThresholdMax(ToInt(ToString(attribute->Value())));
+				}
+			}
+			if (!success) {
+				ILog() << "Missing image binary threshold max attribute";
+			}
+		}
 		else if (eName == kImage) {
 			_image->SetData(imageContentFromString(element.GetText()));
 		}

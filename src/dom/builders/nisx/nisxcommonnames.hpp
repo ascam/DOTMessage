@@ -70,6 +70,8 @@ namespace macsa {
 		static constexpr const char* kPath = "PATH";
 		static constexpr const char* kTopThreshold = "TOPTHRESOLD";
 		static constexpr const char* kDownThreshold = "DOWNTHRESOLD";
+		static constexpr const char* kMinThreshold = "BINARYTHRESHOLDMIN";
+		static constexpr const char* kMaxThreshold = "BINARYTHRESHOLDMAX";
 
 		// Primitives related tags
 		static constexpr const char* kPen = "PEN";
@@ -94,6 +96,8 @@ namespace macsa {
 		static constexpr const char* kOffsetMonths = "OFFSETMONTHS";
 		static constexpr const char* kOffsetYears = "OFFSETYEARS";
 		static constexpr const char* kHourDayStart = "HOURDAYSTART";
+		static constexpr const char* kRoundingPolicy = "ROUNDINGPOLICY";
+		static constexpr const char* kRoundingDay = "ROUNDINGDAY";
 		  // Composite Data Source
 		static constexpr const char* kComposite = "COMPOSITE";
 		static constexpr const char* kDataSourceComposite = "CibNeoDsCompositeField";
