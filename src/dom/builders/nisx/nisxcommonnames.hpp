@@ -70,6 +70,8 @@ namespace macsa {
 		static constexpr const char* kPath = "PATH";
 		static constexpr const char* kTopThreshold = "TOPTHRESOLD";
 		static constexpr const char* kDownThreshold = "DOWNTHRESOLD";
+		static constexpr const char* kMinThreshold = "BINARYTHRESHOLDMIN";
+		static constexpr const char* kMaxThreshold = "BINARYTHRESHOLDMAX";
 
 		// Primitives related tags
 		static constexpr const char* kPen = "PEN";

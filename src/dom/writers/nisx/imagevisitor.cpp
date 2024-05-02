@@ -20,6 +20,8 @@ static constexpr const char* kAlgorithm = "ALGORITHM";
 static constexpr const char* kPath = "PATH";
 static constexpr const char* kTopThreshold = "TOPTHRESOLD";
 static constexpr const char* kDownThreshold = "DOWNTHRESOLD";
+static constexpr const char* kMinThreshold = "BINARYTHRESHOLDMIN";
+static constexpr const char* kMaxThreshold = "BINARYTHRESHOLDMAX";
 
 
 ImageVisitor::ImageVisitor(XMLDocument& document, XMLElement* parent) :
@@ -63,6 +65,14 @@ bool ImageVisitor::Visit(const Image& image)
 			auto xmlDownThresholdResult = XmlWriter::CreateChildNode(_xmlDocument, kDownThreshold, _xmlElement);
 			if (xmlDownThresholdResult.second) {
 				xmlDownThresholdResult.first->SetAttribute(kAttrValue, ToString((int)image.GetDownThreshold()).c_str());
+			}
+			auto xmlMinThresholdResult = XmlWriter::CreateChildNode(_xmlDocument, kMinThreshold, _xmlElement);
+			if (xmlMinThresholdResult.second) {
+				xmlMinThresholdResult.first->SetAttribute(kAttrValue, ToString((int)image.GetBinaryThresholdMin()).c_str());
+			}
+			auto xmlMaxThresholdResult = XmlWriter::CreateChildNode(_xmlDocument, kMaxThreshold, _xmlElement);
+			if (xmlMaxThresholdResult.second) {
+				xmlMaxThresholdResult.first->SetAttribute(kAttrValue, ToString((int)image.GetBinaryThresholdMax()).c_str());
 			}
 			auto xmlImageContentResult = XmlWriter::CreateChildNode(_xmlDocument, kImage, _xmlElement);
 			if (xmlImageContentResult.second) {

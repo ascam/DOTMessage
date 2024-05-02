@@ -197,6 +197,40 @@ namespace macsa {
 				 */
 				void SetDownThreshold(uint32_t threshold);
 
+				/**
+				 * @brief GetBinaryThresholdMin. Getter method for min value of the
+				 * threshold binaryzation algorithm.
+				 * @return The min value threshold of the binaryzation algorithm.
+				 */
+				uint32_t GetBinaryThresholdMin() const {
+					return _binaryThresholdMin;
+				}
+
+				/**
+				 * @brief SetDownThreshold Setter method for min value of the
+				 * threshold binaryzation algorithm.
+				 * @param threshold: The min value threshold of the binaryzation
+				 * algorithm.
+				 */
+				void SetBinaryThresholdMin(uint32_t threshold);
+
+				/**
+				 * @brief GetBinaryThresholdMin. Getter method for max value of the
+				 * threshold binaryzation algorithm.
+				 * @return The max value threshold of the binaryzation algorithm.
+				 */
+				uint32_t GetBinaryThresholdMax() const {
+					return _binaryThresholdMax;
+				}
+
+				/**
+				 * @brief SetDownThreshold Setter method for max value of the
+				 * threshold binaryzation algorithm.
+				 * @param threshold: The max value threshold of the binaryzation
+				 * algorithm.
+				 */
+				void SetBinaryThresholdMax(uint32_t threshold);
+
 				static bool GetRegistered()
 				{
 					return _registered;
@@ -216,6 +250,8 @@ namespace macsa {
 				std::string _algorithm;
 				uint32_t _topThreshold;
 				uint32_t _downThreshold;
+				uint32_t _binaryThresholdMin;
+				uint32_t _binaryThresholdMax;
 				static bool _registered;
 		};
 	}
