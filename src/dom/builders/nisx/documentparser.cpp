@@ -16,7 +16,7 @@ static constexpr const char* kColors = "COLORS";
 static constexpr const char* kFields  = "FIELDS";
 
 static const uint8_t kSupportedMajorVersion = 1;
-static const uint8_t kSupportedMinorVersion = 3;
+static const uint8_t kSupportedMinorVersion = 5;
 
 DocumentParser::DocumentParser(macsa::dot::Document& document) :
 	_doc(document)
