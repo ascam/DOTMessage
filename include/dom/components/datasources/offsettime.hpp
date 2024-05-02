@@ -109,8 +109,7 @@ namespace macsa
 
 				void applyRounding(struct tm& calendar, const RoundingPolicy& policy, int roundingDay);
 
-				int daysInMonth(int month, int year);
-				int daysInMonth(struct tm& calendar);
+				int daysInMonth(struct tm& calendar) const;
 
 				inline struct tm getLocalTime(const time_t* time) const;
 		};
