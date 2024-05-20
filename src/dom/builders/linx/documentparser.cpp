@@ -29,7 +29,7 @@ static constexpr const char* kDataSource = "DataSource";
 static constexpr const char* kGenericSettings = "GenericSettings";
 static constexpr const char* kName = "Name";
 static constexpr const char* kMillimeters = "mm";
-static constexpr uint8_t kSupportedVersion = 23;
+static constexpr uint32_t kSupportedVersion = 23;
 
 //Field types
 static constexpr const char* kText = "Text"; //userfields are FixedText objects
