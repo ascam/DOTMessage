@@ -91,3 +91,19 @@ void Image::SetDownThreshold(uint32_t threshold)
 		ImageDataChanged.Emit();
 	}
 }
+
+void Image::SetBinaryThresholdMin(uint32_t threshold)
+{
+	if (_binaryThresholdMin != threshold){
+		_binaryThresholdMin = threshold;
+		ImageDataChanged.Emit();
+	}
+}
+
+void Image::SetBinaryThresholdMax(uint32_t threshold)
+{
+	if (_binaryThresholdMax != threshold){
+		_binaryThresholdMax = threshold;
+		ImageDataChanged.Emit();
+	}
+}

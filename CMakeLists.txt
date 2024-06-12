@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.10)
 include_guard(GLOBAL)
 cmake_policy(SET CMP0048 NEW)
 
-project(dotmessage VERSION 1.0.3)
+project(dotmessage VERSION 1.0.4)
 
 set (PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 message("\n## Configuring ${PROJECT_NAME} v${PROJECT_VERSION}")
@@ -139,4 +139,10 @@ else()
 		SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
 	target_link_directories(${PROJECT_NAME} PUBLIC ${CMAKE_BINARY_DIR}/lib)
 	target_link_libraries(${PROJECT_NAME} PUBLIC ${EXTERNAL_LIBS} ${SHARED_DEPENDENCIES})
+endif()
+
+
+if (${ENABLE_TESTS})
+	message("Adding ${PROJECT_NAME} tests dir ${PROJECT_BINARY_DIR}" )
+	add_subdirectory(test)
 endif()

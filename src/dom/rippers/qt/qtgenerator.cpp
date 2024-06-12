@@ -336,7 +336,7 @@ void QtGenerator::Update(Document* doc, Context* context, bool editorMode)
 		std::swap(canvasWidth, canvasHeight);
 	}
 
-	QPixmap pixmap(std::ceil(viewportWidth), std::ceil(viewportHeight));
+	QPixmap pixmap(std::round(viewportWidth), std::round(viewportHeight));
 	pixmap.fill(_bgColor);
 
 	_pixmap = std::move(pixmap);
@@ -392,8 +392,12 @@ void QtGenerator::UpdateVariableFields(Document* doc, Context* context)
 	// Points the painter to the base pixmap
 	QPainter painter(&_pixmap);
 
-	double canvasXOffset = 0.; // TODO(iserra) Calculate. See update method
-	double canvasYOffset = 0.; // TODO(iserra) Calculate. See update method
+	double canvasXOffset = 0.0;
+	double canvasYOffset = 0.0;
+	if (doc->GetViewportWidth() != 0.0 || doc->GetViewportHeight() != 0.0) {
+		canvasXOffset = GetHorizontalResolution() * (doc->GetCanvasXOffset() / kMMPerInch);
+		canvasYOffset = GetVerticalResolution() * (doc->GetCanvasYOffset() / kMMPerInch);
+	}
 
 	preparePainterBeforeRendering(painter, QPointF(canvasXOffset, canvasYOffset), _rotation); // TODO(iserra): review!! doc->GetCanvasRotation());
 
